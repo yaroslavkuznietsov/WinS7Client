@@ -100,6 +100,7 @@ namespace WinS7Client
         public double Soll { get; set; } = 0.0;
         public double ToleranzPlus { get; set; } = 0.0;
         public double ToleranzMinus { get; set; } = 0.0;
+        public double Einschaltverzoegerung { get; set; } = 0.0;
 
         //ctor
         public Propventil() { }

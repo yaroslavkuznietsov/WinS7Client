@@ -1888,6 +1888,8 @@ namespace WinS7Client
                 Werkzeug.IRCamera.KameraFehlerVrzNachIR = S7.GetDIntAt(buffer, 222);
                 Werkzeug.DMXCheck.DayDifferenceSet = S7.GetDIntAt(buffer, 226);
                 Werkzeug.DMXCheck.ActiveDMXCheck = S7.GetBitAt(buffer, 230, 0);
+                Werkzeug.Ausgleichshub.Links = S7.GetRealAt(buffer, 232);
+                Werkzeug.Ausgleichshub.Rechts = S7.GetRealAt(buffer, 236);
 
                 // XmlSerializer writes object data as XML
                 XmlSerializer serializer = new XmlSerializer(typeof(DatWerkzeug));
@@ -2025,6 +2027,8 @@ namespace WinS7Client
                 S7.SetDIntAt(buffer, 222, Werkzeug.IRCamera.KameraFehlerVrzNachIR);
                 S7.SetDIntAt(buffer, 226, Werkzeug.DMXCheck.DayDifferenceSet);
                 S7.SetBitAt(ref buffer, 230, 0, Werkzeug.DMXCheck.ActiveDMXCheck);
+                S7.SetRealAt(buffer, 232, (float)Werkzeug.Ausgleichshub.Links);
+                S7.SetRealAt(buffer, 236, (float)Werkzeug.Ausgleichshub.Rechts);
             }
             catch (Exception ex)
             {

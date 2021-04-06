@@ -24,6 +24,7 @@ namespace WinS7Client
         public BursterDigiforceMinsdestkraftClass BursterDigiforceMinsdestkraft { get; set; } = new BursterDigiforceMinsdestkraftClass();
         public IRCameraClass IRCamera { get; set; } = new IRCameraClass();
         public DMXCheckClass DMXCheck { get; set; } = new DMXCheckClass();
+        public Ausgleichshub Ausgleichshub { get; set; } = new Ausgleichshub();
 
         //ctor
         public DatWerkzeug() { }
@@ -523,6 +524,25 @@ namespace WinS7Client
 
         //ctor
         public DMXCheckClass() { }
+    }
+    #endregion
+    //DMXCheck <---
+    //**************************************************
+
+    //**************************************************
+    //Ausgleichshub --->
+    #region //Ausgleichshub
+
+    // Defines that you want to serialize this class
+    [Serializable()]
+    public class Ausgleichshub
+    {
+        //property
+        public double Links { get; set; } = 0.0;
+        public double Rechts { get; set; } = 0.0;
+
+        //ctor
+        public Ausgleichshub() { }
     }
     #endregion
     //DMXCheck <---

@@ -38,6 +38,8 @@ namespace WinS7Client
         private Thread tPlc2;
         private Thread tPlc3;
 
+        private Thread tPlc7;
+
         // Create a logger
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -101,9 +103,13 @@ namespace WinS7Client
             tPlc2.Abort();
             tPlc3.Abort();
 
+            tPlc7.Abort();
+
             tPlc1.Join();
             tPlc2.Join();
             tPlc3.Join();
+
+            tPlc7.Join();
         }
 
 
@@ -686,7 +692,9 @@ namespace WinS7Client
             }
         }
 
-
+        private void Plc7()
+        {
+        }
 
 
 
@@ -738,6 +746,9 @@ namespace WinS7Client
             tPlc3 = new Thread(new ThreadStart(Plc3));
             tPlc3.Start();
 
+            tPlc7 = new Thread(new ThreadStart(Plc7));
+            tPlc7.Start();
+
 
             // PLC3
             tbIpAddressPlc3.Text = PlcIpAddress[3];
@@ -756,6 +767,24 @@ namespace WinS7Client
             
             tbOrderCodePlc3.Text = "";
             tbVersionPlc3.Text = "";
+
+            // Plc7
+            tbIpAddressPlc7.Text = PlcIpAddress[3];
+            tbRackPlc7.Text = PlcRack[3];
+            tbSlotPlc7.Text = PlcSlot[3];
+
+            tbIpAddressPlc7.Enabled = false;
+            tbRackPlc7.Enabled = false;
+            tbSlotPlc7.Enabled = false;
+
+            tbModuleTypeNamePlc7.Text = "";
+            tbSerialNumberPlc7.Text = "";
+            tbCopyrightPlc7.Text = "";
+            tbAsNamePlc7.Text = "";
+            tbModuleNamePlc7.Text = "";
+
+            tbOrderCodePlc7.Text = "";
+            tbVersionPlc7.Text = "";
 
 
 
@@ -939,6 +968,76 @@ namespace WinS7Client
             toolTipShow(sender, PlcInfoToolTip);
         }
         #endregion
+
+        /// <summary>
+        /// Plc7
+        /// </summary>
+        #region Plc7
+        private void btnConnectPlc7_Click(object sender, EventArgs e)
+        {
+            int result;
+            string address = tbIpAddressPlc7.Text;
+            int rack = tbRackPlc7.Text.ParseInt();
+            int slot = tbSlotPlc7.Text.ParseInt();
+
+            result = S7Clients[3].ConnectTo(address, rack, slot);
+            ShowResult(result, S7Clients[3]);
+            if (result == 0)
+            {
+                tbTextError.Text = tbTextError.Text + " PDU Negotiated : " + S7Clients[3].PduSizeNegotiated.ToString();
+                btnConnectPlc7.Enabled = false;
+                btnDisconnectPlc7.Enabled = true;
+                //tabControl.Enabled = true;
+
+                S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                ReadCPUInfo(S7Clients[3], ref info, ref result);
+                if (result == 0)
+                {
+                    tbModuleTypeNamePlc7.Text = info.ModuleTypeName;
+                    tbSerialNumberPlc7.Text = info.SerialNumber;
+                    tbCopyrightPlc7.Text = info.Copyright;
+                    tbAsNamePlc7.Text = info.ASName;
+                    tbModuleNamePlc7.Text = info.ModuleName;
+                }
+
+                S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                ReadOrderCode(S7Clients[3], ref orderCode, ref result);
+                if (result == 0)
+                {
+                    tbOrderCodePlc7.Text = orderCode.Code;
+                    tbVersionPlc7.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                }
+            }
+        }
+        private void btnDisonnectPlc7_Click(object sender, EventArgs e)
+        {
+            S7Clients[3].Disconnect();
+            tbTextError.Text = "Disconnected";
+            tbIpAddressPlc7.Enabled = true;
+            tbRackPlc7.Enabled = true;
+            tbSlotPlc7.Enabled = true;
+            btnConnectPlc7.Enabled = true;
+            btnDisconnectPlc7.Enabled = false;
+            //tabControl.Enabled = false;
+        }
+
+
+        private void tbIpPlc7_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbRackPlc7_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbSlotPlc7_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        #endregion
+
+
+
 
         #endregion
 

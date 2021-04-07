@@ -1,13 +1,7 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+﻿using Sharp7;
+using System;
 using System.Text;
 using System.Windows.Forms;
-using Sharp7;
 
 namespace WinS7Client
 {
@@ -37,9 +31,9 @@ namespace WinS7Client
             else
                 this.Text = this.Text + " - Running 64 bit Code";
 
-            CBType.SelectedIndex  = 0;
-            CBArea.SelectedIndex  = 3;
-            CBWLen.SelectedIndex  = 1;
+            CBType.SelectedIndex = 0;
+            CBArea.SelectedIndex = 3;
+            CBWLen.SelectedIndex = 1;
             CBBlock.SelectedIndex = 1;
             tabControl.Enabled = false;
         }
@@ -136,7 +130,7 @@ namespace WinS7Client
                 }
                 result.Append(line);
             }
-            DumpBox.Text=result.ToString();
+            DumpBox.Text = result.ToString();
         }
 
         private void ReadArea()
@@ -146,8 +140,8 @@ namespace WinS7Client
             int Amount;
             int SizeRead = 0;
             int Result;
-            int[] Area = 
-            { 
+            int[] Area =
+            {
                  S7Consts.S7AreaPE,
                  S7Consts.S7AreaPA,
                  S7Consts.S7AreaMK,
@@ -175,11 +169,11 @@ namespace WinS7Client
             DBNumber = System.Convert.ToInt32(TxtDB.Text);
             Amount = System.Convert.ToInt32(TxtSize.Text);
             Result = Client.ReadArea(Area[CBArea.SelectedIndex], DBNumber, 0, Amount, WordLen[CBWLen.SelectedIndex], Buffer, ref SizeRead);
-        
+
             ShowResult(Result);
             label18.Text = SizeRead.ToString();
             if (Result == 0)
-                HexDump(TxtDump, Buffer, SizeRead);            
+                HexDump(TxtDump, Buffer, SizeRead);
         }
 
         public void DBMultiRead()
@@ -225,7 +219,7 @@ namespace WinS7Client
                 TxtDump_C.Text = "< No Data Available >";
 
         }
-        
+
         void DBMultiWrite()
         {
             for (int c = 0; c < 16; c++)
@@ -252,12 +246,12 @@ namespace WinS7Client
             int DBNumber_C = Convert.ToInt32(TxtDB_C.Text);
 
             // Add Items def.
-            
+
             Writer.Add(S7Consts.S7AreaDB, S7Consts.S7WLByte, DBNumber_A, 0, 16, ref DB_A);
             Writer.Add(S7Consts.S7AreaDB, S7Consts.S7WLByte, DBNumber_B, 0, 16, ref DB_B);
             Writer.Add(S7Consts.S7AreaDB, S7Consts.S7WLByte, DBNumber_C, 0, 16, ref DB_C);
-            
-            
+
+
             // Performs the Write
             int Result = Writer.Write();
             // Shows the results
@@ -309,7 +303,7 @@ namespace WinS7Client
             txtModuleName.Text = "";
             int Result = Client.GetCpuInfo(ref Info);
             ShowResult(Result);
-            if (Result==0)
+            if (Result == 0)
             {
                 txtModuleTypeName.Text = Info.ModuleTypeName;
                 txtSerialNumber.Text = Info.SerialNumber;
@@ -341,32 +335,32 @@ namespace WinS7Client
 
         private void FieldBtn_Click(object sender, EventArgs e)
         {
-/*
-          0 Byte    8 Bit Word                     (All)
-          1 Word   16 Bit Word                     (All)
-          2 DWord  32 Bit Word                     (All)
-          3 LWord  64 Bit Word                     (S71500)
-          4 USint   8 Bit Unsigned Integer         (S71200/1500)
-          5 UInt   16 Bit Unsigned Integer         (S71200/1500)
-          6 UDInt  32 Bit Unsigned Integer         (S71200/1500)
-          7 ULint  64 Bit Unsigned Integer         (S71500)
-          8 Sint    8 Bit Signed Integer           (S71200/1500)
-          9 Int    16 Bit Signed Integer           (All)
-         10 DInt   32 Bit Signed Integer           (S71200/1500)
-         11 LInt   64 Bit Signed Integer           (S71500)
-         12 Real   32 Bit Floating point           (All)
-         13 LReal  64 Bit Floating point           (S71200/1500)
-         14 Time   32 Bit Time elapsed ms          (All)
-         15 LTime  64 Bit Time Elapsed ns          (S71500)
-         16 Date   16 Bit days from 1990/1/1       (All)
-         17 TOD    32 Bit ms elapsed from midnight (All)
-         18 DT      8 Byte Date and Time           (All)
-         19 LTOD   64 Bit time of day (ns)         (S71500)
-         20 DTL    12 Byte Date and Time Long      (S71200/1500)
-         21 LDT    64 Bit ns elapsed from 1970/1/1 (S71500)
-*/
+            /*
+                      0 Byte    8 Bit Word                     (All)
+                      1 Word   16 Bit Word                     (All)
+                      2 DWord  32 Bit Word                     (All)
+                      3 LWord  64 Bit Word                     (S71500)
+                      4 USint   8 Bit Unsigned Integer         (S71200/1500)
+                      5 UInt   16 Bit Unsigned Integer         (S71200/1500)
+                      6 UDInt  32 Bit Unsigned Integer         (S71200/1500)
+                      7 ULint  64 Bit Unsigned Integer         (S71500)
+                      8 Sint    8 Bit Signed Integer           (S71200/1500)
+                      9 Int    16 Bit Signed Integer           (All)
+                     10 DInt   32 Bit Signed Integer           (S71200/1500)
+                     11 LInt   64 Bit Signed Integer           (S71500)
+                     12 Real   32 Bit Floating point           (All)
+                     13 LReal  64 Bit Floating point           (S71200/1500)
+                     14 Time   32 Bit Time elapsed ms          (All)
+                     15 LTime  64 Bit Time Elapsed ns          (S71500)
+                     16 Date   16 Bit days from 1990/1/1       (All)
+                     17 TOD    32 Bit ms elapsed from midnight (All)
+                     18 DT      8 Byte Date and Time           (All)
+                     19 LTOD   64 Bit time of day (ns)         (S71500)
+                     20 DTL    12 Byte Date and Time Long      (S71200/1500)
+                     21 LDT    64 Bit ns elapsed from 1970/1/1 (S71500)
+            */
             int Pos = System.Convert.ToInt32(TxtOffset.Text);
-            switch(CBType.SelectedIndex)
+            switch (CBType.SelectedIndex)
             {
                 case 0:
                     {
@@ -510,7 +504,7 @@ namespace WinS7Client
         private void button1_Click(object sender, EventArgs e)
         {
             // These are tests done on my DB
-            
+
             DateTime DT = DateTime.Now;
             S7.SetSIntAt(Buffer, 40, -125);
             S7.SetIntAt(Buffer, 42, 32501);
@@ -632,7 +626,7 @@ namespace WinS7Client
         string HexWord(ushort W)
         {
             string Result = Convert.ToString(W, 16);
-            while(Result.Length<4)
+            while (Result.Length < 4)
                 Result = "0" + Result;
             return "0x" + Result;
         }
@@ -642,18 +636,18 @@ namespace WinS7Client
             S7Client.S7BlockInfo BI = new S7Client.S7BlockInfo();
             int[] BlockType =
             {
-                S7Client.Block_OB, 
-                S7Client.Block_DB, 
+                S7Client.Block_OB,
+                S7Client.Block_DB,
                 S7Client.Block_SDB,
-                S7Client.Block_FC, 
+                S7Client.Block_FC,
                 S7Client.Block_SFC,
-                S7Client.Block_FB, 
+                S7Client.Block_FB,
                 S7Client.Block_SFB
             };
             txtBI.Text = "";
             int Result = Client.GetAgBlockInfo(BlockType[CBBlock.SelectedIndex], System.Convert.ToInt32(txtBlockNum.Text), ref BI);
             ShowResult(Result);
-            if (Result==0)
+            if (Result == 0)
             {
                 // Here a more descriptive Block Type, Block lang and so on, are needed, 
                 // but I'm too lazy, do it yourself.
@@ -669,8 +663,8 @@ namespace WinS7Client
                 txtBI.Text = txtBI.Text + "Version       : 0." + Convert.ToString(BI.Version) + (char)13 + (char)10;
                 txtBI.Text = txtBI.Text + "Code Date     : " + BI.CodeDate + (char)13 + (char)10;
                 txtBI.Text = txtBI.Text + "Intf.Date     : " + BI.IntfDate + (char)13 + (char)10;
-                txtBI.Text = txtBI.Text + "Author        : " + BI.Author +(char)13 + (char)10;               
-                txtBI.Text = txtBI.Text + "Family        : " + BI.Family +(char)13 + (char)10;
+                txtBI.Text = txtBI.Text + "Author        : " + BI.Author + (char)13 + (char)10;
+                txtBI.Text = txtBI.Text + "Family        : " + BI.Family + (char)13 + (char)10;
                 txtBI.Text = txtBI.Text + "Header        : " + BI.Header;
             }
         }
@@ -682,7 +676,7 @@ namespace WinS7Client
             txtDBGet.Text = "";
             int Result = Client.DBGet(System.Convert.ToInt32(txtBlockNum.Text), Buffer, ref Size);
             ShowResult(Result);
-            if (Result==0)
+            if (Result == 0)
             {
                 HexDump(txtDBGet, Buffer, Size);
             }

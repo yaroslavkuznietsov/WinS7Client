@@ -48,7 +48,7 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.gbPLC7 = new System.Windows.Forms.GroupBox();
-            this.richTextBox7 = new System.Windows.Forms.RichTextBox();
+            this.richTextBoxPlc7 = new System.Windows.Forms.RichTextBox();
             this.btnRenameDirPlc7 = new System.Windows.Forms.Button();
             this.CreateDirPlc7 = new System.Windows.Forms.Button();
             this.btnRedDirsPlc7 = new System.Windows.Forms.Button();
@@ -77,7 +77,7 @@
             this.tbIpAddressPlc7 = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.gbPLC3 = new System.Windows.Forms.GroupBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.richTextBoxPlc3 = new System.Windows.Forms.RichTextBox();
             this.btnRenameDir = new System.Windows.Forms.Button();
             this.CreateDir = new System.Windows.Forms.Button();
             this.btnRedDirs = new System.Windows.Forms.Button();
@@ -98,7 +98,7 @@
             this.tbSerialNumberPlc3 = new System.Windows.Forms.TextBox();
             this.lblModuleTypeNamePlc3 = new System.Windows.Forms.Label();
             this.tbModuleTypeNamePlc3 = new System.Windows.Forms.TextBox();
-            this.tbTextError = new System.Windows.Forms.TextBox();
+            this.tbTextErrorPlc3 = new System.Windows.Forms.TextBox();
             this.btnDisconnectPlc3 = new System.Windows.Forms.Button();
             this.btnConnectPlc3 = new System.Windows.Forms.Button();
             this.tbSlotPlc3 = new System.Windows.Forms.TextBox();
@@ -290,6 +290,7 @@
             // panelMain
             // 
             this.panelMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelMain.Controls.Add(this.panelService);
             this.panelMain.Controls.Add(this.panel7);
             this.panelMain.Controls.Add(this.panel3);
             this.panelMain.Controls.Add(this.panel1);
@@ -300,7 +301,6 @@
             this.panelMain.Controls.Add(this.panel5);
             this.panelMain.Controls.Add(this.panel4);
             this.panelMain.Controls.Add(this.panel2);
-            this.panelMain.Controls.Add(this.panelService);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(100, 25);
             this.panelMain.Margin = new System.Windows.Forms.Padding(2);
@@ -320,7 +320,7 @@
             // 
             // gbPLC7
             // 
-            this.gbPLC7.Controls.Add(this.richTextBox7);
+            this.gbPLC7.Controls.Add(this.richTextBoxPlc7);
             this.gbPLC7.Controls.Add(this.btnRenameDirPlc7);
             this.gbPLC7.Controls.Add(this.CreateDirPlc7);
             this.gbPLC7.Controls.Add(this.btnRedDirsPlc7);
@@ -355,13 +355,13 @@
             this.gbPLC7.TabStop = false;
             this.gbPLC7.Text = "PLC 7";
             // 
-            // richTextBox7
+            // richTextBoxPlc7
             // 
-            this.richTextBox7.Location = new System.Drawing.Point(10, 402);
-            this.richTextBox7.Name = "richTextBox7";
-            this.richTextBox7.Size = new System.Drawing.Size(578, 74);
-            this.richTextBox7.TabIndex = 84;
-            this.richTextBox7.Text = "";
+            this.richTextBoxPlc7.Location = new System.Drawing.Point(10, 402);
+            this.richTextBoxPlc7.Name = "richTextBoxPlc7";
+            this.richTextBoxPlc7.Size = new System.Drawing.Size(578, 74);
+            this.richTextBoxPlc7.TabIndex = 84;
+            this.richTextBoxPlc7.Text = "";
             // 
             // btnRenameDirPlc7
             // 
@@ -613,7 +613,7 @@
             // 
             // gbPLC3
             // 
-            this.gbPLC3.Controls.Add(this.richTextBox1);
+            this.gbPLC3.Controls.Add(this.richTextBoxPlc3);
             this.gbPLC3.Controls.Add(this.btnRenameDir);
             this.gbPLC3.Controls.Add(this.CreateDir);
             this.gbPLC3.Controls.Add(this.btnRedDirs);
@@ -634,7 +634,7 @@
             this.gbPLC3.Controls.Add(this.tbSerialNumberPlc3);
             this.gbPLC3.Controls.Add(this.lblModuleTypeNamePlc3);
             this.gbPLC3.Controls.Add(this.tbModuleTypeNamePlc3);
-            this.gbPLC3.Controls.Add(this.tbTextError);
+            this.gbPLC3.Controls.Add(this.tbTextErrorPlc3);
             this.gbPLC3.Controls.Add(this.btnDisconnectPlc3);
             this.gbPLC3.Controls.Add(this.btnConnectPlc3);
             this.gbPLC3.Controls.Add(this.tbSlotPlc3);
@@ -648,13 +648,13 @@
             this.gbPLC3.TabStop = false;
             this.gbPLC3.Text = "PLC 3";
             // 
-            // richTextBox1
+            // richTextBoxPlc3
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(10, 402);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(578, 74);
-            this.richTextBox1.TabIndex = 84;
-            this.richTextBox1.Text = "";
+            this.richTextBoxPlc3.Location = new System.Drawing.Point(10, 402);
+            this.richTextBoxPlc3.Name = "richTextBoxPlc3";
+            this.richTextBoxPlc3.Size = new System.Drawing.Size(578, 74);
+            this.richTextBoxPlc3.TabIndex = 84;
+            this.richTextBoxPlc3.Text = "";
             // 
             // btnRenameDir
             // 
@@ -837,17 +837,17 @@
             this.tbModuleTypeNamePlc3.Size = new System.Drawing.Size(150, 20);
             this.tbModuleTypeNamePlc3.TabIndex = 48;
             // 
-            // tbTextError
+            // tbTextErrorPlc3
             // 
-            this.tbTextError.BackColor = System.Drawing.Color.White;
-            this.tbTextError.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tbTextError.Enabled = false;
-            this.tbTextError.ForeColor = System.Drawing.Color.Black;
-            this.tbTextError.Location = new System.Drawing.Point(3, 573);
-            this.tbTextError.Name = "tbTextError";
-            this.tbTextError.ReadOnly = true;
-            this.tbTextError.Size = new System.Drawing.Size(594, 20);
-            this.tbTextError.TabIndex = 47;
+            this.tbTextErrorPlc3.BackColor = System.Drawing.Color.White;
+            this.tbTextErrorPlc3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tbTextErrorPlc3.Enabled = false;
+            this.tbTextErrorPlc3.ForeColor = System.Drawing.Color.Black;
+            this.tbTextErrorPlc3.Location = new System.Drawing.Point(3, 573);
+            this.tbTextErrorPlc3.Name = "tbTextErrorPlc3";
+            this.tbTextErrorPlc3.ReadOnly = true;
+            this.tbTextErrorPlc3.Size = new System.Drawing.Size(594, 20);
+            this.tbTextErrorPlc3.TabIndex = 47;
             // 
             // btnDisconnectPlc3
             // 
@@ -1044,7 +1044,7 @@
         internal System.Windows.Forms.TextBox tbSlotPlc3;
         internal System.Windows.Forms.TextBox tbRackPlc3;
         internal System.Windows.Forms.TextBox tbIpAddressPlc3;
-        internal System.Windows.Forms.TextBox tbTextError;
+        internal System.Windows.Forms.TextBox tbTextErrorPlc3;
         private System.Windows.Forms.Label lblModuleNamePlc3;
         internal System.Windows.Forms.TextBox tbModuleNamePlc3;
         private System.Windows.Forms.Label lblAsNamePlc3;
@@ -1065,9 +1065,9 @@
         private System.Windows.Forms.Button btnRedDirs;
         private System.Windows.Forms.Button CreateDir;
         private System.Windows.Forms.Button btnRenameDir;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox richTextBoxPlc3;
         private System.Windows.Forms.GroupBox gbPLC7;
-        private System.Windows.Forms.RichTextBox richTextBox7;
+        private System.Windows.Forms.RichTextBox richTextBoxPlc7;
         private System.Windows.Forms.Button btnRenameDirPlc7;
         private System.Windows.Forms.Button CreateDirPlc7;
         private System.Windows.Forms.Button btnRedDirsPlc7;

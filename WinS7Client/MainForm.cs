@@ -1356,17 +1356,46 @@ namespace WinS7Client
         private void ShowResult(int result, S7Client client)
         {
             // This function returns a textual explaination of the error code
-            tbTextErrorPlc3.Text = DateTime.Now + " - " + client.ErrorText(result);
-            if (result == 0)
-            {
-                tbTextErrorPlc3.Text = tbTextErrorPlc3.Text + " (" + client.ExecutionTime.ToString() + " ms)";
-            }
 
-            tbTextErrorPlc7.Text = DateTime.Now + " - " + client.ErrorText(result);
-            if (result == 0)
-            {
-                tbTextErrorPlc7.Text = tbTextErrorPlc7.Text + " (" + client.ExecutionTime.ToString() + " ms)";
+            S7Client[] tempclient = new S7Client[11];
 
+            //S7Clients
+            for (int i = 0; i < tempclient.Length; i++)
+            {
+                tempclient[i] = new S7Client();
+
+                string cnnVal = "PLC" + i;
+                string tempIpAddress = ParseStringHelper.GetServerName(ConnHelper.CnnVal(cnnVal));
+
+                if (client.IpAddress.ToString() != null)
+                {
+                    if (tempIpAddress == client.IpAddress.ToString())
+                    {
+                        switch (cnnVal)
+                        {
+                            case "PLC3":
+                                tbTextErrorPlc3.Text = DateTime.Now + " - " + client.ErrorText(result);
+                                if (result == 0)
+                                {
+                                    tbTextErrorPlc3.Text = tbTextErrorPlc3.Text + " (" + client.ExecutionTime.ToString() + " ms)";
+
+                                }
+                                break;
+
+                            case "PLC7":
+                                tbTextErrorPlc7.Text = DateTime.Now + " - " + client.ErrorText(result);
+                                if (result == 0)
+                                {
+                                    tbTextErrorPlc7.Text = tbTextErrorPlc7.Text + " (" + client.ExecutionTime.ToString() + " ms)";
+
+                                }
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                }
             }
         }
 
@@ -2034,7 +2063,7 @@ namespace WinS7Client
             {
                 folder = "0" + wkzid + "_" + werkzeugname;
             }
-            else if (wkzid >= 100 & wkzid < 128)
+            else if (wkzid >= 100 & wkzid < 255)
             {
                 folder = wkzid + "_" + werkzeugname;
             }
@@ -2064,7 +2093,7 @@ namespace WinS7Client
             {
                 wkzidString = "0" + wkzid;
             }
-            else if (wkzid >= 100 & wkzid < 128)
+            else if (wkzid >= 100 & wkzid < 255)
             {
                 wkzidString = "" + wkzid;
             }

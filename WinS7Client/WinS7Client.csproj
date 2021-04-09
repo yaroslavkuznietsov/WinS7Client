@@ -83,6 +83,7 @@
     <Compile Include="HelperSerializer\DatN2.cs" />
     <Compile Include="HelperSerializer\Serializer.cs" />
     <Compile Include="Helper\Animal.cs" />
+    <Compile Include="Helper\ChangeLogFileNameForLog4Net.cs" />
     <Compile Include="Helper\CombineByteArrays.cs" />
     <Compile Include="Helper\ConcatByteArraysHelper.cs" />
     <Compile Include="Helper\ConnHelper.cs" />

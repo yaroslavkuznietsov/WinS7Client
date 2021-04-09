@@ -46,6 +46,7 @@
             this.btn10 = new System.Windows.Forms.Button();
             this.btnService = new System.Windows.Forms.Button();
             this.panelMain = new System.Windows.Forms.Panel();
+            this.panelService = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.gbPLC7 = new System.Windows.Forms.GroupBox();
             this.richTextBoxPlc7 = new System.Windows.Forms.RichTextBox();
@@ -112,7 +113,6 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panelService = new System.Windows.Forms.Panel();
             this.panelTop.SuspendLayout();
             this.panelLeft.SuspendLayout();
             this.panelMain.SuspendLayout();
@@ -183,7 +183,7 @@
             this.btn1.Name = "btn1";
             this.btn1.Size = new System.Drawing.Size(75, 25);
             this.btn1.TabIndex = 10;
-            this.btn1.Text = "button1";
+            this.btn1.Text = "PLC1";
             this.btn1.UseVisualStyleBackColor = true;
             this.btn1.Click += new System.EventHandler(this.btn1_Click);
             // 
@@ -193,7 +193,7 @@
             this.btn2.Name = "btn2";
             this.btn2.Size = new System.Drawing.Size(75, 25);
             this.btn2.TabIndex = 11;
-            this.btn2.Text = "button2";
+            this.btn2.Text = "PLC2";
             this.btn2.UseVisualStyleBackColor = true;
             this.btn2.Click += new System.EventHandler(this.btn2_Click);
             // 
@@ -203,7 +203,7 @@
             this.btn3.Name = "btn3";
             this.btn3.Size = new System.Drawing.Size(75, 25);
             this.btn3.TabIndex = 12;
-            this.btn3.Text = "button3";
+            this.btn3.Text = "PLC3";
             this.btn3.UseVisualStyleBackColor = true;
             this.btn3.Click += new System.EventHandler(this.btn3_Click);
             // 
@@ -213,7 +213,7 @@
             this.btn4.Name = "btn4";
             this.btn4.Size = new System.Drawing.Size(75, 25);
             this.btn4.TabIndex = 13;
-            this.btn4.Text = "button4";
+            this.btn4.Text = "PLC4";
             this.btn4.UseVisualStyleBackColor = true;
             this.btn4.Click += new System.EventHandler(this.btn4_Click);
             // 
@@ -223,7 +223,7 @@
             this.btn5.Name = "btn5";
             this.btn5.Size = new System.Drawing.Size(75, 25);
             this.btn5.TabIndex = 14;
-            this.btn5.Text = "button5";
+            this.btn5.Text = "PLC5";
             this.btn5.UseVisualStyleBackColor = true;
             this.btn5.Click += new System.EventHandler(this.btn5_Click);
             // 
@@ -233,7 +233,7 @@
             this.btn6.Name = "btn6";
             this.btn6.Size = new System.Drawing.Size(75, 25);
             this.btn6.TabIndex = 15;
-            this.btn6.Text = "button6";
+            this.btn6.Text = "PLC6";
             this.btn6.UseVisualStyleBackColor = true;
             this.btn6.Click += new System.EventHandler(this.btn6_Click);
             // 
@@ -243,7 +243,7 @@
             this.btn7.Name = "btn7";
             this.btn7.Size = new System.Drawing.Size(75, 25);
             this.btn7.TabIndex = 16;
-            this.btn7.Text = "button7";
+            this.btn7.Text = "PLC7";
             this.btn7.UseVisualStyleBackColor = true;
             this.btn7.Click += new System.EventHandler(this.btn7_Click);
             // 
@@ -253,7 +253,7 @@
             this.btn8.Name = "btn8";
             this.btn8.Size = new System.Drawing.Size(75, 25);
             this.btn8.TabIndex = 17;
-            this.btn8.Text = "button8";
+            this.btn8.Text = "PLC8";
             this.btn8.UseVisualStyleBackColor = true;
             this.btn8.Click += new System.EventHandler(this.btn8_Click);
             // 
@@ -263,7 +263,7 @@
             this.btn9.Name = "btn9";
             this.btn9.Size = new System.Drawing.Size(75, 25);
             this.btn9.TabIndex = 18;
-            this.btn9.Text = "button9";
+            this.btn9.Text = "PLC9";
             this.btn9.UseVisualStyleBackColor = true;
             this.btn9.Click += new System.EventHandler(this.btn9_Click);
             // 
@@ -273,7 +273,7 @@
             this.btn10.Name = "btn10";
             this.btn10.Size = new System.Drawing.Size(75, 25);
             this.btn10.TabIndex = 19;
-            this.btn10.Text = "button10";
+            this.btn10.Text = "PLC10";
             this.btn10.UseVisualStyleBackColor = true;
             this.btn10.Click += new System.EventHandler(this.btn10_Click);
             // 
@@ -307,6 +307,16 @@
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(1250, 604);
             this.panelMain.TabIndex = 3;
+            // 
+            // panelService
+            // 
+            this.panelService.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelService.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelService.Location = new System.Drawing.Point(0, 0);
+            this.panelService.Name = "panelService";
+            this.panelService.Size = new System.Drawing.Size(1246, 600);
+            this.panelService.TabIndex = 1;
+            this.panelService.VisibleChanged += new System.EventHandler(this.panelService_VisibleChanged);
             // 
             // panel7
             // 
@@ -353,7 +363,7 @@
             this.gbPLC7.Size = new System.Drawing.Size(600, 596);
             this.gbPLC7.TabIndex = 1;
             this.gbPLC7.TabStop = false;
-            this.gbPLC7.Text = "PLC 7";
+            this.gbPLC7.Text = "PLC7";
             // 
             // richTextBoxPlc7
             // 
@@ -646,7 +656,7 @@
             this.gbPLC3.Size = new System.Drawing.Size(600, 596);
             this.gbPLC3.TabIndex = 0;
             this.gbPLC3.TabStop = false;
-            this.gbPLC3.Text = "PLC 3";
+            this.gbPLC3.Text = "PLC3";
             // 
             // richTextBoxPlc3
             // 
@@ -970,16 +980,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1246, 600);
             this.panel2.TabIndex = 1;
-            // 
-            // panelService
-            // 
-            this.panelService.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelService.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelService.Location = new System.Drawing.Point(0, 0);
-            this.panelService.Name = "panelService";
-            this.panelService.Size = new System.Drawing.Size(1246, 600);
-            this.panelService.TabIndex = 1;
-            this.panelService.VisibleChanged += new System.EventHandler(this.panelService_VisibleChanged);
             // 
             // MainForm
             // 

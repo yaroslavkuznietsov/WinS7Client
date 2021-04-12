@@ -290,8 +290,8 @@
             // panelMain
             // 
             this.panelMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelMain.Controls.Add(this.panelService);
             this.panelMain.Controls.Add(this.panel7);
+            this.panelMain.Controls.Add(this.panelService);
             this.panelMain.Controls.Add(this.panel3);
             this.panelMain.Controls.Add(this.panel1);
             this.panelMain.Controls.Add(this.panel10);

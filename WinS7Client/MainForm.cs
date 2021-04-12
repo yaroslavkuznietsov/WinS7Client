@@ -1001,12 +1001,13 @@ namespace WinS7Client
                                     halfpath2 = path.Substring(15);
                                     if (halfpath2 == ServicePlcToPcs[n].AktWerkzeugName)
                                     {
-                                        //@"e:\\dotNet\\WinS7ClientLogger.log"
+                                        //ChangeLogFileName //@"e:\\dotNet\\WinS7ClientLogger.log"
                                         ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n].ToString(), path + "\\WinS7ClientLogger.log");
                                         //Log save
                                         log7.Info("Save parameters in " + path);
-                                        //Log actual user + card
                                         log7.Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
+
+                                        richTextBoxPlc7.Text = richTextBoxPlc7.Text + DateTime.Now + "Save parameters in " + path + "\n";
 
 
                                         ////Log save
@@ -1061,8 +1062,15 @@ namespace WinS7Client
                                     else
                                     {
                                         //Case 2. Rename folder and save parameters
+
                                         halfpath2 = ServicePlcToPcs[n].AktWerkzeugName;
                                         path2 = halfpath1 + halfpath2;
+
+                                        //ChangeLogFileName YK: 2021_04_12 15:10
+                                        ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n].ToString(), root + "\\WinS7ClientLogger7.log");
+                                        log7.Info("RenameDirectory " + path + " >>> " + path2);
+                                        log7.Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
+
                                         RenameDirectory(path, path2);
 
 
@@ -1280,7 +1288,7 @@ namespace WinS7Client
 
                             WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_PcToPlc, 0, DB_Service_PcToPlc_Length, S7Consts.S7WLByte, buffer, ref result);
 
-
+                            HexDump(tbDumpPlc7, buffer, DB_Service_PcToPlc_Length);
 
                             #endregion
                         }
@@ -2033,7 +2041,14 @@ namespace WinS7Client
                 if (subdirectory.Length >= 14)
                 {
                     string s1 = subdirectory.Substring(11, 3);
-                    S7.SetIntAt(buffer, shiftId, (subdirectory.Substring(11, 3)).ParseShort());
+                    if (s1.ParseShort() != 255) //Critical change for customer 09.04.2021. Should be checked!!!
+                    {
+                        S7.SetIntAt(buffer, shiftId, (subdirectory.Substring(11, 3)).ParseShort()); 
+                    }
+                    else
+                    {
+                        S7.SetIntAt(buffer, 3070, (subdirectory.Substring(11, 3)).ParseShort());
+                    }
                 }
                 else
                 {
@@ -2043,7 +2058,15 @@ namespace WinS7Client
                 if (subdirectory.Length >= 16)
                 {
                     string s2 = subdirectory.Substring(15);
-                    S7.SetStringAt(buffer, shiftName, 20, subdirectory.Substring(15));
+                    string s1 = subdirectory.Substring(11, 3);
+                    if (s1.ParseShort() != 255) //Critical change for customer 09.04.2021. Should be checked!!!
+                    {
+                        S7.SetStringAt(buffer, shiftName, 20, subdirectory.Substring(15)); 
+                    }
+                    else
+                    {
+                        S7.SetStringAt(buffer, 3048, 20, subdirectory.Substring(15));
+                    }
                 }
                 else
                 {

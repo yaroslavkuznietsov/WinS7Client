@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WinS7Client
+namespace WinS7Library.Helper
 {
     public static class DataTableConverterExtensions2
     {

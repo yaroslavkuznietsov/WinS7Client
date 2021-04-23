@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using ObjectsComparer;
 
-namespace WinS7Client.HelperSerializer
+namespace WinS7Library.HelperSerializer
 {
-    class Comparence
+    public static class Comparence
     {
         public static void CompareClass(object object1, object object2, ref string comparenceinfo)
         {

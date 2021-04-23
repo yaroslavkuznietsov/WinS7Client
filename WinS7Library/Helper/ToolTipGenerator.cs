@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WinS7Client
+namespace WinS7Library.Helper
 {
-    class ToolTipGenerator
+    public static class ToolTipGenerator
     {
         public static void ToolTipShow(object sender, string toolTipText)
         {

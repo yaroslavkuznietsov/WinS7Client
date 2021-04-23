@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WinS7Client
+namespace WinS7Library
 {
-    class ServicePcToPlc
+    public class ServicePcToPlc
     {
         public bool LifeBit { get; set; }
         public short ErrorStatus { get; set; }

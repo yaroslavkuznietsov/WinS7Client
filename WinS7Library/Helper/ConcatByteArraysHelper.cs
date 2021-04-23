@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WinS7Client.Helper
+namespace WinS7Library.Helper
 {
     class ConcatByteArraysHelper
     {

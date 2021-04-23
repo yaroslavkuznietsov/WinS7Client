@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace WinS7Client
+namespace WinS7Library.HelperSerializer
 {
     public static class Serializer
     {

@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WinS7Client
+namespace WinS7Library.Helper
 {
-    class ParseStringHelper
+    public static class ParseStringHelper
     {
         static readonly string[] serverAliases = { "server", "host", "data source", "datasource", "address", "addr", "network address" };
         static readonly string[] databaseAliases = { "database", "initial catalog" };

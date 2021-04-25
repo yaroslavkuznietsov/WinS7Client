@@ -46,6 +46,33 @@
             this.btn10 = new System.Windows.Forms.Button();
             this.btnService = new System.Windows.Forms.Button();
             this.panelMain = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.richTextBoxPlc4 = new System.Windows.Forms.RichTextBox();
+            this.btnReadDirsPlc4 = new System.Windows.Forms.Button();
+            this.lblBytesReadTextPlc4 = new System.Windows.Forms.Label();
+            this.lblBytesReadPlc4 = new System.Windows.Forms.Label();
+            this.tbDumpPlc4 = new System.Windows.Forms.TextBox();
+            this.lblVersionPlc4 = new System.Windows.Forms.Label();
+            this.tbVersionPlc4 = new System.Windows.Forms.TextBox();
+            this.lblOrderCodePlc4 = new System.Windows.Forms.Label();
+            this.tbOrderCodePlc4 = new System.Windows.Forms.TextBox();
+            this.lblModuleNamePlc4 = new System.Windows.Forms.Label();
+            this.tbModuleNamePlc4 = new System.Windows.Forms.TextBox();
+            this.lblAsNamePlc4 = new System.Windows.Forms.Label();
+            this.tbAsNamePlc4 = new System.Windows.Forms.TextBox();
+            this.lblCopyrightPlc4 = new System.Windows.Forms.Label();
+            this.tbCopyrightPlc4 = new System.Windows.Forms.TextBox();
+            this.lblSerialNumberPlc4 = new System.Windows.Forms.Label();
+            this.tbSerialNumberPlc4 = new System.Windows.Forms.TextBox();
+            this.lblModuleTypeNamePlc4 = new System.Windows.Forms.Label();
+            this.tbModuleTypeNamePlc4 = new System.Windows.Forms.TextBox();
+            this.tbTextErrorPlc4 = new System.Windows.Forms.TextBox();
+            this.btnDisconnectPlc4 = new System.Windows.Forms.Button();
+            this.btnConnectPlc4 = new System.Windows.Forms.Button();
+            this.tbSlotPlc4 = new System.Windows.Forms.TextBox();
+            this.tbRackPlc4 = new System.Windows.Forms.TextBox();
+            this.tbIpAddressPlc4 = new System.Windows.Forms.TextBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.gbPLC7 = new System.Windows.Forms.GroupBox();
             this.richTextBoxPlc7 = new System.Windows.Forms.RichTextBox();
@@ -100,33 +127,6 @@
             this.tbSlotPlc3 = new System.Windows.Forms.TextBox();
             this.tbRackPlc3 = new System.Windows.Forms.TextBox();
             this.tbIpAddressPlc3 = new System.Windows.Forms.TextBox();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.richTextBoxPlc4 = new System.Windows.Forms.RichTextBox();
-            this.btnReadDirsPlc4 = new System.Windows.Forms.Button();
-            this.lblBytesReadTextPlc4 = new System.Windows.Forms.Label();
-            this.lblBytesReadPlc4 = new System.Windows.Forms.Label();
-            this.tbDumpPlc4 = new System.Windows.Forms.TextBox();
-            this.lblVersionPlc4 = new System.Windows.Forms.Label();
-            this.tbVersionPlc4 = new System.Windows.Forms.TextBox();
-            this.lblOrderCodePlc4 = new System.Windows.Forms.Label();
-            this.tbOrderCodePlc4 = new System.Windows.Forms.TextBox();
-            this.lblModuleNamePlc4 = new System.Windows.Forms.Label();
-            this.tbModuleNamePlc4 = new System.Windows.Forms.TextBox();
-            this.lblAsNamePlc4 = new System.Windows.Forms.Label();
-            this.tbAsNamePlc4 = new System.Windows.Forms.TextBox();
-            this.lblCopyrightPlc4 = new System.Windows.Forms.Label();
-            this.tbCopyrightPlc4 = new System.Windows.Forms.TextBox();
-            this.lblSerialNumberPlc4 = new System.Windows.Forms.Label();
-            this.tbSerialNumberPlc4 = new System.Windows.Forms.TextBox();
-            this.lblModuleTypeNamePlc4 = new System.Windows.Forms.Label();
-            this.tbModuleTypeNamePlc4 = new System.Windows.Forms.TextBox();
-            this.tbTextErrorPlc4 = new System.Windows.Forms.TextBox();
-            this.btnDisconnectPlc4 = new System.Windows.Forms.Button();
-            this.btnConnectPlc4 = new System.Windows.Forms.Button();
-            this.tbSlotPlc4 = new System.Windows.Forms.TextBox();
-            this.tbRackPlc4 = new System.Windows.Forms.TextBox();
-            this.tbIpAddressPlc4 = new System.Windows.Forms.TextBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.richTextBoxPlc5 = new System.Windows.Forms.RichTextBox();
@@ -187,15 +187,16 @@
             this.panel10 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.panelTop.SuspendLayout();
             this.panelLeft.SuspendLayout();
             this.panelMain.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.panel7.SuspendLayout();
             this.gbPLC7.SuspendLayout();
             this.panel3.SuspendLayout();
             this.gbPLC3.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.panel5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -375,8 +376,8 @@
             // panelMain
             // 
             this.panelMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelMain.Controls.Add(this.panel4);
             this.panelMain.Controls.Add(this.panel7);
+            this.panelMain.Controls.Add(this.panel4);
             this.panelMain.Controls.Add(this.panel3);
             this.panelMain.Controls.Add(this.panel5);
             this.panelMain.Controls.Add(this.panel6);
@@ -393,6 +394,278 @@
             this.panelMain.Size = new System.Drawing.Size(1250, 604);
             this.panelMain.TabIndex = 3;
             // 
+            // panel4
+            // 
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel4.Controls.Add(this.groupBox2);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(1246, 600);
+            this.panel4.TabIndex = 3;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.richTextBoxPlc4);
+            this.groupBox2.Controls.Add(this.btnReadDirsPlc4);
+            this.groupBox2.Controls.Add(this.lblBytesReadTextPlc4);
+            this.groupBox2.Controls.Add(this.lblBytesReadPlc4);
+            this.groupBox2.Controls.Add(this.tbDumpPlc4);
+            this.groupBox2.Controls.Add(this.lblVersionPlc4);
+            this.groupBox2.Controls.Add(this.tbVersionPlc4);
+            this.groupBox2.Controls.Add(this.lblOrderCodePlc4);
+            this.groupBox2.Controls.Add(this.tbOrderCodePlc4);
+            this.groupBox2.Controls.Add(this.lblModuleNamePlc4);
+            this.groupBox2.Controls.Add(this.tbModuleNamePlc4);
+            this.groupBox2.Controls.Add(this.lblAsNamePlc4);
+            this.groupBox2.Controls.Add(this.tbAsNamePlc4);
+            this.groupBox2.Controls.Add(this.lblCopyrightPlc4);
+            this.groupBox2.Controls.Add(this.tbCopyrightPlc4);
+            this.groupBox2.Controls.Add(this.lblSerialNumberPlc4);
+            this.groupBox2.Controls.Add(this.tbSerialNumberPlc4);
+            this.groupBox2.Controls.Add(this.lblModuleTypeNamePlc4);
+            this.groupBox2.Controls.Add(this.tbModuleTypeNamePlc4);
+            this.groupBox2.Controls.Add(this.tbTextErrorPlc4);
+            this.groupBox2.Controls.Add(this.btnDisconnectPlc4);
+            this.groupBox2.Controls.Add(this.btnConnectPlc4);
+            this.groupBox2.Controls.Add(this.tbSlotPlc4);
+            this.groupBox2.Controls.Add(this.tbRackPlc4);
+            this.groupBox2.Controls.Add(this.tbIpAddressPlc4);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(380, 596);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "PLC4";
+            // 
+            // richTextBoxPlc4
+            // 
+            this.richTextBoxPlc4.Location = new System.Drawing.Point(4, 298);
+            this.richTextBoxPlc4.Name = "richTextBoxPlc4";
+            this.richTextBoxPlc4.ReadOnly = true;
+            this.richTextBoxPlc4.Size = new System.Drawing.Size(369, 269);
+            this.richTextBoxPlc4.TabIndex = 84;
+            this.richTextBoxPlc4.Text = "";
+            // 
+            // btnReadDirsPlc4
+            // 
+            this.btnReadDirsPlc4.Location = new System.Drawing.Point(273, 271);
+            this.btnReadDirsPlc4.Name = "btnReadDirsPlc4";
+            this.btnReadDirsPlc4.Size = new System.Drawing.Size(100, 23);
+            this.btnReadDirsPlc4.TabIndex = 81;
+            this.btnReadDirsPlc4.Text = "ReadDirs";
+            this.btnReadDirsPlc4.UseVisualStyleBackColor = true;
+            this.btnReadDirsPlc4.Click += new System.EventHandler(this.btnReadDirsPlc4_Click);
+            // 
+            // lblBytesReadTextPlc4
+            // 
+            this.lblBytesReadTextPlc4.AutoSize = true;
+            this.lblBytesReadTextPlc4.Location = new System.Drawing.Point(7, 276);
+            this.lblBytesReadTextPlc4.Name = "lblBytesReadTextPlc4";
+            this.lblBytesReadTextPlc4.Size = new System.Drawing.Size(62, 13);
+            this.lblBytesReadTextPlc4.TabIndex = 78;
+            this.lblBytesReadTextPlc4.Text = "Bytes Read";
+            // 
+            // lblBytesReadPlc4
+            // 
+            this.lblBytesReadPlc4.AutoSize = true;
+            this.lblBytesReadPlc4.Location = new System.Drawing.Point(84, 276);
+            this.lblBytesReadPlc4.Name = "lblBytesReadPlc4";
+            this.lblBytesReadPlc4.Size = new System.Drawing.Size(13, 13);
+            this.lblBytesReadPlc4.TabIndex = 77;
+            this.lblBytesReadPlc4.Text = "0";
+            this.lblBytesReadPlc4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tbDumpPlc4
+            // 
+            this.tbDumpPlc4.BackColor = System.Drawing.Color.White;
+            this.tbDumpPlc4.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbDumpPlc4.ForeColor = System.Drawing.Color.Black;
+            this.tbDumpPlc4.Location = new System.Drawing.Point(4, 192);
+            this.tbDumpPlc4.Multiline = true;
+            this.tbDumpPlc4.Name = "tbDumpPlc4";
+            this.tbDumpPlc4.ReadOnly = true;
+            this.tbDumpPlc4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbDumpPlc4.Size = new System.Drawing.Size(369, 76);
+            this.tbDumpPlc4.TabIndex = 62;
+            // 
+            // lblVersionPlc4
+            // 
+            this.lblVersionPlc4.AutoSize = true;
+            this.lblVersionPlc4.Location = new System.Drawing.Point(277, 169);
+            this.lblVersionPlc4.Name = "lblVersionPlc4";
+            this.lblVersionPlc4.Size = new System.Drawing.Size(42, 13);
+            this.lblVersionPlc4.TabIndex = 61;
+            this.lblVersionPlc4.Text = "Version";
+            // 
+            // tbVersionPlc4
+            // 
+            this.tbVersionPlc4.Location = new System.Drawing.Point(325, 166);
+            this.tbVersionPlc4.Name = "tbVersionPlc4";
+            this.tbVersionPlc4.ReadOnly = true;
+            this.tbVersionPlc4.Size = new System.Drawing.Size(48, 20);
+            this.tbVersionPlc4.TabIndex = 60;
+            // 
+            // lblOrderCodePlc4
+            // 
+            this.lblOrderCodePlc4.AutoSize = true;
+            this.lblOrderCodePlc4.Location = new System.Drawing.Point(7, 169);
+            this.lblOrderCodePlc4.Name = "lblOrderCodePlc4";
+            this.lblOrderCodePlc4.Size = new System.Drawing.Size(61, 13);
+            this.lblOrderCodePlc4.TabIndex = 59;
+            this.lblOrderCodePlc4.Text = "Order Code";
+            // 
+            // tbOrderCodePlc4
+            // 
+            this.tbOrderCodePlc4.Location = new System.Drawing.Point(115, 166);
+            this.tbOrderCodePlc4.Name = "tbOrderCodePlc4";
+            this.tbOrderCodePlc4.ReadOnly = true;
+            this.tbOrderCodePlc4.Size = new System.Drawing.Size(150, 20);
+            this.tbOrderCodePlc4.TabIndex = 58;
+            // 
+            // lblModuleNamePlc4
+            // 
+            this.lblModuleNamePlc4.AutoSize = true;
+            this.lblModuleNamePlc4.Location = new System.Drawing.Point(7, 150);
+            this.lblModuleNamePlc4.Name = "lblModuleNamePlc4";
+            this.lblModuleNamePlc4.Size = new System.Drawing.Size(73, 13);
+            this.lblModuleNamePlc4.TabIndex = 57;
+            this.lblModuleNamePlc4.Text = "Module Name";
+            // 
+            // tbModuleNamePlc4
+            // 
+            this.tbModuleNamePlc4.Location = new System.Drawing.Point(115, 143);
+            this.tbModuleNamePlc4.Name = "tbModuleNamePlc4";
+            this.tbModuleNamePlc4.ReadOnly = true;
+            this.tbModuleNamePlc4.Size = new System.Drawing.Size(150, 20);
+            this.tbModuleNamePlc4.TabIndex = 56;
+            // 
+            // lblAsNamePlc4
+            // 
+            this.lblAsNamePlc4.AutoSize = true;
+            this.lblAsNamePlc4.Location = new System.Drawing.Point(7, 127);
+            this.lblAsNamePlc4.Name = "lblAsNamePlc4";
+            this.lblAsNamePlc4.Size = new System.Drawing.Size(52, 13);
+            this.lblAsNamePlc4.TabIndex = 55;
+            this.lblAsNamePlc4.Text = "AS Name";
+            // 
+            // tbAsNamePlc4
+            // 
+            this.tbAsNamePlc4.Location = new System.Drawing.Point(115, 120);
+            this.tbAsNamePlc4.Name = "tbAsNamePlc4";
+            this.tbAsNamePlc4.ReadOnly = true;
+            this.tbAsNamePlc4.Size = new System.Drawing.Size(150, 20);
+            this.tbAsNamePlc4.TabIndex = 54;
+            // 
+            // lblCopyrightPlc4
+            // 
+            this.lblCopyrightPlc4.AutoSize = true;
+            this.lblCopyrightPlc4.Location = new System.Drawing.Point(7, 104);
+            this.lblCopyrightPlc4.Name = "lblCopyrightPlc4";
+            this.lblCopyrightPlc4.Size = new System.Drawing.Size(87, 13);
+            this.lblCopyrightPlc4.TabIndex = 53;
+            this.lblCopyrightPlc4.Text = "Vendor copyright";
+            // 
+            // tbCopyrightPlc4
+            // 
+            this.tbCopyrightPlc4.Location = new System.Drawing.Point(115, 97);
+            this.tbCopyrightPlc4.Name = "tbCopyrightPlc4";
+            this.tbCopyrightPlc4.ReadOnly = true;
+            this.tbCopyrightPlc4.Size = new System.Drawing.Size(150, 20);
+            this.tbCopyrightPlc4.TabIndex = 52;
+            // 
+            // lblSerialNumberPlc4
+            // 
+            this.lblSerialNumberPlc4.AutoSize = true;
+            this.lblSerialNumberPlc4.Location = new System.Drawing.Point(7, 81);
+            this.lblSerialNumberPlc4.Name = "lblSerialNumberPlc4";
+            this.lblSerialNumberPlc4.Size = new System.Drawing.Size(71, 13);
+            this.lblSerialNumberPlc4.TabIndex = 51;
+            this.lblSerialNumberPlc4.Text = "Serial number";
+            // 
+            // tbSerialNumberPlc4
+            // 
+            this.tbSerialNumberPlc4.Location = new System.Drawing.Point(115, 74);
+            this.tbSerialNumberPlc4.Name = "tbSerialNumberPlc4";
+            this.tbSerialNumberPlc4.ReadOnly = true;
+            this.tbSerialNumberPlc4.Size = new System.Drawing.Size(150, 20);
+            this.tbSerialNumberPlc4.TabIndex = 50;
+            // 
+            // lblModuleTypeNamePlc4
+            // 
+            this.lblModuleTypeNamePlc4.AutoSize = true;
+            this.lblModuleTypeNamePlc4.Location = new System.Drawing.Point(7, 58);
+            this.lblModuleTypeNamePlc4.Name = "lblModuleTypeNamePlc4";
+            this.lblModuleTypeNamePlc4.Size = new System.Drawing.Size(100, 13);
+            this.lblModuleTypeNamePlc4.TabIndex = 49;
+            this.lblModuleTypeNamePlc4.Text = "Module Type Name";
+            // 
+            // tbModuleTypeNamePlc4
+            // 
+            this.tbModuleTypeNamePlc4.Location = new System.Drawing.Point(115, 51);
+            this.tbModuleTypeNamePlc4.Name = "tbModuleTypeNamePlc4";
+            this.tbModuleTypeNamePlc4.ReadOnly = true;
+            this.tbModuleTypeNamePlc4.Size = new System.Drawing.Size(150, 20);
+            this.tbModuleTypeNamePlc4.TabIndex = 48;
+            // 
+            // tbTextErrorPlc4
+            // 
+            this.tbTextErrorPlc4.BackColor = System.Drawing.Color.White;
+            this.tbTextErrorPlc4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tbTextErrorPlc4.Enabled = false;
+            this.tbTextErrorPlc4.ForeColor = System.Drawing.Color.Black;
+            this.tbTextErrorPlc4.Location = new System.Drawing.Point(3, 573);
+            this.tbTextErrorPlc4.Name = "tbTextErrorPlc4";
+            this.tbTextErrorPlc4.ReadOnly = true;
+            this.tbTextErrorPlc4.Size = new System.Drawing.Size(374, 20);
+            this.tbTextErrorPlc4.TabIndex = 47;
+            // 
+            // btnDisconnectPlc4
+            // 
+            this.btnDisconnectPlc4.Enabled = false;
+            this.btnDisconnectPlc4.Location = new System.Drawing.Point(273, 73);
+            this.btnDisconnectPlc4.Name = "btnDisconnectPlc4";
+            this.btnDisconnectPlc4.Size = new System.Drawing.Size(100, 23);
+            this.btnDisconnectPlc4.TabIndex = 46;
+            this.btnDisconnectPlc4.Text = "Disconnect";
+            this.btnDisconnectPlc4.UseVisualStyleBackColor = true;
+            this.btnDisconnectPlc4.Click += new System.EventHandler(this.btnDisonnectPlc4_Click);
+            // 
+            // btnConnectPlc4
+            // 
+            this.btnConnectPlc4.Location = new System.Drawing.Point(273, 50);
+            this.btnConnectPlc4.Name = "btnConnectPlc4";
+            this.btnConnectPlc4.Size = new System.Drawing.Size(100, 23);
+            this.btnConnectPlc4.TabIndex = 45;
+            this.btnConnectPlc4.Text = "Connect";
+            this.btnConnectPlc4.UseVisualStyleBackColor = true;
+            this.btnConnectPlc4.Click += new System.EventHandler(this.btnConnectPlc4_Click);
+            // 
+            // tbSlotPlc4
+            // 
+            this.tbSlotPlc4.Location = new System.Drawing.Point(170, 18);
+            this.tbSlotPlc4.Name = "tbSlotPlc4";
+            this.tbSlotPlc4.Size = new System.Drawing.Size(44, 20);
+            this.tbSlotPlc4.TabIndex = 44;
+            this.tbSlotPlc4.Text = "1";
+            // 
+            // tbRackPlc4
+            // 
+            this.tbRackPlc4.Location = new System.Drawing.Point(114, 18);
+            this.tbRackPlc4.Name = "tbRackPlc4";
+            this.tbRackPlc4.Size = new System.Drawing.Size(44, 20);
+            this.tbRackPlc4.TabIndex = 43;
+            this.tbRackPlc4.Text = "0";
+            // 
+            // tbIpAddressPlc4
+            // 
+            this.tbIpAddressPlc4.Location = new System.Drawing.Point(4, 18);
+            this.tbIpAddressPlc4.Name = "tbIpAddressPlc4";
+            this.tbIpAddressPlc4.Size = new System.Drawing.Size(100, 20);
+            this.tbIpAddressPlc4.TabIndex = 42;
+            this.tbIpAddressPlc4.Text = "192.168.0.1";
+            // 
             // panel7
             // 
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -405,6 +678,7 @@
             // 
             // gbPLC7
             // 
+            this.gbPLC7.Controls.Add(this.button1);
             this.gbPLC7.Controls.Add(this.richTextBoxPlc7);
             this.gbPLC7.Controls.Add(this.btnReadDirsPlc7);
             this.gbPLC7.Controls.Add(this.lblBytesReadTextPlc7);
@@ -943,278 +1217,6 @@
             this.tbIpAddressPlc3.TabIndex = 42;
             this.tbIpAddressPlc3.Text = "192.168.0.1";
             this.tbIpAddressPlc3.MouseEnter += new System.EventHandler(this.tbIpPlc3_MouseEnter);
-            // 
-            // panel4
-            // 
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel4.Controls.Add(this.groupBox2);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(0, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1246, 600);
-            this.panel4.TabIndex = 3;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.richTextBoxPlc4);
-            this.groupBox2.Controls.Add(this.btnReadDirsPlc4);
-            this.groupBox2.Controls.Add(this.lblBytesReadTextPlc4);
-            this.groupBox2.Controls.Add(this.lblBytesReadPlc4);
-            this.groupBox2.Controls.Add(this.tbDumpPlc4);
-            this.groupBox2.Controls.Add(this.lblVersionPlc4);
-            this.groupBox2.Controls.Add(this.tbVersionPlc4);
-            this.groupBox2.Controls.Add(this.lblOrderCodePlc4);
-            this.groupBox2.Controls.Add(this.tbOrderCodePlc4);
-            this.groupBox2.Controls.Add(this.lblModuleNamePlc4);
-            this.groupBox2.Controls.Add(this.tbModuleNamePlc4);
-            this.groupBox2.Controls.Add(this.lblAsNamePlc4);
-            this.groupBox2.Controls.Add(this.tbAsNamePlc4);
-            this.groupBox2.Controls.Add(this.lblCopyrightPlc4);
-            this.groupBox2.Controls.Add(this.tbCopyrightPlc4);
-            this.groupBox2.Controls.Add(this.lblSerialNumberPlc4);
-            this.groupBox2.Controls.Add(this.tbSerialNumberPlc4);
-            this.groupBox2.Controls.Add(this.lblModuleTypeNamePlc4);
-            this.groupBox2.Controls.Add(this.tbModuleTypeNamePlc4);
-            this.groupBox2.Controls.Add(this.tbTextErrorPlc4);
-            this.groupBox2.Controls.Add(this.btnDisconnectPlc4);
-            this.groupBox2.Controls.Add(this.btnConnectPlc4);
-            this.groupBox2.Controls.Add(this.tbSlotPlc4);
-            this.groupBox2.Controls.Add(this.tbRackPlc4);
-            this.groupBox2.Controls.Add(this.tbIpAddressPlc4);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(380, 596);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "PLC4";
-            // 
-            // richTextBoxPlc4
-            // 
-            this.richTextBoxPlc4.Location = new System.Drawing.Point(4, 298);
-            this.richTextBoxPlc4.Name = "richTextBoxPlc4";
-            this.richTextBoxPlc4.ReadOnly = true;
-            this.richTextBoxPlc4.Size = new System.Drawing.Size(369, 269);
-            this.richTextBoxPlc4.TabIndex = 84;
-            this.richTextBoxPlc4.Text = "";
-            // 
-            // btnReadDirsPlc4
-            // 
-            this.btnReadDirsPlc4.Location = new System.Drawing.Point(273, 271);
-            this.btnReadDirsPlc4.Name = "btnReadDirsPlc4";
-            this.btnReadDirsPlc4.Size = new System.Drawing.Size(100, 23);
-            this.btnReadDirsPlc4.TabIndex = 81;
-            this.btnReadDirsPlc4.Text = "ReadDirs";
-            this.btnReadDirsPlc4.UseVisualStyleBackColor = true;
-            this.btnReadDirsPlc4.Click += new System.EventHandler(this.btnReadDirsPlc4_Click);
-            // 
-            // lblBytesReadTextPlc4
-            // 
-            this.lblBytesReadTextPlc4.AutoSize = true;
-            this.lblBytesReadTextPlc4.Location = new System.Drawing.Point(7, 276);
-            this.lblBytesReadTextPlc4.Name = "lblBytesReadTextPlc4";
-            this.lblBytesReadTextPlc4.Size = new System.Drawing.Size(62, 13);
-            this.lblBytesReadTextPlc4.TabIndex = 78;
-            this.lblBytesReadTextPlc4.Text = "Bytes Read";
-            // 
-            // lblBytesReadPlc4
-            // 
-            this.lblBytesReadPlc4.AutoSize = true;
-            this.lblBytesReadPlc4.Location = new System.Drawing.Point(84, 276);
-            this.lblBytesReadPlc4.Name = "lblBytesReadPlc4";
-            this.lblBytesReadPlc4.Size = new System.Drawing.Size(13, 13);
-            this.lblBytesReadPlc4.TabIndex = 77;
-            this.lblBytesReadPlc4.Text = "0";
-            this.lblBytesReadPlc4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // tbDumpPlc4
-            // 
-            this.tbDumpPlc4.BackColor = System.Drawing.Color.White;
-            this.tbDumpPlc4.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbDumpPlc4.ForeColor = System.Drawing.Color.Black;
-            this.tbDumpPlc4.Location = new System.Drawing.Point(4, 192);
-            this.tbDumpPlc4.Multiline = true;
-            this.tbDumpPlc4.Name = "tbDumpPlc4";
-            this.tbDumpPlc4.ReadOnly = true;
-            this.tbDumpPlc4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbDumpPlc4.Size = new System.Drawing.Size(369, 76);
-            this.tbDumpPlc4.TabIndex = 62;
-            // 
-            // lblVersionPlc4
-            // 
-            this.lblVersionPlc4.AutoSize = true;
-            this.lblVersionPlc4.Location = new System.Drawing.Point(277, 169);
-            this.lblVersionPlc4.Name = "lblVersionPlc4";
-            this.lblVersionPlc4.Size = new System.Drawing.Size(42, 13);
-            this.lblVersionPlc4.TabIndex = 61;
-            this.lblVersionPlc4.Text = "Version";
-            // 
-            // tbVersionPlc4
-            // 
-            this.tbVersionPlc4.Location = new System.Drawing.Point(325, 166);
-            this.tbVersionPlc4.Name = "tbVersionPlc4";
-            this.tbVersionPlc4.ReadOnly = true;
-            this.tbVersionPlc4.Size = new System.Drawing.Size(48, 20);
-            this.tbVersionPlc4.TabIndex = 60;
-            // 
-            // lblOrderCodePlc4
-            // 
-            this.lblOrderCodePlc4.AutoSize = true;
-            this.lblOrderCodePlc4.Location = new System.Drawing.Point(7, 169);
-            this.lblOrderCodePlc4.Name = "lblOrderCodePlc4";
-            this.lblOrderCodePlc4.Size = new System.Drawing.Size(61, 13);
-            this.lblOrderCodePlc4.TabIndex = 59;
-            this.lblOrderCodePlc4.Text = "Order Code";
-            // 
-            // tbOrderCodePlc4
-            // 
-            this.tbOrderCodePlc4.Location = new System.Drawing.Point(115, 166);
-            this.tbOrderCodePlc4.Name = "tbOrderCodePlc4";
-            this.tbOrderCodePlc4.ReadOnly = true;
-            this.tbOrderCodePlc4.Size = new System.Drawing.Size(150, 20);
-            this.tbOrderCodePlc4.TabIndex = 58;
-            // 
-            // lblModuleNamePlc4
-            // 
-            this.lblModuleNamePlc4.AutoSize = true;
-            this.lblModuleNamePlc4.Location = new System.Drawing.Point(7, 150);
-            this.lblModuleNamePlc4.Name = "lblModuleNamePlc4";
-            this.lblModuleNamePlc4.Size = new System.Drawing.Size(73, 13);
-            this.lblModuleNamePlc4.TabIndex = 57;
-            this.lblModuleNamePlc4.Text = "Module Name";
-            // 
-            // tbModuleNamePlc4
-            // 
-            this.tbModuleNamePlc4.Location = new System.Drawing.Point(115, 143);
-            this.tbModuleNamePlc4.Name = "tbModuleNamePlc4";
-            this.tbModuleNamePlc4.ReadOnly = true;
-            this.tbModuleNamePlc4.Size = new System.Drawing.Size(150, 20);
-            this.tbModuleNamePlc4.TabIndex = 56;
-            // 
-            // lblAsNamePlc4
-            // 
-            this.lblAsNamePlc4.AutoSize = true;
-            this.lblAsNamePlc4.Location = new System.Drawing.Point(7, 127);
-            this.lblAsNamePlc4.Name = "lblAsNamePlc4";
-            this.lblAsNamePlc4.Size = new System.Drawing.Size(52, 13);
-            this.lblAsNamePlc4.TabIndex = 55;
-            this.lblAsNamePlc4.Text = "AS Name";
-            // 
-            // tbAsNamePlc4
-            // 
-            this.tbAsNamePlc4.Location = new System.Drawing.Point(115, 120);
-            this.tbAsNamePlc4.Name = "tbAsNamePlc4";
-            this.tbAsNamePlc4.ReadOnly = true;
-            this.tbAsNamePlc4.Size = new System.Drawing.Size(150, 20);
-            this.tbAsNamePlc4.TabIndex = 54;
-            // 
-            // lblCopyrightPlc4
-            // 
-            this.lblCopyrightPlc4.AutoSize = true;
-            this.lblCopyrightPlc4.Location = new System.Drawing.Point(7, 104);
-            this.lblCopyrightPlc4.Name = "lblCopyrightPlc4";
-            this.lblCopyrightPlc4.Size = new System.Drawing.Size(87, 13);
-            this.lblCopyrightPlc4.TabIndex = 53;
-            this.lblCopyrightPlc4.Text = "Vendor copyright";
-            // 
-            // tbCopyrightPlc4
-            // 
-            this.tbCopyrightPlc4.Location = new System.Drawing.Point(115, 97);
-            this.tbCopyrightPlc4.Name = "tbCopyrightPlc4";
-            this.tbCopyrightPlc4.ReadOnly = true;
-            this.tbCopyrightPlc4.Size = new System.Drawing.Size(150, 20);
-            this.tbCopyrightPlc4.TabIndex = 52;
-            // 
-            // lblSerialNumberPlc4
-            // 
-            this.lblSerialNumberPlc4.AutoSize = true;
-            this.lblSerialNumberPlc4.Location = new System.Drawing.Point(7, 81);
-            this.lblSerialNumberPlc4.Name = "lblSerialNumberPlc4";
-            this.lblSerialNumberPlc4.Size = new System.Drawing.Size(71, 13);
-            this.lblSerialNumberPlc4.TabIndex = 51;
-            this.lblSerialNumberPlc4.Text = "Serial number";
-            // 
-            // tbSerialNumberPlc4
-            // 
-            this.tbSerialNumberPlc4.Location = new System.Drawing.Point(115, 74);
-            this.tbSerialNumberPlc4.Name = "tbSerialNumberPlc4";
-            this.tbSerialNumberPlc4.ReadOnly = true;
-            this.tbSerialNumberPlc4.Size = new System.Drawing.Size(150, 20);
-            this.tbSerialNumberPlc4.TabIndex = 50;
-            // 
-            // lblModuleTypeNamePlc4
-            // 
-            this.lblModuleTypeNamePlc4.AutoSize = true;
-            this.lblModuleTypeNamePlc4.Location = new System.Drawing.Point(7, 58);
-            this.lblModuleTypeNamePlc4.Name = "lblModuleTypeNamePlc4";
-            this.lblModuleTypeNamePlc4.Size = new System.Drawing.Size(100, 13);
-            this.lblModuleTypeNamePlc4.TabIndex = 49;
-            this.lblModuleTypeNamePlc4.Text = "Module Type Name";
-            // 
-            // tbModuleTypeNamePlc4
-            // 
-            this.tbModuleTypeNamePlc4.Location = new System.Drawing.Point(115, 51);
-            this.tbModuleTypeNamePlc4.Name = "tbModuleTypeNamePlc4";
-            this.tbModuleTypeNamePlc4.ReadOnly = true;
-            this.tbModuleTypeNamePlc4.Size = new System.Drawing.Size(150, 20);
-            this.tbModuleTypeNamePlc4.TabIndex = 48;
-            // 
-            // tbTextErrorPlc4
-            // 
-            this.tbTextErrorPlc4.BackColor = System.Drawing.Color.White;
-            this.tbTextErrorPlc4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tbTextErrorPlc4.Enabled = false;
-            this.tbTextErrorPlc4.ForeColor = System.Drawing.Color.Black;
-            this.tbTextErrorPlc4.Location = new System.Drawing.Point(3, 573);
-            this.tbTextErrorPlc4.Name = "tbTextErrorPlc4";
-            this.tbTextErrorPlc4.ReadOnly = true;
-            this.tbTextErrorPlc4.Size = new System.Drawing.Size(374, 20);
-            this.tbTextErrorPlc4.TabIndex = 47;
-            // 
-            // btnDisconnectPlc4
-            // 
-            this.btnDisconnectPlc4.Enabled = false;
-            this.btnDisconnectPlc4.Location = new System.Drawing.Point(273, 73);
-            this.btnDisconnectPlc4.Name = "btnDisconnectPlc4";
-            this.btnDisconnectPlc4.Size = new System.Drawing.Size(100, 23);
-            this.btnDisconnectPlc4.TabIndex = 46;
-            this.btnDisconnectPlc4.Text = "Disconnect";
-            this.btnDisconnectPlc4.UseVisualStyleBackColor = true;
-            this.btnDisconnectPlc4.Click += new System.EventHandler(this.btnDisonnectPlc4_Click);
-            // 
-            // btnConnectPlc4
-            // 
-            this.btnConnectPlc4.Location = new System.Drawing.Point(273, 50);
-            this.btnConnectPlc4.Name = "btnConnectPlc4";
-            this.btnConnectPlc4.Size = new System.Drawing.Size(100, 23);
-            this.btnConnectPlc4.TabIndex = 45;
-            this.btnConnectPlc4.Text = "Connect";
-            this.btnConnectPlc4.UseVisualStyleBackColor = true;
-            this.btnConnectPlc4.Click += new System.EventHandler(this.btnConnectPlc4_Click);
-            // 
-            // tbSlotPlc4
-            // 
-            this.tbSlotPlc4.Location = new System.Drawing.Point(170, 18);
-            this.tbSlotPlc4.Name = "tbSlotPlc4";
-            this.tbSlotPlc4.Size = new System.Drawing.Size(44, 20);
-            this.tbSlotPlc4.TabIndex = 44;
-            this.tbSlotPlc4.Text = "1";
-            // 
-            // tbRackPlc4
-            // 
-            this.tbRackPlc4.Location = new System.Drawing.Point(114, 18);
-            this.tbRackPlc4.Name = "tbRackPlc4";
-            this.tbRackPlc4.Size = new System.Drawing.Size(44, 20);
-            this.tbRackPlc4.TabIndex = 43;
-            this.tbRackPlc4.Text = "0";
-            // 
-            // tbIpAddressPlc4
-            // 
-            this.tbIpAddressPlc4.Location = new System.Drawing.Point(4, 18);
-            this.tbIpAddressPlc4.Name = "tbIpAddressPlc4";
-            this.tbIpAddressPlc4.Size = new System.Drawing.Size(100, 20);
-            this.tbIpAddressPlc4.TabIndex = 42;
-            this.tbIpAddressPlc4.Text = "192.168.0.1";
             // 
             // panel5
             // 
@@ -1816,6 +1818,16 @@
             this.panel2.Size = new System.Drawing.Size(1246, 600);
             this.panel2.TabIndex = 1;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(273, 104);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 86;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1834,15 +1846,15 @@
             this.panelLeft.ResumeLayout(false);
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.gbPLC7.ResumeLayout(false);
             this.gbPLC7.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.gbPLC3.ResumeLayout(false);
             this.gbPLC3.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -2012,6 +2024,7 @@
         internal System.Windows.Forms.TextBox tbSlotPlc4;
         internal System.Windows.Forms.TextBox tbRackPlc4;
         internal System.Windows.Forms.TextBox tbIpAddressPlc4;
+        private System.Windows.Forms.Button button1;
     }
 }
 

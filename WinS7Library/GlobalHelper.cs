@@ -27,17 +27,26 @@ namespace WinS7Library
             result = client.GetOrderCode(ref orderCode);
         }
 
+        // Overload 1
         public static void ReadAreaPlc(S7Client client, byte area, int dbNumber, int start, int amount, int wordLen, byte[] buffer, ref int sizeRead, ref int result)
         {
-            // Declaration separated from the code for readability
             Array.Clear(buffer, 0, buffer.Length);
             result = client.ReadArea(area, dbNumber, start, amount, wordLen, buffer, ref sizeRead);
         }
+        // Overload 2
+        public static void ReadAreaPlc(S7Client client, byte area, int dbNumber, int start, int amount, int wordLen, byte[] buffer, ref int sizeRead, ref int result, ref string error)
+        {
+            Array.Clear(buffer, 0, buffer.Length);
+            result = client.ReadArea(area, dbNumber, start, amount, wordLen, buffer, ref sizeRead);
+            error = ShowResultClient(result, client);
+        }
 
+        // Overload 1
         public static void WriteAreaPlc(S7Client client, byte area, int dbNumber, int start, int amount, int wordLen, byte[] buffer, ref int result)
         {
             result = client.WriteArea(area, dbNumber, start, amount, wordLen, buffer);
         }
+        // Overload 2
         public static void WriteAreaPlc(S7Client client, byte area, int dbNumber, int start, int amount, int wordLen, byte[] buffer, ref int result, ref string error)
         {
             result = client.WriteArea(area, dbNumber, start, amount, wordLen, buffer);

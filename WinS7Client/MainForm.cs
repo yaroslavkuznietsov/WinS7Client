@@ -372,11 +372,9 @@ namespace WinS7Client
                                             GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_HE, 0, DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref result);
                                             Serializer.DeserializeDatHE(path, ref buffer, ref error);
                                             GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_HE, 0, DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref result);
-                                            if (log7.IsDebugEnabled)
-                                            {
-                                                ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n].ToString(), path + "\\WinS7ClientLogger.log");
-                                                log7.Debug("Serializer.DeserializeDatHE(path, ref buffer, ref error);");
-                                            }
+                                            // Log
+                                            ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n].ToString(), path + "\\WinS7ClientLogger.log");
+                                            log[n].Info("Serializer.DeserializeDatHE(path, ref buffer, ref error);");
                                         }
 
                                         ServicePcToPlcs[n].ParamConfigOK = GetFileByName(path, "Config.xml");

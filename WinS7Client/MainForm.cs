@@ -60,6 +60,7 @@ namespace WinS7Client
 
         //Thread Timestamps
         private DateTime[] HeartbeatTimeStamp = new DateTime[11];
+        private bool[] HeartBeat = new bool[11];
 
         
         private const string PlcInfoToolTip = "IP-Address: IPv4 \nS71200/1500: Rack=0, Slot=0/1 \nS7300: Rack=0, Slot=2 \nS7400/WinAC See HW Config";
@@ -148,8 +149,6 @@ namespace WinS7Client
         private void Plc2()
         {
         }
-
-
 
         public void Plc3()
         {
@@ -810,16 +809,6 @@ namespace WinS7Client
                             SetHeartBeat(ref HeartbeatTimeStamp[n], ref heartbeat, 1);
                             ServicePcToPlcs[n].LifeBit = heartbeat;
 
-                            //btn7 - PLC7 Animation
-                            if (heartbeat)
-                            {
-                                btn7.BackColor = Color.Green;
-                            }
-                            else
-                            {
-                                btn7.BackColor = Color.Empty;
-                            }
-
 
                             /// <summary>
                             /// ServicePcToPlc
@@ -962,6 +951,60 @@ namespace WinS7Client
             
             tbOrderCodePlc3.Text = "";
             tbVersionPlc3.Text = "";
+
+            // PLC4
+            tbIpAddressPlc4.Text = PlcIpAddress[4];
+            tbRackPlc4.Text = PlcRack[4];
+            tbSlotPlc4.Text = PlcSlot[4];
+
+            tbIpAddressPlc4.Enabled = false;
+            tbRackPlc4.Enabled = false;
+            tbSlotPlc4.Enabled = false;
+
+            tbModuleTypeNamePlc4.Text = "";
+            tbSerialNumberPlc4.Text = "";
+            tbCopyrightPlc4.Text = "";
+            tbAsNamePlc4.Text = "";
+            tbModuleNamePlc4.Text = "";
+
+            tbOrderCodePlc4.Text = "";
+            tbVersionPlc4.Text = "";
+
+            // PLC5
+            tbIpAddressPlc5.Text = PlcIpAddress[5];
+            tbRackPlc5.Text = PlcRack[5];
+            tbSlotPlc5.Text = PlcSlot[5];
+
+            tbIpAddressPlc5.Enabled = false;
+            tbRackPlc5.Enabled = false;
+            tbSlotPlc5.Enabled = false;
+
+            tbModuleTypeNamePlc5.Text = "";
+            tbSerialNumberPlc5.Text = "";
+            tbCopyrightPlc5.Text = "";
+            tbAsNamePlc5.Text = "";
+            tbModuleNamePlc5.Text = "";
+
+            tbOrderCodePlc5.Text = "";
+            tbVersionPlc5.Text = "";
+
+            // PLC5
+            tbIpAddressPlc6.Text = PlcIpAddress[6];
+            tbRackPlc6.Text = PlcRack[6];
+            tbSlotPlc6.Text = PlcSlot[6];
+
+            tbIpAddressPlc6.Enabled = false;
+            tbRackPlc6.Enabled = false;
+            tbSlotPlc6.Enabled = false;
+
+            tbModuleTypeNamePlc6.Text = "";
+            tbSerialNumberPlc6.Text = "";
+            tbCopyrightPlc6.Text = "";
+            tbAsNamePlc6.Text = "";
+            tbModuleNamePlc6.Text = "";
+
+            tbOrderCodePlc6.Text = "";
+            tbVersionPlc6.Text = "";
 
             // Plc7
             tbIpAddressPlc7.Text = PlcIpAddress[7];
@@ -1176,14 +1219,24 @@ namespace WinS7Client
         {
             S7Clients[3].Disconnect();
             tbTextErrorPlc3.Text = "Disconnected";
-            tbIpAddressPlc3.Enabled = true;
-            tbRackPlc3.Enabled = true;
-            tbSlotPlc3.Enabled = true;
+            tbIpAddressPlc3.Enabled = false;
+            tbRackPlc3.Enabled = false;
+            tbSlotPlc3.Enabled = false;
             btnConnectPlc3.Enabled = true;
             btnDisconnectPlc3.Enabled = false;
             //tabControl.Enabled = false;
         }
 
+        private void btnReadDirsPlc3_Click(object sender, EventArgs e)
+        {
+            richTextBoxPlc3.Text = string.Empty;
+            string root = @"E:\Recipes";
+            GetSubDirectories(root);
+            foreach (string dir in GetSubDirectories(root))
+            {
+                richTextBoxPlc3.Text = richTextBoxPlc3.Text + dir + "\n";
+            }
+        }
 
         private void tbIpPlc3_MouseEnter(object sender, EventArgs e)
         {
@@ -1194,6 +1247,246 @@ namespace WinS7Client
             toolTipShow(sender, PlcInfoToolTip);
         }
         private void tbSlotPlc3_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        #endregion
+
+        /// <summary>
+        /// Plc4
+        /// </summary>
+        #region Plc4
+        private async void btnConnectPlc4_Click(object sender, EventArgs e)
+        {
+            int result;
+            string address = tbIpAddressPlc4.Text;
+            int rack = tbRackPlc4.Text.ParseInt();
+            int slot = tbSlotPlc4.Text.ParseInt();
+            string error;
+
+            result = await GlobalHelper.ConnectToClientAsync(S7Clients[4], address, rack, slot);
+
+            error = GlobalHelper.ShowResultClient(result, S7Clients[4]);
+            tbTextErrorPlc4.Text = error;
+
+            if (result == 0)
+            {
+                btnConnectPlc4.Enabled = false;
+                btnDisconnectPlc4.Enabled = true;
+                //tabControl.Enabled = true;
+
+                S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                GlobalHelper.ReadCPUInfo(S7Clients[4], ref info, ref result);
+                if (result == 0)
+                {
+                    tbModuleTypeNamePlc4.Text = info.ModuleTypeName;
+                    tbSerialNumberPlc4.Text = info.SerialNumber;
+                    tbCopyrightPlc4.Text = info.Copyright;
+                    tbAsNamePlc4.Text = info.ASName;
+                    tbModuleNamePlc4.Text = info.ModuleName;
+                }
+
+                S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                GlobalHelper.ReadOrderCode(S7Clients[4], ref orderCode, ref result);
+                if (result == 0)
+                {
+                    tbOrderCodePlc4.Text = orderCode.Code;
+                    tbVersionPlc4.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                }
+            }
+        }
+        private void btnDisonnectPlc4_Click(object sender, EventArgs e)
+        {
+            S7Clients[4].Disconnect();
+            tbTextErrorPlc4.Text = "Disconnected";
+            tbIpAddressPlc4.Enabled = false;
+            tbRackPlc4.Enabled = false;
+            tbSlotPlc4.Enabled = false;
+            btnConnectPlc4.Enabled = true;
+            btnDisconnectPlc4.Enabled = false;
+            //tabControl.Enabled = false;
+        }
+
+        private void btnReadDirsPlc4_Click(object sender, EventArgs e)
+        {
+            richTextBoxPlc4.Text = string.Empty;
+            string root = @"E:\Recipes";
+            GetSubDirectories(root);
+            foreach (string dir in GetSubDirectories(root))
+            {
+                richTextBoxPlc4.Text = richTextBoxPlc4.Text + dir + "\n";
+            }
+        }
+
+        private void tbIpPlc4_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbRackPlc4_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbSlotPlc4_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        #endregion
+
+        /// <summary>
+        /// Plc5
+        /// </summary>
+        #region Plc5
+        private async void btnConnectPlc5_Click(object sender, EventArgs e)
+        {
+            int result;
+            string address = tbIpAddressPlc5.Text;
+            int rack = tbRackPlc5.Text.ParseInt();
+            int slot = tbSlotPlc5.Text.ParseInt();
+            string error;
+
+            result = await GlobalHelper.ConnectToClientAsync(S7Clients[5], address, rack, slot);
+
+            error = GlobalHelper.ShowResultClient(result, S7Clients[5]);
+            tbTextErrorPlc5.Text = error;
+
+            if (result == 0)
+            {
+                btnConnectPlc5.Enabled = false;
+                btnDisconnectPlc5.Enabled = true;
+                //tabControl.Enabled = true;
+
+                S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                GlobalHelper.ReadCPUInfo(S7Clients[5], ref info, ref result);
+                if (result == 0)
+                {
+                    tbModuleTypeNamePlc5.Text = info.ModuleTypeName;
+                    tbSerialNumberPlc5.Text = info.SerialNumber;
+                    tbCopyrightPlc5.Text = info.Copyright;
+                    tbAsNamePlc5.Text = info.ASName;
+                    tbModuleNamePlc5.Text = info.ModuleName;
+                }
+
+                S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                GlobalHelper.ReadOrderCode(S7Clients[5], ref orderCode, ref result);
+                if (result == 0)
+                {
+                    tbOrderCodePlc5.Text = orderCode.Code;
+                    tbVersionPlc5.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                }
+            }
+        }
+        private void btnDisonnectPlc5_Click(object sender, EventArgs e)
+        {
+            S7Clients[5].Disconnect();
+            tbTextErrorPlc5.Text = "Disconnected";
+            tbIpAddressPlc5.Enabled = false;
+            tbRackPlc5.Enabled = false;
+            tbSlotPlc5.Enabled = false;
+            btnConnectPlc5.Enabled = true;
+            btnDisconnectPlc5.Enabled = false;
+            //tabControl.Enabled = false;
+        }
+
+        private void btnReadDirsPlc5_Click(object sender, EventArgs e)
+        {
+            richTextBoxPlc5.Text = string.Empty;
+            string root = @"E:\Recipes";
+            GetSubDirectories(root);
+            foreach (string dir in GetSubDirectories(root))
+            {
+                richTextBoxPlc5.Text = richTextBoxPlc5.Text + dir + "\n";
+            }
+        }
+
+        private void tbIpPlc5_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbRackPlc5_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbSlotPlc5_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        #endregion
+
+        /// <summary>
+        /// Plc6
+        /// </summary>
+        #region Plc6
+        private async void btnConnectPlc6_Click(object sender, EventArgs e)
+        {
+            int result;
+            string address = tbIpAddressPlc6.Text;
+            int rack = tbRackPlc6.Text.ParseInt();
+            int slot = tbSlotPlc6.Text.ParseInt();
+            string error;
+
+            result = await GlobalHelper.ConnectToClientAsync(S7Clients[6], address, rack, slot);
+
+            error = GlobalHelper.ShowResultClient(result, S7Clients[6]);
+            tbTextErrorPlc6.Text = error;
+
+            if (result == 0)
+            {
+                btnConnectPlc6.Enabled = false;
+                btnDisconnectPlc6.Enabled = true;
+                //tabControl.Enabled = true;
+
+                S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                GlobalHelper.ReadCPUInfo(S7Clients[6], ref info, ref result);
+                if (result == 0)
+                {
+                    tbModuleTypeNamePlc6.Text = info.ModuleTypeName;
+                    tbSerialNumberPlc6.Text = info.SerialNumber;
+                    tbCopyrightPlc6.Text = info.Copyright;
+                    tbAsNamePlc6.Text = info.ASName;
+                    tbModuleNamePlc6.Text = info.ModuleName;
+                }
+
+                S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                GlobalHelper.ReadOrderCode(S7Clients[6], ref orderCode, ref result);
+                if (result == 0)
+                {
+                    tbOrderCodePlc6.Text = orderCode.Code;
+                    tbVersionPlc6.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                }
+            }
+        }
+        private void btnDisonnectPlc6_Click(object sender, EventArgs e)
+        {
+            S7Clients[6].Disconnect();
+            tbTextErrorPlc6.Text = "Disconnected";
+            tbIpAddressPlc6.Enabled = false;
+            tbRackPlc6.Enabled = false;
+            tbSlotPlc6.Enabled = false;
+            btnConnectPlc6.Enabled = true;
+            btnDisconnectPlc6.Enabled = false;
+            //tabControl.Enabled = false;
+        }
+
+        private void btnReadDirsPlc6_Click(object sender, EventArgs e)
+        {
+            richTextBoxPlc6.Text = string.Empty;
+            string root = @"E:\Recipes";
+            GetSubDirectories(root);
+            foreach (string dir in GetSubDirectories(root))
+            {
+                richTextBoxPlc6.Text = richTextBoxPlc6.Text + dir + "\n";
+            }
+        }
+
+        private void tbIpPlc6_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbRackPlc6_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbSlotPlc6_MouseEnter(object sender, EventArgs e)
         {
             toolTipShow(sender, PlcInfoToolTip);
         }
@@ -1242,18 +1535,29 @@ namespace WinS7Client
                 }
             }
         }
+
         private void btnDisonnectPlc7_Click(object sender, EventArgs e)
         {
             S7Clients[7].Disconnect();
             tbTextErrorPlc7.Text = "Disconnected";
-            tbIpAddressPlc7.Enabled = true;
-            tbRackPlc7.Enabled = true;
-            tbSlotPlc7.Enabled = true;
+            tbIpAddressPlc7.Enabled = false;
+            tbRackPlc7.Enabled = false;
+            tbSlotPlc7.Enabled = false;
             btnConnectPlc7.Enabled = true;
             btnDisconnectPlc7.Enabled = false;
             //tabControl.Enabled = false;
         }
 
+        private void btnReadDirsPlc7_Click(object sender, EventArgs e)
+        {
+            richTextBoxPlc7.Text = string.Empty;
+            string root = @"E:\Recipes";
+            GetSubDirectories(root);
+            foreach (string dir in GetSubDirectories(root))
+            {
+                richTextBoxPlc7.Text = richTextBoxPlc7.Text + dir + "\n";
+            }
+        }
 
         private void tbIpPlc7_MouseEnter(object sender, EventArgs e)
         {
@@ -1268,9 +1572,6 @@ namespace WinS7Client
             toolTipShow(sender, PlcInfoToolTip);
         }
         #endregion
-
-
-
 
         #endregion
 
@@ -1451,28 +1752,7 @@ namespace WinS7Client
             panelService.Visible = true;
         }
 
-        private void panel10_VisibleChanged(object sender, EventArgs e)
-        {
-            //var panel10 = (Panel)sender;
-            if (panel10.Visible)
-            {
-                if (!myServiceForm1.IsHandleCreated)
-                {
-                    myServiceForm1 = new ServiceForm() { Dock = DockStyle.None, TopLevel = false, TopMost = true };
-                    myServiceForm1.FormBorderStyle = FormBorderStyle.None;
-                    panel10.Controls.Add(myServiceForm1);
-                    myServiceForm1.Show();
-                }
 
-            }
-            else
-            {
-                if (myServiceForm1.IsHandleCreated)
-                {
-                    //myServiceForm1.Dispose();
-                }
-            }
-        }
 
         private void panelService_VisibleChanged(object sender, EventArgs e)
         {
@@ -1505,48 +1785,8 @@ namespace WinS7Client
 
 
 
-
-
-
-
-
-
-
-
-
-
-
         //Timer Form
         private void TimerForm_Tick(object sender, EventArgs e)
-        {
-            /*TimerForm.Stop();
-            TimerForm.Enabled = false;
-
-            var watch = System.Diagnostics.Stopwatch.StartNew();
-            // the code that you want to measure comes here
-
-            _ticks++;
-            //Show counter
-            textBoxTimerForm.Text = _ticks.ToString();
-
-            if (_ticks>=10)
-            {
-                _ticks = 0;
-            }
-
-            TestStrings.Add(DateTime.Now.ToString());
-
-            UpdateBindinglistBoxDboATGStatusView();
-            
-            // the code that you want to measure ends here
-            watch.Stop();
-            var elapsedMs = watch.ElapsedMilliseconds;
-            textBoxCodeTime54010.Text = elapsedMs.ToString();
-            TimerForm.Enabled = true;
-            TimerForm.Start();*/
-        }
-
-        private void button1_Click(object sender, EventArgs e)
         {
             TimerForm.Stop();
             TimerForm.Enabled = false;
@@ -1563,13 +1803,93 @@ namespace WinS7Client
                 _ticks = 0;
             }
 
+            //btn3 - PLC3 Animation
+            if (ServicePcToPlcs[3].LifeBit)
+            {
+                btn3.BackColor = Color.Green;
+            }
+            else
+            {
+                btn3.BackColor = Color.LightGray;
+            }
+            //btn4 - PLC4 Animation
+            if (ServicePcToPlcs[4].LifeBit)
+            {
+                btn4.BackColor = Color.Green;
+            }
+            else
+            {
+                btn4.BackColor = Color.LightGray;
+            }
+            //btn5 - PLC5 Animation
+            if (ServicePcToPlcs[5].LifeBit)
+            {
+                btn5.BackColor = Color.Green;
+            }
+            else
+            {
+                btn5.BackColor = Color.LightGray;
+            }
+            //btn7 - PLC6 Animation
+            if (ServicePcToPlcs[6].LifeBit)
+            {
+                btn6.BackColor = Color.Green;
+            }
+            else
+            {
+                btn6.BackColor = Color.LightGray;
+            }
+            //btn7 - PLC7 Animation
+            if (ServicePcToPlcs[7].LifeBit)
+            {
+                btn7.BackColor = Color.Green;
+            }
+            else
+            {
+                btn7.BackColor = Color.LightGray;
+            }
+
+
+            //TestStrings.Add(DateTime.Now.ToString());
+
+            //UpdateBindinglistBoxDboATGStatusView();
+
             // the code that you want to measure ends here
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
-            //textBoxCodeTime54010.Text = elapsedMs.ToString();
+            //elapsedMs.ToString();
             TimerForm.Enabled = true;
             TimerForm.Start();
         }
+
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    TimerForm.Stop();
+        //    TimerForm.Enabled = false;
+
+        //    var watch = System.Diagnostics.Stopwatch.StartNew();
+        //    // the code that you want to measure comes here
+
+        //    _ticks++;
+        //    //Show counter
+        //    //textBoxTimerForm.Text = _ticks.ToString();
+
+        //    if (_ticks >= 10)
+        //    {
+        //        _ticks = 0;
+        //    }
+
+        //TestStrings.Add(DateTime.Now.ToString());
+
+        //UpdateBindinglistBoxDboATGStatusView();
+
+        //    // the code that you want to measure ends here
+        //    watch.Stop();
+        //    var elapsedMs = watch.ElapsedMilliseconds;
+        //    //textBoxCodeTime54010.Text = elapsedMs.ToString();
+        //    TimerForm.Enabled = true;
+        //    TimerForm.Start();
+        //}
 
 
         /// <summary>
@@ -1777,49 +2097,33 @@ namespace WinS7Client
 
 
 
-        private void LoadSubDirs(string dir)
-        {
-            Console.WriteLine(dir);
-            string[] subdirectoryEntries = Directory.GetDirectories(dir);
-            foreach (string subdirectory in subdirectoryEntries)
-            {
-                LoadSubDirs(subdirectory);
-            }
-        }
+
+        //private void CreateDir_Click(object sender, EventArgs e)
+        //{
+        //    string root = string.Empty;
+        //    string folder = string.Empty;
+        //    string path = string.Empty;
+        //    CreateDirectory(root, folder, ref path);
+        //}
+
+        //private void btnRenameDir_Click(object sender, EventArgs e)
+        //{
+        //    string root = @"E:\Recipes";
+        //    string path = root + @"\" + "055_BlaBlaBla";
+        //    // If directory does not exist, create it. 
+        //    if (!Directory.Exists(root))
+        //    {
+        //        Directory.CreateDirectory(root);
+        //    }
 
 
-        private void btnReadDirs_Click(object sender, EventArgs e)
-        {
-            string root = @"E:\Recipes";
-            GetSubDirectories(root);
-        }
+        //    if (Directory.Exists(path))
+        //    {
+        //        string path2 = root + @"\" + "066_BlaBlaBla";
 
-        private void CreateDir_Click(object sender, EventArgs e)
-        {
-            string root = string.Empty;
-            string folder = string.Empty;
-            string path = string.Empty;
-            CreateDirectory(root, folder, ref path);
-        }
-
-        private void btnRenameDir_Click(object sender, EventArgs e)
-        {
-            string root = @"E:\Recipes";
-            string path = root + @"\" + "055_BlaBlaBla";
-            // If directory does not exist, create it. 
-            if (!Directory.Exists(root))
-            {
-                Directory.CreateDirectory(root);
-            }
-
-
-            if (Directory.Exists(path))
-            {
-                string path2 = root + @"\" + "066_BlaBlaBla";
-
-                Directory.Move(path, path2);
-            }
-        }
+        //        Directory.Move(path, path2);
+        //    }
+        //}
 
 
 

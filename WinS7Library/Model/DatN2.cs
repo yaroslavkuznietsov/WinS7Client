@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WinS7Library.HelperSerializer
+namespace WinS7Library.Model
 {
     // Defines that you want to serialize this class
     [Serializable()]

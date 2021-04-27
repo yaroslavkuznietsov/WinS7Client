@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WinS7Library
+namespace WinS7Library.Model
 {
     public class ServicePcToPlc
     {

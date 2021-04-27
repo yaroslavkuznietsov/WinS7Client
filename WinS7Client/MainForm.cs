@@ -11,10 +11,8 @@ using System.IO;                                        // Used for writing to a
 using Sharp7;                                           // Sharp7  Client
 using System.Timers;
 using System.Threading;
-using WinS7Library.HelperSerializer;
 using WinS7Library.Helper;
-using WinS7Library;
-using log4net;
+using WinS7Library.Model;
 
 namespace WinS7Client
 {
@@ -49,20 +47,22 @@ namespace WinS7Client
 
         // Create a logger
         //private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        //private static readonly log4net.ILog logx = log4net.LogManager.GetLogger("RollingFileAppender15");
-        //private static readonly log4net.ILog log3 = log4net.LogManager.GetLogger("RollingFileAppender3");
-        //private static readonly log4net.ILog log4 = log4net.LogManager.GetLogger("RollingFileAppender4");
-        //private static readonly log4net.ILog log5 = log4net.LogManager.GetLogger("RollingFileAppender5");
-        //private static readonly log4net.ILog log6 = log4net.LogManager.GetLogger("RollingFileAppender6");
-        //private static readonly log4net.ILog log7 = log4net.LogManager.GetLogger("RollingFileAppender7");
+        private static readonly log4net.ILog log0 = log4net.LogManager.GetLogger("Logger0");
+        private static readonly log4net.ILog log1 = log4net.LogManager.GetLogger("Logger1");
+        private static readonly log4net.ILog log2 = log4net.LogManager.GetLogger("Logger2");
+        private static readonly log4net.ILog log3 = log4net.LogManager.GetLogger("Logger3");
+        private static readonly log4net.ILog log4 = log4net.LogManager.GetLogger("Logger4");
+        private static readonly log4net.ILog log5 = log4net.LogManager.GetLogger("Logger5");
+        private static readonly log4net.ILog log6 = log4net.LogManager.GetLogger("Logger6");
+        private static readonly log4net.ILog log7 = log4net.LogManager.GetLogger("Logger7");
+        private static readonly log4net.ILog log8 = log4net.LogManager.GetLogger("Logger8");
+        private static readonly log4net.ILog log9 = log4net.LogManager.GetLogger("Logger9");
+        private static readonly log4net.ILog log10 = log4net.LogManager.GetLogger("Logger10");
 
         private static readonly log4net.ILog[] log = new log4net.ILog[11];
 
-        
-
         //Thread Timestamps
         private DateTime[] HeartbeatTimeStamp = new DateTime[11];
-
         
         private const string PlcInfoToolTip = "IP-Address: IPv4 \nS71200/1500: Rack=0, Slot=0/1 \nS7300: Rack=0, Slot=2 \nS7400/WinAC See HW Config";
 
@@ -160,6 +160,9 @@ namespace WinS7Client
                 {
                     this.Invoke((MethodInvoker)delegate
                     {
+                        //log0.Info("Test0x");
+                        //ChangeLogFileName("RollingFileAppender0", @"e:\\recipes\\WinS7ClientLogger0.log");
+                        //log0.Info("Test0");
                         if (S7Clients[n].Connected)
                         {
                             
@@ -186,6 +189,52 @@ namespace WinS7Client
                 {
                     this.Invoke((MethodInvoker)delegate
                     {
+                        //ChangeLogFileName("RollingFileAppender0", @"e:\\recipes\\WinS7ClientLogger000.log");
+                        //log0.Info("Test000");
+
+                        //log[1].Info("Test1");
+                        //ChangeLogFileName("RollingFileAppender1", @"e:\\recipes\\WinS7ClientLogger1.log");
+                        //log[1].Info("Test1");
+
+                        //log[2].Info("Test2");
+                        //ChangeLogFileName("RollingFileAppender2", @"e:\\recipes\\WinS7ClientLogger2.log");
+                        //log[2].Info("Test2");
+
+                        //log[3].Info("Test3");
+                        //ChangeLogFileName("RollingFileAppender3", @"e:\\recipes\\WinS7ClientLogger3.log");
+                        //log[3].Info("Test3");
+
+                        //log[4].Info("Test4");
+                        //ChangeLogFileName("RollingFileAppender4", @"e:\\recipes\\WinS7ClientLogger4.log");
+                        //log[4].Info("Test4");
+                        
+                        ////ChangeLogFileName("RollingFileAppender4", @".\\WinS7ClientLogger.log");
+                        ////log[4].Info("Test44");
+
+                        //log[5].Info("Test5");
+                        //ChangeLogFileName("RollingFileAppender5", @"e:\\recipes\\WinS7ClientLogger5.log");
+                        //log[5].Info("Test5");
+
+                        //log[6].Info("Test6");
+                        //ChangeLogFileName("RollingFileAppender6", @"e:\\recipes\\WinS7ClientLogger6.log");
+                        //log[6].Info("Test6");
+
+                        //log[7].Info("Test7");
+                        //ChangeLogFileName("RollingFileAppender7", @"e:\\recipes\\WinS7ClientLogger7.log");
+                        //log[7].Info("Test7");
+
+                        //log[8].Info("Test8");
+                        //ChangeLogFileName("RollingFileAppender8", @"e:\\recipes\\WinS7ClientLogger8.log");
+                        //log[8].Info("Test8");
+
+                        //log[9].Info("Test9");
+                        //ChangeLogFileName("RollingFileAppender9", @"e:\\recipes\\WinS7ClientLogger9.log");
+                        //log[9].Info("Test9");
+
+                        //log[10].Info("Test10");
+                        //ChangeLogFileName("RollingFileAppender10", @"e:\\recipes\\WinS7ClientLogger10.log");
+                        //log[10].Info("Test10");
+
                         if (S7Clients[n].Connected)
                         {
 
@@ -255,6 +304,9 @@ namespace WinS7Client
             }
         }
 
+        /// <summary>
+        /// PLC communication and recipes handling
+        /// </summary>
         public void Plc7()
         {
             int n = 7;
@@ -262,6 +314,9 @@ namespace WinS7Client
             {
                 try
                 {
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
+
                     this.Invoke((MethodInvoker)delegate
                     {
                         if (S7Clients[n].Connected)
@@ -283,7 +338,7 @@ namespace WinS7Client
                             DateTime timestamp = HeartbeatTimeStamp[n];
 
 
-                            GlobalHelper.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_Service_PlcToPc, 0, DB_Service_PlcToPc_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+                            Global.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_Service_PlcToPc, 0, DB_Service_PlcToPc_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
                             ShowResult(result, client);
                             ServicePlcToPcs[n].LifeBit = S7.GetBitAt(buffer, 0, 0);
                             ServicePlcToPcs[n].ErrorStatus = S7.GetIntAt(buffer, 2);
@@ -307,10 +362,9 @@ namespace WinS7Client
                             string machineID = ServicePlcToPcs[n].AktAnlage.ToString();
                             uint ausweissNr = ServicePlcToPcs[n].AusweissNr;
                             string ausweissName = ServicePlcToPcs[n].AusweissName;
+                            short aktWkzID = ServicePlcToPcs[n].AktWerkzeugID;
 
                             #endregion
-
-
 
                             //**************************************************
                             //Get all recipe folders --->
@@ -324,17 +378,17 @@ namespace WinS7Client
 
                                 ToolListClear(ref buffer);
 
-                                GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
+                                Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
 
                                 string[] subdirectoryEntries;
                                 subdirectoryEntries = GetSubDirectories(root);
 
                                 ToolListFillWithRecipes(subdirectoryEntries, ref buffer);
 
-                                //Log save
-                                //log.Info("ToolListFillWithRecipes");
-
-                                GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
+                                Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
+                                
+                                //Log
+                                log0.Info("ToolListFillWithRecipes" + " result: " + result);
 
                                 ServicePcToPlcs[n].WKZEinlesenFertig = true;
                             }
@@ -366,21 +420,21 @@ namespace WinS7Client
                                     if (!string.IsNullOrEmpty(path) & Directory.Exists(path))
                                     {
                                         //ChangeLogFileName @"e:\\path\\WinS7ClientLogger.log"
-                                        ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n].ToString(), path + "\\WinS7ClientLogger.log");
+                                        ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n], path + "\\WinS7ClientLogger.log");
 
                                         ServicePcToPlcs[n].ParamHEOK = GetFileByName(path, "HE.xml");
                                         if (ServicePcToPlcs[n].ParamHEOK)
                                         {
                                             //deserialize "HE.xml"
                                             ClearBuffer(ref buffer);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_HE, 0, DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_HE, 0, DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref result);
                                             Serializer.DeserializeDatHE(path, ref buffer, ref error);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_HE, 0, DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_HE, 0, DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref result);
                                             // Log
-                                            log[n].Info("Serializer.DeserializeDatHE();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[n].Info("Serializer.DeserializeDatHE();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
-                                            log[0].Info("Serializer.DeserializeDatHE();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[0].Info("Serializer.DeserializeDatHE();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
+                                            log[n].Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log[n].Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                            log0.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log0.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " to PLC " + " result: " + result);
                                         }
 
                                         ServicePcToPlcs[n].ParamConfigOK = GetFileByName(path, "Config.xml");
@@ -388,14 +442,14 @@ namespace WinS7Client
                                         {
                                             //deserialize "Config.xml"
                                             ClearBuffer(ref buffer);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Config, 0, DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Config, 0, DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref result);
                                             Serializer.DeserializeDatConfig(path, ref buffer, ref error);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Config, 0, DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Config, 0, DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref result);
                                             // Log
-                                            log[n].Info("Serializer.DeserializeDatConfig();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[n].Info("Serializer.DeserializeDatConfig();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
-                                            log[0].Info("Serializer.DeserializeDatConfig();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[0].Info("Serializer.DeserializeDatConfig();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
+                                            log[n].Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log[n].Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                            log0.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log0.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " to PLC " + " result: " + result);
                                         }
 
                                         ServicePcToPlcs[n].ParamN2OK = GetFileByName(path, "N2.xml");
@@ -403,14 +457,14 @@ namespace WinS7Client
                                         {
                                             //deserialize "N2.xml"
                                             ClearBuffer(ref buffer);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_N2, 0, DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_N2, 0, DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref result);
                                             Serializer.DeserializeDatN2(path, ref buffer, ref error);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_N2, 0, DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_N2, 0, DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref result);
                                             // Log
-                                            log[n].Info("Serializer.DeserializeDatN2();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[n].Info("Serializer.DeserializeDatN2();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
-                                            log[0].Info("Serializer.DeserializeDatN2();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[0].Info("Serializer.DeserializeDatN2();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
+                                            log[n].Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log[n].Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                            log0.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log0.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " to PLC " + " result: " + result);
                                         }
 
                                         ServicePcToPlcs[n].ParamWerkzeugOK = GetFileByName(path, "Werkzeug.xml");
@@ -418,14 +472,14 @@ namespace WinS7Client
                                         {
                                             //deserialize "Werkzeug.xml"
                                             ClearBuffer(ref buffer);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Werkzeug, 0, DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Werkzeug, 0, DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
                                             Serializer.DeserializeDatWerkzeug(path, ref buffer, ref error);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Werkzeug, 0, DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Werkzeug, 0, DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
                                             // Log
-                                            log[n].Info("Serializer.DeserializeDatWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[n].Info("Serializer.DeserializeDatWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
-                                            log[0].Info("Serializer.DeserializeDatWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[0].Info("Serializer.DeserializeDatWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
+                                            log[n].Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log[n].Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                            log0.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log0.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
                                         }
 
                                         ServicePcToPlcs[n].ParamMWerkzeugOK = GetFileByName(path, "MWerkzeug_" + machineID + ".xml");
@@ -433,14 +487,14 @@ namespace WinS7Client
                                         {
                                             //deserialize "MWerkzeug_54xxx.xml"
                                             ClearBuffer(ref buffer);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_MWerkzeug, 0, DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_MWerkzeug, 0, DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
                                             Serializer.DeserializeMWerkzeug(path, machineID, ref buffer, ref error);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_MWerkzeug, 0, DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_MWerkzeug, 0, DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
                                             // Log
-                                            log[n].Info("Serializer.DeserializeMWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[n].Info("Serializer.DeserializeMWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
-                                            log[0].Info("Serializer.DeserializeMWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[0].Info("Serializer.DeserializeMWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
+                                            log[n].Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log[n].Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                            log0.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log0.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
                                         }
 
                                         ServicePcToPlcs[n].ParamsLadenFertig = true;
@@ -466,14 +520,14 @@ namespace WinS7Client
                                         {
                                             //deserialize "HE.xml"
                                             ClearBuffer(ref buffer);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_HE, 0, DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_HE, 0, DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref result);
                                             Serializer.DeserializeDatHE(path, ref buffer, ref error);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_HE, 0, DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_HE, 0, DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref result);
                                             // Log
-                                            log[n].Info("Serializer.DeserializeDatHE();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[n].Info("Serializer.DeserializeDatHE();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
-                                            log[0].Info("Serializer.DeserializeDatHE();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[0].Info("Serializer.DeserializeDatHE();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
+                                            log[n].Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log[n].Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                            log0.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log0.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " to PLC " + " result: " + result);
                                         }
                                     }
                                     else
@@ -489,14 +543,14 @@ namespace WinS7Client
                                         {
                                             //deserialize "Config.xml"
                                             ClearBuffer(ref buffer);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Config, 0, DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Config, 0, DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref result);
                                             Serializer.DeserializeDatConfig(path, ref buffer, ref error);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Config, 0, DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Config, 0, DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref result);
                                             // Log
-                                            log[n].Info("Serializer.DeserializeDatConfig();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[n].Info("Serializer.DeserializeDatConfig();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
-                                            log[0].Info("Serializer.DeserializeDatConfig();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[0].Info("Serializer.DeserializeDatConfig();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
+                                            log[n].Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log[n].Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                            log0.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log0.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " to PLC " + " result: " + result);
                                         }
                                     }
                                     else
@@ -512,14 +566,14 @@ namespace WinS7Client
                                         {
                                             //deserialize "N2.xml"
                                             ClearBuffer(ref buffer);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_N2, 0, DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_N2, 0, DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref result);
                                             Serializer.DeserializeDatN2(path, ref buffer, ref error);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_N2, 0, DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_N2, 0, DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref result);
                                             // Log
-                                            log[n].Info("Serializer.DeserializeDatN2();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[n].Info("Serializer.DeserializeDatN2();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
-                                            log[0].Info("Serializer.DeserializeDatN2();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[0].Info("Serializer.DeserializeDatN2();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
+                                            log[n].Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log[n].Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                            log0.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log0.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " to PLC " + " result: " + result);
                                         }
                                     }
                                     else
@@ -535,14 +589,14 @@ namespace WinS7Client
                                         {
                                             //deserialize "Werkzeug.xml"
                                             ClearBuffer(ref buffer);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Werkzeug, 0, DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Werkzeug, 0, DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
                                             Serializer.DeserializeDatWerkzeug(path, ref buffer, ref error);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Werkzeug, 0, DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Werkzeug, 0, DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
                                             // Log
-                                            log[n].Info("Serializer.DeserializeDatWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[n].Info("Serializer.DeserializeDatWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
-                                            log[0].Info("Serializer.DeserializeDatWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[0].Info("Serializer.DeserializeDatWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
+                                            log[n].Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log[n].Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                            log0.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log0.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
                                         }
                                     }
                                     else
@@ -560,14 +614,14 @@ namespace WinS7Client
                                         {
                                             //deserialize "MWerkzeug_54xxx.xml"
                                             ClearBuffer(ref buffer);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_MWerkzeug, 0, DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_MWerkzeug, 0, DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
                                             Serializer.DeserializeMWerkzeug(path, machineID, ref buffer, ref error);
-                                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_MWerkzeug, 0, DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
+                                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_MWerkzeug, 0, DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
                                             // Log
-                                            log[n].Info("Serializer.DeserializeMWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[n].Info("Serializer.DeserializeMWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
-                                            log[0].Info("Serializer.DeserializeMWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " from " + path + " error: " + error);
-                                            log[0].Info("Serializer.DeserializeMWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to PLC " + " result: " + result);
+                                            log[n].Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log[n].Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                            log0.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
+                                            log0.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
                                         }
                                     }
                                     else
@@ -604,70 +658,70 @@ namespace WinS7Client
                                     if (halfpath2 == ServicePlcToPcs[n].AktWerkzeugName)
                                     {
                                         //ChangeLogFileName
-                                        ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n].ToString(), path + "\\WinS7ClientLogger.log");
+                                        ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n], path + "\\WinS7ClientLogger.log");
                                         //Log
                                         log[n].Info("Save parameters in " + path);
                                         log[n].Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
-                                        log[0].Info("Save parameters in " + path);
-                                        log[0].Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
+                                        log0.Info("Save parameters in " + path);
+                                        log0.Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
 
 
                                         //Case 1. Save parameters
 
                                         //serialize "HE.xml"
                                         DatHE he1 = Serializer.DeserializeDatHE(path, ref buffer, ref error);
-                                        GlobalHelper.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_HE, 0, DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+                                        Global.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_HE, 0, DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
                                         DatHE he2 = Serializer.SerializeDatHE(path, buffer, ref error);
                                         Comparence.CompareClass(he1, he2, ref comparenceinfo);
                                         // Log
-                                        log[n].Info("Serializer.SerializeDatHE();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
+                                        log[n].Info("Serializer.SerializeDatHE();" + " " + aktWkzID + " to " + path + " error: " + error);
                                         log[n].Info(comparenceinfo);
-                                        log[0].Info("Serializer.SerializeDatHE();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
-                                        log[0].Info(comparenceinfo);
+                                        log0.Info("Serializer.SerializeDatHE();" + " " + aktWkzID + " to " + path + " error: " + error);
+                                        log0.Info(comparenceinfo);
 
                                         //serialize "Config.xml"
                                         DatConfig config1 = Serializer.DeserializeDatConfig(path, ref buffer, ref error);
-                                        GlobalHelper.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Config, 0, DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+                                        Global.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Config, 0, DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
                                         DatConfig config2 = Serializer.SerializeDatConfig(path, buffer, ref error);
                                         Comparence.CompareClass(config1, config2, ref comparenceinfo);
                                         // Log
-                                        log[n].Info("Serializer.SerializeDatConfig();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
+                                        log[n].Info("Serializer.SerializeDatConfig();" + " " + aktWkzID + " to " + path + " error: " + error);
                                         log[n].Info(comparenceinfo);
-                                        log[0].Info("Serializer.SerializeDatConfig();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
-                                        log[0].Info(comparenceinfo);
+                                        log0.Info("Serializer.SerializeDatConfig();" + " " + aktWkzID + " to " + path + " error: " + error);
+                                        log0.Info(comparenceinfo);
 
                                         //serialize "N2.xml"
                                         DatN2 n21 = Serializer.DeserializeDatN2(path, ref buffer, ref error);
-                                        GlobalHelper.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_N2, 0, DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+                                        Global.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_N2, 0, DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
                                         DatN2 n22 = Serializer.SerializeDatN2(path, buffer, ref error);
                                         Comparence.CompareClass(n21, n22, ref comparenceinfo);
                                         // Log
-                                        log[n].Info("Serializer.DeserializeDatN2();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
+                                        log[n].Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " to " + path + " error: " + error);
                                         log[n].Info(comparenceinfo);
-                                        log[0].Info("Serializer.DeserializeDatN2();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
-                                        log[0].Info(comparenceinfo);
+                                        log0.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " to " + path + " error: " + error);
+                                        log0.Info(comparenceinfo);
 
                                         //serialize "Werkzeug.xml"
                                         DatWerkzeug werkzeug1 = Serializer.DeserializeDatWerkzeug(path, ref buffer, ref error);
-                                        GlobalHelper.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Werkzeug, 0, DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+                                        Global.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Werkzeug, 0, DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
                                         DatWerkzeug werkzeug2 = Serializer.SerializeDatWerkzeug(path, buffer, ref error);
                                         Comparence.CompareClass(werkzeug1, werkzeug2, ref comparenceinfo);
                                         // Log
-                                        log[n].Info("Serializer.SerializeDatWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
+                                        log[n].Info("Serializer.SerializeDatWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
                                         log[n].Info(comparenceinfo);
-                                        log[0].Info("Serializer.SerializeDatWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
-                                        log[0].Info(comparenceinfo);
+                                        log0.Info("Serializer.SerializeDatWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
+                                        log0.Info(comparenceinfo);
 
                                         //serialize "MWerkzeug_54xxx.xml"
                                         DatMWerkzeug mwerkzeug1 = Serializer.DeserializeMWerkzeug(path, machineID, ref buffer, ref error);
-                                        GlobalHelper.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_MWerkzeug, 0, DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+                                        Global.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_MWerkzeug, 0, DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
                                         DatMWerkzeug mwerkzeug2 = Serializer.SerializeDatMWerkzeug(path, machineID, buffer, ref error);
                                         Comparence.CompareClass(mwerkzeug1, mwerkzeug2, ref comparenceinfo);
                                         // Log
-                                        log[n].Info("Serializer.DeserializeMWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
+                                        log[n].Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
                                         log[n].Info(comparenceinfo);
-                                        log[0].Info("Serializer.DeserializeMWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
-                                        log[0].Info(comparenceinfo);
+                                        log0.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
+                                        log0.Info(comparenceinfo);
 
                                         ServicePcToPlcs[n].ParamsSichernFertig = true;
                                     }
@@ -679,90 +733,90 @@ namespace WinS7Client
                                         path2 = halfpath1 + halfpath2;
 
                                         //ChangeLogFileName
-                                        ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n].ToString(), root + "\\WinS7ClientLogger" + n + ".log");
+                                        ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n], root + "\\WinS7ClientLogger" + n + ".log");
                                         // Log
                                         log[n].Info("RenameDirectory " + path + " >>> " + path2);
                                         log[n].Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
-                                        log[0].Info("RenameDirectory " + path + " >>> " + path2);
-                                        log[0].Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
+                                        log0.Info("RenameDirectory " + path + " >>> " + path2);
+                                        log0.Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
 
                                         RenameDirectory(path, path2);
 
 
                                         //ChangeLogFileName
-                                        ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n].ToString(), path2 + "\\WinS7ClientLogger.log");
+                                        ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n], path2 + "\\WinS7ClientLogger.log");
                                         //Log
                                         log[n].Info("RenameDirectory " + path + " >>> " + path2);
                                         log[n].Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
-                                        log[0].Info("RenameDirectory " + path + " >>> " + path2);
-                                        log[0].Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
+                                        log0.Info("RenameDirectory " + path + " >>> " + path2);
+                                        log0.Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
 
                                         path = path2;
 
                                         if (!string.IsNullOrEmpty(path) & Directory.Exists(path))
                                         {
                                             //ChangeLogFileName
-                                            ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n].ToString(), path + "\\WinS7ClientLogger.log");
+                                            ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n], path + "\\WinS7ClientLogger.log");
                                             //Log save
                                             log[n].Info("Save parameters in " + path);
                                             log[n].Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
-                                            log[0].Info("Save parameters in " + path);
-                                            log[0].Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
+                                            log0.Info("Save parameters in " + path);
+                                            log0.Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
 
                                             //serialize "HE.xml"
                                             DatHE he1 = Serializer.DeserializeDatHE(path, ref buffer, ref error);
-                                            GlobalHelper.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_HE, 0, DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+                                            Global.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_HE, 0, DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
                                             DatHE he2 = Serializer.SerializeDatHE(path, buffer, ref error);
                                             Comparence.CompareClass(he1, he2, ref comparenceinfo);
                                             // Log
-                                            log[n].Info("Serializer.SerializeDatHE();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
+                                            log[n].Info("Serializer.SerializeDatHE();" + " " + aktWkzID + " to " + path + " error: " + error);
                                             log[n].Info(comparenceinfo);
-                                            log[0].Info("Serializer.SerializeDatHE();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
-                                            log[0].Info(comparenceinfo);
+                                            log0.Info("Serializer.SerializeDatHE();" + " " + aktWkzID + " to " + path + " error: " + error);
+                                            log0.Info(comparenceinfo);
 
                                             //serialize "Config.xml"
                                             DatConfig config1 = Serializer.DeserializeDatConfig(path, ref buffer, ref error);
-                                            GlobalHelper.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Config, 0, DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+                                            Global.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Config, 0, DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
                                             DatConfig config2 = Serializer.SerializeDatConfig(path, buffer, ref error);
                                             Comparence.CompareClass(config1, config2, ref comparenceinfo);
                                             // Log
-                                            log[n].Info("Serializer.SerializeDatConfig();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
+                                            log[n].Info("Serializer.SerializeDatConfig();" + " " + aktWkzID + " to " + path + " error: " + error);
                                             log[n].Info(comparenceinfo);
-                                            log[0].Info("Serializer.SerializeDatConfig();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
-                                            log[0].Info(comparenceinfo);
+                                            log0.Info("Serializer.SerializeDatConfig();" + " " + aktWkzID + " to " + path + " error: " + error);
+                                            log0.Info(comparenceinfo);
 
                                             //serialize "N2.xml"
                                             DatN2 n21 = Serializer.DeserializeDatN2(path, ref buffer, ref error);
-                                            GlobalHelper.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_N2, 0, DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+                                            Global.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_N2, 0, DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
                                             DatN2 n22 = Serializer.SerializeDatN2(path, buffer, ref error);
                                             Comparence.CompareClass(n21, n22, ref comparenceinfo);
                                             // Log
-                                            log[n].Info("Serializer.SerializeDatN2();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
+                                            log[n].Info("Serializer.SerializeDatN2();" + " " + aktWkzID + " to " + path + " error: " + error);
                                             log[n].Info(comparenceinfo);
-                                            log[0].Info("Serializer.SerializeDatN2();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
-                                            log[0].Info(comparenceinfo);
+                                            log0.Info("Serializer.SerializeDatN2();" + " " + aktWkzID + " to " + path + " error: " + error);
+                                            log0.Info(comparenceinfo);
 
                                             //serialize "Werkzeug.xml"
                                             DatWerkzeug werkzeug1 = Serializer.DeserializeDatWerkzeug(path, ref buffer, ref error);
-                                            GlobalHelper.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Werkzeug, 0, DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+                                            Global.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Werkzeug, 0, DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
                                             DatWerkzeug werkzeug2 = Serializer.SerializeDatWerkzeug(path, buffer, ref error);
                                             Comparence.CompareClass(werkzeug1, werkzeug2, ref comparenceinfo);
                                             // Log
-                                            log[n].Info("Serializer.SerializeDatWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
+                                            log[n].Info("Serializer.SerializeDatWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
                                             log[n].Info(comparenceinfo);
-                                            log[0].Info("Serializer.SerializeDatWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
-                                            log[0].Info(comparenceinfo);
+                                            log0.Info("Serializer.SerializeDatWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
+                                            log0.Info(comparenceinfo);
 
                                             //serialize "MWerkzeug_54xxx.xml"
                                             DatMWerkzeug mwerkzeug1 = Serializer.DeserializeMWerkzeug(path, machineID, ref buffer, ref error);
-                                            GlobalHelper.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_MWerkzeug, 0, DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+                                            Global.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_MWerkzeug, 0, DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
                                             DatMWerkzeug mwerkzeug2 = Serializer.SerializeDatMWerkzeug(path, machineID, buffer, ref error);
                                             Comparence.CompareClass(mwerkzeug1, mwerkzeug2, ref comparenceinfo);
                                             // Log
-                                            log[n].Info("Serializer.SerializeDatMWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
+                                            log[n].Info("Serializer.SerializeDatMWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
                                             log[n].Info(comparenceinfo);
-                                            log[0].Info("Serializer.SerializeDatMWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
-                                            log[0].Info(comparenceinfo);
+                                            log0.Info("Serializer.SerializeDatMWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
+                                            log0.Info(comparenceinfo);
                                         }
 
                                         ServicePcToPlcs[n].ParamsSichernFertig = true;
@@ -770,17 +824,17 @@ namespace WinS7Client
                                         //Get all recipe folders
                                         ToolListClear(ref buffer);
 
-                                        GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
+                                        Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
 
                                         string[] subdirectoryEntries;
                                         subdirectoryEntries = GetSubDirectories(root);
 
                                         ToolListFillWithRecipes(subdirectoryEntries, ref buffer);
 
-                                        GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
+                                        Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
                                         //Log
                                         log[n].Info("ToolListFillWithRecipes" + " result: " + result);
-                                        log[0].Info("ToolListFillWithRecipes" + " result: " + result);
+                                        log0.Info("ToolListFillWithRecipes" + " result: " + result);
                                     }
                                 }
                                 else
@@ -791,51 +845,51 @@ namespace WinS7Client
                                     CreateDirectory(root, folder, ref path);
 
                                     //ChangeLogFileName
-                                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n].ToString(), path + "\\WinS7ClientLogger.log");
+                                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n], path + "\\WinS7ClientLogger.log");
                                     // Log
                                     log[n].Info("CreateDirectory " + path);
                                     log[n].Info("Save parameters in " + path);
                                     log[n].Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
-                                    log[0].Info("CreateDirectory " + path);
-                                    log[0].Info("Save parameters in " + path);
-                                    log[0].Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
+                                    log0.Info("CreateDirectory " + path);
+                                    log0.Info("Save parameters in " + path);
+                                    log0.Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
 
                                     if (!string.IsNullOrEmpty(path) & Directory.Exists(path))
                                     {
                                         //serialize "HE.xml"
-                                        GlobalHelper.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_HE, 0, DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+                                        Global.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_HE, 0, DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
                                         Serializer.SerializeDatHE(path, buffer, ref error);
                                         // Log
-                                        log[n].Info("Serializer.SerializeDatHE();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
-                                        log[0].Info("Serializer.SerializeDatHE();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
+                                        log[n].Info("Serializer.SerializeDatHE();" + " " + aktWkzID + " to " + path + " error: " + error);
+                                        log0.Info("Serializer.SerializeDatHE();" + " " + aktWkzID + " to " + path + " error: " + error);
 
                                         //serialize "Config.xml"
-                                        GlobalHelper.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Config, 0, DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+                                        Global.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Config, 0, DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
                                         Serializer.SerializeDatConfig(path, buffer, ref error);
                                         // Log
-                                        log[n].Info("Serializer.SerializeDatConfig();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
-                                        log[0].Info("Serializer.SerializeDatConfig();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
+                                        log[n].Info("Serializer.SerializeDatConfig();" + " " + aktWkzID + " to " + path + " error: " + error);
+                                        log0.Info("Serializer.SerializeDatConfig();" + " " + aktWkzID + " to " + path + " error: " + error);
 
                                         //serialize "N2.xml"
-                                        GlobalHelper.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_N2, 0, DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+                                        Global.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_N2, 0, DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
                                         Serializer.SerializeDatN2(path, buffer, ref error);
                                         // Log
-                                        log[n].Info("Serializer.SerializeDatN2();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
-                                        log[0].Info("Serializer.SerializeDatN2();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
+                                        log[n].Info("Serializer.SerializeDatN2();" + " " + aktWkzID + " to " + path + " error: " + error);
+                                        log0.Info("Serializer.SerializeDatN2();" + " " + aktWkzID + " to " + path + " error: " + error);
 
                                         //serialize "Werkzeug.xml"
-                                        GlobalHelper.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Werkzeug, 0, DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+                                        Global.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_Werkzeug, 0, DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
                                         Serializer.SerializeDatWerkzeug(path, buffer, ref error);
                                         // Log
-                                        log[n].Info("Serializer.SerializeDatWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
-                                        log[0].Info("Serializer.SerializeDatWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
+                                        log[n].Info("Serializer.SerializeDatWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
+                                        log0.Info("Serializer.SerializeDatWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
 
                                         //serialize "MWerkzeug_54xxx.xml"
-                                        GlobalHelper.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_MWerkzeug, 0, DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+                                        Global.ReadAreaPlc(client, S7Consts.S7AreaDB, DB_DAT_MWerkzeug, 0, DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
                                         Serializer.SerializeDatMWerkzeug(path, machineID, buffer, ref error);
                                         // Log
-                                        log[n].Info("Serializer.SerializeDatMWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
-                                        log[0].Info("Serializer.SerializeDatMWerkzeug();" + " " + ServicePlcToPcs[n].AktWerkzeugID + " to " + path + " error: " + error);
+                                        log[n].Info("Serializer.SerializeDatMWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
+                                        log0.Info("Serializer.SerializeDatMWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
                                     }
 
                                     ServicePcToPlcs[n].ParamsSichernFertig = true;
@@ -843,17 +897,17 @@ namespace WinS7Client
                                     //Get all recipe folders
                                     ToolListClear(ref buffer);
 
-                                    GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
+                                    Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
 
                                     string[] subdirectoryEntries;
                                     subdirectoryEntries = GetSubDirectories(root);
 
                                     ToolListFillWithRecipes(subdirectoryEntries, ref buffer);
 
-                                    GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
+                                    Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
                                     //Log
                                     log[n].Info("ToolListFillWithRecipes" + " result: " + result);
-                                    log[0].Info("ToolListFillWithRecipes" + " result: " + result);
+                                    log0.Info("ToolListFillWithRecipes" + " result: " + result);
                                 }
 
                             }
@@ -874,12 +928,12 @@ namespace WinS7Client
                                 path = GetSubDirectoryById(root, ServicePlcToPcs[n].LoeschWerkzeugID);
 
                                 //ChangeLogFileName
-                                ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n].ToString(), root + "\\WinS7ClientLogger" + n + ".log");
+                                ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n], root + "\\WinS7ClientLogger" + n + ".log");
                                 //Log
                                 log[n].Info("DeleteDirectory " + path);
                                 log[n].Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
-                                log[0].Info("DeleteDirectory " + path);
-                                log[0].Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
+                                log0.Info("DeleteDirectory " + path);
+                                log0.Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
 
                                 if (!string.IsNullOrEmpty(path) & Directory.Exists(path))
                                 {
@@ -887,8 +941,8 @@ namespace WinS7Client
                                     //Log
                                     log[n].Info("Deleted Directory " + path);
                                     log[n].Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
-                                    log[0].Info("Deleted Directory " + path);
-                                    log[0].Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
+                                    log0.Info("Deleted Directory " + path);
+                                    log0.Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
                                 }
 
                                 ServicePcToPlcs[n].DatLoeschenFertig = true;
@@ -896,17 +950,17 @@ namespace WinS7Client
                                 //Get all recipe folders
                                 ToolListClear(ref buffer);
 
-                                GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
+                                Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
 
                                 string[] subdirectoryEntries;
                                 subdirectoryEntries = GetSubDirectories(root);
 
                                 ToolListFillWithRecipes(subdirectoryEntries, ref buffer);
 
-                                GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
+                                Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
                                 //Log
                                 log[n].Info("ToolListFillWithRecipes" + " result: " + result);
-                                log[0].Info("ToolListFillWithRecipes" + " result: " + result);
+                                log0.Info("ToolListFillWithRecipes" + " result: " + result);
 
                             }
                             //Delete recipe folder <---
@@ -933,8 +987,11 @@ namespace WinS7Client
                             S7.SetBitAt(ref buffer, 5, 3, ServicePcToPlcs[n].ParamWerkzeugOK);
                             S7.SetBitAt(ref buffer, 5, 4, ServicePcToPlcs[n].ParamMWerkzeugOK);
 
-                            GlobalHelper.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_PcToPlc, 0, DB_Service_PcToPlc_Length, S7Consts.S7WLByte, buffer, ref result);
+                            Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_PcToPlc, 0, DB_Service_PcToPlc_Length, S7Consts.S7WLByte, buffer, ref result);
                             ShowResult(result, client);
+
+                            //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger default file
+                            ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger.log");
 
                             #endregion
                         }
@@ -945,6 +1002,12 @@ namespace WinS7Client
                 }
                 catch (Exception ex)
                 {
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
+                    log0.Error("Exception: " + ex.Message.ToString());
+
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger default file
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger.log");
 
                     //throw;
                 }
@@ -993,6 +1056,7 @@ namespace WinS7Client
                 HeartbeatTimeStamp[i] = DateTime.Now;
             }
 
+            // Appender's Names
             var appenders = log4net.LogManager.GetRepository().GetAppenders();
             appenderName[0] = appenders[0].Name;
             appenderName[1] = appenders[1].Name;
@@ -1006,22 +1070,36 @@ namespace WinS7Client
             appenderName[9] = appenders[9].Name;
             appenderName[10] = appenders[10].Name;
 
-            for (int i = 0; i < log.Length; i++)
-            {
-                log[i] = log4net.LogManager.GetLogger("RollingFileAppender" + i);
-            }
+            //for (int i = 0; i < log.Length; i++)
+            //{
+            //    log[i] = log4net.LogManager.GetLogger("RollingFileAppender" + i);
+            //}
 
-            //log[0] = log4net.LogManager.GetLogger("RollingFileAppender0");
-            //log[1] = log4net.LogManager.GetLogger("RollingFileAppender1");
-            //log[2] = log4net.LogManager.GetLogger("RollingFileAppender2");
-            //log[3] = log4net.LogManager.GetLogger("RollingFileAppender3");
-            //log[4] = log4net.LogManager.GetLogger("RollingFileAppender4");
-            //log[5] = log4net.LogManager.GetLogger("RollingFileAppender5");
-            //log[6] = log4net.LogManager.GetLogger("RollingFileAppender6");
-            //log[7] = log4net.LogManager.GetLogger("RollingFileAppender7");
-            //log[8] = log4net.LogManager.GetLogger("RollingFileAppender8");
-            //log[9] = log4net.LogManager.GetLogger("RollingFileAppender9");
-            //log[10] = log4net.LogManager.GetLogger("RollingFileAppender10");
+            // Loggers
+            log[0] = log0;
+            log[1] = log1;
+            log[2] = log2;
+            log[3] = log3;
+            log[4] = log4;
+            log[5] = log5;
+            log[6] = log6;
+            log[7] = log7;
+            log[8] = log8;
+            log[9] = log9;
+            log[10] = log10;
+
+            // Loggers Test Start
+            log[0].Info("Start0");
+            log[1].Info("Start1");
+            log[2].Info("Start2");
+            log[3].Info("Start3");
+            log[4].Info("Start4");
+            log[5].Info("Start5");
+            log[6].Info("Start6");
+            log[7].Info("Start7");
+            log[8].Info("Start8");
+            log[9].Info("Start9");
+            log[10].Info("Start10");
 
             // Threads
             //tPlc1 = new Thread(new ThreadStart(Plc1));
@@ -1038,9 +1116,6 @@ namespace WinS7Client
             tPlc6.Start();
             tPlc7 = new Thread(new ThreadStart(Plc7));
             tPlc7.Start();
-
-            
-
 
             // PLC3
             tbIpAddressPlc3.Text = PlcIpAddress[3];
@@ -1147,7 +1222,7 @@ namespace WinS7Client
         {
             // This function returns a textual explaination of the error code
 
-            string error = GlobalHelper.ShowResultClient(result, client);
+            string error = Global.ShowResultClient(result, client);
 
             S7Client[] tempclient = new S7Client[11];
 
@@ -1301,9 +1376,9 @@ namespace WinS7Client
             int slot = tbSlotPlc3.Text.ParseInt();
             string error;
 
-            result = await GlobalHelper.ConnectToClientAsync(S7Clients[3], address, rack, slot);
+            result = await Global.ConnectToClientAsync(S7Clients[3], address, rack, slot);
 
-            error = GlobalHelper.ShowResultClient(result, S7Clients[3]);
+            error = Global.ShowResultClient(result, S7Clients[3]);
             tbTextErrorPlc3.Text = error;
 
             if (result == 0)
@@ -1313,7 +1388,7 @@ namespace WinS7Client
                 //tabControl.Enabled = true;
 
                 S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
-                GlobalHelper.ReadCPUInfo(S7Clients[3], ref info, ref result);
+                Global.ReadCPUInfo(S7Clients[3], ref info, ref result);
                 if (result == 0)
                 {
                     tbModuleTypeNamePlc3.Text = info.ModuleTypeName;
@@ -1324,7 +1399,7 @@ namespace WinS7Client
                 }
 
                 S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
-                GlobalHelper.ReadOrderCode(S7Clients[3], ref orderCode, ref result);
+                Global.ReadOrderCode(S7Clients[3], ref orderCode, ref result);
                 if (result == 0)
                 {
                     tbOrderCodePlc3.Text = orderCode.Code;
@@ -1381,9 +1456,9 @@ namespace WinS7Client
             int slot = tbSlotPlc4.Text.ParseInt();
             string error;
 
-            result = await GlobalHelper.ConnectToClientAsync(S7Clients[4], address, rack, slot);
+            result = await Global.ConnectToClientAsync(S7Clients[4], address, rack, slot);
 
-            error = GlobalHelper.ShowResultClient(result, S7Clients[4]);
+            error = Global.ShowResultClient(result, S7Clients[4]);
             tbTextErrorPlc4.Text = error;
 
             if (result == 0)
@@ -1393,7 +1468,7 @@ namespace WinS7Client
                 //tabControl.Enabled = true;
 
                 S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
-                GlobalHelper.ReadCPUInfo(S7Clients[4], ref info, ref result);
+                Global.ReadCPUInfo(S7Clients[4], ref info, ref result);
                 if (result == 0)
                 {
                     tbModuleTypeNamePlc4.Text = info.ModuleTypeName;
@@ -1404,7 +1479,7 @@ namespace WinS7Client
                 }
 
                 S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
-                GlobalHelper.ReadOrderCode(S7Clients[4], ref orderCode, ref result);
+                Global.ReadOrderCode(S7Clients[4], ref orderCode, ref result);
                 if (result == 0)
                 {
                     tbOrderCodePlc4.Text = orderCode.Code;
@@ -1461,9 +1536,9 @@ namespace WinS7Client
             int slot = tbSlotPlc5.Text.ParseInt();
             string error;
 
-            result = await GlobalHelper.ConnectToClientAsync(S7Clients[5], address, rack, slot);
+            result = await Global.ConnectToClientAsync(S7Clients[5], address, rack, slot);
 
-            error = GlobalHelper.ShowResultClient(result, S7Clients[5]);
+            error = Global.ShowResultClient(result, S7Clients[5]);
             tbTextErrorPlc5.Text = error;
 
             if (result == 0)
@@ -1473,7 +1548,7 @@ namespace WinS7Client
                 //tabControl.Enabled = true;
 
                 S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
-                GlobalHelper.ReadCPUInfo(S7Clients[5], ref info, ref result);
+                Global.ReadCPUInfo(S7Clients[5], ref info, ref result);
                 if (result == 0)
                 {
                     tbModuleTypeNamePlc5.Text = info.ModuleTypeName;
@@ -1484,7 +1559,7 @@ namespace WinS7Client
                 }
 
                 S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
-                GlobalHelper.ReadOrderCode(S7Clients[5], ref orderCode, ref result);
+                Global.ReadOrderCode(S7Clients[5], ref orderCode, ref result);
                 if (result == 0)
                 {
                     tbOrderCodePlc5.Text = orderCode.Code;
@@ -1541,9 +1616,9 @@ namespace WinS7Client
             int slot = tbSlotPlc6.Text.ParseInt();
             string error;
 
-            result = await GlobalHelper.ConnectToClientAsync(S7Clients[6], address, rack, slot);
+            result = await Global.ConnectToClientAsync(S7Clients[6], address, rack, slot);
 
-            error = GlobalHelper.ShowResultClient(result, S7Clients[6]);
+            error = Global.ShowResultClient(result, S7Clients[6]);
             tbTextErrorPlc6.Text = error;
 
             if (result == 0)
@@ -1553,7 +1628,7 @@ namespace WinS7Client
                 //tabControl.Enabled = true;
 
                 S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
-                GlobalHelper.ReadCPUInfo(S7Clients[6], ref info, ref result);
+                Global.ReadCPUInfo(S7Clients[6], ref info, ref result);
                 if (result == 0)
                 {
                     tbModuleTypeNamePlc6.Text = info.ModuleTypeName;
@@ -1564,7 +1639,7 @@ namespace WinS7Client
                 }
 
                 S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
-                GlobalHelper.ReadOrderCode(S7Clients[6], ref orderCode, ref result);
+                Global.ReadOrderCode(S7Clients[6], ref orderCode, ref result);
                 if (result == 0)
                 {
                     tbOrderCodePlc6.Text = orderCode.Code;
@@ -1621,9 +1696,9 @@ namespace WinS7Client
             int slot = tbSlotPlc7.Text.ParseInt();
             string error;
 
-            result = await GlobalHelper.ConnectToClientAsync(S7Clients[7], address, rack, slot);
+            result = await Global.ConnectToClientAsync(S7Clients[7], address, rack, slot);
 
-            error = GlobalHelper.ShowResultClient(result, S7Clients[7]);
+            error = Global.ShowResultClient(result, S7Clients[7]);
             tbTextErrorPlc7.Text = error;
 
             if (result == 0)
@@ -1633,7 +1708,7 @@ namespace WinS7Client
                 //tabControl.Enabled = true;
 
                 S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
-                GlobalHelper.ReadCPUInfo(S7Clients[7], ref info, ref result);
+                Global.ReadCPUInfo(S7Clients[7], ref info, ref result);
                 if (result == 0)
                 {
                     tbModuleTypeNamePlc7.Text = info.ModuleTypeName;
@@ -1644,7 +1719,7 @@ namespace WinS7Client
                 }
 
                 S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
-                GlobalHelper.ReadOrderCode(S7Clients[7], ref orderCode, ref result);
+                Global.ReadOrderCode(S7Clients[7], ref orderCode, ref result);
                 if (result == 0)
                 {
                     tbOrderCodePlc7.Text = orderCode.Code;
@@ -1921,7 +1996,7 @@ namespace WinS7Client
             }
 
             //btn3 - PLC3 Animation
-            if (ServicePcToPlcs[3].LifeBit)
+            if (S7Clients[3].Connected & ServicePcToPlcs[3].LifeBit)
             {
                 btn3.BackColor = Color.Green;
             }
@@ -1930,7 +2005,7 @@ namespace WinS7Client
                 btn3.BackColor = Color.LightGray;
             }
             //btn4 - PLC4 Animation
-            if (ServicePcToPlcs[4].LifeBit)
+            if (S7Clients[4].Connected & ServicePcToPlcs[4].LifeBit)
             {
                 btn4.BackColor = Color.Green;
             }
@@ -1939,7 +2014,7 @@ namespace WinS7Client
                 btn4.BackColor = Color.LightGray;
             }
             //btn5 - PLC5 Animation
-            if (ServicePcToPlcs[5].LifeBit)
+            if (S7Clients[5].Connected & ServicePcToPlcs[5].LifeBit)
             {
                 btn5.BackColor = Color.Green;
             }
@@ -1948,7 +2023,7 @@ namespace WinS7Client
                 btn5.BackColor = Color.LightGray;
             }
             //btn7 - PLC6 Animation
-            if (ServicePcToPlcs[6].LifeBit)
+            if (S7Clients[6].Connected & ServicePcToPlcs[6].LifeBit)
             {
                 btn6.BackColor = Color.Green;
             }
@@ -1957,7 +2032,7 @@ namespace WinS7Client
                 btn6.BackColor = Color.LightGray;
             }
             //btn7 - PLC7 Animation
-            if (ServicePcToPlcs[7].LifeBit)
+            if (S7Clients[7].Connected & ServicePcToPlcs[7].LifeBit)
             {
                 btn7.BackColor = Color.Green;
             }
@@ -2251,15 +2326,18 @@ namespace WinS7Client
 
         private void button1_Click(object sender, EventArgs e)
         {
-            log[7].Info("Serializer.DeserializeMWerkzeug();" + " " + "ServicePlcToPcs[n].AktWerkzeugID" + " to PLC70 " + " result: " + "result");
-            //@"e:\\path\\WinS7ClientLogger.log"
-            ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[7], @"e:\\Recipes\\WinS7ClientLogger71.log");
-            log[7].Info("Serializer.DeserializeMWerkzeug();" + " " + "ServicePlcToPcs[n].AktWerkzeugID" + " to PLC71 " + " result: " + "result");
-            ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[7], @"e:\\Recipes\\WinS7ClientLogger72.log");
-            log[7].Info("Serializer.DeserializeMWerkzeug();" + " " + "ServicePlcToPcs[n].AktWerkzeugID" + " to PLC72 " + " result: " + "result");
+            log0.Info("Serializer.DeserializeMWerkzeug();" + " " + "ServicePlcToPcs[n].AktWerkzeugID" + " to PLC50 " + " result: " + "result");
+            log1.Info("Serializer.DeserializeMWerkzeug();" + " " + "ServicePlcToPcs[n].AktWerkzeugID" + " to PLC70 " + " result: " + "result");
+            ////@"e:\\path\\WinS7ClientLogger.log"
+            //ChangeLogFileName("RollingFileAppender0", @"e:\\dotnet\\WinS7ClientLogger51.log");
+            log0.Info("Serializer.DeserializeMWerkzeug();" + " " + "ServicePlcToPcs[n].AktWerkzeugID" + " to PLC51 " + " result: " + "result");
+            //ChangeLogFileName("RollingFileAppender1", @"e:\\dotnet\\WinS7ClientLogger71.log");
+            //log1.Info("Serializer.DeserializeMWerkzeug();" + " " + "ServicePlcToPcs[n].AktWerkzeugID" + " to PLC71 " + " result: " + "result");
 
-            ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[5], @"e:\\Recipes\\WinS7ClientLogger51.log");
-            log[5].Info("Serializer.DeserializeMWerkzeug();" + " " + "ServicePlcToPcs[n].AktWerkzeugID" + " to PLC51 " + " result: " + "result");
+            //ChangeLogFileName("RollingFileAppender0", @"e:\\dotnet\\WinS7ClientLogger52.log");
+            log0.Info("Serializer.DeserializeMWerkzeug();" + " " + "ServicePlcToPcs[n].AktWerkzeugID" + " to PLC52 " + " result: " + "result");
+            //ChangeLogFileName("RollingFileAppender1", @"e:\\dotnet\\WinS7ClientLogger72.log");
+            //log1.Info("Serializer.DeserializeMWerkzeug();" + " " + "ServicePlcToPcs[n].AktWerkzeugID" + " to PLC72 " + " result: " + "result");
         }
     }
 }

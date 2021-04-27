@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace WinS7Library
+namespace WinS7Library.Helper
 {
-    public static class GlobalHelper
+    public static class Global
     {
         public static async Task<int> ConnectToClientAsync(S7Client client, string address, int rack, int slot)
         {

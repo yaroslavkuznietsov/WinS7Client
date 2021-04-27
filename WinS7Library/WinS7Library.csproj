@@ -53,31 +53,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GlobalHelper.cs" />
-    <Compile Include="HelperSerializer\Comparence.cs" />
-    <Compile Include="HelperSerializer\DatConfig.cs" />
-    <Compile Include="HelperSerializer\DatHE.cs" />
-    <Compile Include="HelperSerializer\DatMWerkzeug.cs" />
-    <Compile Include="HelperSerializer\DatN2.cs" />
-    <Compile Include="HelperSerializer\DatWerkzeug.cs" />
-    <Compile Include="HelperSerializer\Serializer.cs" />
-    <Compile Include="Helper\Animal.cs" />
+    <Compile Include="Helper\Global.cs" />
+    <Compile Include="Helper\Comparence.cs" />
+    <Compile Include="Model\DatConfig.cs" />
+    <Compile Include="Model\DatHE.cs" />
+    <Compile Include="Model\DatMWerkzeug.cs" />
+    <Compile Include="Model\DatN2.cs" />
+    <Compile Include="Model\DatWerkzeug.cs" />
+    <Compile Include="Helper\Serializer.cs" />
+    <Compile Include="Examples\Animal.cs" />
     <Compile Include="Helper\ChangeLogFileNameForLog4Net.cs" />
-    <Compile Include="Helper\CombineByteArrays.cs" />
-    <Compile Include="Helper\ConcatByteArraysHelper.cs" />
+    <Compile Include="Examples\CombineByteArrays.cs" />
+    <Compile Include="Examples\ConcatByteArraysHelper.cs" />
     <Compile Include="Helper\ConnHelper.cs" />
-    <Compile Include="Helper\DataTableConverterExtensions.cs" />
-    <Compile Include="Helper\DataTableConverterExtensions2.cs" />
+    <Compile Include="Examples\DataTableConverterExtensions.cs" />
+    <Compile Include="Examples\DataTableConverterExtensions2.cs" />
     <Compile Include="Helper\DoubleExtensions.cs" />
     <Compile Include="Helper\IntegerExtensions.cs" />
     <Compile Include="Helper\ParseStringHelper.cs" />
-    <Compile Include="Helper\ReadDB.cs" />
+    <Compile Include="Examples\ReadDB.cs" />
     <Compile Include="Helper\ShortExtensions.cs" />
     <Compile Include="Helper\ToolTipGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServicePcToPlc.cs" />
-    <Compile Include="ServicePlcToPc.cs" />
-    <Compile Include="Sharp7.cs" />
+    <Compile Include="Model\ServicePcToPlc.cs" />
+    <Compile Include="Model\ServicePlcToPc.cs" />
+    <Compile Include="Helper\Sharp7.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

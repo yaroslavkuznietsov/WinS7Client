@@ -6,8 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using WinS7Library.Model;
 
-namespace WinS7Library.HelperSerializer
+namespace WinS7Library.Helper
 {
     public static class Serializer
     {

@@ -23,8 +23,7 @@ namespace WinS7Client
         /// </summary>
         #region Fields
         private int _ticks;
-        private ServiceForm myServiceForm1;
-        private ServiceForm myServiceForm2;
+        private ServiceForm myServiceForm;
 
         private S7Client[] S7Clients = new S7Client[11];
         private string[] PlcIpAddress = new string[11];
@@ -98,8 +97,7 @@ namespace WinS7Client
             InitializeComponent();
             //TimerForm.Start();
 
-            myServiceForm1 = new ServiceForm();
-            myServiceForm2 = new ServiceForm();
+            myServiceForm = new ServiceForm();
         } 
         #endregion
 
@@ -1950,20 +1948,19 @@ namespace WinS7Client
         {
             if (panelService.Visible)
             {
-                if (!myServiceForm2.IsHandleCreated)
+                if (!myServiceForm.IsHandleCreated)
                 {
-                    myServiceForm2 = new ServiceForm() { Dock = DockStyle.None, TopLevel = false, TopMost = true };
-                    myServiceForm2.FormBorderStyle = FormBorderStyle.None;
-                    panelService.Controls.Add(myServiceForm2);
-                    myServiceForm2.Show();
+                    myServiceForm = new ServiceForm() { Dock = DockStyle.None, TopLevel = false, TopMost = true };
+                    myServiceForm.FormBorderStyle = FormBorderStyle.None;
+                    panelService.Controls.Add(myServiceForm);
+                    myServiceForm.Show();
                 }
-
             }
             else
             {
-                if (myServiceForm2.IsHandleCreated)
+                if (myServiceForm.IsHandleCreated)
                 {
-                    //myServiceForm2.Dispose();
+                    //myServiceForm.Dispose();
                 }
             }
         }

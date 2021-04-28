@@ -2109,13 +2109,17 @@ namespace WinS7Client
             Array.Clear(buffer, 0, 65536);
             int shiftName = 0;
             int shiftId = 22;
+            //int shiftId = 42;   //shiftName += 44;    // v.4 Changes for customer 28.04.2021 -> 40 Signs
             for (int i = 0; i < 127; i++)
             {
                 S7.SetStringAt(buffer, shiftName, 20, string.Empty);
+                //S7.SetStringAt(buffer, shiftName, 40, string.Empty);  // v.4 Changes for customer 28.04.2021 -> 40 Signs
                 S7.SetIntAt(buffer, shiftId, 0);
 
                 shiftName += 24;
                 shiftId += 24;
+                //shiftName += 44;    // v.4 Changes for customer 28.04.2021 -> 40 Signs
+                //shiftId += 44;      // v.4 Changes for customer 28.04.2021 -> 40 Signs
             }
         }
 
@@ -2123,6 +2127,7 @@ namespace WinS7Client
         {
             int shiftName = 0;
             int shiftId = 22;
+            //int shiftId = 42;   //shiftName += 44;    // v.4 Changes for customer 28.04.2021 -> 40 Signs
             Array.Clear(buffer, 0, 65536);
 
             foreach (string subdirectory in subdirectoryEntries)
@@ -2137,6 +2142,7 @@ namespace WinS7Client
                     else
                     {
                         S7.SetIntAt(buffer, 3070, (subdirectory.Substring(11, 3)).ParseShort());
+                        //S7.SetIntAt(buffer, 5630, (subdirectory.Substring(11, 3)).ParseShort());  //Critical change for customer 09.04.2021. Should be checked!!!
                     }
                 }
                 else
@@ -2150,20 +2156,25 @@ namespace WinS7Client
                     string s1 = subdirectory.Substring(11, 3);
                     if (s1.ParseShort() != 255) //Critical change for customer 09.04.2021. Should be checked!!!
                     {
-                        S7.SetStringAt(buffer, shiftName, 20, subdirectory.Substring(15)); 
+                        S7.SetStringAt(buffer, shiftName, 20, subdirectory.Substring(15));
+                        //S7.SetStringAt(buffer, shiftName, 40, subdirectory.Substring(15));  // v.4 Changes for customer 28.04.2021 -> 40 Signs
                     }
                     else
                     {
                         S7.SetStringAt(buffer, 3048, 20, subdirectory.Substring(15));
+                        //S7.SetStringAt(buffer, 5588, 40, subdirectory.Substring(15));  // v.4 Changes for customer 28.04.2021 -> 40 Signs
                     }
                 }
                 else
                 {
                     S7.SetStringAt(buffer, shiftName, 20, string.Empty);
+                    //S7.SetStringAt(buffer, shiftName, 40, string.Empty);  // v.4 Changes for customer 28.04.2021 -> 40 Signs
                 }
 
                 shiftName += 24;
                 shiftId += 24;
+                //shiftName += 44;    // v.4 Changes for customer 28.04.2021 -> 40 Signs
+                //shiftId += 44;      // v.4 Changes for customer 28.04.2021 -> 40 Signs
             }
         }
 

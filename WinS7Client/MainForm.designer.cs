@@ -46,33 +46,6 @@
             this.btn10 = new System.Windows.Forms.Button();
             this.btnService = new System.Windows.Forms.Button();
             this.panelMain = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.richTextBoxPlc4 = new System.Windows.Forms.RichTextBox();
-            this.btnReadDirsPlc4 = new System.Windows.Forms.Button();
-            this.lblBytesReadTextPlc4 = new System.Windows.Forms.Label();
-            this.lblBytesReadPlc4 = new System.Windows.Forms.Label();
-            this.tbDumpPlc4 = new System.Windows.Forms.TextBox();
-            this.lblVersionPlc4 = new System.Windows.Forms.Label();
-            this.tbVersionPlc4 = new System.Windows.Forms.TextBox();
-            this.lblOrderCodePlc4 = new System.Windows.Forms.Label();
-            this.tbOrderCodePlc4 = new System.Windows.Forms.TextBox();
-            this.lblModuleNamePlc4 = new System.Windows.Forms.Label();
-            this.tbModuleNamePlc4 = new System.Windows.Forms.TextBox();
-            this.lblAsNamePlc4 = new System.Windows.Forms.Label();
-            this.tbAsNamePlc4 = new System.Windows.Forms.TextBox();
-            this.lblCopyrightPlc4 = new System.Windows.Forms.Label();
-            this.tbCopyrightPlc4 = new System.Windows.Forms.TextBox();
-            this.lblSerialNumberPlc4 = new System.Windows.Forms.Label();
-            this.tbSerialNumberPlc4 = new System.Windows.Forms.TextBox();
-            this.lblModuleTypeNamePlc4 = new System.Windows.Forms.Label();
-            this.tbModuleTypeNamePlc4 = new System.Windows.Forms.TextBox();
-            this.tbTextErrorPlc4 = new System.Windows.Forms.TextBox();
-            this.btnDisconnectPlc4 = new System.Windows.Forms.Button();
-            this.btnConnectPlc4 = new System.Windows.Forms.Button();
-            this.tbSlotPlc4 = new System.Windows.Forms.TextBox();
-            this.tbRackPlc4 = new System.Windows.Forms.TextBox();
-            this.tbIpAddressPlc4 = new System.Windows.Forms.TextBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.gbPLC7 = new System.Windows.Forms.GroupBox();
             this.richTextBoxPlc7 = new System.Windows.Forms.RichTextBox();
@@ -100,6 +73,33 @@
             this.tbSlotPlc7 = new System.Windows.Forms.TextBox();
             this.tbRackPlc7 = new System.Windows.Forms.TextBox();
             this.tbIpAddressPlc7 = new System.Windows.Forms.TextBox();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.richTextBoxPlc4 = new System.Windows.Forms.RichTextBox();
+            this.btnReadDirsPlc4 = new System.Windows.Forms.Button();
+            this.lblBytesReadTextPlc4 = new System.Windows.Forms.Label();
+            this.lblBytesReadPlc4 = new System.Windows.Forms.Label();
+            this.tbDumpPlc4 = new System.Windows.Forms.TextBox();
+            this.lblVersionPlc4 = new System.Windows.Forms.Label();
+            this.tbVersionPlc4 = new System.Windows.Forms.TextBox();
+            this.lblOrderCodePlc4 = new System.Windows.Forms.Label();
+            this.tbOrderCodePlc4 = new System.Windows.Forms.TextBox();
+            this.lblModuleNamePlc4 = new System.Windows.Forms.Label();
+            this.tbModuleNamePlc4 = new System.Windows.Forms.TextBox();
+            this.lblAsNamePlc4 = new System.Windows.Forms.Label();
+            this.tbAsNamePlc4 = new System.Windows.Forms.TextBox();
+            this.lblCopyrightPlc4 = new System.Windows.Forms.Label();
+            this.tbCopyrightPlc4 = new System.Windows.Forms.TextBox();
+            this.lblSerialNumberPlc4 = new System.Windows.Forms.Label();
+            this.tbSerialNumberPlc4 = new System.Windows.Forms.TextBox();
+            this.lblModuleTypeNamePlc4 = new System.Windows.Forms.Label();
+            this.tbModuleTypeNamePlc4 = new System.Windows.Forms.TextBox();
+            this.tbTextErrorPlc4 = new System.Windows.Forms.TextBox();
+            this.btnDisconnectPlc4 = new System.Windows.Forms.Button();
+            this.btnConnectPlc4 = new System.Windows.Forms.Button();
+            this.tbSlotPlc4 = new System.Windows.Forms.TextBox();
+            this.tbRackPlc4 = new System.Windows.Forms.TextBox();
+            this.tbIpAddressPlc4 = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.gbPLC3 = new System.Windows.Forms.GroupBox();
             this.richTextBoxPlc3 = new System.Windows.Forms.RichTextBox();
@@ -187,14 +187,13 @@
             this.panel10 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.panelTop.SuspendLayout();
             this.panelLeft.SuspendLayout();
             this.panelMain.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.panel7.SuspendLayout();
             this.gbPLC7.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.gbPLC3.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -393,6 +392,281 @@
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(1250, 604);
             this.panelMain.TabIndex = 3;
+            // 
+            // panel7
+            // 
+            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel7.Controls.Add(this.gbPLC7);
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel7.Location = new System.Drawing.Point(0, 0);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(1246, 600);
+            this.panel7.TabIndex = 6;
+            // 
+            // gbPLC7
+            // 
+            this.gbPLC7.Controls.Add(this.richTextBoxPlc7);
+            this.gbPLC7.Controls.Add(this.btnReadDirsPlc7);
+            this.gbPLC7.Controls.Add(this.lblBytesReadTextPlc7);
+            this.gbPLC7.Controls.Add(this.lblBytesReadPlc7);
+            this.gbPLC7.Controls.Add(this.tbDumpPlc7);
+            this.gbPLC7.Controls.Add(this.lblVersionPlc7);
+            this.gbPLC7.Controls.Add(this.tbVersionPlc7);
+            this.gbPLC7.Controls.Add(this.lblOrderCodePlc7);
+            this.gbPLC7.Controls.Add(this.tbOrderCodePlc7);
+            this.gbPLC7.Controls.Add(this.lblModuleNamePlc7);
+            this.gbPLC7.Controls.Add(this.tbModuleNamePlc7);
+            this.gbPLC7.Controls.Add(this.lblAsNamePlc7);
+            this.gbPLC7.Controls.Add(this.tbAsNamePlc7);
+            this.gbPLC7.Controls.Add(this.lblCopyrightPlc7);
+            this.gbPLC7.Controls.Add(this.tbCopyrightPlc7);
+            this.gbPLC7.Controls.Add(this.lblSerialNumberPlc7);
+            this.gbPLC7.Controls.Add(this.tbSerialNumberPlc7);
+            this.gbPLC7.Controls.Add(this.lblModuleTypeNamePlc7);
+            this.gbPLC7.Controls.Add(this.tbModuleTypeNamePlc7);
+            this.gbPLC7.Controls.Add(this.tbTextErrorPlc7);
+            this.gbPLC7.Controls.Add(this.btnDisconnectPlc7);
+            this.gbPLC7.Controls.Add(this.btnConnectPlc7);
+            this.gbPLC7.Controls.Add(this.tbSlotPlc7);
+            this.gbPLC7.Controls.Add(this.tbRackPlc7);
+            this.gbPLC7.Controls.Add(this.tbIpAddressPlc7);
+            this.gbPLC7.Dock = System.Windows.Forms.DockStyle.Left;
+            this.gbPLC7.Location = new System.Drawing.Point(0, 0);
+            this.gbPLC7.Name = "gbPLC7";
+            this.gbPLC7.Size = new System.Drawing.Size(380, 596);
+            this.gbPLC7.TabIndex = 1;
+            this.gbPLC7.TabStop = false;
+            this.gbPLC7.Text = "PLC7";
+            // 
+            // richTextBoxPlc7
+            // 
+            this.richTextBoxPlc7.Location = new System.Drawing.Point(4, 298);
+            this.richTextBoxPlc7.Name = "richTextBoxPlc7";
+            this.richTextBoxPlc7.ReadOnly = true;
+            this.richTextBoxPlc7.Size = new System.Drawing.Size(369, 269);
+            this.richTextBoxPlc7.TabIndex = 84;
+            this.richTextBoxPlc7.Text = "";
+            // 
+            // btnReadDirsPlc7
+            // 
+            this.btnReadDirsPlc7.Location = new System.Drawing.Point(273, 271);
+            this.btnReadDirsPlc7.Name = "btnReadDirsPlc7";
+            this.btnReadDirsPlc7.Size = new System.Drawing.Size(100, 23);
+            this.btnReadDirsPlc7.TabIndex = 81;
+            this.btnReadDirsPlc7.Text = "ReadDirs";
+            this.btnReadDirsPlc7.UseVisualStyleBackColor = true;
+            this.btnReadDirsPlc7.Click += new System.EventHandler(this.btnReadDirsPlc7_Click);
+            // 
+            // lblBytesReadTextPlc7
+            // 
+            this.lblBytesReadTextPlc7.AutoSize = true;
+            this.lblBytesReadTextPlc7.Location = new System.Drawing.Point(7, 276);
+            this.lblBytesReadTextPlc7.Name = "lblBytesReadTextPlc7";
+            this.lblBytesReadTextPlc7.Size = new System.Drawing.Size(62, 13);
+            this.lblBytesReadTextPlc7.TabIndex = 78;
+            this.lblBytesReadTextPlc7.Text = "Bytes Read";
+            // 
+            // lblBytesReadPlc7
+            // 
+            this.lblBytesReadPlc7.AutoSize = true;
+            this.lblBytesReadPlc7.Location = new System.Drawing.Point(84, 276);
+            this.lblBytesReadPlc7.Name = "lblBytesReadPlc7";
+            this.lblBytesReadPlc7.Size = new System.Drawing.Size(13, 13);
+            this.lblBytesReadPlc7.TabIndex = 77;
+            this.lblBytesReadPlc7.Text = "0";
+            this.lblBytesReadPlc7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tbDumpPlc7
+            // 
+            this.tbDumpPlc7.BackColor = System.Drawing.Color.White;
+            this.tbDumpPlc7.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbDumpPlc7.ForeColor = System.Drawing.Color.Black;
+            this.tbDumpPlc7.Location = new System.Drawing.Point(4, 192);
+            this.tbDumpPlc7.Multiline = true;
+            this.tbDumpPlc7.Name = "tbDumpPlc7";
+            this.tbDumpPlc7.ReadOnly = true;
+            this.tbDumpPlc7.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbDumpPlc7.Size = new System.Drawing.Size(369, 76);
+            this.tbDumpPlc7.TabIndex = 62;
+            // 
+            // lblVersionPlc7
+            // 
+            this.lblVersionPlc7.AutoSize = true;
+            this.lblVersionPlc7.Location = new System.Drawing.Point(277, 169);
+            this.lblVersionPlc7.Name = "lblVersionPlc7";
+            this.lblVersionPlc7.Size = new System.Drawing.Size(42, 13);
+            this.lblVersionPlc7.TabIndex = 61;
+            this.lblVersionPlc7.Text = "Version";
+            // 
+            // tbVersionPlc7
+            // 
+            this.tbVersionPlc7.Location = new System.Drawing.Point(325, 166);
+            this.tbVersionPlc7.Name = "tbVersionPlc7";
+            this.tbVersionPlc7.ReadOnly = true;
+            this.tbVersionPlc7.Size = new System.Drawing.Size(48, 20);
+            this.tbVersionPlc7.TabIndex = 60;
+            // 
+            // lblOrderCodePlc7
+            // 
+            this.lblOrderCodePlc7.AutoSize = true;
+            this.lblOrderCodePlc7.Location = new System.Drawing.Point(7, 169);
+            this.lblOrderCodePlc7.Name = "lblOrderCodePlc7";
+            this.lblOrderCodePlc7.Size = new System.Drawing.Size(61, 13);
+            this.lblOrderCodePlc7.TabIndex = 59;
+            this.lblOrderCodePlc7.Text = "Order Code";
+            // 
+            // tbOrderCodePlc7
+            // 
+            this.tbOrderCodePlc7.Location = new System.Drawing.Point(115, 166);
+            this.tbOrderCodePlc7.Name = "tbOrderCodePlc7";
+            this.tbOrderCodePlc7.ReadOnly = true;
+            this.tbOrderCodePlc7.Size = new System.Drawing.Size(150, 20);
+            this.tbOrderCodePlc7.TabIndex = 58;
+            // 
+            // lblModuleNamePlc7
+            // 
+            this.lblModuleNamePlc7.AutoSize = true;
+            this.lblModuleNamePlc7.Location = new System.Drawing.Point(7, 150);
+            this.lblModuleNamePlc7.Name = "lblModuleNamePlc7";
+            this.lblModuleNamePlc7.Size = new System.Drawing.Size(73, 13);
+            this.lblModuleNamePlc7.TabIndex = 57;
+            this.lblModuleNamePlc7.Text = "Module Name";
+            // 
+            // tbModuleNamePlc7
+            // 
+            this.tbModuleNamePlc7.Location = new System.Drawing.Point(115, 143);
+            this.tbModuleNamePlc7.Name = "tbModuleNamePlc7";
+            this.tbModuleNamePlc7.ReadOnly = true;
+            this.tbModuleNamePlc7.Size = new System.Drawing.Size(150, 20);
+            this.tbModuleNamePlc7.TabIndex = 56;
+            // 
+            // lblAsNamePlc7
+            // 
+            this.lblAsNamePlc7.AutoSize = true;
+            this.lblAsNamePlc7.Location = new System.Drawing.Point(7, 127);
+            this.lblAsNamePlc7.Name = "lblAsNamePlc7";
+            this.lblAsNamePlc7.Size = new System.Drawing.Size(52, 13);
+            this.lblAsNamePlc7.TabIndex = 55;
+            this.lblAsNamePlc7.Text = "AS Name";
+            // 
+            // tbAsNamePlc7
+            // 
+            this.tbAsNamePlc7.Location = new System.Drawing.Point(115, 120);
+            this.tbAsNamePlc7.Name = "tbAsNamePlc7";
+            this.tbAsNamePlc7.ReadOnly = true;
+            this.tbAsNamePlc7.Size = new System.Drawing.Size(150, 20);
+            this.tbAsNamePlc7.TabIndex = 54;
+            // 
+            // lblCopyrightPlc7
+            // 
+            this.lblCopyrightPlc7.AutoSize = true;
+            this.lblCopyrightPlc7.Location = new System.Drawing.Point(7, 104);
+            this.lblCopyrightPlc7.Name = "lblCopyrightPlc7";
+            this.lblCopyrightPlc7.Size = new System.Drawing.Size(87, 13);
+            this.lblCopyrightPlc7.TabIndex = 53;
+            this.lblCopyrightPlc7.Text = "Vendor copyright";
+            // 
+            // tbCopyrightPlc7
+            // 
+            this.tbCopyrightPlc7.Location = new System.Drawing.Point(115, 97);
+            this.tbCopyrightPlc7.Name = "tbCopyrightPlc7";
+            this.tbCopyrightPlc7.ReadOnly = true;
+            this.tbCopyrightPlc7.Size = new System.Drawing.Size(150, 20);
+            this.tbCopyrightPlc7.TabIndex = 52;
+            // 
+            // lblSerialNumberPlc7
+            // 
+            this.lblSerialNumberPlc7.AutoSize = true;
+            this.lblSerialNumberPlc7.Location = new System.Drawing.Point(7, 81);
+            this.lblSerialNumberPlc7.Name = "lblSerialNumberPlc7";
+            this.lblSerialNumberPlc7.Size = new System.Drawing.Size(71, 13);
+            this.lblSerialNumberPlc7.TabIndex = 51;
+            this.lblSerialNumberPlc7.Text = "Serial number";
+            // 
+            // tbSerialNumberPlc7
+            // 
+            this.tbSerialNumberPlc7.Location = new System.Drawing.Point(115, 74);
+            this.tbSerialNumberPlc7.Name = "tbSerialNumberPlc7";
+            this.tbSerialNumberPlc7.ReadOnly = true;
+            this.tbSerialNumberPlc7.Size = new System.Drawing.Size(150, 20);
+            this.tbSerialNumberPlc7.TabIndex = 50;
+            // 
+            // lblModuleTypeNamePlc7
+            // 
+            this.lblModuleTypeNamePlc7.AutoSize = true;
+            this.lblModuleTypeNamePlc7.Location = new System.Drawing.Point(7, 58);
+            this.lblModuleTypeNamePlc7.Name = "lblModuleTypeNamePlc7";
+            this.lblModuleTypeNamePlc7.Size = new System.Drawing.Size(100, 13);
+            this.lblModuleTypeNamePlc7.TabIndex = 49;
+            this.lblModuleTypeNamePlc7.Text = "Module Type Name";
+            // 
+            // tbModuleTypeNamePlc7
+            // 
+            this.tbModuleTypeNamePlc7.Location = new System.Drawing.Point(115, 51);
+            this.tbModuleTypeNamePlc7.Name = "tbModuleTypeNamePlc7";
+            this.tbModuleTypeNamePlc7.ReadOnly = true;
+            this.tbModuleTypeNamePlc7.Size = new System.Drawing.Size(150, 20);
+            this.tbModuleTypeNamePlc7.TabIndex = 48;
+            // 
+            // tbTextErrorPlc7
+            // 
+            this.tbTextErrorPlc7.BackColor = System.Drawing.Color.White;
+            this.tbTextErrorPlc7.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tbTextErrorPlc7.Enabled = false;
+            this.tbTextErrorPlc7.ForeColor = System.Drawing.Color.Black;
+            this.tbTextErrorPlc7.Location = new System.Drawing.Point(3, 573);
+            this.tbTextErrorPlc7.Name = "tbTextErrorPlc7";
+            this.tbTextErrorPlc7.ReadOnly = true;
+            this.tbTextErrorPlc7.Size = new System.Drawing.Size(374, 20);
+            this.tbTextErrorPlc7.TabIndex = 47;
+            // 
+            // btnDisconnectPlc7
+            // 
+            this.btnDisconnectPlc7.Enabled = false;
+            this.btnDisconnectPlc7.Location = new System.Drawing.Point(273, 73);
+            this.btnDisconnectPlc7.Name = "btnDisconnectPlc7";
+            this.btnDisconnectPlc7.Size = new System.Drawing.Size(100, 23);
+            this.btnDisconnectPlc7.TabIndex = 46;
+            this.btnDisconnectPlc7.Text = "Disconnect";
+            this.btnDisconnectPlc7.UseVisualStyleBackColor = true;
+            this.btnDisconnectPlc7.Click += new System.EventHandler(this.btnDisonnectPlc7_Click);
+            // 
+            // btnConnectPlc7
+            // 
+            this.btnConnectPlc7.Location = new System.Drawing.Point(273, 50);
+            this.btnConnectPlc7.Name = "btnConnectPlc7";
+            this.btnConnectPlc7.Size = new System.Drawing.Size(100, 23);
+            this.btnConnectPlc7.TabIndex = 45;
+            this.btnConnectPlc7.Text = "Connect";
+            this.btnConnectPlc7.UseVisualStyleBackColor = true;
+            this.btnConnectPlc7.Click += new System.EventHandler(this.btnConnectPlc7_Click);
+            // 
+            // tbSlotPlc7
+            // 
+            this.tbSlotPlc7.Location = new System.Drawing.Point(170, 18);
+            this.tbSlotPlc7.Name = "tbSlotPlc7";
+            this.tbSlotPlc7.Size = new System.Drawing.Size(44, 20);
+            this.tbSlotPlc7.TabIndex = 44;
+            this.tbSlotPlc7.Text = "1";
+            this.tbSlotPlc7.MouseEnter += new System.EventHandler(this.tbSlotPlc7_MouseEnter);
+            // 
+            // tbRackPlc7
+            // 
+            this.tbRackPlc7.Location = new System.Drawing.Point(114, 18);
+            this.tbRackPlc7.Name = "tbRackPlc7";
+            this.tbRackPlc7.Size = new System.Drawing.Size(44, 20);
+            this.tbRackPlc7.TabIndex = 43;
+            this.tbRackPlc7.Text = "0";
+            this.tbRackPlc7.MouseEnter += new System.EventHandler(this.tbRackPlc7_MouseEnter);
+            // 
+            // tbIpAddressPlc7
+            // 
+            this.tbIpAddressPlc7.Location = new System.Drawing.Point(4, 18);
+            this.tbIpAddressPlc7.Name = "tbIpAddressPlc7";
+            this.tbIpAddressPlc7.Size = new System.Drawing.Size(100, 20);
+            this.tbIpAddressPlc7.TabIndex = 42;
+            this.tbIpAddressPlc7.Text = "192.168.0.1";
+            this.tbIpAddressPlc7.MouseEnter += new System.EventHandler(this.tbIpPlc7_MouseEnter);
             // 
             // panel4
             // 
@@ -665,282 +939,6 @@
             this.tbIpAddressPlc4.Size = new System.Drawing.Size(100, 20);
             this.tbIpAddressPlc4.TabIndex = 42;
             this.tbIpAddressPlc4.Text = "192.168.0.1";
-            // 
-            // panel7
-            // 
-            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel7.Controls.Add(this.gbPLC7);
-            this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(0, 0);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1246, 600);
-            this.panel7.TabIndex = 6;
-            // 
-            // gbPLC7
-            // 
-            this.gbPLC7.Controls.Add(this.button1);
-            this.gbPLC7.Controls.Add(this.richTextBoxPlc7);
-            this.gbPLC7.Controls.Add(this.btnReadDirsPlc7);
-            this.gbPLC7.Controls.Add(this.lblBytesReadTextPlc7);
-            this.gbPLC7.Controls.Add(this.lblBytesReadPlc7);
-            this.gbPLC7.Controls.Add(this.tbDumpPlc7);
-            this.gbPLC7.Controls.Add(this.lblVersionPlc7);
-            this.gbPLC7.Controls.Add(this.tbVersionPlc7);
-            this.gbPLC7.Controls.Add(this.lblOrderCodePlc7);
-            this.gbPLC7.Controls.Add(this.tbOrderCodePlc7);
-            this.gbPLC7.Controls.Add(this.lblModuleNamePlc7);
-            this.gbPLC7.Controls.Add(this.tbModuleNamePlc7);
-            this.gbPLC7.Controls.Add(this.lblAsNamePlc7);
-            this.gbPLC7.Controls.Add(this.tbAsNamePlc7);
-            this.gbPLC7.Controls.Add(this.lblCopyrightPlc7);
-            this.gbPLC7.Controls.Add(this.tbCopyrightPlc7);
-            this.gbPLC7.Controls.Add(this.lblSerialNumberPlc7);
-            this.gbPLC7.Controls.Add(this.tbSerialNumberPlc7);
-            this.gbPLC7.Controls.Add(this.lblModuleTypeNamePlc7);
-            this.gbPLC7.Controls.Add(this.tbModuleTypeNamePlc7);
-            this.gbPLC7.Controls.Add(this.tbTextErrorPlc7);
-            this.gbPLC7.Controls.Add(this.btnDisconnectPlc7);
-            this.gbPLC7.Controls.Add(this.btnConnectPlc7);
-            this.gbPLC7.Controls.Add(this.tbSlotPlc7);
-            this.gbPLC7.Controls.Add(this.tbRackPlc7);
-            this.gbPLC7.Controls.Add(this.tbIpAddressPlc7);
-            this.gbPLC7.Dock = System.Windows.Forms.DockStyle.Left;
-            this.gbPLC7.Location = new System.Drawing.Point(0, 0);
-            this.gbPLC7.Name = "gbPLC7";
-            this.gbPLC7.Size = new System.Drawing.Size(380, 596);
-            this.gbPLC7.TabIndex = 1;
-            this.gbPLC7.TabStop = false;
-            this.gbPLC7.Text = "PLC7";
-            // 
-            // richTextBoxPlc7
-            // 
-            this.richTextBoxPlc7.Location = new System.Drawing.Point(4, 298);
-            this.richTextBoxPlc7.Name = "richTextBoxPlc7";
-            this.richTextBoxPlc7.ReadOnly = true;
-            this.richTextBoxPlc7.Size = new System.Drawing.Size(369, 269);
-            this.richTextBoxPlc7.TabIndex = 84;
-            this.richTextBoxPlc7.Text = "";
-            // 
-            // btnReadDirsPlc7
-            // 
-            this.btnReadDirsPlc7.Location = new System.Drawing.Point(273, 271);
-            this.btnReadDirsPlc7.Name = "btnReadDirsPlc7";
-            this.btnReadDirsPlc7.Size = new System.Drawing.Size(100, 23);
-            this.btnReadDirsPlc7.TabIndex = 81;
-            this.btnReadDirsPlc7.Text = "ReadDirs";
-            this.btnReadDirsPlc7.UseVisualStyleBackColor = true;
-            this.btnReadDirsPlc7.Click += new System.EventHandler(this.btnReadDirsPlc7_Click);
-            // 
-            // lblBytesReadTextPlc7
-            // 
-            this.lblBytesReadTextPlc7.AutoSize = true;
-            this.lblBytesReadTextPlc7.Location = new System.Drawing.Point(7, 276);
-            this.lblBytesReadTextPlc7.Name = "lblBytesReadTextPlc7";
-            this.lblBytesReadTextPlc7.Size = new System.Drawing.Size(62, 13);
-            this.lblBytesReadTextPlc7.TabIndex = 78;
-            this.lblBytesReadTextPlc7.Text = "Bytes Read";
-            // 
-            // lblBytesReadPlc7
-            // 
-            this.lblBytesReadPlc7.AutoSize = true;
-            this.lblBytesReadPlc7.Location = new System.Drawing.Point(84, 276);
-            this.lblBytesReadPlc7.Name = "lblBytesReadPlc7";
-            this.lblBytesReadPlc7.Size = new System.Drawing.Size(13, 13);
-            this.lblBytesReadPlc7.TabIndex = 77;
-            this.lblBytesReadPlc7.Text = "0";
-            this.lblBytesReadPlc7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // tbDumpPlc7
-            // 
-            this.tbDumpPlc7.BackColor = System.Drawing.Color.White;
-            this.tbDumpPlc7.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbDumpPlc7.ForeColor = System.Drawing.Color.Black;
-            this.tbDumpPlc7.Location = new System.Drawing.Point(4, 192);
-            this.tbDumpPlc7.Multiline = true;
-            this.tbDumpPlc7.Name = "tbDumpPlc7";
-            this.tbDumpPlc7.ReadOnly = true;
-            this.tbDumpPlc7.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbDumpPlc7.Size = new System.Drawing.Size(369, 76);
-            this.tbDumpPlc7.TabIndex = 62;
-            // 
-            // lblVersionPlc7
-            // 
-            this.lblVersionPlc7.AutoSize = true;
-            this.lblVersionPlc7.Location = new System.Drawing.Point(277, 169);
-            this.lblVersionPlc7.Name = "lblVersionPlc7";
-            this.lblVersionPlc7.Size = new System.Drawing.Size(42, 13);
-            this.lblVersionPlc7.TabIndex = 61;
-            this.lblVersionPlc7.Text = "Version";
-            // 
-            // tbVersionPlc7
-            // 
-            this.tbVersionPlc7.Location = new System.Drawing.Point(325, 166);
-            this.tbVersionPlc7.Name = "tbVersionPlc7";
-            this.tbVersionPlc7.ReadOnly = true;
-            this.tbVersionPlc7.Size = new System.Drawing.Size(48, 20);
-            this.tbVersionPlc7.TabIndex = 60;
-            // 
-            // lblOrderCodePlc7
-            // 
-            this.lblOrderCodePlc7.AutoSize = true;
-            this.lblOrderCodePlc7.Location = new System.Drawing.Point(7, 169);
-            this.lblOrderCodePlc7.Name = "lblOrderCodePlc7";
-            this.lblOrderCodePlc7.Size = new System.Drawing.Size(61, 13);
-            this.lblOrderCodePlc7.TabIndex = 59;
-            this.lblOrderCodePlc7.Text = "Order Code";
-            // 
-            // tbOrderCodePlc7
-            // 
-            this.tbOrderCodePlc7.Location = new System.Drawing.Point(115, 166);
-            this.tbOrderCodePlc7.Name = "tbOrderCodePlc7";
-            this.tbOrderCodePlc7.ReadOnly = true;
-            this.tbOrderCodePlc7.Size = new System.Drawing.Size(150, 20);
-            this.tbOrderCodePlc7.TabIndex = 58;
-            // 
-            // lblModuleNamePlc7
-            // 
-            this.lblModuleNamePlc7.AutoSize = true;
-            this.lblModuleNamePlc7.Location = new System.Drawing.Point(7, 150);
-            this.lblModuleNamePlc7.Name = "lblModuleNamePlc7";
-            this.lblModuleNamePlc7.Size = new System.Drawing.Size(73, 13);
-            this.lblModuleNamePlc7.TabIndex = 57;
-            this.lblModuleNamePlc7.Text = "Module Name";
-            // 
-            // tbModuleNamePlc7
-            // 
-            this.tbModuleNamePlc7.Location = new System.Drawing.Point(115, 143);
-            this.tbModuleNamePlc7.Name = "tbModuleNamePlc7";
-            this.tbModuleNamePlc7.ReadOnly = true;
-            this.tbModuleNamePlc7.Size = new System.Drawing.Size(150, 20);
-            this.tbModuleNamePlc7.TabIndex = 56;
-            // 
-            // lblAsNamePlc7
-            // 
-            this.lblAsNamePlc7.AutoSize = true;
-            this.lblAsNamePlc7.Location = new System.Drawing.Point(7, 127);
-            this.lblAsNamePlc7.Name = "lblAsNamePlc7";
-            this.lblAsNamePlc7.Size = new System.Drawing.Size(52, 13);
-            this.lblAsNamePlc7.TabIndex = 55;
-            this.lblAsNamePlc7.Text = "AS Name";
-            // 
-            // tbAsNamePlc7
-            // 
-            this.tbAsNamePlc7.Location = new System.Drawing.Point(115, 120);
-            this.tbAsNamePlc7.Name = "tbAsNamePlc7";
-            this.tbAsNamePlc7.ReadOnly = true;
-            this.tbAsNamePlc7.Size = new System.Drawing.Size(150, 20);
-            this.tbAsNamePlc7.TabIndex = 54;
-            // 
-            // lblCopyrightPlc7
-            // 
-            this.lblCopyrightPlc7.AutoSize = true;
-            this.lblCopyrightPlc7.Location = new System.Drawing.Point(7, 104);
-            this.lblCopyrightPlc7.Name = "lblCopyrightPlc7";
-            this.lblCopyrightPlc7.Size = new System.Drawing.Size(87, 13);
-            this.lblCopyrightPlc7.TabIndex = 53;
-            this.lblCopyrightPlc7.Text = "Vendor copyright";
-            // 
-            // tbCopyrightPlc7
-            // 
-            this.tbCopyrightPlc7.Location = new System.Drawing.Point(115, 97);
-            this.tbCopyrightPlc7.Name = "tbCopyrightPlc7";
-            this.tbCopyrightPlc7.ReadOnly = true;
-            this.tbCopyrightPlc7.Size = new System.Drawing.Size(150, 20);
-            this.tbCopyrightPlc7.TabIndex = 52;
-            // 
-            // lblSerialNumberPlc7
-            // 
-            this.lblSerialNumberPlc7.AutoSize = true;
-            this.lblSerialNumberPlc7.Location = new System.Drawing.Point(7, 81);
-            this.lblSerialNumberPlc7.Name = "lblSerialNumberPlc7";
-            this.lblSerialNumberPlc7.Size = new System.Drawing.Size(71, 13);
-            this.lblSerialNumberPlc7.TabIndex = 51;
-            this.lblSerialNumberPlc7.Text = "Serial number";
-            // 
-            // tbSerialNumberPlc7
-            // 
-            this.tbSerialNumberPlc7.Location = new System.Drawing.Point(115, 74);
-            this.tbSerialNumberPlc7.Name = "tbSerialNumberPlc7";
-            this.tbSerialNumberPlc7.ReadOnly = true;
-            this.tbSerialNumberPlc7.Size = new System.Drawing.Size(150, 20);
-            this.tbSerialNumberPlc7.TabIndex = 50;
-            // 
-            // lblModuleTypeNamePlc7
-            // 
-            this.lblModuleTypeNamePlc7.AutoSize = true;
-            this.lblModuleTypeNamePlc7.Location = new System.Drawing.Point(7, 58);
-            this.lblModuleTypeNamePlc7.Name = "lblModuleTypeNamePlc7";
-            this.lblModuleTypeNamePlc7.Size = new System.Drawing.Size(100, 13);
-            this.lblModuleTypeNamePlc7.TabIndex = 49;
-            this.lblModuleTypeNamePlc7.Text = "Module Type Name";
-            // 
-            // tbModuleTypeNamePlc7
-            // 
-            this.tbModuleTypeNamePlc7.Location = new System.Drawing.Point(115, 51);
-            this.tbModuleTypeNamePlc7.Name = "tbModuleTypeNamePlc7";
-            this.tbModuleTypeNamePlc7.ReadOnly = true;
-            this.tbModuleTypeNamePlc7.Size = new System.Drawing.Size(150, 20);
-            this.tbModuleTypeNamePlc7.TabIndex = 48;
-            // 
-            // tbTextErrorPlc7
-            // 
-            this.tbTextErrorPlc7.BackColor = System.Drawing.Color.White;
-            this.tbTextErrorPlc7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tbTextErrorPlc7.Enabled = false;
-            this.tbTextErrorPlc7.ForeColor = System.Drawing.Color.Black;
-            this.tbTextErrorPlc7.Location = new System.Drawing.Point(3, 573);
-            this.tbTextErrorPlc7.Name = "tbTextErrorPlc7";
-            this.tbTextErrorPlc7.ReadOnly = true;
-            this.tbTextErrorPlc7.Size = new System.Drawing.Size(374, 20);
-            this.tbTextErrorPlc7.TabIndex = 47;
-            // 
-            // btnDisconnectPlc7
-            // 
-            this.btnDisconnectPlc7.Enabled = false;
-            this.btnDisconnectPlc7.Location = new System.Drawing.Point(273, 73);
-            this.btnDisconnectPlc7.Name = "btnDisconnectPlc7";
-            this.btnDisconnectPlc7.Size = new System.Drawing.Size(100, 23);
-            this.btnDisconnectPlc7.TabIndex = 46;
-            this.btnDisconnectPlc7.Text = "Disconnect";
-            this.btnDisconnectPlc7.UseVisualStyleBackColor = true;
-            this.btnDisconnectPlc7.Click += new System.EventHandler(this.btnDisonnectPlc7_Click);
-            // 
-            // btnConnectPlc7
-            // 
-            this.btnConnectPlc7.Location = new System.Drawing.Point(273, 50);
-            this.btnConnectPlc7.Name = "btnConnectPlc7";
-            this.btnConnectPlc7.Size = new System.Drawing.Size(100, 23);
-            this.btnConnectPlc7.TabIndex = 45;
-            this.btnConnectPlc7.Text = "Connect";
-            this.btnConnectPlc7.UseVisualStyleBackColor = true;
-            this.btnConnectPlc7.Click += new System.EventHandler(this.btnConnectPlc7_Click);
-            // 
-            // tbSlotPlc7
-            // 
-            this.tbSlotPlc7.Location = new System.Drawing.Point(170, 18);
-            this.tbSlotPlc7.Name = "tbSlotPlc7";
-            this.tbSlotPlc7.Size = new System.Drawing.Size(44, 20);
-            this.tbSlotPlc7.TabIndex = 44;
-            this.tbSlotPlc7.Text = "1";
-            this.tbSlotPlc7.MouseEnter += new System.EventHandler(this.tbSlotPlc7_MouseEnter);
-            // 
-            // tbRackPlc7
-            // 
-            this.tbRackPlc7.Location = new System.Drawing.Point(114, 18);
-            this.tbRackPlc7.Name = "tbRackPlc7";
-            this.tbRackPlc7.Size = new System.Drawing.Size(44, 20);
-            this.tbRackPlc7.TabIndex = 43;
-            this.tbRackPlc7.Text = "0";
-            this.tbRackPlc7.MouseEnter += new System.EventHandler(this.tbRackPlc7_MouseEnter);
-            // 
-            // tbIpAddressPlc7
-            // 
-            this.tbIpAddressPlc7.Location = new System.Drawing.Point(4, 18);
-            this.tbIpAddressPlc7.Name = "tbIpAddressPlc7";
-            this.tbIpAddressPlc7.Size = new System.Drawing.Size(100, 20);
-            this.tbIpAddressPlc7.TabIndex = 42;
-            this.tbIpAddressPlc7.Text = "192.168.0.1";
-            this.tbIpAddressPlc7.MouseEnter += new System.EventHandler(this.tbIpPlc7_MouseEnter);
             // 
             // panel3
             // 
@@ -1818,16 +1816,6 @@
             this.panel2.Size = new System.Drawing.Size(1246, 600);
             this.panel2.TabIndex = 1;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(273, 104);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 86;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1846,12 +1834,12 @@
             this.panelLeft.ResumeLayout(false);
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.gbPLC7.ResumeLayout(false);
             this.gbPLC7.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.gbPLC3.ResumeLayout(false);
             this.gbPLC3.PerformLayout();
@@ -2024,7 +2012,6 @@
         internal System.Windows.Forms.TextBox tbSlotPlc4;
         internal System.Windows.Forms.TextBox tbRackPlc4;
         internal System.Windows.Forms.TextBox tbIpAddressPlc4;
-        private System.Windows.Forms.Button button1;
     }
 }
 

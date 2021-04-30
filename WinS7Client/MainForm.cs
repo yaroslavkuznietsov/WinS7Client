@@ -79,10 +79,10 @@ namespace WinS7Client
         private const int DB_DAT_HE_Length = 240;
         private const int DB_DAT_Config_Length = 2796;
         private const int DB_DAT_N2_Length = 640;
-        private const int DB_DAT_Werkzeug_Length = 240;
+        private const int DB_DAT_Werkzeug_Length = 260; // v.4 Changes for customer 28.04.2021 -> 40 Signs
         private const int DB_DAT_MWerkzeug_Length = 40;
-        private const int DB_Service_WKZ_Liste_Length = 3072;
-        private const int DB_Service_PlcToPc_Length = 102;
+        private const int DB_Service_WKZ_Liste_Length = 5632;   // v.4 Changes for customer 28.04.2021 -> 40 Signs
+        private const int DB_Service_PlcToPc_Length = 122;  // v.4 Changes for customer 28.04.2021 -> 40 Signs
         private const int DB_Service_PcToPlc_Length = 6;
 
         #endregion
@@ -348,14 +348,33 @@ namespace WinS7Client
                             ServicePlcToPcs[n].AktAnlage = S7.GetDIntAt(buffer, 6);
                             ServicePlcToPcs[n].AktWerkzeugID = S7.GetIntAt(buffer, 10);
                             ServicePlcToPcs[n].AktWerkzeugName = S7.GetStringAt(buffer, 12);
-                            ServicePlcToPcs[n].ParamHE = S7.GetIntAt(buffer, 34);
-                            ServicePlcToPcs[n].ParamConfig = S7.GetIntAt(buffer, 36);
-                            ServicePlcToPcs[n].ParamN2 = S7.GetIntAt(buffer, 38);
-                            ServicePlcToPcs[n].ParamWerkzeug = S7.GetIntAt(buffer, 40);
-                            ServicePlcToPcs[n].ParamMWerkzeug = S7.GetIntAt(buffer, 42);
-                            ServicePlcToPcs[n].LoeschWerkzeugID = S7.GetIntAt(buffer, 44);
-                            ServicePlcToPcs[n].AusweissNr = S7.GetDWordAt(buffer, 46);
-                            ServicePlcToPcs[n].AusweissName = S7.GetStringAt(buffer, 50);
+                            ServicePlcToPcs[n].ParamHE = S7.GetIntAt(buffer, 54);
+                            ServicePlcToPcs[n].ParamConfig = S7.GetIntAt(buffer, 56);
+                            ServicePlcToPcs[n].ParamN2 = S7.GetIntAt(buffer, 58);
+                            ServicePlcToPcs[n].ParamWerkzeug = S7.GetIntAt(buffer, 60);
+                            ServicePlcToPcs[n].ParamMWerkzeug = S7.GetIntAt(buffer, 62);
+                            ServicePlcToPcs[n].LoeschWerkzeugID = S7.GetIntAt(buffer, 64);
+                            ServicePlcToPcs[n].AusweissNr = S7.GetDWordAt(buffer, 66);
+                            ServicePlcToPcs[n].AusweissName = S7.GetStringAt(buffer, 70);
+
+                            //ServicePlcToPcs[n].LifeBit = S7.GetBitAt(buffer, 0, 0);
+                            //ServicePlcToPcs[n].ErrorStatus = S7.GetIntAt(buffer, 2);
+                            //ServicePlcToPcs[n].WKZEinlesen = S7.GetBitAt(buffer, 4, 0);
+                            //ServicePlcToPcs[n].ParamsLaden = S7.GetBitAt(buffer, 4, 1);
+                            //ServicePlcToPcs[n].SondernKonfig = S7.GetBitAt(buffer, 4, 2);
+                            //ServicePlcToPcs[n].ParamsSichern = S7.GetBitAt(buffer, 4, 3);
+                            //ServicePlcToPcs[n].DatLoeschen = S7.GetBitAt(buffer, 4, 4);
+                            //ServicePlcToPcs[n].AktAnlage = S7.GetDIntAt(buffer, 6);
+                            //ServicePlcToPcs[n].AktWerkzeugID = S7.GetIntAt(buffer, 10);
+                            //ServicePlcToPcs[n].AktWerkzeugName = S7.GetStringAt(buffer, 12);
+                            //ServicePlcToPcs[n].ParamHE = S7.GetIntAt(buffer, 34);
+                            //ServicePlcToPcs[n].ParamConfig = S7.GetIntAt(buffer, 36);
+                            //ServicePlcToPcs[n].ParamN2 = S7.GetIntAt(buffer, 38);
+                            //ServicePlcToPcs[n].ParamWerkzeug = S7.GetIntAt(buffer, 40);
+                            //ServicePlcToPcs[n].ParamMWerkzeug = S7.GetIntAt(buffer, 42);
+                            //ServicePlcToPcs[n].LoeschWerkzeugID = S7.GetIntAt(buffer, 44);
+                            //ServicePlcToPcs[n].AusweissNr = S7.GetDWordAt(buffer, 46);
+                            //ServicePlcToPcs[n].AusweissName = S7.GetStringAt(buffer, 50);
 
                             string machineID = ServicePlcToPcs[n].AktAnlage.ToString();
                             uint ausweissNr = ServicePlcToPcs[n].AusweissNr;
@@ -1050,6 +1069,8 @@ namespace WinS7Client
                 S7CpuInfos[i] = new S7Client.S7CpuInfo();
                 ServicePcToPlcs[i] = new ServicePcToPlc();
                 ServicePlcToPcs[i] = new ServicePlcToPc();
+
+                connectClient(S7Clients[i], PlcIpAddress[i], PlcRack[i].ParseInt(), PlcSlot[i].ParseInt());
 
                 HeartbeatTimeStamp[i] = DateTime.Now;
             }
@@ -1993,7 +2014,17 @@ namespace WinS7Client
             }
 
             //btn3 - PLC3 Animation
-            if (S7Clients[3].Connected & ServicePcToPlcs[3].LifeBit)
+            if (S7Clients[3].Connected)
+            {
+                btnConnectPlc3.Enabled = false;
+                btnDisconnectPlc3.Enabled = true;
+            }
+            else
+            {
+                btnConnectPlc3.Enabled = true;
+                btnDisconnectPlc3.Enabled = false;
+            }
+            if (S7Clients[3].Connected & ServicePlcToPcs[3].LifeBit)
             {
                 btn3.BackColor = Color.Green;
             }
@@ -2002,7 +2033,17 @@ namespace WinS7Client
                 btn3.BackColor = Color.LightGray;
             }
             //btn4 - PLC4 Animation
-            if (S7Clients[4].Connected & ServicePcToPlcs[4].LifeBit)
+            if (S7Clients[4].Connected)
+            {
+                btnConnectPlc4.Enabled = false;
+                btnDisconnectPlc4.Enabled = true;
+            }
+            else
+            {
+                btnConnectPlc4.Enabled = true;
+                btnDisconnectPlc4.Enabled = false;
+            }
+            if (S7Clients[4].Connected & ServicePlcToPcs[4].LifeBit)
             {
                 btn4.BackColor = Color.Green;
             }
@@ -2011,7 +2052,17 @@ namespace WinS7Client
                 btn4.BackColor = Color.LightGray;
             }
             //btn5 - PLC5 Animation
-            if (S7Clients[5].Connected & ServicePcToPlcs[5].LifeBit)
+            if (S7Clients[5].Connected)
+            {
+                btnConnectPlc5.Enabled = false;
+                btnDisconnectPlc5.Enabled = true;
+            }
+            else
+            {
+                btnConnectPlc5.Enabled = true;
+                btnDisconnectPlc5.Enabled = false;
+            }
+            if (S7Clients[5].Connected & ServicePlcToPcs[5].LifeBit)
             {
                 btn5.BackColor = Color.Green;
             }
@@ -2020,7 +2071,17 @@ namespace WinS7Client
                 btn5.BackColor = Color.LightGray;
             }
             //btn7 - PLC6 Animation
-            if (S7Clients[6].Connected & ServicePcToPlcs[6].LifeBit)
+            if (S7Clients[6].Connected)
+            {
+                btnConnectPlc6.Enabled = false;
+                btnDisconnectPlc6.Enabled = true;
+            }
+            else
+            {
+                btnConnectPlc6.Enabled = true;
+                btnDisconnectPlc6.Enabled = false;
+            }
+            if (S7Clients[6].Connected & ServicePlcToPcs[6].LifeBit)
             {
                 btn6.BackColor = Color.Green;
             }
@@ -2029,7 +2090,17 @@ namespace WinS7Client
                 btn6.BackColor = Color.LightGray;
             }
             //btn7 - PLC7 Animation
-            if (S7Clients[7].Connected & ServicePcToPlcs[7].LifeBit)
+            if (S7Clients[7].Connected)
+            {
+                btnConnectPlc7.Enabled = false;
+                btnDisconnectPlc7.Enabled = true;
+            }
+            else
+            {
+                btnConnectPlc7.Enabled = true;
+                btnDisconnectPlc7.Enabled = false;
+            }
+            if (S7Clients[7].Connected & ServicePlcToPcs[7].LifeBit)
             {
                 btn7.BackColor = Color.Green;
             }
@@ -2037,9 +2108,6 @@ namespace WinS7Client
             {
                 btn7.BackColor = Color.LightGray;
             }
-
-
-            
 
 
             //TestStrings.Add(DateTime.Now.ToString());
@@ -2105,26 +2173,26 @@ namespace WinS7Client
         {
             Array.Clear(buffer, 0, 65536);
             int shiftName = 0;
-            int shiftId = 22;
-            //int shiftId = 42;   //shiftName += 44;    // v.4 Changes for customer 28.04.2021 -> 40 Signs
+            //int shiftId = 22;
+            int shiftId = 42;   //shiftName += 44;    // v.4 Changes for customer 28.04.2021 -> 40 Signs
             for (int i = 0; i < 127; i++)
             {
-                S7.SetStringAt(buffer, shiftName, 20, string.Empty);
-                //S7.SetStringAt(buffer, shiftName, 40, string.Empty);  // v.4 Changes for customer 28.04.2021 -> 40 Signs
+                //S7.SetStringAt(buffer, shiftName, 20, string.Empty);
+                S7.SetStringAt(buffer, shiftName, 40, string.Empty);  // v.4 Changes for customer 28.04.2021 -> 40 Signs
                 S7.SetIntAt(buffer, shiftId, 0);
 
-                shiftName += 24;
-                shiftId += 24;
-                //shiftName += 44;    // v.4 Changes for customer 28.04.2021 -> 40 Signs
-                //shiftId += 44;      // v.4 Changes for customer 28.04.2021 -> 40 Signs
+                //shiftName += 24;
+                //shiftId += 24;
+                shiftName += 44;    // v.4 Changes for customer 28.04.2021 -> 40 Signs
+                shiftId += 44;      // v.4 Changes for customer 28.04.2021 -> 40 Signs
             }
         }
 
         private void ToolListFillWithRecipes(string[] subdirectoryEntries, ref byte[] buffer)
         {
             int shiftName = 0;
-            int shiftId = 22;
-            //int shiftId = 42;   //shiftName += 44;    // v.4 Changes for customer 28.04.2021 -> 40 Signs
+            //int shiftId = 22;
+            int shiftId = 42;   //shiftName += 44;    // v.4 Changes for customer 28.04.2021 -> 40 Signs
             Array.Clear(buffer, 0, 65536);
 
             foreach (string subdirectory in subdirectoryEntries)
@@ -2138,8 +2206,8 @@ namespace WinS7Client
                     }
                     else
                     {
-                        S7.SetIntAt(buffer, 3070, (subdirectory.Substring(11, 3)).ParseShort());
-                        //S7.SetIntAt(buffer, 5630, (subdirectory.Substring(11, 3)).ParseShort());  //Critical change for customer 09.04.2021. Should be checked!!!
+                        //S7.SetIntAt(buffer, 3070, (subdirectory.Substring(11, 3)).ParseShort());    //Critical change for customer 09.04.2021. Should be checked!!!
+                        S7.SetIntAt(buffer, 5630, (subdirectory.Substring(11, 3)).ParseShort());   // v.4 Changes for customer 28.04.2021 -> 40 Signs
                     }
                 }
                 else
@@ -2153,25 +2221,25 @@ namespace WinS7Client
                     string s1 = subdirectory.Substring(11, 3);
                     if (s1.ParseShort() != 255) //Critical change for customer 09.04.2021. Should be checked!!!
                     {
-                        S7.SetStringAt(buffer, shiftName, 20, subdirectory.Substring(15));
-                        //S7.SetStringAt(buffer, shiftName, 40, subdirectory.Substring(15));  // v.4 Changes for customer 28.04.2021 -> 40 Signs
+                        //S7.SetStringAt(buffer, shiftName, 20, subdirectory.Substring(15));
+                        S7.SetStringAt(buffer, shiftName, 40, subdirectory.Substring(15));  // v.4 Changes for customer 28.04.2021 -> 40 Signs
                     }
                     else
                     {
-                        S7.SetStringAt(buffer, 3048, 20, subdirectory.Substring(15));
-                        //S7.SetStringAt(buffer, 5588, 40, subdirectory.Substring(15));  // v.4 Changes for customer 28.04.2021 -> 40 Signs
+                        //S7.SetStringAt(buffer, 3048, 20, subdirectory.Substring(15));
+                        S7.SetStringAt(buffer, 5588, 40, subdirectory.Substring(15));  // v.4 Changes for customer 28.04.2021 -> 40 Signs
                     }
                 }
                 else
                 {
-                    S7.SetStringAt(buffer, shiftName, 20, string.Empty);
-                    //S7.SetStringAt(buffer, shiftName, 40, string.Empty);  // v.4 Changes for customer 28.04.2021 -> 40 Signs
+                    //S7.SetStringAt(buffer, shiftName, 20, string.Empty);
+                    S7.SetStringAt(buffer, shiftName, 40, string.Empty);  // v.4 Changes for customer 28.04.2021 -> 40 Signs
                 }
 
-                shiftName += 24;
-                shiftId += 24;
-                //shiftName += 44;    // v.4 Changes for customer 28.04.2021 -> 40 Signs
-                //shiftId += 44;      // v.4 Changes for customer 28.04.2021 -> 40 Signs
+                //shiftName += 24;
+                //shiftId += 24;
+                shiftName += 44;    // v.4 Changes for customer 28.04.2021 -> 40 Signs
+                shiftId += 44;      // v.4 Changes for customer 28.04.2021 -> 40 Signs
             }
         }
 
@@ -2332,6 +2400,18 @@ namespace WinS7Client
 
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        #region Service methods
+
+        private async void connectClient(S7Client client, string address, int rack, int slot)
+        {
+            await Global.ConnectToClientAsync(client, address, rack, slot);
+        }
+
+
+        #endregion
         private void button1_Click(object sender, EventArgs e)
         {
             log0.Info("Serializer.DeserializeMWerkzeug();" + " " + "ServicePlcToPcs[n].AktWerkzeugID" + " to PLC50 " + " result: " + "result");

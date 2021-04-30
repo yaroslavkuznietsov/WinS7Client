@@ -538,8 +538,8 @@ namespace WinS7Library.Model
     public class Ausgleichshub
     {
         //property
-        public double Links { get; set; } = 0.0;
-        public double Rechts { get; set; } = 0.0;
+        public float Links { get; set; } = 0;
+        public float Rechts { get; set; } = 0;
 
         //ctor
         public Ausgleichshub() { }

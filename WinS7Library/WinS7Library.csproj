@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Examples\RecycleBin.cs" />
     <Compile Include="Helper\Global.cs" />
     <Compile Include="Helper\Comparence.cs" />
     <Compile Include="Model\DatConfig.cs" />

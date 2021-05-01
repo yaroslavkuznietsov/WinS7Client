@@ -1070,7 +1070,7 @@ namespace WinS7Client
                 ServicePcToPlcs[i] = new ServicePcToPlc();
                 ServicePlcToPcs[i] = new ServicePlcToPc();
 
-                connectClient(S7Clients[i], PlcIpAddress[i], PlcRack[i].ParseInt(), PlcSlot[i].ParseInt());
+                connectClient(i);
 
                 HeartbeatTimeStamp[i] = DateTime.Now;
             }
@@ -2408,6 +2408,171 @@ namespace WinS7Client
         private async void connectClient(S7Client client, string address, int rack, int slot)
         {
             await Global.ConnectToClientAsync(client, address, rack, slot);
+        }
+
+        private async void connectClient(int plcnumber)
+        {
+            int result;
+            switch (plcnumber)
+            {
+                case 1:
+                    await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    break;
+                case 2:
+                    await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    break;
+                case 3:
+                    result = await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    if (result == 0)
+                    {
+                        btnConnectPlc3.Enabled = false;
+                        btnDisconnectPlc3.Enabled = true;
+                        //tabControl.Enabled = true;
+
+                        S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                        Global.ReadCPUInfo(S7Clients[3], ref info, ref result);
+                        if (result == 0)
+                        {
+                            tbModuleTypeNamePlc3.Text = info.ModuleTypeName;
+                            tbSerialNumberPlc3.Text = info.SerialNumber;
+                            tbCopyrightPlc3.Text = info.Copyright;
+                            tbAsNamePlc3.Text = info.ASName;
+                            tbModuleNamePlc3.Text = info.ModuleName;
+                        }
+
+                        S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                        Global.ReadOrderCode(S7Clients[3], ref orderCode, ref result);
+                        if (result == 0)
+                        {
+                            tbOrderCodePlc3.Text = orderCode.Code;
+                            tbVersionPlc3.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                        }
+                    }
+                    break;
+                case 4:
+                    result = await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    if (result == 0)
+                    {
+                        btnConnectPlc4.Enabled = false;
+                        btnDisconnectPlc4.Enabled = true;
+                        //tabControl.Enabled = true;
+
+                        S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                        Global.ReadCPUInfo(S7Clients[4], ref info, ref result);
+                        if (result == 0)
+                        {
+                            tbModuleTypeNamePlc4.Text = info.ModuleTypeName;
+                            tbSerialNumberPlc4.Text = info.SerialNumber;
+                            tbCopyrightPlc4.Text = info.Copyright;
+                            tbAsNamePlc4.Text = info.ASName;
+                            tbModuleNamePlc4.Text = info.ModuleName;
+                        }
+
+                        S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                        Global.ReadOrderCode(S7Clients[4], ref orderCode, ref result);
+                        if (result == 0)
+                        {
+                            tbOrderCodePlc4.Text = orderCode.Code;
+                            tbVersionPlc4.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                        }
+                    }
+                    break;
+                case 5:
+                    result = await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    if (result == 0)
+                    {
+                        btnConnectPlc5.Enabled = false;
+                        btnDisconnectPlc5.Enabled = true;
+                        //tabControl.Enabled = true;
+
+                        S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                        Global.ReadCPUInfo(S7Clients[5], ref info, ref result);
+                        if (result == 0)
+                        {
+                            tbModuleTypeNamePlc5.Text = info.ModuleTypeName;
+                            tbSerialNumberPlc5.Text = info.SerialNumber;
+                            tbCopyrightPlc5.Text = info.Copyright;
+                            tbAsNamePlc5.Text = info.ASName;
+                            tbModuleNamePlc5.Text = info.ModuleName;
+                        }
+
+                        S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                        Global.ReadOrderCode(S7Clients[5], ref orderCode, ref result);
+                        if (result == 0)
+                        {
+                            tbOrderCodePlc5.Text = orderCode.Code;
+                            tbVersionPlc5.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                        }
+                    }
+                    break;
+                case 6:
+                    result = await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    if (result == 0)
+                    {
+                        btnConnectPlc6.Enabled = false;
+                        btnDisconnectPlc6.Enabled = true;
+                        //tabControl.Enabled = true;
+
+                        S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                        Global.ReadCPUInfo(S7Clients[6], ref info, ref result);
+                        if (result == 0)
+                        {
+                            tbModuleTypeNamePlc6.Text = info.ModuleTypeName;
+                            tbSerialNumberPlc6.Text = info.SerialNumber;
+                            tbCopyrightPlc6.Text = info.Copyright;
+                            tbAsNamePlc6.Text = info.ASName;
+                            tbModuleNamePlc6.Text = info.ModuleName;
+                        }
+
+                        S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                        Global.ReadOrderCode(S7Clients[6], ref orderCode, ref result);
+                        if (result == 0)
+                        {
+                            tbOrderCodePlc6.Text = orderCode.Code;
+                            tbVersionPlc6.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                        }
+                    }
+                    break;
+                case 7:
+                    result = await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    if (result == 0)
+                    {
+                        btnConnectPlc7.Enabled = false;
+                        btnDisconnectPlc7.Enabled = true;
+                        //tabControl.Enabled = true;
+
+                        S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                        Global.ReadCPUInfo(S7Clients[7], ref info, ref result);
+                        if (result == 0)
+                        {
+                            tbModuleTypeNamePlc7.Text = info.ModuleTypeName;
+                            tbSerialNumberPlc7.Text = info.SerialNumber;
+                            tbCopyrightPlc7.Text = info.Copyright;
+                            tbAsNamePlc7.Text = info.ASName;
+                            tbModuleNamePlc7.Text = info.ModuleName;
+                        }
+
+                        S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                        Global.ReadOrderCode(S7Clients[7], ref orderCode, ref result);
+                        if (result == 0)
+                        {
+                            tbOrderCodePlc7.Text = orderCode.Code;
+                            tbVersionPlc7.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                        }
+                    }
+                        break;
+                case 8:
+                    await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    break;
+                case 9:
+                    await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    break;
+                case 10:
+                    await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    break;
+                default:
+                    break;
+            }
         }
 
 

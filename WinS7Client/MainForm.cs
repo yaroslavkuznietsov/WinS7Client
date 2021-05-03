@@ -151,13 +151,13 @@ namespace WinS7Client
             {
                 try
                 {
-                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
-                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
-
                     this.Invoke((MethodInvoker)delegate
                     {
                         if (S7Clients[n].Connected)
                         {
+                            //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
+                            ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
+
                             /// <summary>
                             /// ServicePlcToPc
                             /// </summary>
@@ -880,13 +880,13 @@ namespace WinS7Client
             {
                 try
                 {
-                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
-                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
-
                     this.Invoke((MethodInvoker)delegate
                     {
                         if (S7Clients[n].Connected)
                         {
+                            //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
+                            ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
+
                             /// <summary>
                             /// ServicePlcToPc
                             /// </summary>
@@ -1609,13 +1609,13 @@ namespace WinS7Client
             {
                 try
                 {
-                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
-                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
-
                     this.Invoke((MethodInvoker)delegate
                     {
                         if (S7Clients[n].Connected)
                         {
+                            //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
+                            ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
+
                             /// <summary>
                             /// ServicePlcToPc
                             /// </summary>
@@ -2338,13 +2338,13 @@ namespace WinS7Client
             {
                 try
                 {
-                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
-                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
-
                     this.Invoke((MethodInvoker)delegate
                     {
                         if (S7Clients[n].Connected)
                         {
+                            //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
+                            ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
+
                             /// <summary>
                             /// ServicePlcToPc
                             /// </summary>
@@ -3067,13 +3067,12 @@ namespace WinS7Client
             {
                 try
                 {
-                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
-                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
-
                     this.Invoke((MethodInvoker)delegate
                     {
                         if (S7Clients[n].Connected)
                         {
+                            //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
+                            ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
                             /// <summary>
                             /// ServicePlcToPc
                             /// </summary>

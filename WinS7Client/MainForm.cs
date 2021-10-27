@@ -32,6 +32,7 @@ namespace WinS7Client
         private S7Client.S7CpuInfo[] S7CpuInfos = new S7Client.S7CpuInfo[11];
         private ServicePcToPlc[] ServicePcToPlcs = new ServicePcToPlc[11];
         private ServicePlcToPc[] ServicePlcToPcs = new ServicePlcToPc[11];
+        private CommService[] CommServices = new CommService[11];
 
         private string[] appenderName = new string[15];
 
@@ -822,7 +823,12 @@ namespace WinS7Client
                             //Delete recipe folder <---
                             //**************************************************
 
-                            Recipes.SetHeartBeat(ref HeartbeatTimeStamp[n], ref heartbeat, 1);
+                            //Recipes.SetHeartBeat(ref HeartbeatTimeStamp[n], ref heartbeat, 1);
+
+
+                            DateTime dt = CommServices[n].LifeBitTimeStamp;
+                            Recipes.SetHeartBeat(ref dt, ref heartbeat, 1);
+                            CommServices[n].LifeBitTimeStamp = dt;
                             ServicePcToPlcs[n].LifeBit = heartbeat;
 
 
@@ -3866,6 +3872,19 @@ namespace WinS7Client
             log[8].Info("Start8");
             log[9].Info("Start9");
             log[10].Info("Start10");
+
+
+            // CommServices
+            for (int i = 0; i < CommServices.Length; i++)
+            {
+                CommServices[i] = new CommService();
+                CommServices[i].AppenderNameGlobal = appenderName[0];
+                CommServices[i].AppenderNameRecipe = appenderName[i];
+                CommServices[i].LogGlobal = log[0];
+                CommServices[i].LogRecipe = log[i];
+                CommServices[i].LifeBitTimeStamp = HeartbeatTimeStamp[i];
+            }
+
 
             // Threads
             //tPlc1 = new Thread(new ThreadStart(Plc1));

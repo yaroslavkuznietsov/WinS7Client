@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using Sharp7;                                           // Sharp7  Client
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;                                        // Used for writing to a file
-using Sharp7;                                           // Sharp7  Client
-using System.Timers;
 using System.Threading;
+using System.Windows.Forms;
 using WinS7Library.Helper;
 using WinS7Library.Model;
 
@@ -61,7 +54,7 @@ namespace WinS7Client
 
         //Thread Timestamps
         private DateTime[] HeartbeatTimeStamp = new DateTime[11];
-        
+
         private const string PlcInfoToolTip = "IP-Address: IPv4 \nS71200/1500: Rack=0, Slot=0/1 \nS7300: Rack=0, Slot=2 \nS7400/WinAC See HW Config";
 
         //DB Numbers
@@ -96,7 +89,7 @@ namespace WinS7Client
             //TimerForm.Start();
 
             myServiceForm = new ServiceForm();
-        } 
+        }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -105,7 +98,7 @@ namespace WinS7Client
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
+
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -3157,7 +3150,7 @@ namespace WinS7Client
                                 ToolListFillWithRecipes(subdirectoryEntries, ref buffer);
 
                                 Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
-                                
+
                                 //Log
                                 log0.Info("ToolListFillWithRecipes" + " result: " + result);
 
@@ -3887,17 +3880,17 @@ namespace WinS7Client
             tbIpAddressPlc3.Text = PlcIpAddress[3];
             tbRackPlc3.Text = PlcRack[3];
             tbSlotPlc3.Text = PlcSlot[3];
-            
+
             tbIpAddressPlc3.Enabled = false;
             tbRackPlc3.Enabled = false;
             tbSlotPlc3.Enabled = false;
-            
+
             tbModuleTypeNamePlc3.Text = "";
             tbSerialNumberPlc3.Text = "";
             tbCopyrightPlc3.Text = "";
             tbAsNamePlc3.Text = "";
             tbModuleNamePlc3.Text = "";
-            
+
             tbOrderCodePlc3.Text = "";
             tbVersionPlc3.Text = "";
 
@@ -4757,7 +4750,7 @@ namespace WinS7Client
                     string s1 = subdirectory.Substring(11, 3);
                     if (s1.ParseShort() != 255) //Critical change for customer 09.04.2021. Should be checked!!!
                     {
-                        S7.SetIntAt(buffer, shiftId, (subdirectory.Substring(11, 3)).ParseShort()); 
+                        S7.SetIntAt(buffer, shiftId, (subdirectory.Substring(11, 3)).ParseShort());
                     }
                     else
                     {
@@ -4917,7 +4910,7 @@ namespace WinS7Client
                     heartbeat = true;
                 }
             }
-            
+
         }
         #endregion
 
@@ -5082,7 +5075,7 @@ namespace WinS7Client
                             tbVersionPlc7.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
                         }
                     }
-                        break;
+                    break;
                 case 8:
                     await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
                     break;

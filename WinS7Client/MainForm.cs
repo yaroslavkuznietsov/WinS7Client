@@ -1,9 +1,16 @@
-﻿using Sharp7;                                           // Sharp7  Client
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
-using System.IO;                                        // Used for writing to a file
-using System.Threading;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;                                        // Used for writing to a file
+using Sharp7;                                           // Sharp7  Client
+using System.Timers;
+using System.Threading;
 using WinS7Library.Helper;
 using WinS7Library.Model;
 
@@ -54,7 +61,7 @@ namespace WinS7Client
 
         //Thread Timestamps
         private DateTime[] HeartbeatTimeStamp = new DateTime[11];
-
+        
         private const string PlcInfoToolTip = "IP-Address: IPv4 \nS71200/1500: Rack=0, Slot=0/1 \nS7300: Rack=0, Slot=2 \nS7400/WinAC See HW Config";
 
         //DB Numbers
@@ -89,7 +96,7 @@ namespace WinS7Client
             //TimerForm.Start();
 
             myServiceForm = new ServiceForm();
-        }
+        } 
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -98,7 +105,7 @@ namespace WinS7Client
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -225,14 +232,14 @@ namespace WinS7Client
                             if (ServicePlcToPcs[n].WKZEinlesen & !ServicePcToPlcs[n].WKZEinlesenFertig)
                             {
 
-                                ToolListClear(ref buffer);
+                                Recipes.ToolListClear(ref buffer);
 
                                 Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
 
                                 string[] subdirectoryEntries;
-                                subdirectoryEntries = GetSubDirectories(root);
+                                subdirectoryEntries = Recipes.GetSubDirectories(root);
 
-                                ToolListFillWithRecipes(subdirectoryEntries, ref buffer);
+                                Recipes.ToolListFillWithRecipes(subdirectoryEntries, ref buffer);
 
                                 Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
 
@@ -264,14 +271,14 @@ namespace WinS7Client
                                 //Case 1. No special Configuration for the tool
                                 if (!ServicePlcToPcs[n].SondernKonfig)
                                 {
-                                    path = GetSubDirectoryById(root, ServicePlcToPcs[n].AktWerkzeugID);
+                                    path = Recipes.GetSubDirectoryById(root, ServicePlcToPcs[n].AktWerkzeugID);
 
                                     if (!string.IsNullOrEmpty(path) & Directory.Exists(path))
                                     {
                                         //ChangeLogFileName @"e:\\path\\WinS7ClientLogger.log"
                                         ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n], path + "\\WinS7ClientLogger.log");
 
-                                        ServicePcToPlcs[n].ParamHEOK = GetFileByName(path, "HE.xml");
+                                        ServicePcToPlcs[n].ParamHEOK = Recipes.GetFileByName(path, "HE.xml");
                                         if (ServicePcToPlcs[n].ParamHEOK)
                                         {
                                             //deserialize "HE.xml"
@@ -286,7 +293,7 @@ namespace WinS7Client
                                             log0.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " to PLC " + " result: " + result);
                                         }
 
-                                        ServicePcToPlcs[n].ParamConfigOK = GetFileByName(path, "Config.xml");
+                                        ServicePcToPlcs[n].ParamConfigOK = Recipes.GetFileByName(path, "Config.xml");
                                         if (ServicePcToPlcs[n].ParamConfigOK)
                                         {
                                             //deserialize "Config.xml"
@@ -301,7 +308,7 @@ namespace WinS7Client
                                             log0.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " to PLC " + " result: " + result);
                                         }
 
-                                        ServicePcToPlcs[n].ParamN2OK = GetFileByName(path, "N2.xml");
+                                        ServicePcToPlcs[n].ParamN2OK = Recipes.GetFileByName(path, "N2.xml");
                                         if (ServicePcToPlcs[n].ParamN2OK)
                                         {
                                             //deserialize "N2.xml"
@@ -316,7 +323,7 @@ namespace WinS7Client
                                             log0.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " to PLC " + " result: " + result);
                                         }
 
-                                        ServicePcToPlcs[n].ParamWerkzeugOK = GetFileByName(path, "Werkzeug.xml");
+                                        ServicePcToPlcs[n].ParamWerkzeugOK = Recipes.GetFileByName(path, "Werkzeug.xml");
                                         if (ServicePcToPlcs[n].ParamWerkzeugOK)
                                         {
                                             //deserialize "Werkzeug.xml"
@@ -331,7 +338,7 @@ namespace WinS7Client
                                             log0.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
                                         }
 
-                                        ServicePcToPlcs[n].ParamMWerkzeugOK = GetFileByName(path, "MWerkzeug_" + machineID + ".xml");
+                                        ServicePcToPlcs[n].ParamMWerkzeugOK = Recipes.GetFileByName(path, "MWerkzeug_" + machineID + ".xml");
                                         if (ServicePcToPlcs[n].ParamMWerkzeugOK)
                                         {
                                             //deserialize "MWerkzeug_54xxx.xml"
@@ -361,10 +368,10 @@ namespace WinS7Client
                                 //Case 2. Special Configuration for the tool
                                 else
                                 {
-                                    path = GetSubDirectoryById(root, ServicePlcToPcs[n].ParamHE);
+                                    path = Recipes.GetSubDirectoryById(root, ServicePlcToPcs[n].ParamHE);
                                     if (!string.IsNullOrEmpty(path) & Directory.Exists(path))
                                     {
-                                        ServicePcToPlcs[n].ParamHEOK = GetFileByName(path, "HE.xml");
+                                        ServicePcToPlcs[n].ParamHEOK = Recipes.GetFileByName(path, "HE.xml");
                                         if (ServicePcToPlcs[n].ParamHEOK)
                                         {
                                             //deserialize "HE.xml"
@@ -384,10 +391,10 @@ namespace WinS7Client
                                         ServicePcToPlcs[n].ParamHEOK = false;
                                     }
 
-                                    path = GetSubDirectoryById(root, ServicePlcToPcs[n].ParamConfig);
+                                    path = Recipes.GetSubDirectoryById(root, ServicePlcToPcs[n].ParamConfig);
                                     if (!string.IsNullOrEmpty(path) & Directory.Exists(path))
                                     {
-                                        ServicePcToPlcs[n].ParamConfigOK = GetFileByName(path, "Config.xml");
+                                        ServicePcToPlcs[n].ParamConfigOK = Recipes.GetFileByName(path, "Config.xml");
                                         if (ServicePcToPlcs[n].ParamConfigOK)
                                         {
                                             //deserialize "Config.xml"
@@ -407,10 +414,10 @@ namespace WinS7Client
                                         ServicePcToPlcs[n].ParamConfigOK = false;
                                     }
 
-                                    path = GetSubDirectoryById(root, ServicePlcToPcs[n].ParamN2);
+                                    path = Recipes.GetSubDirectoryById(root, ServicePlcToPcs[n].ParamN2);
                                     if (!string.IsNullOrEmpty(path) & Directory.Exists(path))
                                     {
-                                        ServicePcToPlcs[n].ParamN2OK = GetFileByName(path, "N2.xml");
+                                        ServicePcToPlcs[n].ParamN2OK = Recipes.GetFileByName(path, "N2.xml");
                                         if (ServicePcToPlcs[n].ParamN2OK)
                                         {
                                             //deserialize "N2.xml"
@@ -430,10 +437,10 @@ namespace WinS7Client
                                         ServicePcToPlcs[n].ParamN2OK = false;
                                     }
 
-                                    path = GetSubDirectoryById(root, ServicePlcToPcs[n].ParamWerkzeug);
+                                    path = Recipes.GetSubDirectoryById(root, ServicePlcToPcs[n].ParamWerkzeug);
                                     if (!string.IsNullOrEmpty(path) & Directory.Exists(path))
                                     {
-                                        ServicePcToPlcs[n].ParamWerkzeugOK = GetFileByName(path, "Werkzeug.xml");
+                                        ServicePcToPlcs[n].ParamWerkzeugOK = Recipes.GetFileByName(path, "Werkzeug.xml");
                                         if (ServicePcToPlcs[n].ParamWerkzeugOK)
                                         {
                                             //deserialize "Werkzeug.xml"
@@ -455,10 +462,10 @@ namespace WinS7Client
 
                                     //Machine params allowed only by actual tool to avoid crash!!!
                                     //path = GetSubDirectoryById(root, ServicePlcToPcs[n].ParamMWerkzeug);
-                                    path = GetSubDirectoryById(root, ServicePlcToPcs[n].AktWerkzeugID);
+                                    path = Recipes.GetSubDirectoryById(root, ServicePlcToPcs[n].AktWerkzeugID);
                                     if (!string.IsNullOrEmpty(path) & Directory.Exists(path))
                                     {
-                                        ServicePcToPlcs[n].ParamMWerkzeugOK = GetFileByName(path, "MWerkzeug_" + machineID + ".xml");
+                                        ServicePcToPlcs[n].ParamMWerkzeugOK = Recipes.GetFileByName(path, "MWerkzeug_" + machineID + ".xml");
                                         if (ServicePcToPlcs[n].ParamMWerkzeugOK)
                                         {
                                             //deserialize "MWerkzeug_54xxx.xml"
@@ -498,7 +505,7 @@ namespace WinS7Client
                                 string halfpath1 = string.Empty;
                                 string halfpath2 = string.Empty;
                                 string path2 = string.Empty;
-                                path = GetSubDirectoryById(root, ServicePlcToPcs[n].AktWerkzeugID);
+                                path = Recipes.GetSubDirectoryById(root, ServicePlcToPcs[n].AktWerkzeugID);
 
                                 if (!string.IsNullOrEmpty(path) & Directory.Exists(path))
                                 {
@@ -589,7 +596,7 @@ namespace WinS7Client
                                         log0.Info("RenameDirectory " + path + " >>> " + path2);
                                         log0.Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
 
-                                        RenameDirectory(path, path2);
+                                        Recipes.RenameDirectory(path, path2);
 
 
                                         //ChangeLogFileName
@@ -671,14 +678,14 @@ namespace WinS7Client
                                         ServicePcToPlcs[n].ParamsSichernFertig = true;
 
                                         //Get all recipe folders
-                                        ToolListClear(ref buffer);
+                                        Recipes.ToolListClear(ref buffer);
 
                                         Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
 
                                         string[] subdirectoryEntries;
-                                        subdirectoryEntries = GetSubDirectories(root);
+                                        subdirectoryEntries = Recipes.GetSubDirectories(root);
 
-                                        ToolListFillWithRecipes(subdirectoryEntries, ref buffer);
+                                        Recipes.ToolListFillWithRecipes(subdirectoryEntries, ref buffer);
 
                                         Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
                                         //Log
@@ -690,8 +697,8 @@ namespace WinS7Client
                                 {
                                     //Case 3. Create folder and save parameters
                                     string folder = string.Empty;
-                                    AssembleDirectoryName(ServicePlcToPcs[n].AktWerkzeugID, ServicePlcToPcs[n].AktWerkzeugName, ref folder);
-                                    CreateDirectory(root, folder, ref path);
+                                    Recipes.AssembleDirectoryName(ServicePlcToPcs[n].AktWerkzeugID, ServicePlcToPcs[n].AktWerkzeugName, ref folder);
+                                    Recipes.CreateDirectory(root, folder, ref path);
 
                                     //ChangeLogFileName
                                     ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n], path + "\\WinS7ClientLogger.log");
@@ -744,14 +751,14 @@ namespace WinS7Client
                                     ServicePcToPlcs[n].ParamsSichernFertig = true;
 
                                     //Get all recipe folders
-                                    ToolListClear(ref buffer);
+                                    Recipes.ToolListClear(ref buffer);
 
                                     Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
 
                                     string[] subdirectoryEntries;
-                                    subdirectoryEntries = GetSubDirectories(root);
+                                    subdirectoryEntries = Recipes.GetSubDirectories(root);
 
-                                    ToolListFillWithRecipes(subdirectoryEntries, ref buffer);
+                                    Recipes.ToolListFillWithRecipes(subdirectoryEntries, ref buffer);
 
                                     Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
                                     //Log
@@ -774,7 +781,7 @@ namespace WinS7Client
                             if (ServicePlcToPcs[n].DatLoeschen & !ServicePcToPlcs[n].DatLoeschenFertig)
                             {
                                 string path = string.Empty;
-                                path = GetSubDirectoryById(root, ServicePlcToPcs[n].LoeschWerkzeugID);
+                                path = Recipes.GetSubDirectoryById(root, ServicePlcToPcs[n].LoeschWerkzeugID);
 
                                 //ChangeLogFileName
                                 ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[n], root + "\\WinS7ClientLogger" + n + ".log");
@@ -786,7 +793,7 @@ namespace WinS7Client
 
                                 if (!string.IsNullOrEmpty(path) & Directory.Exists(path))
                                 {
-                                    DeleteDirectory(path);
+                                    Recipes.DeleteDirectory(path);
                                     //Log
                                     log[n].Info("Deleted Directory " + path);
                                     log[n].Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
@@ -797,14 +804,14 @@ namespace WinS7Client
                                 ServicePcToPlcs[n].DatLoeschenFertig = true;
 
                                 //Get all recipe folders
-                                ToolListClear(ref buffer);
+                                Recipes.ToolListClear(ref buffer);
 
                                 Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
 
                                 string[] subdirectoryEntries;
-                                subdirectoryEntries = GetSubDirectories(root);
+                                subdirectoryEntries = Recipes.GetSubDirectories(root);
 
-                                ToolListFillWithRecipes(subdirectoryEntries, ref buffer);
+                                Recipes.ToolListFillWithRecipes(subdirectoryEntries, ref buffer);
 
                                 Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
                                 //Log
@@ -815,7 +822,7 @@ namespace WinS7Client
                             //Delete recipe folder <---
                             //**************************************************
 
-                            SetHeartBeat(ref HeartbeatTimeStamp[n], ref heartbeat, 1);
+                            Recipes.SetHeartBeat(ref HeartbeatTimeStamp[n], ref heartbeat, 1);
                             ServicePcToPlcs[n].LifeBit = heartbeat;
 
 
@@ -3150,7 +3157,7 @@ namespace WinS7Client
                                 ToolListFillWithRecipes(subdirectoryEntries, ref buffer);
 
                                 Global.WriteAreaPlc(client, S7Consts.S7AreaDB, DB_Service_WKZ_Liste, 0, DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
-
+                                
                                 //Log
                                 log0.Info("ToolListFillWithRecipes" + " result: " + result);
 
@@ -3880,17 +3887,17 @@ namespace WinS7Client
             tbIpAddressPlc3.Text = PlcIpAddress[3];
             tbRackPlc3.Text = PlcRack[3];
             tbSlotPlc3.Text = PlcSlot[3];
-
+            
             tbIpAddressPlc3.Enabled = false;
             tbRackPlc3.Enabled = false;
             tbSlotPlc3.Enabled = false;
-
+            
             tbModuleTypeNamePlc3.Text = "";
             tbSerialNumberPlc3.Text = "";
             tbCopyrightPlc3.Text = "";
             tbAsNamePlc3.Text = "";
             tbModuleNamePlc3.Text = "";
-
+            
             tbOrderCodePlc3.Text = "";
             tbVersionPlc3.Text = "";
 
@@ -4750,7 +4757,7 @@ namespace WinS7Client
                     string s1 = subdirectory.Substring(11, 3);
                     if (s1.ParseShort() != 255) //Critical change for customer 09.04.2021. Should be checked!!!
                     {
-                        S7.SetIntAt(buffer, shiftId, (subdirectory.Substring(11, 3)).ParseShort());
+                        S7.SetIntAt(buffer, shiftId, (subdirectory.Substring(11, 3)).ParseShort()); 
                     }
                     else
                     {
@@ -4910,7 +4917,7 @@ namespace WinS7Client
                     heartbeat = true;
                 }
             }
-
+            
         }
         #endregion
 
@@ -5075,7 +5082,7 @@ namespace WinS7Client
                             tbVersionPlc7.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
                         }
                     }
-                    break;
+                        break;
                 case 8:
                     await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
                     break;

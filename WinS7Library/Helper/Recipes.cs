@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace WinS7Library.Helper
 {
-    public static class RecipeFile
+    public static class Recipes
     {
         /// <summary>
         /// RecipesServiceMethods
         /// </summary>
         #region RecipesServiceMethods
-        private static string[] GetSubDirectories(string root)
+        public static string[] GetSubDirectories(string root)
         {
             //root = @"E:\Recipes";
             // Get all subdirectories
@@ -22,12 +22,12 @@ namespace WinS7Library.Helper
             return subdirectoryEntries;
         }
 
-        private static void ClearBuffer(ref byte[] buffer)
+        public static void ClearBuffer(ref byte[] buffer)
         {
             Array.Clear(buffer, 0, buffer.Length);
         }
 
-        private static void ToolListClear(ref byte[] buffer)
+        public static void ToolListClear(ref byte[] buffer)
         {
             Array.Clear(buffer, 0, 65536);
             int shiftName = 0;
@@ -46,7 +46,7 @@ namespace WinS7Library.Helper
             }
         }
 
-        private static void ToolListFillWithRecipes(string[] subdirectoryEntries, ref byte[] buffer)
+        public static void ToolListFillWithRecipes(string[] subdirectoryEntries, ref byte[] buffer)
         {
             int shiftName = 0;
             //int shiftId = 22;
@@ -101,7 +101,7 @@ namespace WinS7Library.Helper
             }
         }
 
-        private static string GetSubDirectoryById(string root, short id)
+        public static string GetSubDirectoryById(string root, short id)
         {
             string path = string.Empty;
             int idTemp = 0;
@@ -120,7 +120,7 @@ namespace WinS7Library.Helper
             return path;
         }
 
-        private static void CreateDirectory(string root, string folder, ref string path)
+        public static void CreateDirectory(string root, string folder, ref string path)
         {
             path = root + @"\" + folder;
             // If directory does not exist, create it. 
@@ -136,13 +136,13 @@ namespace WinS7Library.Helper
             }
         }
 
-        private static string[] GetFilesInDirectory(string root)
+        public static string[] GetFilesInDirectory(string root)
         {
             string[] fileEntries = Directory.GetFiles(root);
             return fileEntries;
         }
 
-        private static bool GetFileByName(string root, string filename)
+        public static bool GetFileByName(string root, string filename)
         {
             bool paramOK = false;
             string[] fileEntries = GetFilesInDirectory(root);
@@ -156,7 +156,7 @@ namespace WinS7Library.Helper
             return paramOK;
         }
 
-        private static void AssembleDirectoryName(short wkzid, string werkzeugname, ref string folder)
+        public static void AssembleDirectoryName(short wkzid, string werkzeugname, ref string folder)
         {
             if (wkzid < 10)
             {
@@ -172,7 +172,7 @@ namespace WinS7Library.Helper
             }
         }
 
-        private static void RenameDirectory(string path1, string path2)
+        public static void RenameDirectory(string path1, string path2)
         {
             if (Directory.Exists(path1))
             {
@@ -180,13 +180,13 @@ namespace WinS7Library.Helper
             }
         }
 
-        private static void DeleteDirectory(string path)
+        public static void DeleteDirectory(string path)
         {
             Directory.Delete(path, true);
         }
 
 
-        private static void AssembleId(short wkzid, ref string wkzidString)
+        public static void AssembleId(short wkzid, ref string wkzidString)
         {
             if (wkzid < 10)
             {
@@ -202,7 +202,7 @@ namespace WinS7Library.Helper
             }
         }
 
-        private static void SetHeartBeat(ref DateTime timestamp, ref bool heartbeat, int difference = 5)
+        public static void SetHeartBeat(ref DateTime timestamp, ref bool heartbeat, int difference = 5)
         {
             // Calculate the Timespan since the Last Update from the Client.
             TimeSpan timeSinceLastHeartbeat = DateTime.Now.ToUniversalTime() - timestamp.ToUniversalTime();

@@ -56,7 +56,7 @@
     <Compile Include="Examples\RecycleBin.cs" />
     <Compile Include="Helper\Global.cs" />
     <Compile Include="Helper\Comparence.cs" />
-    <Compile Include="Helper\RecipeFile.cs" />
+    <Compile Include="Helper\Recipes.cs" />
     <Compile Include="Model\DatConfig.cs" />
     <Compile Include="Model\DatHE.cs" />
     <Compile Include="Model\DatMWerkzeug.cs" />

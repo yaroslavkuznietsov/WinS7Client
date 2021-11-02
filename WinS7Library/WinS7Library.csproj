@@ -57,8 +57,8 @@
     <Compile Include="Helper\Global.cs" />
     <Compile Include="Helper\Comparence.cs" />
     <Compile Include="Helper\Recipes.cs" />
-    <Compile Include="Model\CommPlc.cs" />
-    <Compile Include="Model\CommService.cs" />
+    <Compile Include="Model\CommPlcInstance.cs" />
+    <Compile Include="Model\CommData.cs" />
     <Compile Include="Model\DatConfig.cs" />
     <Compile Include="Model\DatHE.cs" />
     <Compile Include="Model\DatMWerkzeug.cs" />

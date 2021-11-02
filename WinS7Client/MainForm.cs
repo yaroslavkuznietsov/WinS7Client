@@ -1272,7 +1272,7 @@ namespace WinS7Client
         /// </summary>
         #region Service methods
 
-        private async void connectClient(S7Client client, string address, int rack, int slot)
+        private async void ConnectClient(S7Client client, string address, int rack, int slot)
         {
             await Global.ConnectToClientAsync(client, address, rack, slot);
         }

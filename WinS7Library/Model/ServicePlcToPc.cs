@@ -15,6 +15,8 @@ namespace WinS7Library.Model
         public bool SondernKonfig { get; set; }
         public bool ParamsSichern { get; set; }
         public bool DatLoeschen { get; set; }
+        public bool BetriebsDLaden { get; set; }
+        public bool BetriebsDSichern { get; set; }
         public int AktAnlage { get; set; }
         public short AktWerkzeugID { get; set; }
         public string AktWerkzeugName { get; set; }
@@ -26,5 +28,7 @@ namespace WinS7Library.Model
         public short LoeschWerkzeugID { get; set; }
         public uint AusweissNr { get; set; }
         public string AusweissName { get; set; }
+        public string AktWerkzeugOB { get; set; }
+        public string AktWerkzeugUN { get; set; }
     }
 }

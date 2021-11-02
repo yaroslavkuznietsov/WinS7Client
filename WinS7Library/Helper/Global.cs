@@ -128,6 +128,11 @@ namespace WinS7Library.Helper
             DumpBox.Text = result.ToString();
         }
 
-        
+        public static void ClearBuffer(ref byte[] buffer)
+        {
+            Array.Clear(buffer, 0, buffer.Length);
+        }
+
+
     }
 }

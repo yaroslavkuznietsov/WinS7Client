@@ -166,6 +166,35 @@ namespace WinS7Library.Helper
                     comparenceinfo = comparenceinfo + "Difference in " + type.Name + ": No difference";
                 }
             }
+
+            //Compare DatBetrieb
+            if (type == typeof(DatBetrieb))
+            {
+                //Initialize objects and comparer  
+                var comparer = new ObjectsComparer.Comparer<DatBetrieb>();
+
+                //Compare objects
+                DatBetrieb obj1 = (DatBetrieb)object1;
+                DatBetrieb obj2 = (DatBetrieb)object2;
+                IEnumerable<Difference> differences;
+                var isEqual = comparer.Compare(obj1, obj2, out differences);
+
+                //Check equality
+                if (!isEqual)
+                {
+                    //Get comparence results
+                    comparenceinfo = comparenceinfo + "Difference in " + type.Name + ": ";
+                    foreach (var item in differences)
+                    {
+                        comparenceinfo = comparenceinfo + " \n" + " " + item;
+                    }
+                    comparenceinfo = comparenceinfo + " \n";
+                }
+                else
+                {
+                    comparenceinfo = comparenceinfo + "Difference in " + type.Name + ": No difference";
+                }
+            }
         }
     }
 }

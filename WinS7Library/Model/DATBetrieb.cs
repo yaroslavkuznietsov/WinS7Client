@@ -9,7 +9,7 @@ namespace WinS7Library.Model
 {
     // Defines that you want to serialize this class
     [Serializable()]
-    class DATBetrieb : ISerializable
+    public class DatBetrieb : ISerializable
     {
         public int StdSollHE { get; set; }
         public int StdIstHE { get; set; }
@@ -20,7 +20,7 @@ namespace WinS7Library.Model
 
 
         //ctor
-        public DATBetrieb() { }
+        public DatBetrieb() { }
 
 
         // Serialization function (Stores Object Data in File)
@@ -32,7 +32,7 @@ namespace WinS7Library.Model
         }
 
         // The deserialize function (Removes Object Data from File)
-        public DATBetrieb(SerializationInfo info, StreamingContext ctxt)
+        public DatBetrieb(SerializationInfo info, StreamingContext ctxt)
         {
         }
     }

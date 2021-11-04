@@ -74,6 +74,7 @@ namespace WinS7Client
         private const int DB_Service_WKZ_Liste = 7005;
         private const int DB_Service_PlcToPc = 7006;
         private const int DB_Service_PcToPlc = 7007;
+        private const int DB_DAT_Betrieb = 7008;
 
         //DB Length in bytes
         private const int DB_DAT_HE_Length = 240;
@@ -84,6 +85,7 @@ namespace WinS7Client
         private const int DB_Service_WKZ_Liste_Length = 5632;   // v.4 Changes for customer 28.04.2021 -> 40 Signs
         private const int DB_Service_PlcToPc_Length = 122;  // v.4 Changes for customer 28.04.2021 -> 40 Signs
         private const int DB_Service_PcToPlc_Length = 6;
+        private const int DB_DAT_Betrieb_Length = 24;
         #endregion
 
 
@@ -168,7 +170,7 @@ namespace WinS7Client
                 {
                     //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
                     ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
-                    //log[0].Error("Exception: " + ex.Message.ToString());
+                    log[0].Error("Exception: " + ex.Message.ToString());
 
                     //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger default file
                     ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger.log");

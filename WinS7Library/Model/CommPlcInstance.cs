@@ -52,6 +52,8 @@ namespace WinS7Library.Model
                 plcToPc.SondernKonfig = S7.GetBitAt(buffer, 4, 2);
                 plcToPc.ParamsSichern = S7.GetBitAt(buffer, 4, 3);
                 plcToPc.DatLoeschen = S7.GetBitAt(buffer, 4, 4);
+                plcToPc.BetriebsDLaden = S7.GetBitAt(buffer, 4, 5);
+                plcToPc.BetriebsDSichern = S7.GetBitAt(buffer, 4, 6);
                 plcToPc.AktAnlage = S7.GetDIntAt(buffer, 6);
                 plcToPc.AktWerkzeugID = S7.GetIntAt(buffer, 10);
                 plcToPc.AktWerkzeugName = S7.GetStringAt(buffer, 12);
@@ -63,25 +65,9 @@ namespace WinS7Library.Model
                 plcToPc.LoeschWerkzeugID = S7.GetIntAt(buffer, 64);
                 plcToPc.AusweissNr = S7.GetDWordAt(buffer, 66);
                 plcToPc.AusweissName = S7.GetStringAt(buffer, 70);
+                plcToPc.AktWerkzeugOB = S7.GetIntAt(buffer, 122);
+                plcToPc.AktWerkzeugUN = S7.GetIntAt(buffer, 124);
 
-                //PlcToPc.LifeBit = S7.GetBitAt(buffer, 0, 0);
-                //PlcToPc.ErrorStatus = S7.GetIntAt(buffer, 2);
-                //PlcToPc.WKZEinlesen = S7.GetBitAt(buffer, 4, 0);
-                //PlcToPc.ParamsLaden = S7.GetBitAt(buffer, 4, 1);
-                //PlcToPc.SondernKonfig = S7.GetBitAt(buffer, 4, 2);
-                //PlcToPc.ParamsSichern = S7.GetBitAt(buffer, 4, 3);
-                //PlcToPc.DatLoeschen = S7.GetBitAt(buffer, 4, 4);
-                //PlcToPc.AktAnlage = S7.GetDIntAt(buffer, 6);
-                //PlcToPc.AktWerkzeugID = S7.GetIntAt(buffer, 10);
-                //PlcToPc.AktWerkzeugName = S7.GetStringAt(buffer, 12);
-                //PlcToPc.ParamHE = S7.GetIntAt(buffer, 34);
-                //PlcToPc.ParamConfig = S7.GetIntAt(buffer, 36);
-                //PlcToPc.ParamN2 = S7.GetIntAt(buffer, 38);
-                //PlcToPc.ParamWerkzeug = S7.GetIntAt(buffer, 40);
-                //PlcToPc.ParamMWerkzeug = S7.GetIntAt(buffer, 42);
-                //PlcToPc.LoeschWerkzeugID = S7.GetIntAt(buffer, 44);
-                //PlcToPc.AusweissNr = S7.GetDWordAt(buffer, 46);
-                //PlcToPc.AusweissName = S7.GetStringAt(buffer, 50);
 
                 string machineID = plcToPc.AktAnlage.ToString();
                 uint ausweissNr = plcToPc.AusweissNr;
@@ -690,6 +676,158 @@ namespace WinS7Library.Model
                 //Delete recipe folder <---
                 //**************************************************
 
+
+                //**************************************************
+                //Read operational data --->
+                if (plcToPc.BetriebsDLaden == false)
+                {
+                    pcToPlc.BetriebsDLadenFertig = false;
+                }
+
+                if (plcToPc.BetriebsDLaden == true & pcToPlc.BetriebsDLadenFertig == false)
+                {
+                    DatBetrieb datBetriebMain = new DatBetrieb();
+
+                    string path = string.Empty;
+
+                    //Tool HE opeartional data
+                    path = Recipes.GetSubDirectoryById(root, plcToPc.AktWerkzeugID);
+                    //deserialize "Betrieb.xml"
+                    DatBetrieb datBetriebHE = Serializer.DeserializeDatBetrieb(path, ref error);
+
+                    //ChangeLogFileName
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderNameRecipe, path + "\\WinS7ClientLogger.log");
+                    // Log
+                    commData.LogRecipe.Info("Serializer.DeserializeDatBetrieb();" + " " + plcToPc.AktWerkzeugID + " from " + path + " error: " + error);
+                    commData.LogGlobal.Info("Serializer.DeserializeDatBetrieb();" + " " + plcToPc.AktWerkzeugID + " from " + path + " error: " + error);
+
+                    //Tool OB opeartional data
+                    path = Recipes.GetSubDirectoryById(root, plcToPc.AktWerkzeugOB);
+                    //deserialize "Betrieb.xml"
+                    DatBetrieb datBetriebOB = Serializer.DeserializeDatBetrieb(path, ref error);
+                    // Log
+                    commData.LogRecipe.Info("Serializer.DeserializeDatBetrieb();" + " " + plcToPc.AktWerkzeugOB + " from " + path + " error: " + error);
+                    commData.LogGlobal.Info("Serializer.DeserializeDatBetrieb();" + " " + plcToPc.AktWerkzeugOB + " from " + path + " error: " + error);
+
+                    //Tool UN opeartional data
+                    path = Recipes.GetSubDirectoryById(root, plcToPc.AktWerkzeugUN);
+                    //deserialize "Betrieb.xml"
+                    DatBetrieb datBetriebUN = Serializer.DeserializeDatBetrieb(path, ref error);
+                    // Log
+                    commData.LogRecipe.Info("Serializer.DeserializeDatBetrieb();" + " " + plcToPc.AktWerkzeugUN + " from " + path + " error: " + error);
+                    commData.LogGlobal.Info("Serializer.DeserializeDatBetrieb();" + " " + plcToPc.AktWerkzeugUN + " from " + path + " error: " + error);
+
+                    //Copy operational data to datBetrieb
+                    datBetriebMain.StdSollHE = datBetriebHE.StdSollHE;
+                    datBetriebMain.StdIstHE = datBetriebHE.StdIstHE;
+                    datBetriebMain.StdSollOB = datBetriebOB.StdSollOB;
+                    datBetriebMain.StdIstOB = datBetriebOB.StdIstOB;
+                    datBetriebMain.StdSollUN = datBetriebUN.StdSollUN;
+                    datBetriebMain.StdIstUN = datBetriebUN.StdIstUN;
+
+                    Serializer.DatBetriebToBuffer(datBetriebMain, buffer, ref error);
+
+                    Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Betrieb, 0, commData.DB_DAT_Betrieb_Length, S7Consts.S7WLByte, buffer, ref result);
+
+                    // Log
+                    commData.LogRecipe.Info("Serializer.DeserializeDatBetrieb();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                    commData.LogGlobal.Info("Serializer.DeserializeDatBetrieb();" + " " + aktWkzID + " to PLC " + " result: " + result);
+
+
+                    pcToPlc.BetriebsDLadenFertig = true;
+                }
+                //Read operational data <---
+                //**************************************************
+
+
+                //**************************************************
+                //Write operational data --->
+                if (plcToPc.BetriebsDSichern == false)
+                {
+                    pcToPlc.BetriebsDSichernFertig = false;
+                }
+
+                if (plcToPc.BetriebsDSichern == true & pcToPlc.BetriebsDSichernFertig == false)
+                {
+                    Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Betrieb, 0, commData.DB_DAT_Betrieb_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+
+                    // Log
+                    commData.LogGlobal.Info("Read operational data from plc" + " result: " + result);
+
+                    DatBetrieb datBetrieb =  Serializer.BufferToDatBetrieb(buffer, ref error);
+
+                    string path = string.Empty;
+
+                    //Tool HE opeartional data
+                    path = Recipes.GetSubDirectoryById(root, plcToPc.AktWerkzeugID);
+
+                    //ChangeLogFileName @"e:\\path\\WinS7ClientLogger.log"
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderNameRecipe, path + "\\WinS7ClientLogger.log");
+
+                    //deserialize "Betrieb.xml"
+                    DatBetrieb datBetrieb1 = Serializer.DeserializeDatBetrieb(path, ref error);
+                    DatBetrieb datBetrieb2 = Serializer.DeserializeDatBetrieb(path, ref error);
+
+                    datBetrieb2.StdSollHE = datBetrieb.StdSollHE;
+                    datBetrieb2.StdIstHE = datBetrieb.StdIstHE;
+
+                    //serialize "Betrieb.xml"
+                    Serializer.SerializeDatBetrieb(datBetrieb2, path, ref error);
+                    Comparence.CompareClass(datBetrieb1, datBetrieb2, ref comparenceinfo);
+                    // Log
+                    commData.LogRecipe.Info("Serializer.SerializeDatBetrieb();" + " " + plcToPc.AktWerkzeugID + " to " + path + " error: " + error);
+                    commData.LogRecipe.Info(comparenceinfo);
+                    commData.LogGlobal.Info("Serializer.SerializeDatBetrieb();" + " " + plcToPc.AktWerkzeugID + " to " + path + " error: " + error);
+                    commData.LogGlobal.Info(comparenceinfo);
+
+
+                    //Tool OB opeartional data
+                    path = Recipes.GetSubDirectoryById(root, plcToPc.AktWerkzeugOB);
+
+                    //deserialize "Betrieb.xml"
+                    datBetrieb1 = Serializer.DeserializeDatBetrieb(path, ref error);
+                    datBetrieb2 = Serializer.DeserializeDatBetrieb(path, ref error);
+
+                    datBetrieb2.StdSollOB = datBetrieb.StdSollOB;
+                    datBetrieb2.StdIstOB = datBetrieb.StdIstOB;
+
+                    //serialize "Betrieb.xml"
+                    Serializer.SerializeDatBetrieb(datBetrieb2, path, ref error);
+                    Comparence.CompareClass(datBetrieb1, datBetrieb2, ref comparenceinfo);
+                    // Log
+                    commData.LogRecipe.Info("Serializer.SerializeDatBetrieb();" + " " + plcToPc.AktWerkzeugOB + " to " + path + " error: " + error);
+                    commData.LogRecipe.Info(comparenceinfo);
+                    commData.LogGlobal.Info("Serializer.SerializeDatBetrieb();" + " " + plcToPc.AktWerkzeugOB + " to " + path + " error: " + error);
+                    commData.LogGlobal.Info(comparenceinfo);
+
+
+                    //Tool UN opeartional data
+                    path = Recipes.GetSubDirectoryById(root, plcToPc.AktWerkzeugUN);
+
+                    //deserialize "Betrieb.xml"
+                    datBetrieb1 = Serializer.DeserializeDatBetrieb(path, ref error);
+                    datBetrieb2 = Serializer.DeserializeDatBetrieb(path, ref error);
+
+                    datBetrieb2.StdSollUN = datBetrieb.StdSollUN;
+                    datBetrieb2.StdIstUN = datBetrieb.StdIstUN;
+
+                    //serialize "Betrieb.xml"
+                    Serializer.SerializeDatBetrieb(datBetrieb2, path, ref error);
+                    Comparence.CompareClass(datBetrieb1, datBetrieb2, ref comparenceinfo);
+                    // Log
+                    commData.LogRecipe.Info("Serializer.SerializeDatBetrieb();" + " " + plcToPc.AktWerkzeugUN + " to " + path + " error: " + error);
+                    commData.LogRecipe.Info(comparenceinfo);
+                    commData.LogGlobal.Info("Serializer.SerializeDatBetrieb();" + " " + plcToPc.AktWerkzeugUN + " to " + path + " error: " + error);
+                    commData.LogGlobal.Info(comparenceinfo);
+
+
+                    pcToPlc.BetriebsDSichernFertig = true;
+                }
+                //Write operational data <---
+                //**************************************************
+
+
+
                 //Recipes.SetHeartBeat(ref HeartbeatTimeStamp[n], ref heartbeat, 1);
 
                 Recipes.SetHeartBeat(ref timestamp, ref heartbeat, 1);
@@ -708,6 +846,8 @@ namespace WinS7Library.Model
                 S7.SetBitAt(ref buffer, 4, 1, pcToPlc.ParamsLadenFertig);
                 S7.SetBitAt(ref buffer, 4, 3, pcToPlc.ParamsSichernFertig);
                 S7.SetBitAt(ref buffer, 4, 4, pcToPlc.DatLoeschenFertig);
+                S7.SetBitAt(ref buffer, 4, 5, pcToPlc.BetriebsDLadenFertig);
+                S7.SetBitAt(ref buffer, 4, 6, pcToPlc.BetriebsDSichernFertig);
                 S7.SetBitAt(ref buffer, 5, 0, pcToPlc.ParamHEOK);
                 S7.SetBitAt(ref buffer, 5, 1, pcToPlc.ParamConfigOK);
                 S7.SetBitAt(ref buffer, 5, 2, pcToPlc.ParamN2OK);

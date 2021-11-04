@@ -14,6 +14,8 @@ namespace WinS7Library.Model
         public bool ParamsLadenFertig { get; set; }
         public bool ParamsSichernFertig { get; set; }
         public bool DatLoeschenFertig { get; set; }
+        public bool BetriebsDLadenFertig { get; set; }
+        public bool BetriebsDSichernFertig { get; set; }
         public bool ParamHEOK { get; set; }
         public bool ParamConfigOK { get; set; }
         public bool ParamN2OK { get; set; }

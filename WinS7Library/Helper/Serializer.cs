@@ -2416,5 +2416,101 @@ namespace WinS7Library.Helper
         #endregion
 
 
+        #region DatBetrieb
+
+        public static void DatBetriebToBuffer(DatBetrieb datBetrieb, byte[] buffer, ref string error)
+        {
+            try
+            {
+                //clear buffer before use
+                Array.Clear(buffer, 0, buffer.Length);
+
+                S7.SetDIntAt(buffer, 0, datBetrieb.StdSollHE);
+                S7.SetDIntAt(buffer, 4, datBetrieb.StdIstHE);
+                S7.SetDIntAt(buffer, 8, datBetrieb.StdSollOB);
+                S7.SetDIntAt(buffer, 12, datBetrieb.StdIstOB);
+                S7.SetDIntAt(buffer, 16, datBetrieb.StdSollUN);
+                S7.SetDIntAt(buffer, 20, datBetrieb.StdIstUN);
+               
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+                //throw;
+            }
+        }
+
+        public static DatBetrieb BufferToDatBetrieb (byte[] buffer, ref string error)
+        {
+            error = string.Empty;
+            //create instance
+            DatBetrieb datBetrieb = new DatBetrieb();
+
+            try
+            {
+                datBetrieb.StdSollHE = S7.GetDIntAt(buffer, 0);
+                datBetrieb.StdIstHE = S7.GetDIntAt(buffer, 4);
+                datBetrieb.StdSollOB = S7.GetDIntAt(buffer, 8);
+                datBetrieb.StdIstOB = S7.GetDIntAt(buffer, 12);
+                datBetrieb.StdSollUN = S7.GetDIntAt(buffer, 16);
+                datBetrieb.StdIstUN = S7.GetDIntAt(buffer, 20);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+                //throw;
+            }
+
+            return datBetrieb;
+        }
+
+        public static DatBetrieb SerializeDatBetrieb(DatBetrieb datBetrieb, string path, ref string error)
+        {
+            error = string.Empty;
+            //create instance
+            //DatBetrieb datBetrieb = new DatBetrieb();
+
+            try
+            {
+                // XmlSerializer writes object data as XML
+                XmlSerializer serializer = new XmlSerializer(typeof(DatBetrieb));
+                using (TextWriter writer = new StreamWriter(path + " \\Betrieb.xml"))
+                {
+                    serializer.Serialize(writer, datBetrieb);
+                    writer.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString() + " " + path + " \\Betrieb.xml";
+                //throw;
+            }
+            //return value
+            return datBetrieb;
+        }
+
+        public static DatBetrieb DeserializeDatBetrieb(string path, ref string error)
+        {
+            //create instance
+            DatBetrieb datBetrieb = new DatBetrieb();
+            try
+            {
+                // Deserialize from XML to the object
+                XmlSerializer deserializer = new XmlSerializer(typeof(DatBetrieb));
+                TextReader reader = new StreamReader(path + " \\Betrieb.xml");
+                object obj = deserializer.Deserialize(reader);
+                datBetrieb = (DatBetrieb)obj;
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString() + " " + path + " \\Betrieb.xml";
+                //throw;
+            }
+            //return value
+            return datBetrieb;
+        }
+        #endregion
+
     }
 }

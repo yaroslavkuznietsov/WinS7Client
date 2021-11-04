@@ -59,7 +59,7 @@
     <Compile Include="Helper\Recipes.cs" />
     <Compile Include="Model\CommPlcInstance.cs" />
     <Compile Include="Model\CommData.cs" />
-    <Compile Include="Model\DATBetrieb.cs" />
+    <Compile Include="Model\DatBetrieb.cs" />
     <Compile Include="Model\DatConfig.cs" />
     <Compile Include="Model\DatHE.cs" />
     <Compile Include="Model\DatMWerkzeug.cs" />

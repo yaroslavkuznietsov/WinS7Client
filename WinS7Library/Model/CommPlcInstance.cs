@@ -14,7 +14,7 @@ namespace WinS7Library.Model
         /// <summary>
         /// Communication PC <-> PLC
         /// </summary>
-        public void ConnectionRun(S7Client client, CommData commData, ServicePlcToPc plcToPc, ServicePcToPlc pcToPlc)
+        public void ConnectionRun(S7Client client, CommData commData, ref ServicePlcToPc plcToPc, ref ServicePcToPlc pcToPlc)
         {
             lock (this)
             {
@@ -24,6 +24,10 @@ namespace WinS7Library.Model
 
                 //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
                 ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderNameGlobal, @".\\WinS7ClientLogger" + commData.N + ".log");
+
+                CommunicationS7Plc S7Plc = new CommunicationS7Plc(client, commData);
+
+                plcToPc = S7Plc.ReadPlcToPc();
 
 
                 /// <summary>
@@ -43,30 +47,30 @@ namespace WinS7Library.Model
                 DateTime timestamp = commData.LifeBitTimeStamp;
 
 
-                Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_Service_PlcToPc, 0, commData.DB_Service_PlcToPc_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
-                //ShowResult(result, client);
-                plcToPc.LifeBit = S7.GetBitAt(buffer, 0, 0);
-                plcToPc.ErrorStatus = S7.GetIntAt(buffer, 2);
-                plcToPc.WKZEinlesen = S7.GetBitAt(buffer, 4, 0);
-                plcToPc.ParamsLaden = S7.GetBitAt(buffer, 4, 1);
-                plcToPc.SondernKonfig = S7.GetBitAt(buffer, 4, 2);
-                plcToPc.ParamsSichern = S7.GetBitAt(buffer, 4, 3);
-                plcToPc.DatLoeschen = S7.GetBitAt(buffer, 4, 4);
-                plcToPc.BetriebsDLaden = S7.GetBitAt(buffer, 4, 5);
-                plcToPc.BetriebsDSichern = S7.GetBitAt(buffer, 4, 6);
-                plcToPc.AktAnlage = S7.GetDIntAt(buffer, 6);
-                plcToPc.AktWerkzeugID = S7.GetIntAt(buffer, 10);
-                plcToPc.AktWerkzeugName = S7.GetStringAt(buffer, 12);
-                plcToPc.ParamHE = S7.GetIntAt(buffer, 54);
-                plcToPc.ParamConfig = S7.GetIntAt(buffer, 56);
-                plcToPc.ParamN2 = S7.GetIntAt(buffer, 58);
-                plcToPc.ParamWerkzeug = S7.GetIntAt(buffer, 60);
-                plcToPc.ParamMWerkzeug = S7.GetIntAt(buffer, 62);
-                plcToPc.LoeschWerkzeugID = S7.GetIntAt(buffer, 64);
-                plcToPc.AusweissNr = S7.GetDWordAt(buffer, 66);
-                plcToPc.AusweissName = S7.GetStringAt(buffer, 70);
-                plcToPc.AktWerkzeugOB = S7.GetIntAt(buffer, 122);
-                plcToPc.AktWerkzeugUN = S7.GetIntAt(buffer, 124);
+                //Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_Service_PlcToPc, 0, commData.DB_Service_PlcToPc_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+                ////ShowResult(result, client);
+                //plcToPc.LifeBit = S7.GetBitAt(buffer, 0, 0);
+                //plcToPc.ErrorStatus = S7.GetIntAt(buffer, 2);
+                //plcToPc.WKZEinlesen = S7.GetBitAt(buffer, 4, 0);
+                //plcToPc.ParamsLaden = S7.GetBitAt(buffer, 4, 1);
+                //plcToPc.SondernKonfig = S7.GetBitAt(buffer, 4, 2);
+                //plcToPc.ParamsSichern = S7.GetBitAt(buffer, 4, 3);
+                //plcToPc.DatLoeschen = S7.GetBitAt(buffer, 4, 4);
+                //plcToPc.BetriebsDLaden = S7.GetBitAt(buffer, 4, 5);
+                //plcToPc.BetriebsDSichern = S7.GetBitAt(buffer, 4, 6);
+                //plcToPc.AktAnlage = S7.GetDIntAt(buffer, 6);
+                //plcToPc.AktWerkzeugID = S7.GetIntAt(buffer, 10);
+                //plcToPc.AktWerkzeugName = S7.GetStringAt(buffer, 12);
+                //plcToPc.ParamHE = S7.GetIntAt(buffer, 54);
+                //plcToPc.ParamConfig = S7.GetIntAt(buffer, 56);
+                //plcToPc.ParamN2 = S7.GetIntAt(buffer, 58);
+                //plcToPc.ParamWerkzeug = S7.GetIntAt(buffer, 60);
+                //plcToPc.ParamMWerkzeug = S7.GetIntAt(buffer, 62);
+                //plcToPc.LoeschWerkzeugID = S7.GetIntAt(buffer, 64);
+                //plcToPc.AusweissNr = S7.GetDWordAt(buffer, 66);
+                //plcToPc.AusweissName = S7.GetStringAt(buffer, 70);
+                //plcToPc.AktWerkzeugOB = S7.GetIntAt(buffer, 122);
+                //plcToPc.AktWerkzeugUN = S7.GetIntAt(buffer, 124);
 
 
                 string machineID = plcToPc.AktAnlage.ToString();
@@ -85,17 +89,20 @@ namespace WinS7Library.Model
 
                 if (plcToPc.WKZEinlesen & !pcToPlc.WKZEinlesenFertig)
                 {
+                    
 
-                    Recipes.ToolListClear(ref buffer);
+                    //Recipes.ToolListClear(ref buffer);
 
-                    Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_Service_WKZ_Liste, 0, commData.DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
+                    //Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_Service_WKZ_Liste, 0, commData.DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
 
                     string[] subdirectoryEntries;
                     subdirectoryEntries = Recipes.GetSubDirectories(root);
 
-                    Recipes.ToolListFillWithRecipes(subdirectoryEntries, ref buffer);
+                    S7Plc.WriteToolListToPlc(subdirectoryEntries, ref result);
 
-                    Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_Service_WKZ_Liste, 0, commData.DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
+                    //Recipes.ToolListFillWithRecipes(subdirectoryEntries, ref buffer);
+
+                    //Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_Service_WKZ_Liste, 0, commData.DB_Service_WKZ_Liste_Length, S7Consts.S7WLByte, buffer, ref result);
 
                     //Log
                     commData.LogGlobal.Info("ToolListFillWithRecipes" + " result: " + result);
@@ -136,10 +143,15 @@ namespace WinS7Library.Model
                             if (pcToPlc.ParamHEOK)
                             {
                                 //deserialize "HE.xml"
-                                Global.ClearBuffer(ref buffer);
-                                Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_HE, 0, commData.DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref result);
-                                Serializer.DeserializeDatHE(path, ref buffer, ref error);
-                                Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_HE, 0, commData.DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref result);
+                                //Global.ClearBuffer(ref buffer);
+                                //Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_HE, 0, commData.DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref result);
+                                //Serializer.DeserializeDatHE(path, ref buffer, ref error);
+                                //Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_HE, 0, commData.DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref result);
+
+                                DatHE datHE = Serializer.DeserializeDatHE(path, ref error);
+                                S7Plc.WriteDatHePlc(datHE);
+
+
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " from " + path + " error: " + error);
                                 commData.LogRecipe.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " to PLC " + " result: " + result);
@@ -151,10 +163,15 @@ namespace WinS7Library.Model
                             if (pcToPlc.ParamConfigOK)
                             {
                                 //deserialize "Config.xml"
-                                Global.ClearBuffer(ref buffer);
-                                Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Config, 0, commData.DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref result);
-                                Serializer.DeserializeDatConfig(path, ref buffer, ref error);
-                                Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Config, 0, commData.DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref result);
+                                //Global.ClearBuffer(ref buffer);
+                                //Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Config, 0, commData.DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref result);
+                                //Serializer.DeserializeDatConfig(path, ref buffer, ref error);
+                                //Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Config, 0, commData.DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref result);
+
+                                DatConfig datConfig = Serializer.DeserializeDatConfig(path, ref error);
+                                S7Plc.WriteDatConfigPlc(datConfig);
+
+
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " from " + path + " error: " + error);
                                 commData.LogRecipe.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " to PLC " + " result: " + result);
@@ -166,10 +183,14 @@ namespace WinS7Library.Model
                             if (pcToPlc.ParamN2OK)
                             {
                                 //deserialize "N2.xml"
-                                Global.ClearBuffer(ref buffer);
-                                Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_N2, 0, commData.DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref result);
-                                Serializer.DeserializeDatN2(path, ref buffer, ref error);
-                                Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_N2, 0, commData.DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref result);
+                                //Global.ClearBuffer(ref buffer);
+                                //Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_N2, 0, commData.DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref result);
+                                //Serializer.DeserializeDatN2(path, ref buffer, ref error);
+                                //Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_N2, 0, commData.DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref result);
+
+                                DatN2 datN2 = Serializer.DeserializeDatN2(path, ref error);
+                                S7Plc.WriteDatN2Plc(datN2);
+
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " from " + path + " error: " + error);
                                 commData.LogRecipe.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " to PLC " + " result: " + result);
@@ -181,10 +202,15 @@ namespace WinS7Library.Model
                             if (pcToPlc.ParamWerkzeugOK)
                             {
                                 //deserialize "Werkzeug.xml"
-                                Global.ClearBuffer(ref buffer);
-                                Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Werkzeug, 0, commData.DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
-                                Serializer.DeserializeDatWerkzeug(path, ref buffer, ref error);
-                                Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Werkzeug, 0, commData.DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
+                                //Global.ClearBuffer(ref buffer);
+                                //Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Werkzeug, 0, commData.DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
+                                //Serializer.DeserializeDatWerkzeug(path, ref buffer, ref error);
+                                //Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Werkzeug, 0, commData.DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
+
+                                DatWerkzeug datWerkzeug = Serializer.DeserializeDatWerkzeug(path, ref error);
+                                S7Plc.WriteDatWerkzeugPlc(datWerkzeug);
+
+
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
                                 commData.LogRecipe.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
@@ -196,10 +222,16 @@ namespace WinS7Library.Model
                             if (pcToPlc.ParamMWerkzeugOK)
                             {
                                 //deserialize "MWerkzeug_54xxx.xml"
-                                Global.ClearBuffer(ref buffer);
-                                Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_MWerkzeug, 0, commData.DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
-                                Serializer.DeserializeMWerkzeug(path, machineID, ref buffer, ref error);
-                                Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_MWerkzeug, 0, commData.DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
+                                //Global.ClearBuffer(ref buffer);
+                                //Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_MWerkzeug, 0, commData.DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
+                                //Serializer.DeserializeMWerkzeug(path, machineID, ref buffer, ref error);
+                                //Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_MWerkzeug, 0, commData.DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
+
+                                DatMWerkzeug datMWerkzeug = Serializer.DeserializeMWerkzeug(path, machineID, ref error);
+                                S7Plc.WriteDatMWerkzeugPlc(datMWerkzeug);
+
+
+
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
                                 commData.LogRecipe.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
@@ -231,7 +263,7 @@ namespace WinS7Library.Model
                                 //deserialize "HE.xml"
                                 Global.ClearBuffer(ref buffer);
                                 Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_HE, 0, commData.DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref result);
-                                Serializer.DeserializeDatHE(path, ref buffer, ref error);
+                                //Serializer.DeserializeDatHE(path, ref buffer, ref error);
                                 Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_HE, 0, commData.DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref result);
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " from " + path + " error: " + error);
@@ -254,7 +286,7 @@ namespace WinS7Library.Model
                                 //deserialize "Config.xml"
                                 Global.ClearBuffer(ref buffer);
                                 Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Config, 0, commData.DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref result);
-                                Serializer.DeserializeDatConfig(path, ref buffer, ref error);
+                                //Serializer.DeserializeDatConfig(path, ref buffer, ref error);
                                 Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Config, 0, commData.DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref result);
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " from " + path + " error: " + error);
@@ -277,7 +309,7 @@ namespace WinS7Library.Model
                                 //deserialize "N2.xml"
                                 Global.ClearBuffer(ref buffer);
                                 Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_N2, 0, commData.DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref result);
-                                Serializer.DeserializeDatN2(path, ref buffer, ref error);
+                                //Serializer.DeserializeDatN2(path, ref buffer, ref error);
                                 Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_N2, 0, commData.DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref result);
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " from " + path + " error: " + error);
@@ -300,7 +332,7 @@ namespace WinS7Library.Model
                                 //deserialize "Werkzeug.xml"
                                 Global.ClearBuffer(ref buffer);
                                 Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Werkzeug, 0, commData.DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
-                                Serializer.DeserializeDatWerkzeug(path, ref buffer, ref error);
+                                //Serializer.DeserializeDatWerkzeug(path, ref buffer, ref error);
                                 Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Werkzeug, 0, commData.DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
@@ -325,7 +357,7 @@ namespace WinS7Library.Model
                                 //deserialize "MWerkzeug_54xxx.xml"
                                 Global.ClearBuffer(ref buffer);
                                 Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_MWerkzeug, 0, commData.DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
-                                Serializer.DeserializeMWerkzeug(path, machineID, ref buffer, ref error);
+                                //Serializer.DeserializeMWerkzeug(path, machineID, ref buffer, ref error);
                                 Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_MWerkzeug, 0, commData.DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref result);
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
@@ -379,10 +411,10 @@ namespace WinS7Library.Model
                             //Case 1. Save parameters
 
                             //serialize "HE.xml"
-                            DatHE he1 = Serializer.DeserializeDatHE(path, ref buffer, ref error);
+                            DatHE he1 = Serializer.DeserializeDatHE(path, ref error);
                             Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_HE, 0, commData.DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
-                            DatHE he2 = Serializer.SerializeDatHE(path, buffer, ref error);
-                            Comparence.CompareClass(he1, he2, ref comparenceinfo);
+                            //DatHE he2 = Serializer.SerializeDatHE(path, buffer, ref error);
+                            //Comparence.CompareClass(he1, he2, ref comparenceinfo);
                             // Log
                             commData.LogRecipe.Info("Serializer.SerializeDatHE();" + " " + aktWkzID + " to " + path + " error: " + error);
                             commData.LogRecipe.Info(comparenceinfo);
@@ -390,10 +422,10 @@ namespace WinS7Library.Model
                             commData.LogGlobal.Info(comparenceinfo);
 
                             //serialize "Config.xml"
-                            DatConfig config1 = Serializer.DeserializeDatConfig(path, ref buffer, ref error);
+                            //DatConfig config1 = Serializer.DeserializeDatConfig(path, ref buffer, ref error);
                             Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Config, 0, commData.DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
-                            DatConfig config2 = Serializer.SerializeDatConfig(path, buffer, ref error);
-                            Comparence.CompareClass(config1, config2, ref comparenceinfo);
+                            //DatConfig config2 = Serializer.SerializeDatConfig(path, buffer, ref error);
+                            //Comparence.CompareClass(config1, config2, ref comparenceinfo);
                             // Log
                             commData.LogRecipe.Info("Serializer.SerializeDatConfig();" + " " + aktWkzID + " to " + path + " error: " + error);
                             commData.LogRecipe.Info(comparenceinfo);
@@ -401,10 +433,10 @@ namespace WinS7Library.Model
                             commData.LogGlobal.Info(comparenceinfo);
 
                             //serialize "N2.xml"
-                            DatN2 n21 = Serializer.DeserializeDatN2(path, ref buffer, ref error);
+                            //DatN2 n21 = Serializer.DeserializeDatN2(path, ref buffer, ref error);
                             Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_N2, 0, commData.DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
-                            DatN2 n22 = Serializer.SerializeDatN2(path, buffer, ref error);
-                            Comparence.CompareClass(n21, n22, ref comparenceinfo);
+                            //DatN2 n22 = Serializer.SerializeDatN2(path, buffer, ref error);
+                            //Comparence.CompareClass(n21, n22, ref comparenceinfo);
                             // Log
                             commData.LogRecipe.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " to " + path + " error: " + error);
                             commData.LogRecipe.Info(comparenceinfo);
@@ -412,10 +444,10 @@ namespace WinS7Library.Model
                             commData.LogGlobal.Info(comparenceinfo);
 
                             //serialize "Werkzeug.xml"
-                            DatWerkzeug werkzeug1 = Serializer.DeserializeDatWerkzeug(path, ref buffer, ref error);
+                            //DatWerkzeug werkzeug1 = Serializer.DeserializeDatWerkzeug(path, ref buffer, ref error);
                             Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Werkzeug, 0, commData.DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
-                            DatWerkzeug werkzeug2 = Serializer.SerializeDatWerkzeug(path, buffer, ref error);
-                            Comparence.CompareClass(werkzeug1, werkzeug2, ref comparenceinfo);
+                            //DatWerkzeug werkzeug2 = Serializer.SerializeDatWerkzeug(path, buffer, ref error);
+                            //Comparence.CompareClass(werkzeug1, werkzeug2, ref comparenceinfo);
                             // Log
                             commData.LogRecipe.Info("Serializer.SerializeDatWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
                             commData.LogRecipe.Info(comparenceinfo);
@@ -423,10 +455,10 @@ namespace WinS7Library.Model
                             commData.LogGlobal.Info(comparenceinfo);
 
                             //serialize "MWerkzeug_54xxx.xml"
-                            DatMWerkzeug mwerkzeug1 = Serializer.DeserializeMWerkzeug(path, machineID, ref buffer, ref error);
+                            //DatMWerkzeug mwerkzeug1 = Serializer.DeserializeMWerkzeug(path, machineID, ref buffer, ref error);
                             Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_MWerkzeug, 0, commData.DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
-                            DatMWerkzeug mwerkzeug2 = Serializer.SerializeDatMWerkzeug(path, machineID, buffer, ref error);
-                            Comparence.CompareClass(mwerkzeug1, mwerkzeug2, ref comparenceinfo);
+                            //DatMWerkzeug mwerkzeug2 = Serializer.SerializeDatMWerkzeug(path, machineID, buffer, ref error);
+                            //Comparence.CompareClass(mwerkzeug1, mwerkzeug2, ref comparenceinfo);
                             // Log
                             commData.LogRecipe.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
                             commData.LogRecipe.Info(comparenceinfo);
@@ -474,10 +506,10 @@ namespace WinS7Library.Model
                                 commData.LogGlobal.Info("Actual user: " + ausweissName + ", actual card: " + ausweissNr);
 
                                 //serialize "HE.xml"
-                                DatHE he1 = Serializer.DeserializeDatHE(path, ref buffer, ref error);
+                                //DatHE he1 = Serializer.DeserializeDatHE(path, ref buffer, ref error);
                                 Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_HE, 0, commData.DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
-                                DatHE he2 = Serializer.SerializeDatHE(path, buffer, ref error);
-                                Comparence.CompareClass(he1, he2, ref comparenceinfo);
+                                //DatHE he2 = Serializer.SerializeDatHE(path, buffer, ref error);
+                                //Comparence.CompareClass(he1, he2, ref comparenceinfo);
                                 // Log
                                 commData.LogRecipe.Info("Serializer.SerializeDatHE();" + " " + aktWkzID + " to " + path + " error: " + error);
                                 commData.LogRecipe.Info(comparenceinfo);
@@ -485,10 +517,10 @@ namespace WinS7Library.Model
                                 commData.LogGlobal.Info(comparenceinfo);
 
                                 //serialize "Config.xml"
-                                DatConfig config1 = Serializer.DeserializeDatConfig(path, ref buffer, ref error);
+                                //DatConfig config1 = Serializer.DeserializeDatConfig(path, ref buffer, ref error);
                                 Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Config, 0, commData.DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
-                                DatConfig config2 = Serializer.SerializeDatConfig(path, buffer, ref error);
-                                Comparence.CompareClass(config1, config2, ref comparenceinfo);
+                                //DatConfig config2 = Serializer.SerializeDatConfig(path, buffer, ref error);
+                                //Comparence.CompareClass(config1, config2, ref comparenceinfo);
                                 // Log
                                 commData.LogRecipe.Info("Serializer.SerializeDatConfig();" + " " + aktWkzID + " to " + path + " error: " + error);
                                 commData.LogRecipe.Info(comparenceinfo);
@@ -496,10 +528,10 @@ namespace WinS7Library.Model
                                 commData.LogGlobal.Info(comparenceinfo);
 
                                 //serialize "N2.xml"
-                                DatN2 n21 = Serializer.DeserializeDatN2(path, ref buffer, ref error);
+                                //DatN2 n21 = Serializer.DeserializeDatN2(path, ref buffer, ref error);
                                 Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_N2, 0, commData.DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
-                                DatN2 n22 = Serializer.SerializeDatN2(path, buffer, ref error);
-                                Comparence.CompareClass(n21, n22, ref comparenceinfo);
+                                //DatN2 n22 = Serializer.SerializeDatN2(path, buffer, ref error);
+                                //Comparence.CompareClass(n21, n22, ref comparenceinfo);
                                 // Log
                                 commData.LogRecipe.Info("Serializer.SerializeDatN2();" + " " + aktWkzID + " to " + path + " error: " + error);
                                 commData.LogRecipe.Info(comparenceinfo);
@@ -507,10 +539,10 @@ namespace WinS7Library.Model
                                 commData.LogGlobal.Info(comparenceinfo);
 
                                 //serialize "Werkzeug.xml"
-                                DatWerkzeug werkzeug1 = Serializer.DeserializeDatWerkzeug(path, ref buffer, ref error);
+                                //DatWerkzeug werkzeug1 = Serializer.DeserializeDatWerkzeug(path, ref buffer, ref error);
                                 Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Werkzeug, 0, commData.DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
-                                DatWerkzeug werkzeug2 = Serializer.SerializeDatWerkzeug(path, buffer, ref error);
-                                Comparence.CompareClass(werkzeug1, werkzeug2, ref comparenceinfo);
+                                //DatWerkzeug werkzeug2 = Serializer.SerializeDatWerkzeug(path, buffer, ref error);
+                                //Comparence.CompareClass(werkzeug1, werkzeug2, ref comparenceinfo);
                                 // Log
                                 commData.LogRecipe.Info("Serializer.SerializeDatWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
                                 commData.LogRecipe.Info(comparenceinfo);
@@ -518,10 +550,10 @@ namespace WinS7Library.Model
                                 commData.LogGlobal.Info(comparenceinfo);
 
                                 //serialize "MWerkzeug_54xxx.xml"
-                                DatMWerkzeug mwerkzeug1 = Serializer.DeserializeMWerkzeug(path, machineID, ref buffer, ref error);
+                                //DatMWerkzeug mwerkzeug1 = Serializer.DeserializeMWerkzeug(path, machineID, ref buffer, ref error);
                                 Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_MWerkzeug, 0, commData.DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
-                                DatMWerkzeug mwerkzeug2 = Serializer.SerializeDatMWerkzeug(path, machineID, buffer, ref error);
-                                Comparence.CompareClass(mwerkzeug1, mwerkzeug2, ref comparenceinfo);
+                                //DatMWerkzeug mwerkzeug2 = Serializer.SerializeDatMWerkzeug(path, machineID, buffer, ref error);
+                                //Comparence.CompareClass(mwerkzeug1, mwerkzeug2, ref comparenceinfo);
                                 // Log
                                 commData.LogRecipe.Info("Serializer.SerializeDatMWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
                                 commData.LogRecipe.Info(comparenceinfo);
@@ -568,35 +600,35 @@ namespace WinS7Library.Model
                         {
                             //serialize "HE.xml"
                             Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_HE, 0, commData.DB_DAT_HE_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
-                            Serializer.SerializeDatHE(path, buffer, ref error);
+                            //Serializer.SerializeDatHE(path, buffer, ref error);
                             // Log
                             commData.LogRecipe.Info("Serializer.SerializeDatHE();" + " " + aktWkzID + " to " + path + " error: " + error);
                             commData.LogGlobal.Info("Serializer.SerializeDatHE();" + " " + aktWkzID + " to " + path + " error: " + error);
 
                             //serialize "Config.xml"
                             Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Config, 0, commData.DB_DAT_Config_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
-                            Serializer.SerializeDatConfig(path, buffer, ref error);
+                            //Serializer.SerializeDatConfig(path, buffer, ref error);
                             // Log
                             commData.LogRecipe.Info("Serializer.SerializeDatConfig();" + " " + aktWkzID + " to " + path + " error: " + error);
                             commData.LogGlobal.Info("Serializer.SerializeDatConfig();" + " " + aktWkzID + " to " + path + " error: " + error);
 
                             //serialize "N2.xml"
                             Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_N2, 0, commData.DB_DAT_N2_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
-                            Serializer.SerializeDatN2(path, buffer, ref error);
+                            //Serializer.SerializeDatN2(path, buffer, ref error);
                             // Log
                             commData.LogRecipe.Info("Serializer.SerializeDatN2();" + " " + aktWkzID + " to " + path + " error: " + error);
                             commData.LogGlobal.Info("Serializer.SerializeDatN2();" + " " + aktWkzID + " to " + path + " error: " + error);
 
                             //serialize "Werkzeug.xml"
                             Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Werkzeug, 0, commData.DB_DAT_Werkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
-                            Serializer.SerializeDatWerkzeug(path, buffer, ref error);
+                            //Serializer.SerializeDatWerkzeug(path, buffer, ref error);
                             // Log
                             commData.LogRecipe.Info("Serializer.SerializeDatWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
                             commData.LogGlobal.Info("Serializer.SerializeDatWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
 
                             //serialize "MWerkzeug_54xxx.xml"
                             Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_MWerkzeug, 0, commData.DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
-                            Serializer.SerializeDatMWerkzeug(path, machineID, buffer, ref error);
+                            //Serializer.SerializeDatMWerkzeug(path, machineID, buffer, ref error);
                             // Log
                             commData.LogRecipe.Info("Serializer.SerializeDatMWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
                             commData.LogGlobal.Info("Serializer.SerializeDatMWerkzeug();" + " " + aktWkzID + " to " + path + " error: " + error);
@@ -839,22 +871,28 @@ namespace WinS7Library.Model
                 /// ServicePcToPlc
                 /// </summary>
                 #region ServicePcToPlc
-                Array.Clear(buffer, 0, 65536);
-                S7.SetBitAt(ref buffer, 0, 0, pcToPlc.LifeBit);
-                S7.SetIntAt(buffer, 2, pcToPlc.ErrorStatus);
-                S7.SetBitAt(ref buffer, 4, 0, pcToPlc.WKZEinlesenFertig);
-                S7.SetBitAt(ref buffer, 4, 1, pcToPlc.ParamsLadenFertig);
-                S7.SetBitAt(ref buffer, 4, 3, pcToPlc.ParamsSichernFertig);
-                S7.SetBitAt(ref buffer, 4, 4, pcToPlc.DatLoeschenFertig);
-                S7.SetBitAt(ref buffer, 4, 5, pcToPlc.BetriebsDLadenFertig);
-                S7.SetBitAt(ref buffer, 4, 6, pcToPlc.BetriebsDSichernFertig);
-                S7.SetBitAt(ref buffer, 5, 0, pcToPlc.ParamHEOK);
-                S7.SetBitAt(ref buffer, 5, 1, pcToPlc.ParamConfigOK);
-                S7.SetBitAt(ref buffer, 5, 2, pcToPlc.ParamN2OK);
-                S7.SetBitAt(ref buffer, 5, 3, pcToPlc.ParamWerkzeugOK);
-                S7.SetBitAt(ref buffer, 5, 4, pcToPlc.ParamMWerkzeugOK);
 
-                Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_Service_PcToPlc, 0, commData.DB_Service_PcToPlc_Length, S7Consts.S7WLByte, buffer, ref result);
+                S7Plc.WritePcToPlc(pcToPlc);
+
+
+                //Array.Clear(buffer, 0, 65536);
+                //S7.SetBitAt(ref buffer, 0, 0, pcToPlc.LifeBit);
+                //S7.SetIntAt(buffer, 2, pcToPlc.ErrorStatus);
+                //S7.SetBitAt(ref buffer, 4, 0, pcToPlc.WKZEinlesenFertig);
+                //S7.SetBitAt(ref buffer, 4, 1, pcToPlc.ParamsLadenFertig);
+                //S7.SetBitAt(ref buffer, 4, 3, pcToPlc.ParamsSichernFertig);
+                //S7.SetBitAt(ref buffer, 4, 4, pcToPlc.DatLoeschenFertig);
+                //S7.SetBitAt(ref buffer, 4, 5, pcToPlc.BetriebsDLadenFertig);
+                //S7.SetBitAt(ref buffer, 4, 6, pcToPlc.BetriebsDSichernFertig);
+                //S7.SetBitAt(ref buffer, 5, 0, pcToPlc.ParamHEOK);
+                //S7.SetBitAt(ref buffer, 5, 1, pcToPlc.ParamConfigOK);
+                //S7.SetBitAt(ref buffer, 5, 2, pcToPlc.ParamN2OK);
+                //S7.SetBitAt(ref buffer, 5, 3, pcToPlc.ParamWerkzeugOK);
+                //S7.SetBitAt(ref buffer, 5, 4, pcToPlc.ParamMWerkzeugOK);
+
+                //Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_Service_PcToPlc, 0, commData.DB_Service_PcToPlc_Length, S7Consts.S7WLByte, buffer, ref result);
+
+
                 //ShowResult(result, client);
                 //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger default file
                 ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderNameGlobal, @".\\WinS7ClientLogger.log");

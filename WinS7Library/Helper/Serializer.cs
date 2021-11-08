@@ -13,285 +13,11 @@ namespace WinS7Library.Helper
     public static class Serializer
     {
         #region DatHE
-        public static DatHE SerializeDatHE(string path, byte[] buffer, ref string error)
+
+        public static void DatHEToBuffer(DatHE HE, byte[] buffer, ref string error)
         {
-            error = string.Empty;
-            //create instance
-            DatHE HE = new DatHE();
             try
             {
-                HE.HK01.TempSoll = S7.GetIntAt(buffer, 0);
-                HE.HK01.ToleranzPlus = S7.GetIntAt(buffer, 2);
-                HE.HK01.ToleranzMinus = S7.GetIntAt(buffer, 4);
-                HE.HK01.TempTaktung = S7.GetIntAt(buffer, 6);
-                HE.HK01.Impulsdauer = S7.GetIntAt(buffer, 8);
-                HE.HK01.Pausendauer = S7.GetIntAt(buffer, 10);
-                HE.HK01.OffsetAT = S7.GetIntAt(buffer, 12);
-                HE.HK01.PiAT = S7.GetIntAt(buffer, 14);
-                HE.HK01.TMaxAT = S7.GetIntAt(buffer, 16);
-                HE.HK01.Aktiv = S7.GetBitAt(buffer, 18, 0);
-                HE.HK02.TempSoll = S7.GetIntAt(buffer, 20);
-                HE.HK02.ToleranzPlus = S7.GetIntAt(buffer, 22);
-                HE.HK02.ToleranzMinus = S7.GetIntAt(buffer, 24);
-                HE.HK02.TempTaktung = S7.GetIntAt(buffer, 26);
-                HE.HK02.Impulsdauer = S7.GetIntAt(buffer, 28);
-                HE.HK02.Pausendauer = S7.GetIntAt(buffer, 30);
-                HE.HK02.OffsetAT = S7.GetIntAt(buffer, 32);
-                HE.HK02.PiAT = S7.GetIntAt(buffer, 34);
-                HE.HK02.TMaxAT = S7.GetIntAt(buffer, 36);
-                HE.HK02.Aktiv = S7.GetBitAt(buffer, 38, 0);
-                HE.HK03.TempSoll = S7.GetIntAt(buffer, 40);
-                HE.HK03.ToleranzPlus = S7.GetIntAt(buffer, 42);
-                HE.HK03.ToleranzMinus = S7.GetIntAt(buffer, 44);
-                HE.HK03.TempTaktung = S7.GetIntAt(buffer, 46);
-                HE.HK03.Impulsdauer = S7.GetIntAt(buffer, 48);
-                HE.HK03.Pausendauer = S7.GetIntAt(buffer, 50);
-                HE.HK03.OffsetAT = S7.GetIntAt(buffer, 52);
-                HE.HK03.PiAT = S7.GetIntAt(buffer, 54);
-                HE.HK03.TMaxAT = S7.GetIntAt(buffer, 56);
-                HE.HK03.Aktiv = S7.GetBitAt(buffer, 58, 0);
-                HE.HK04.TempSoll = S7.GetIntAt(buffer, 60);
-                HE.HK04.ToleranzPlus = S7.GetIntAt(buffer, 62);
-                HE.HK04.ToleranzMinus = S7.GetIntAt(buffer, 64);
-                HE.HK04.TempTaktung = S7.GetIntAt(buffer, 66);
-                HE.HK04.Impulsdauer = S7.GetIntAt(buffer, 68);
-                HE.HK04.Pausendauer = S7.GetIntAt(buffer, 70);
-                HE.HK04.OffsetAT = S7.GetIntAt(buffer, 72);
-                HE.HK04.PiAT = S7.GetIntAt(buffer, 74);
-                HE.HK04.TMaxAT = S7.GetIntAt(buffer, 76);
-                HE.HK04.Aktiv = S7.GetBitAt(buffer, 78, 0);
-                HE.HK05.TempSoll = S7.GetIntAt(buffer, 80);
-                HE.HK05.ToleranzPlus = S7.GetIntAt(buffer, 82);
-                HE.HK05.ToleranzMinus = S7.GetIntAt(buffer, 84);
-                HE.HK05.TempTaktung = S7.GetIntAt(buffer, 86);
-                HE.HK05.Impulsdauer = S7.GetIntAt(buffer, 88);
-                HE.HK05.Pausendauer = S7.GetIntAt(buffer, 90);
-                HE.HK05.OffsetAT = S7.GetIntAt(buffer, 92);
-                HE.HK05.PiAT = S7.GetIntAt(buffer, 94);
-                HE.HK05.TMaxAT = S7.GetIntAt(buffer, 96);
-                HE.HK05.Aktiv = S7.GetBitAt(buffer, 98, 0);
-                HE.HK06.TempSoll = S7.GetIntAt(buffer, 100);
-                HE.HK06.ToleranzPlus = S7.GetIntAt(buffer, 102);
-                HE.HK06.ToleranzMinus = S7.GetIntAt(buffer, 104);
-                HE.HK06.TempTaktung = S7.GetIntAt(buffer, 106);
-                HE.HK06.Impulsdauer = S7.GetIntAt(buffer, 108);
-                HE.HK06.Pausendauer = S7.GetIntAt(buffer, 110);
-                HE.HK06.OffsetAT = S7.GetIntAt(buffer, 112);
-                HE.HK06.PiAT = S7.GetIntAt(buffer, 114);
-                HE.HK06.TMaxAT = S7.GetIntAt(buffer, 116);
-                HE.HK06.Aktiv = S7.GetBitAt(buffer, 118, 0);
-                HE.HK07.TempSoll = S7.GetIntAt(buffer, 120);
-                HE.HK07.ToleranzPlus = S7.GetIntAt(buffer, 122);
-                HE.HK07.ToleranzMinus = S7.GetIntAt(buffer, 124);
-                HE.HK07.TempTaktung = S7.GetIntAt(buffer, 126);
-                HE.HK07.Impulsdauer = S7.GetIntAt(buffer, 128);
-                HE.HK07.Pausendauer = S7.GetIntAt(buffer, 130);
-                HE.HK07.OffsetAT = S7.GetIntAt(buffer, 132);
-                HE.HK07.PiAT = S7.GetIntAt(buffer, 134);
-                HE.HK07.TMaxAT = S7.GetIntAt(buffer, 136);
-                HE.HK07.Aktiv = S7.GetBitAt(buffer, 138, 0);
-                HE.HK08.TempSoll = S7.GetIntAt(buffer, 140);
-                HE.HK08.ToleranzPlus = S7.GetIntAt(buffer, 142);
-                HE.HK08.ToleranzMinus = S7.GetIntAt(buffer, 144);
-                HE.HK08.TempTaktung = S7.GetIntAt(buffer, 146);
-                HE.HK08.Impulsdauer = S7.GetIntAt(buffer, 148);
-                HE.HK08.Pausendauer = S7.GetIntAt(buffer, 150);
-                HE.HK08.OffsetAT = S7.GetIntAt(buffer, 152);
-                HE.HK08.PiAT = S7.GetIntAt(buffer, 154);
-                HE.HK08.TMaxAT = S7.GetIntAt(buffer, 156);
-                HE.HK08.Aktiv = S7.GetBitAt(buffer, 158, 0);
-                HE.HK09.TempSoll = S7.GetIntAt(buffer, 160);
-                HE.HK09.ToleranzPlus = S7.GetIntAt(buffer, 162);
-                HE.HK09.ToleranzMinus = S7.GetIntAt(buffer, 164);
-                HE.HK09.TempTaktung = S7.GetIntAt(buffer, 166);
-                HE.HK09.Impulsdauer = S7.GetIntAt(buffer, 168);
-                HE.HK09.Pausendauer = S7.GetIntAt(buffer, 170);
-                HE.HK09.OffsetAT = S7.GetIntAt(buffer, 172);
-                HE.HK09.PiAT = S7.GetIntAt(buffer, 174);
-                HE.HK09.TMaxAT = S7.GetIntAt(buffer, 176);
-                HE.HK09.Aktiv = S7.GetBitAt(buffer, 178, 0);
-                HE.HK10.TempSoll = S7.GetIntAt(buffer, 180);
-                HE.HK10.ToleranzPlus = S7.GetIntAt(buffer, 182);
-                HE.HK10.ToleranzMinus = S7.GetIntAt(buffer, 184);
-                HE.HK10.TempTaktung = S7.GetIntAt(buffer, 186);
-                HE.HK10.Impulsdauer = S7.GetIntAt(buffer, 188);
-                HE.HK10.Pausendauer = S7.GetIntAt(buffer, 190);
-                HE.HK10.OffsetAT = S7.GetIntAt(buffer, 192);
-                HE.HK10.PiAT = S7.GetIntAt(buffer, 194);
-                HE.HK10.TMaxAT = S7.GetIntAt(buffer, 196);
-                HE.HK10.Aktiv = S7.GetBitAt(buffer, 198, 0);
-                HE.HK11.TempSoll = S7.GetIntAt(buffer, 200);
-                HE.HK11.ToleranzPlus = S7.GetIntAt(buffer, 202);
-                HE.HK11.ToleranzMinus = S7.GetIntAt(buffer, 204);
-                HE.HK11.TempTaktung = S7.GetIntAt(buffer, 206);
-                HE.HK11.Impulsdauer = S7.GetIntAt(buffer, 208);
-                HE.HK11.Pausendauer = S7.GetIntAt(buffer, 210);
-                HE.HK11.OffsetAT = S7.GetIntAt(buffer, 212);
-                HE.HK11.PiAT = S7.GetIntAt(buffer, 214);
-                HE.HK11.TMaxAT = S7.GetIntAt(buffer, 216);
-                HE.HK11.Aktiv = S7.GetBitAt(buffer, 218, 0);
-                HE.HK12.TempSoll = S7.GetIntAt(buffer, 220);
-                HE.HK12.ToleranzPlus = S7.GetIntAt(buffer, 222);
-                HE.HK12.ToleranzMinus = S7.GetIntAt(buffer, 224);
-                HE.HK12.TempTaktung = S7.GetIntAt(buffer, 226);
-                HE.HK12.Impulsdauer = S7.GetIntAt(buffer, 228);
-                HE.HK12.Pausendauer = S7.GetIntAt(buffer, 230);
-                HE.HK12.OffsetAT = S7.GetIntAt(buffer, 232);
-                HE.HK12.PiAT = S7.GetIntAt(buffer, 234);
-                HE.HK12.TMaxAT = S7.GetIntAt(buffer, 236);
-                HE.HK12.Aktiv = S7.GetBitAt(buffer, 238, 0);
-                HE.HK13.TempSoll = S7.GetIntAt(buffer, 240);
-                HE.HK13.ToleranzPlus = S7.GetIntAt(buffer, 242);
-                HE.HK13.ToleranzMinus = S7.GetIntAt(buffer, 244);
-                HE.HK13.TempTaktung = S7.GetIntAt(buffer, 246);
-                HE.HK13.Impulsdauer = S7.GetIntAt(buffer, 248);
-                HE.HK13.Pausendauer = S7.GetIntAt(buffer, 250);
-                HE.HK13.OffsetAT = S7.GetIntAt(buffer, 252);
-                HE.HK13.PiAT = S7.GetIntAt(buffer, 254);
-                HE.HK13.TMaxAT = S7.GetIntAt(buffer, 256);
-                HE.HK13.Aktiv = S7.GetBitAt(buffer, 258, 0);
-                HE.HK14.TempSoll = S7.GetIntAt(buffer, 260);
-                HE.HK14.ToleranzPlus = S7.GetIntAt(buffer, 262);
-                HE.HK14.ToleranzMinus = S7.GetIntAt(buffer, 264);
-                HE.HK14.TempTaktung = S7.GetIntAt(buffer, 266);
-                HE.HK14.Impulsdauer = S7.GetIntAt(buffer, 268);
-                HE.HK14.Pausendauer = S7.GetIntAt(buffer, 270);
-                HE.HK14.OffsetAT = S7.GetIntAt(buffer, 272);
-                HE.HK14.PiAT = S7.GetIntAt(buffer, 274);
-                HE.HK14.TMaxAT = S7.GetIntAt(buffer, 276);
-                HE.HK14.Aktiv = S7.GetBitAt(buffer, 278, 0);
-                HE.HK15.TempSoll = S7.GetIntAt(buffer, 280);
-                HE.HK15.ToleranzPlus = S7.GetIntAt(buffer, 282);
-                HE.HK15.ToleranzMinus = S7.GetIntAt(buffer, 284);
-                HE.HK15.TempTaktung = S7.GetIntAt(buffer, 286);
-                HE.HK15.Impulsdauer = S7.GetIntAt(buffer, 288);
-                HE.HK15.Pausendauer = S7.GetIntAt(buffer, 290);
-                HE.HK15.OffsetAT = S7.GetIntAt(buffer, 292);
-                HE.HK15.PiAT = S7.GetIntAt(buffer, 294);
-                HE.HK15.TMaxAT = S7.GetIntAt(buffer, 296);
-                HE.HK15.Aktiv = S7.GetBitAt(buffer, 298, 0);
-                HE.HK16.TempSoll = S7.GetIntAt(buffer, 300);
-                HE.HK16.ToleranzPlus = S7.GetIntAt(buffer, 302);
-                HE.HK16.ToleranzMinus = S7.GetIntAt(buffer, 304);
-                HE.HK16.TempTaktung = S7.GetIntAt(buffer, 306);
-                HE.HK16.Impulsdauer = S7.GetIntAt(buffer, 308);
-                HE.HK16.Pausendauer = S7.GetIntAt(buffer, 310);
-                HE.HK16.OffsetAT = S7.GetIntAt(buffer, 312);
-                HE.HK16.PiAT = S7.GetIntAt(buffer, 314);
-                HE.HK16.TMaxAT = S7.GetIntAt(buffer, 316);
-                HE.HK16.Aktiv = S7.GetBitAt(buffer, 318, 0);
-                HE.HK17.TempSoll = S7.GetIntAt(buffer, 320);
-                HE.HK17.ToleranzPlus = S7.GetIntAt(buffer, 322);
-                HE.HK17.ToleranzMinus = S7.GetIntAt(buffer, 324);
-                HE.HK17.TempTaktung = S7.GetIntAt(buffer, 326);
-                HE.HK17.Impulsdauer = S7.GetIntAt(buffer, 328);
-                HE.HK17.Pausendauer = S7.GetIntAt(buffer, 330);
-                HE.HK17.OffsetAT = S7.GetIntAt(buffer, 332);
-                HE.HK17.PiAT = S7.GetIntAt(buffer, 334);
-                HE.HK17.TMaxAT = S7.GetIntAt(buffer, 336);
-                HE.HK17.Aktiv = S7.GetBitAt(buffer, 338, 0);
-                HE.HK18.TempSoll = S7.GetIntAt(buffer, 340);
-                HE.HK18.ToleranzPlus = S7.GetIntAt(buffer, 342);
-                HE.HK18.ToleranzMinus = S7.GetIntAt(buffer, 344);
-                HE.HK18.TempTaktung = S7.GetIntAt(buffer, 346);
-                HE.HK18.Impulsdauer = S7.GetIntAt(buffer, 348);
-                HE.HK18.Pausendauer = S7.GetIntAt(buffer, 350);
-                HE.HK18.OffsetAT = S7.GetIntAt(buffer, 352);
-                HE.HK18.PiAT = S7.GetIntAt(buffer, 354);
-                HE.HK18.TMaxAT = S7.GetIntAt(buffer, 356);
-                HE.HK18.Aktiv = S7.GetBitAt(buffer, 358, 0);
-                HE.HK19.TempSoll = S7.GetIntAt(buffer, 360);
-                HE.HK19.ToleranzPlus = S7.GetIntAt(buffer, 362);
-                HE.HK19.ToleranzMinus = S7.GetIntAt(buffer, 364);
-                HE.HK19.TempTaktung = S7.GetIntAt(buffer, 366);
-                HE.HK19.Impulsdauer = S7.GetIntAt(buffer, 368);
-                HE.HK19.Pausendauer = S7.GetIntAt(buffer, 370);
-                HE.HK19.OffsetAT = S7.GetIntAt(buffer, 372);
-                HE.HK19.PiAT = S7.GetIntAt(buffer, 374);
-                HE.HK19.TMaxAT = S7.GetIntAt(buffer, 376);
-                HE.HK19.Aktiv = S7.GetBitAt(buffer, 378, 0);
-                HE.HK20.TempSoll = S7.GetIntAt(buffer, 380);
-                HE.HK20.ToleranzPlus = S7.GetIntAt(buffer, 382);
-                HE.HK20.ToleranzMinus = S7.GetIntAt(buffer, 384);
-                HE.HK20.TempTaktung = S7.GetIntAt(buffer, 386);
-                HE.HK20.Impulsdauer = S7.GetIntAt(buffer, 388);
-                HE.HK20.Pausendauer = S7.GetIntAt(buffer, 390);
-                HE.HK20.OffsetAT = S7.GetIntAt(buffer, 392);
-                HE.HK20.PiAT = S7.GetIntAt(buffer, 394);
-                HE.HK20.TMaxAT = S7.GetIntAt(buffer, 396);
-                HE.HK20.Aktiv = S7.GetBitAt(buffer, 398, 0);
-                HE.HK21.TempSoll = S7.GetIntAt(buffer, 400);
-                HE.HK21.ToleranzPlus = S7.GetIntAt(buffer, 402);
-                HE.HK21.ToleranzMinus = S7.GetIntAt(buffer, 404);
-                HE.HK21.TempTaktung = S7.GetIntAt(buffer, 406);
-                HE.HK21.Impulsdauer = S7.GetIntAt(buffer, 408);
-                HE.HK21.Pausendauer = S7.GetIntAt(buffer, 410);
-                HE.HK21.OffsetAT = S7.GetIntAt(buffer, 412);
-                HE.HK21.PiAT = S7.GetIntAt(buffer, 414);
-                HE.HK21.TMaxAT = S7.GetIntAt(buffer, 416);
-                HE.HK21.Aktiv = S7.GetBitAt(buffer, 418, 0);
-                HE.HK22.TempSoll = S7.GetIntAt(buffer, 420);
-                HE.HK22.ToleranzPlus = S7.GetIntAt(buffer, 422);
-                HE.HK22.ToleranzMinus = S7.GetIntAt(buffer, 424);
-                HE.HK22.TempTaktung = S7.GetIntAt(buffer, 426);
-                HE.HK22.Impulsdauer = S7.GetIntAt(buffer, 428);
-                HE.HK22.Pausendauer = S7.GetIntAt(buffer, 430);
-                HE.HK22.OffsetAT = S7.GetIntAt(buffer, 432);
-                HE.HK22.PiAT = S7.GetIntAt(buffer, 434);
-                HE.HK22.TMaxAT = S7.GetIntAt(buffer, 436);
-                HE.HK22.Aktiv = S7.GetBitAt(buffer, 438, 0);
-                HE.HK23.TempSoll = S7.GetIntAt(buffer, 440);
-                HE.HK23.ToleranzPlus = S7.GetIntAt(buffer, 442);
-                HE.HK23.ToleranzMinus = S7.GetIntAt(buffer, 444);
-                HE.HK23.TempTaktung = S7.GetIntAt(buffer, 446);
-                HE.HK23.Impulsdauer = S7.GetIntAt(buffer, 448);
-                HE.HK23.Pausendauer = S7.GetIntAt(buffer, 450);
-                HE.HK23.OffsetAT = S7.GetIntAt(buffer, 452);
-                HE.HK23.PiAT = S7.GetIntAt(buffer, 454);
-                HE.HK23.TMaxAT = S7.GetIntAt(buffer, 456);
-                HE.HK23.Aktiv = S7.GetBitAt(buffer, 458, 0);
-                HE.HK24.TempSoll = S7.GetIntAt(buffer, 460);
-                HE.HK24.ToleranzPlus = S7.GetIntAt(buffer, 462);
-                HE.HK24.ToleranzMinus = S7.GetIntAt(buffer, 464);
-                HE.HK24.TempTaktung = S7.GetIntAt(buffer, 466);
-                HE.HK24.Impulsdauer = S7.GetIntAt(buffer, 468);
-                HE.HK24.Pausendauer = S7.GetIntAt(buffer, 470);
-                HE.HK24.OffsetAT = S7.GetIntAt(buffer, 472);
-                HE.HK24.PiAT = S7.GetIntAt(buffer, 474);
-                HE.HK24.TMaxAT = S7.GetIntAt(buffer, 476);
-                HE.HK24.Aktiv = S7.GetBitAt(buffer, 478, 0);
-
-                // XmlSerializer writes object data as XML
-                XmlSerializer serializer = new XmlSerializer(typeof(DatHE));
-                using (TextWriter writer = new StreamWriter(path + " \\HE.xml"))
-                {
-                    serializer.Serialize(writer, HE);
-                    writer.Close();
-                }
-                
-            }
-            catch (Exception ex)
-            {
-                error = ex.Message.ToString() + " " + path + " \\HE.xml";
-                //throw;
-            }
-            //return value
-            return HE;
-        }
-
-        public static DatHE DeserializeDatHE(string path, ref byte[] buffer, ref string error)
-        {
-            //create instance
-            DatHE HE = new DatHE();
-            try
-            {
-                // Deserialize from XML to the object
-                XmlSerializer deserializer = new XmlSerializer(typeof(DatHE));
-                TextReader reader = new StreamReader(path + " \\HE.xml");
-                object obj = deserializer.Deserialize(reader);
-                HE = (DatHE)obj;
-                reader.Close();
-
                 //clear buffer before use
                 Array.Clear(buffer, 0, buffer.Length);
 
@@ -538,6 +264,305 @@ namespace WinS7Library.Helper
             }
             catch (Exception ex)
             {
+                error = ex.Message.ToString();
+                //throw;
+            }
+        }
+        public static DatHE BufferToDatHE(byte[] buffer, ref string error)
+        {
+            error = string.Empty;
+            //create instance
+            DatHE HE = new DatHE();
+
+            try
+            {
+                HE.HK01.TempSoll = S7.GetIntAt(buffer, 0);
+                HE.HK01.ToleranzPlus = S7.GetIntAt(buffer, 2);
+                HE.HK01.ToleranzMinus = S7.GetIntAt(buffer, 4);
+                HE.HK01.TempTaktung = S7.GetIntAt(buffer, 6);
+                HE.HK01.Impulsdauer = S7.GetIntAt(buffer, 8);
+                HE.HK01.Pausendauer = S7.GetIntAt(buffer, 10);
+                HE.HK01.OffsetAT = S7.GetIntAt(buffer, 12);
+                HE.HK01.PiAT = S7.GetIntAt(buffer, 14);
+                HE.HK01.TMaxAT = S7.GetIntAt(buffer, 16);
+                HE.HK01.Aktiv = S7.GetBitAt(buffer, 18, 0);
+                HE.HK02.TempSoll = S7.GetIntAt(buffer, 20);
+                HE.HK02.ToleranzPlus = S7.GetIntAt(buffer, 22);
+                HE.HK02.ToleranzMinus = S7.GetIntAt(buffer, 24);
+                HE.HK02.TempTaktung = S7.GetIntAt(buffer, 26);
+                HE.HK02.Impulsdauer = S7.GetIntAt(buffer, 28);
+                HE.HK02.Pausendauer = S7.GetIntAt(buffer, 30);
+                HE.HK02.OffsetAT = S7.GetIntAt(buffer, 32);
+                HE.HK02.PiAT = S7.GetIntAt(buffer, 34);
+                HE.HK02.TMaxAT = S7.GetIntAt(buffer, 36);
+                HE.HK02.Aktiv = S7.GetBitAt(buffer, 38, 0);
+                HE.HK03.TempSoll = S7.GetIntAt(buffer, 40);
+                HE.HK03.ToleranzPlus = S7.GetIntAt(buffer, 42);
+                HE.HK03.ToleranzMinus = S7.GetIntAt(buffer, 44);
+                HE.HK03.TempTaktung = S7.GetIntAt(buffer, 46);
+                HE.HK03.Impulsdauer = S7.GetIntAt(buffer, 48);
+                HE.HK03.Pausendauer = S7.GetIntAt(buffer, 50);
+                HE.HK03.OffsetAT = S7.GetIntAt(buffer, 52);
+                HE.HK03.PiAT = S7.GetIntAt(buffer, 54);
+                HE.HK03.TMaxAT = S7.GetIntAt(buffer, 56);
+                HE.HK03.Aktiv = S7.GetBitAt(buffer, 58, 0);
+                HE.HK04.TempSoll = S7.GetIntAt(buffer, 60);
+                HE.HK04.ToleranzPlus = S7.GetIntAt(buffer, 62);
+                HE.HK04.ToleranzMinus = S7.GetIntAt(buffer, 64);
+                HE.HK04.TempTaktung = S7.GetIntAt(buffer, 66);
+                HE.HK04.Impulsdauer = S7.GetIntAt(buffer, 68);
+                HE.HK04.Pausendauer = S7.GetIntAt(buffer, 70);
+                HE.HK04.OffsetAT = S7.GetIntAt(buffer, 72);
+                HE.HK04.PiAT = S7.GetIntAt(buffer, 74);
+                HE.HK04.TMaxAT = S7.GetIntAt(buffer, 76);
+                HE.HK04.Aktiv = S7.GetBitAt(buffer, 78, 0);
+                HE.HK05.TempSoll = S7.GetIntAt(buffer, 80);
+                HE.HK05.ToleranzPlus = S7.GetIntAt(buffer, 82);
+                HE.HK05.ToleranzMinus = S7.GetIntAt(buffer, 84);
+                HE.HK05.TempTaktung = S7.GetIntAt(buffer, 86);
+                HE.HK05.Impulsdauer = S7.GetIntAt(buffer, 88);
+                HE.HK05.Pausendauer = S7.GetIntAt(buffer, 90);
+                HE.HK05.OffsetAT = S7.GetIntAt(buffer, 92);
+                HE.HK05.PiAT = S7.GetIntAt(buffer, 94);
+                HE.HK05.TMaxAT = S7.GetIntAt(buffer, 96);
+                HE.HK05.Aktiv = S7.GetBitAt(buffer, 98, 0);
+                HE.HK06.TempSoll = S7.GetIntAt(buffer, 100);
+                HE.HK06.ToleranzPlus = S7.GetIntAt(buffer, 102);
+                HE.HK06.ToleranzMinus = S7.GetIntAt(buffer, 104);
+                HE.HK06.TempTaktung = S7.GetIntAt(buffer, 106);
+                HE.HK06.Impulsdauer = S7.GetIntAt(buffer, 108);
+                HE.HK06.Pausendauer = S7.GetIntAt(buffer, 110);
+                HE.HK06.OffsetAT = S7.GetIntAt(buffer, 112);
+                HE.HK06.PiAT = S7.GetIntAt(buffer, 114);
+                HE.HK06.TMaxAT = S7.GetIntAt(buffer, 116);
+                HE.HK06.Aktiv = S7.GetBitAt(buffer, 118, 0);
+                HE.HK07.TempSoll = S7.GetIntAt(buffer, 120);
+                HE.HK07.ToleranzPlus = S7.GetIntAt(buffer, 122);
+                HE.HK07.ToleranzMinus = S7.GetIntAt(buffer, 124);
+                HE.HK07.TempTaktung = S7.GetIntAt(buffer, 126);
+                HE.HK07.Impulsdauer = S7.GetIntAt(buffer, 128);
+                HE.HK07.Pausendauer = S7.GetIntAt(buffer, 130);
+                HE.HK07.OffsetAT = S7.GetIntAt(buffer, 132);
+                HE.HK07.PiAT = S7.GetIntAt(buffer, 134);
+                HE.HK07.TMaxAT = S7.GetIntAt(buffer, 136);
+                HE.HK07.Aktiv = S7.GetBitAt(buffer, 138, 0);
+                HE.HK08.TempSoll = S7.GetIntAt(buffer, 140);
+                HE.HK08.ToleranzPlus = S7.GetIntAt(buffer, 142);
+                HE.HK08.ToleranzMinus = S7.GetIntAt(buffer, 144);
+                HE.HK08.TempTaktung = S7.GetIntAt(buffer, 146);
+                HE.HK08.Impulsdauer = S7.GetIntAt(buffer, 148);
+                HE.HK08.Pausendauer = S7.GetIntAt(buffer, 150);
+                HE.HK08.OffsetAT = S7.GetIntAt(buffer, 152);
+                HE.HK08.PiAT = S7.GetIntAt(buffer, 154);
+                HE.HK08.TMaxAT = S7.GetIntAt(buffer, 156);
+                HE.HK08.Aktiv = S7.GetBitAt(buffer, 158, 0);
+                HE.HK09.TempSoll = S7.GetIntAt(buffer, 160);
+                HE.HK09.ToleranzPlus = S7.GetIntAt(buffer, 162);
+                HE.HK09.ToleranzMinus = S7.GetIntAt(buffer, 164);
+                HE.HK09.TempTaktung = S7.GetIntAt(buffer, 166);
+                HE.HK09.Impulsdauer = S7.GetIntAt(buffer, 168);
+                HE.HK09.Pausendauer = S7.GetIntAt(buffer, 170);
+                HE.HK09.OffsetAT = S7.GetIntAt(buffer, 172);
+                HE.HK09.PiAT = S7.GetIntAt(buffer, 174);
+                HE.HK09.TMaxAT = S7.GetIntAt(buffer, 176);
+                HE.HK09.Aktiv = S7.GetBitAt(buffer, 178, 0);
+                HE.HK10.TempSoll = S7.GetIntAt(buffer, 180);
+                HE.HK10.ToleranzPlus = S7.GetIntAt(buffer, 182);
+                HE.HK10.ToleranzMinus = S7.GetIntAt(buffer, 184);
+                HE.HK10.TempTaktung = S7.GetIntAt(buffer, 186);
+                HE.HK10.Impulsdauer = S7.GetIntAt(buffer, 188);
+                HE.HK10.Pausendauer = S7.GetIntAt(buffer, 190);
+                HE.HK10.OffsetAT = S7.GetIntAt(buffer, 192);
+                HE.HK10.PiAT = S7.GetIntAt(buffer, 194);
+                HE.HK10.TMaxAT = S7.GetIntAt(buffer, 196);
+                HE.HK10.Aktiv = S7.GetBitAt(buffer, 198, 0);
+                HE.HK11.TempSoll = S7.GetIntAt(buffer, 200);
+                HE.HK11.ToleranzPlus = S7.GetIntAt(buffer, 202);
+                HE.HK11.ToleranzMinus = S7.GetIntAt(buffer, 204);
+                HE.HK11.TempTaktung = S7.GetIntAt(buffer, 206);
+                HE.HK11.Impulsdauer = S7.GetIntAt(buffer, 208);
+                HE.HK11.Pausendauer = S7.GetIntAt(buffer, 210);
+                HE.HK11.OffsetAT = S7.GetIntAt(buffer, 212);
+                HE.HK11.PiAT = S7.GetIntAt(buffer, 214);
+                HE.HK11.TMaxAT = S7.GetIntAt(buffer, 216);
+                HE.HK11.Aktiv = S7.GetBitAt(buffer, 218, 0);
+                HE.HK12.TempSoll = S7.GetIntAt(buffer, 220);
+                HE.HK12.ToleranzPlus = S7.GetIntAt(buffer, 222);
+                HE.HK12.ToleranzMinus = S7.GetIntAt(buffer, 224);
+                HE.HK12.TempTaktung = S7.GetIntAt(buffer, 226);
+                HE.HK12.Impulsdauer = S7.GetIntAt(buffer, 228);
+                HE.HK12.Pausendauer = S7.GetIntAt(buffer, 230);
+                HE.HK12.OffsetAT = S7.GetIntAt(buffer, 232);
+                HE.HK12.PiAT = S7.GetIntAt(buffer, 234);
+                HE.HK12.TMaxAT = S7.GetIntAt(buffer, 236);
+                HE.HK12.Aktiv = S7.GetBitAt(buffer, 238, 0);
+                HE.HK13.TempSoll = S7.GetIntAt(buffer, 240);
+                HE.HK13.ToleranzPlus = S7.GetIntAt(buffer, 242);
+                HE.HK13.ToleranzMinus = S7.GetIntAt(buffer, 244);
+                HE.HK13.TempTaktung = S7.GetIntAt(buffer, 246);
+                HE.HK13.Impulsdauer = S7.GetIntAt(buffer, 248);
+                HE.HK13.Pausendauer = S7.GetIntAt(buffer, 250);
+                HE.HK13.OffsetAT = S7.GetIntAt(buffer, 252);
+                HE.HK13.PiAT = S7.GetIntAt(buffer, 254);
+                HE.HK13.TMaxAT = S7.GetIntAt(buffer, 256);
+                HE.HK13.Aktiv = S7.GetBitAt(buffer, 258, 0);
+                HE.HK14.TempSoll = S7.GetIntAt(buffer, 260);
+                HE.HK14.ToleranzPlus = S7.GetIntAt(buffer, 262);
+                HE.HK14.ToleranzMinus = S7.GetIntAt(buffer, 264);
+                HE.HK14.TempTaktung = S7.GetIntAt(buffer, 266);
+                HE.HK14.Impulsdauer = S7.GetIntAt(buffer, 268);
+                HE.HK14.Pausendauer = S7.GetIntAt(buffer, 270);
+                HE.HK14.OffsetAT = S7.GetIntAt(buffer, 272);
+                HE.HK14.PiAT = S7.GetIntAt(buffer, 274);
+                HE.HK14.TMaxAT = S7.GetIntAt(buffer, 276);
+                HE.HK14.Aktiv = S7.GetBitAt(buffer, 278, 0);
+                HE.HK15.TempSoll = S7.GetIntAt(buffer, 280);
+                HE.HK15.ToleranzPlus = S7.GetIntAt(buffer, 282);
+                HE.HK15.ToleranzMinus = S7.GetIntAt(buffer, 284);
+                HE.HK15.TempTaktung = S7.GetIntAt(buffer, 286);
+                HE.HK15.Impulsdauer = S7.GetIntAt(buffer, 288);
+                HE.HK15.Pausendauer = S7.GetIntAt(buffer, 290);
+                HE.HK15.OffsetAT = S7.GetIntAt(buffer, 292);
+                HE.HK15.PiAT = S7.GetIntAt(buffer, 294);
+                HE.HK15.TMaxAT = S7.GetIntAt(buffer, 296);
+                HE.HK15.Aktiv = S7.GetBitAt(buffer, 298, 0);
+                HE.HK16.TempSoll = S7.GetIntAt(buffer, 300);
+                HE.HK16.ToleranzPlus = S7.GetIntAt(buffer, 302);
+                HE.HK16.ToleranzMinus = S7.GetIntAt(buffer, 304);
+                HE.HK16.TempTaktung = S7.GetIntAt(buffer, 306);
+                HE.HK16.Impulsdauer = S7.GetIntAt(buffer, 308);
+                HE.HK16.Pausendauer = S7.GetIntAt(buffer, 310);
+                HE.HK16.OffsetAT = S7.GetIntAt(buffer, 312);
+                HE.HK16.PiAT = S7.GetIntAt(buffer, 314);
+                HE.HK16.TMaxAT = S7.GetIntAt(buffer, 316);
+                HE.HK16.Aktiv = S7.GetBitAt(buffer, 318, 0);
+                HE.HK17.TempSoll = S7.GetIntAt(buffer, 320);
+                HE.HK17.ToleranzPlus = S7.GetIntAt(buffer, 322);
+                HE.HK17.ToleranzMinus = S7.GetIntAt(buffer, 324);
+                HE.HK17.TempTaktung = S7.GetIntAt(buffer, 326);
+                HE.HK17.Impulsdauer = S7.GetIntAt(buffer, 328);
+                HE.HK17.Pausendauer = S7.GetIntAt(buffer, 330);
+                HE.HK17.OffsetAT = S7.GetIntAt(buffer, 332);
+                HE.HK17.PiAT = S7.GetIntAt(buffer, 334);
+                HE.HK17.TMaxAT = S7.GetIntAt(buffer, 336);
+                HE.HK17.Aktiv = S7.GetBitAt(buffer, 338, 0);
+                HE.HK18.TempSoll = S7.GetIntAt(buffer, 340);
+                HE.HK18.ToleranzPlus = S7.GetIntAt(buffer, 342);
+                HE.HK18.ToleranzMinus = S7.GetIntAt(buffer, 344);
+                HE.HK18.TempTaktung = S7.GetIntAt(buffer, 346);
+                HE.HK18.Impulsdauer = S7.GetIntAt(buffer, 348);
+                HE.HK18.Pausendauer = S7.GetIntAt(buffer, 350);
+                HE.HK18.OffsetAT = S7.GetIntAt(buffer, 352);
+                HE.HK18.PiAT = S7.GetIntAt(buffer, 354);
+                HE.HK18.TMaxAT = S7.GetIntAt(buffer, 356);
+                HE.HK18.Aktiv = S7.GetBitAt(buffer, 358, 0);
+                HE.HK19.TempSoll = S7.GetIntAt(buffer, 360);
+                HE.HK19.ToleranzPlus = S7.GetIntAt(buffer, 362);
+                HE.HK19.ToleranzMinus = S7.GetIntAt(buffer, 364);
+                HE.HK19.TempTaktung = S7.GetIntAt(buffer, 366);
+                HE.HK19.Impulsdauer = S7.GetIntAt(buffer, 368);
+                HE.HK19.Pausendauer = S7.GetIntAt(buffer, 370);
+                HE.HK19.OffsetAT = S7.GetIntAt(buffer, 372);
+                HE.HK19.PiAT = S7.GetIntAt(buffer, 374);
+                HE.HK19.TMaxAT = S7.GetIntAt(buffer, 376);
+                HE.HK19.Aktiv = S7.GetBitAt(buffer, 378, 0);
+                HE.HK20.TempSoll = S7.GetIntAt(buffer, 380);
+                HE.HK20.ToleranzPlus = S7.GetIntAt(buffer, 382);
+                HE.HK20.ToleranzMinus = S7.GetIntAt(buffer, 384);
+                HE.HK20.TempTaktung = S7.GetIntAt(buffer, 386);
+                HE.HK20.Impulsdauer = S7.GetIntAt(buffer, 388);
+                HE.HK20.Pausendauer = S7.GetIntAt(buffer, 390);
+                HE.HK20.OffsetAT = S7.GetIntAt(buffer, 392);
+                HE.HK20.PiAT = S7.GetIntAt(buffer, 394);
+                HE.HK20.TMaxAT = S7.GetIntAt(buffer, 396);
+                HE.HK20.Aktiv = S7.GetBitAt(buffer, 398, 0);
+                HE.HK21.TempSoll = S7.GetIntAt(buffer, 400);
+                HE.HK21.ToleranzPlus = S7.GetIntAt(buffer, 402);
+                HE.HK21.ToleranzMinus = S7.GetIntAt(buffer, 404);
+                HE.HK21.TempTaktung = S7.GetIntAt(buffer, 406);
+                HE.HK21.Impulsdauer = S7.GetIntAt(buffer, 408);
+                HE.HK21.Pausendauer = S7.GetIntAt(buffer, 410);
+                HE.HK21.OffsetAT = S7.GetIntAt(buffer, 412);
+                HE.HK21.PiAT = S7.GetIntAt(buffer, 414);
+                HE.HK21.TMaxAT = S7.GetIntAt(buffer, 416);
+                HE.HK21.Aktiv = S7.GetBitAt(buffer, 418, 0);
+                HE.HK22.TempSoll = S7.GetIntAt(buffer, 420);
+                HE.HK22.ToleranzPlus = S7.GetIntAt(buffer, 422);
+                HE.HK22.ToleranzMinus = S7.GetIntAt(buffer, 424);
+                HE.HK22.TempTaktung = S7.GetIntAt(buffer, 426);
+                HE.HK22.Impulsdauer = S7.GetIntAt(buffer, 428);
+                HE.HK22.Pausendauer = S7.GetIntAt(buffer, 430);
+                HE.HK22.OffsetAT = S7.GetIntAt(buffer, 432);
+                HE.HK22.PiAT = S7.GetIntAt(buffer, 434);
+                HE.HK22.TMaxAT = S7.GetIntAt(buffer, 436);
+                HE.HK22.Aktiv = S7.GetBitAt(buffer, 438, 0);
+                HE.HK23.TempSoll = S7.GetIntAt(buffer, 440);
+                HE.HK23.ToleranzPlus = S7.GetIntAt(buffer, 442);
+                HE.HK23.ToleranzMinus = S7.GetIntAt(buffer, 444);
+                HE.HK23.TempTaktung = S7.GetIntAt(buffer, 446);
+                HE.HK23.Impulsdauer = S7.GetIntAt(buffer, 448);
+                HE.HK23.Pausendauer = S7.GetIntAt(buffer, 450);
+                HE.HK23.OffsetAT = S7.GetIntAt(buffer, 452);
+                HE.HK23.PiAT = S7.GetIntAt(buffer, 454);
+                HE.HK23.TMaxAT = S7.GetIntAt(buffer, 456);
+                HE.HK23.Aktiv = S7.GetBitAt(buffer, 458, 0);
+                HE.HK24.TempSoll = S7.GetIntAt(buffer, 460);
+                HE.HK24.ToleranzPlus = S7.GetIntAt(buffer, 462);
+                HE.HK24.ToleranzMinus = S7.GetIntAt(buffer, 464);
+                HE.HK24.TempTaktung = S7.GetIntAt(buffer, 466);
+                HE.HK24.Impulsdauer = S7.GetIntAt(buffer, 468);
+                HE.HK24.Pausendauer = S7.GetIntAt(buffer, 470);
+                HE.HK24.OffsetAT = S7.GetIntAt(buffer, 472);
+                HE.HK24.PiAT = S7.GetIntAt(buffer, 474);
+                HE.HK24.TMaxAT = S7.GetIntAt(buffer, 476);
+                HE.HK24.Aktiv = S7.GetBitAt(buffer, 478, 0);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+                //throw;
+            }
+
+            return HE;
+        }
+        public static void SerializeDatHE(DatHE HE, string path, ref string error)
+        {
+            error = string.Empty;
+            //create instance
+            //DatHE HE = new DatHE();
+            try
+            {
+                // XmlSerializer writes object data as XML
+                XmlSerializer serializer = new XmlSerializer(typeof(DatHE));
+                using (TextWriter writer = new StreamWriter(path + " \\HE.xml"))
+                {
+                    serializer.Serialize(writer, HE);
+                    writer.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString() + " " + path + " \\HE.xml";
+                //throw;
+            }
+            //return value
+            //return HE;
+        }
+        public static DatHE DeserializeDatHE(string path, ref string error)
+        {
+            //create instance
+            DatHE HE = new DatHE();
+            try
+            {
+                // Deserialize from XML to the object
+                XmlSerializer deserializer = new XmlSerializer(typeof(DatHE));
+                TextReader reader = new StreamReader(path + " \\HE.xml");
+                object obj = deserializer.Deserialize(reader);
+                HE = (DatHE)obj;
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
                 error = ex.Message.ToString() + " " + path + " \\HE.xml";
                 //throw;
             }
@@ -549,7 +574,459 @@ namespace WinS7Library.Helper
 
 
         #region DatConfig
-        public static DatConfig SerializeDatConfig(string path, byte[] buffer, ref string error)
+        public static void DatConfigToBuffer(DatConfig Config, byte[] buffer, ref string error)
+        {
+            try
+            {
+                //clear buffer before use
+                Array.Clear(buffer, 0, buffer.Length);
+
+                S7.SetIntAt(buffer, 0, Config.GS.OB.E_01_16);
+                S7.SetIntAt(buffer, 2, Config.GS.OB.E_17_32);
+                S7.SetIntAt(buffer, 4, Config.GS.OB.E_Vakuum);
+                S7.SetIntAt(buffer, 6, Config.GS.OB.A_Vakuum);
+                S7.SetIntAt(buffer, 8, Config.GS.OB.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 10, Config.GS.OB_IG.E_01_16);
+                S7.SetIntAt(buffer, 12, Config.GS.OB_IG.E_17_32);
+                S7.SetIntAt(buffer, 14, Config.GS.OB_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 16, Config.GS.OB_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 18, Config.GS.OB_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 20, Config.GS.UN.E_01_16);
+                S7.SetIntAt(buffer, 22, Config.GS.UN.E_17_32);
+                S7.SetIntAt(buffer, 24, Config.GS.UN.E_Vakuum);
+                S7.SetIntAt(buffer, 26, Config.GS.UN.A_Vakuum);
+                S7.SetIntAt(buffer, 28, Config.GS.UN.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 30, Config.GS.UN_IG.E_01_16);
+                S7.SetIntAt(buffer, 32, Config.GS.UN_IG.E_17_32);
+                S7.SetIntAt(buffer, 34, Config.GS.UN_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 36, Config.GS.UN_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 38, Config.GS.UN_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 40, Config.ZYA.OB.E_01_16);
+                S7.SetIntAt(buffer, 42, Config.ZYA.OB.E_17_32);
+                S7.SetIntAt(buffer, 44, Config.ZYA.OB.E_Vakuum);
+                S7.SetIntAt(buffer, 46, Config.ZYA.OB.A_Vakuum);
+                S7.SetIntAt(buffer, 48, Config.ZYA.OB.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 50, Config.ZYA.OB_IG.E_01_16);
+                S7.SetIntAt(buffer, 52, Config.ZYA.OB_IG.E_17_32);
+                S7.SetIntAt(buffer, 54, Config.ZYA.OB_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 56, Config.ZYA.OB_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 58, Config.ZYA.OB_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 60, Config.ZYA.UN.E_01_16);
+                S7.SetIntAt(buffer, 62, Config.ZYA.UN.E_17_32);
+                S7.SetIntAt(buffer, 64, Config.ZYA.UN.E_Vakuum);
+                S7.SetIntAt(buffer, 66, Config.ZYA.UN.A_Vakuum);
+                S7.SetIntAt(buffer, 68, Config.ZYA.UN.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 70, Config.ZYA.UN_IG.E_01_16);
+                S7.SetIntAt(buffer, 72, Config.ZYA.UN_IG.E_17_32);
+                S7.SetIntAt(buffer, 74, Config.ZYA.UN_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 76, Config.ZYA.UN_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 78, Config.ZYA.UN_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 80, Config.T1.OB.E_01_16);
+                S7.SetIntAt(buffer, 82, Config.T1.OB.E_17_32);
+                S7.SetIntAt(buffer, 84, Config.T1.OB.E_Vakuum);
+                S7.SetIntAt(buffer, 86, Config.T1.OB.A_Vakuum);
+                S7.SetIntAt(buffer, 88, Config.T1.OB.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 90, Config.T1.OB_IG.E_01_16);
+                S7.SetIntAt(buffer, 92, Config.T1.OB_IG.E_17_32);
+                S7.SetIntAt(buffer, 94, Config.T1.OB_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 96, Config.T1.OB_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 98, Config.T1.OB_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 100, Config.T1.UN.E_01_16);
+                S7.SetIntAt(buffer, 102, Config.T1.UN.E_17_32);
+                S7.SetIntAt(buffer, 104, Config.T1.UN.E_Vakuum);
+                S7.SetIntAt(buffer, 106, Config.T1.UN.A_Vakuum);
+                S7.SetIntAt(buffer, 108, Config.T1.UN.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 110, Config.T1.UN_IG.E_01_16);
+                S7.SetIntAt(buffer, 112, Config.T1.UN_IG.E_17_32);
+                S7.SetIntAt(buffer, 114, Config.T1.UN_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 116, Config.T1.UN_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 118, Config.T1.UN_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 120, Config.T2.OB.E_01_16);
+                S7.SetIntAt(buffer, 122, Config.T2.OB.E_17_32);
+                S7.SetIntAt(buffer, 124, Config.T2.OB.E_Vakuum);
+                S7.SetIntAt(buffer, 126, Config.T2.OB.A_Vakuum);
+                S7.SetIntAt(buffer, 128, Config.T2.OB.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 130, Config.T2.OB_IG.E_01_16);
+                S7.SetIntAt(buffer, 132, Config.T2.OB_IG.E_17_32);
+                S7.SetIntAt(buffer, 134, Config.T2.OB_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 136, Config.T2.OB_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 138, Config.T2.OB_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 140, Config.T2.UN.E_01_16);
+                S7.SetIntAt(buffer, 142, Config.T2.UN.E_17_32);
+                S7.SetIntAt(buffer, 144, Config.T2.UN.E_Vakuum);
+                S7.SetIntAt(buffer, 146, Config.T2.UN.A_Vakuum);
+                S7.SetIntAt(buffer, 148, Config.T2.UN.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 150, Config.T2.UN_IG.E_01_16);
+                S7.SetIntAt(buffer, 152, Config.T2.UN_IG.E_17_32);
+                S7.SetIntAt(buffer, 154, Config.T2.UN_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 156, Config.T2.UN_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 158, Config.T2.UN_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 160, Config.PN.OB.E_01_16);
+                S7.SetIntAt(buffer, 162, Config.PN.OB.E_17_32);
+                S7.SetIntAt(buffer, 164, Config.PN.OB.E_Vakuum);
+                S7.SetIntAt(buffer, 166, Config.PN.OB.A_Vakuum);
+                S7.SetIntAt(buffer, 168, Config.PN.OB.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 170, Config.PN.OB_IG.E_01_16);
+                S7.SetIntAt(buffer, 172, Config.PN.OB_IG.E_17_32);
+                S7.SetIntAt(buffer, 174, Config.PN.OB_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 176, Config.PN.OB_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 178, Config.PN.OB_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 180, Config.PN.UN.E_01_16);
+                S7.SetIntAt(buffer, 182, Config.PN.UN.E_17_32);
+                S7.SetIntAt(buffer, 184, Config.PN.UN.E_Vakuum);
+                S7.SetIntAt(buffer, 186, Config.PN.UN.A_Vakuum);
+                S7.SetIntAt(buffer, 188, Config.PN.UN.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 190, Config.PN.UN_IG.E_01_16);
+                S7.SetIntAt(buffer, 192, Config.PN.UN_IG.E_17_32);
+                S7.SetIntAt(buffer, 194, Config.PN.UN_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 196, Config.PN.UN_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 198, Config.PN.UN_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 200, Config.AV.OB.E_01_16);
+                S7.SetIntAt(buffer, 202, Config.AV.OB.E_17_32);
+                S7.SetIntAt(buffer, 204, Config.AV.OB.E_Vakuum);
+                S7.SetIntAt(buffer, 206, Config.AV.OB.A_Vakuum);
+                S7.SetIntAt(buffer, 208, Config.AV.OB.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 210, Config.AV.OB_IG.E_01_16);
+                S7.SetIntAt(buffer, 212, Config.AV.OB_IG.E_17_32);
+                S7.SetIntAt(buffer, 214, Config.AV.OB_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 216, Config.AV.OB_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 218, Config.AV.OB_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 220, Config.AV.UN.E_01_16);
+                S7.SetIntAt(buffer, 222, Config.AV.UN.E_17_32);
+                S7.SetIntAt(buffer, 224, Config.AV.UN.E_Vakuum);
+                S7.SetIntAt(buffer, 226, Config.AV.UN.A_Vakuum);
+                S7.SetIntAt(buffer, 228, Config.AV.UN.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 230, Config.AV.UN_IG.E_01_16);
+                S7.SetIntAt(buffer, 232, Config.AV.UN_IG.E_17_32);
+                S7.SetIntAt(buffer, 234, Config.AV.UN_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 236, Config.AV.UN_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 238, Config.AV.UN_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 240, Config.AP.OB.E_01_16);
+                S7.SetIntAt(buffer, 242, Config.AP.OB.E_17_32);
+                S7.SetIntAt(buffer, 244, Config.AP.OB.E_Vakuum);
+                S7.SetIntAt(buffer, 246, Config.AP.OB.A_Vakuum);
+                S7.SetIntAt(buffer, 248, Config.AP.OB.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 250, Config.AP.OB_IG.E_01_16);
+                S7.SetIntAt(buffer, 252, Config.AP.OB_IG.E_17_32);
+                S7.SetIntAt(buffer, 254, Config.AP.OB_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 256, Config.AP.OB_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 258, Config.AP.OB_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 260, Config.AP.UN.E_01_16);
+                S7.SetIntAt(buffer, 262, Config.AP.UN.E_17_32);
+                S7.SetIntAt(buffer, 264, Config.AP.UN.E_Vakuum);
+                S7.SetIntAt(buffer, 266, Config.AP.UN.A_Vakuum);
+                S7.SetIntAt(buffer, 268, Config.AP.UN.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 270, Config.AP.UN_IG.E_01_16);
+                S7.SetIntAt(buffer, 272, Config.AP.UN_IG.E_17_32);
+                S7.SetIntAt(buffer, 274, Config.AP.UN_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 276, Config.AP.UN_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 278, Config.AP.UN_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 280, Config.PT.OB.E_01_16);
+                S7.SetIntAt(buffer, 282, Config.PT.OB.E_17_32);
+                S7.SetIntAt(buffer, 284, Config.PT.OB.E_Vakuum);
+                S7.SetIntAt(buffer, 286, Config.PT.OB.A_Vakuum);
+                S7.SetIntAt(buffer, 288, Config.PT.OB.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 290, Config.PT.OB_IG.E_01_16);
+                S7.SetIntAt(buffer, 292, Config.PT.OB_IG.E_17_32);
+                S7.SetIntAt(buffer, 294, Config.PT.OB_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 296, Config.PT.OB_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 298, Config.PT.OB_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 300, Config.PT.UN.E_01_16);
+                S7.SetIntAt(buffer, 302, Config.PT.UN.E_17_32);
+                S7.SetIntAt(buffer, 304, Config.PT.UN.E_Vakuum);
+                S7.SetIntAt(buffer, 306, Config.PT.UN.A_Vakuum);
+                S7.SetIntAt(buffer, 308, Config.PT.UN.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 310, Config.PT.UN_IG.E_01_16);
+                S7.SetIntAt(buffer, 312, Config.PT.UN_IG.E_17_32);
+                S7.SetIntAt(buffer, 314, Config.PT.UN_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 316, Config.PT.UN_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 318, Config.PT.UN_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 320, Config.WV.OB.E_01_16);
+                S7.SetIntAt(buffer, 322, Config.WV.OB.E_17_32);
+                S7.SetIntAt(buffer, 324, Config.WV.OB.E_Vakuum);
+                S7.SetIntAt(buffer, 326, Config.WV.OB.A_Vakuum);
+                S7.SetIntAt(buffer, 328, Config.WV.OB.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 330, Config.WV.OB_IG.E_01_16);
+                S7.SetIntAt(buffer, 332, Config.WV.OB_IG.E_17_32);
+                S7.SetIntAt(buffer, 334, Config.WV.OB_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 336, Config.WV.OB_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 338, Config.WV.OB_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 340, Config.WV.UN.E_01_16);
+                S7.SetIntAt(buffer, 342, Config.WV.UN.E_17_32);
+                S7.SetIntAt(buffer, 344, Config.WV.UN.E_Vakuum);
+                S7.SetIntAt(buffer, 346, Config.WV.UN.A_Vakuum);
+                S7.SetIntAt(buffer, 348, Config.WV.UN.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 350, Config.WV.UN_IG.E_01_16);
+                S7.SetIntAt(buffer, 352, Config.WV.UN_IG.E_17_32);
+                S7.SetIntAt(buffer, 354, Config.WV.UN_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 356, Config.WV.UN_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 358, Config.WV.UN_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 360, Config.WE.OB.E_01_16);
+                S7.SetIntAt(buffer, 362, Config.WE.OB.E_17_32);
+                S7.SetIntAt(buffer, 364, Config.WE.OB.E_Vakuum);
+                S7.SetIntAt(buffer, 366, Config.WE.OB.A_Vakuum);
+                S7.SetIntAt(buffer, 368, Config.WE.OB.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 370, Config.WE.OB_IG.E_01_16);
+                S7.SetIntAt(buffer, 372, Config.WE.OB_IG.E_17_32);
+                S7.SetIntAt(buffer, 374, Config.WE.OB_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 376, Config.WE.OB_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 378, Config.WE.OB_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 380, Config.WE.UN.E_01_16);
+                S7.SetIntAt(buffer, 382, Config.WE.UN.E_17_32);
+                S7.SetIntAt(buffer, 384, Config.WE.UN.E_Vakuum);
+                S7.SetIntAt(buffer, 386, Config.WE.UN.A_Vakuum);
+                S7.SetIntAt(buffer, 388, Config.WE.UN.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 390, Config.WE.UN_IG.E_01_16);
+                S7.SetIntAt(buffer, 392, Config.WE.UN_IG.E_17_32);
+                S7.SetIntAt(buffer, 394, Config.WE.UN_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 396, Config.WE.UN_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 398, Config.WE.UN_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 400, Config.KU.OB.E_01_16);
+                S7.SetIntAt(buffer, 402, Config.KU.OB.E_17_32);
+                S7.SetIntAt(buffer, 404, Config.KU.OB.E_Vakuum);
+                S7.SetIntAt(buffer, 406, Config.KU.OB.A_Vakuum);
+                S7.SetIntAt(buffer, 408, Config.KU.OB.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 410, Config.KU.OB_IG.E_01_16);
+                S7.SetIntAt(buffer, 412, Config.KU.OB_IG.E_17_32);
+                S7.SetIntAt(buffer, 414, Config.KU.OB_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 416, Config.KU.OB_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 418, Config.KU.OB_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 420, Config.KU.UN.E_01_16);
+                S7.SetIntAt(buffer, 422, Config.KU.UN.E_17_32);
+                S7.SetIntAt(buffer, 424, Config.KU.UN.E_Vakuum);
+                S7.SetIntAt(buffer, 426, Config.KU.UN.A_Vakuum);
+                S7.SetIntAt(buffer, 428, Config.KU.UN.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 430, Config.KU.UN_IG.E_01_16);
+                S7.SetIntAt(buffer, 432, Config.KU.UN_IG.E_17_32);
+                S7.SetIntAt(buffer, 434, Config.KU.UN_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 436, Config.KU.UN_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 438, Config.KU.UN_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 440, Config.AU.OB.E_01_16);
+                S7.SetIntAt(buffer, 442, Config.AU.OB.E_17_32);
+                S7.SetIntAt(buffer, 444, Config.AU.OB.E_Vakuum);
+                S7.SetIntAt(buffer, 446, Config.AU.OB.A_Vakuum);
+                S7.SetIntAt(buffer, 448, Config.AU.OB.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 450, Config.AU.OB_IG.E_01_16);
+                S7.SetIntAt(buffer, 452, Config.AU.OB_IG.E_17_32);
+                S7.SetIntAt(buffer, 454, Config.AU.OB_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 456, Config.AU.OB_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 458, Config.AU.OB_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 460, Config.AU.UN.E_01_16);
+                S7.SetIntAt(buffer, 462, Config.AU.UN.E_17_32);
+                S7.SetIntAt(buffer, 464, Config.AU.UN.E_Vakuum);
+                S7.SetIntAt(buffer, 466, Config.AU.UN.A_Vakuum);
+                S7.SetIntAt(buffer, 468, Config.AU.UN.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 470, Config.AU.UN_IG.E_01_16);
+                S7.SetIntAt(buffer, 472, Config.AU.UN_IG.E_17_32);
+                S7.SetIntAt(buffer, 474, Config.AU.UN_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 476, Config.AU.UN_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 478, Config.AU.UN_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 480, Config.ZYE.OB.E_01_16);
+                S7.SetIntAt(buffer, 482, Config.ZYE.OB.E_17_32);
+                S7.SetIntAt(buffer, 484, Config.ZYE.OB.E_Vakuum);
+                S7.SetIntAt(buffer, 486, Config.ZYE.OB.A_Vakuum);
+                S7.SetIntAt(buffer, 488, Config.ZYE.OB.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 490, Config.ZYE.OB_IG.E_01_16);
+                S7.SetIntAt(buffer, 492, Config.ZYE.OB_IG.E_17_32);
+                S7.SetIntAt(buffer, 494, Config.ZYE.OB_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 496, Config.ZYE.OB_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 498, Config.ZYE.OB_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 500, Config.ZYE.UN.E_01_16);
+                S7.SetIntAt(buffer, 502, Config.ZYE.UN.E_17_32);
+                S7.SetIntAt(buffer, 504, Config.ZYE.UN.E_Vakuum);
+                S7.SetIntAt(buffer, 506, Config.ZYE.UN.A_Vakuum);
+                S7.SetIntAt(buffer, 508, Config.ZYE.UN.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 510, Config.ZYE.UN_IG.E_01_16);
+                S7.SetIntAt(buffer, 512, Config.ZYE.UN_IG.E_17_32);
+                S7.SetIntAt(buffer, 514, Config.ZYE.UN_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 516, Config.ZYE.UN_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 518, Config.ZYE.UN_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 520, Config.RO.OB.E_01_16);
+                S7.SetIntAt(buffer, 522, Config.RO.OB.E_17_32);
+                S7.SetIntAt(buffer, 524, Config.RO.OB.E_Vakuum);
+                S7.SetIntAt(buffer, 526, Config.RO.OB.A_Vakuum);
+                S7.SetIntAt(buffer, 528, Config.RO.OB.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 530, Config.RO.OB_IG.E_01_16);
+                S7.SetIntAt(buffer, 532, Config.RO.OB_IG.E_17_32);
+                S7.SetIntAt(buffer, 534, Config.RO.OB_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 536, Config.RO.OB_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 538, Config.RO.OB_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 540, Config.RO.UN.E_01_16);
+                S7.SetIntAt(buffer, 542, Config.RO.UN.E_17_32);
+                S7.SetIntAt(buffer, 544, Config.RO.UN.E_Vakuum);
+                S7.SetIntAt(buffer, 546, Config.RO.UN.A_Vakuum);
+                S7.SetIntAt(buffer, 548, Config.RO.UN.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 550, Config.RO.UN_IG.E_01_16);
+                S7.SetIntAt(buffer, 552, Config.RO.UN_IG.E_17_32);
+                S7.SetIntAt(buffer, 554, Config.RO.UN_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 556, Config.RO.UN_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 558, Config.RO.UN_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 560, Config.Reserve.OB.E_01_16);
+                S7.SetIntAt(buffer, 562, Config.Reserve.OB.E_17_32);
+                S7.SetIntAt(buffer, 564, Config.Reserve.OB.E_Vakuum);
+                S7.SetIntAt(buffer, 566, Config.Reserve.OB.A_Vakuum);
+                S7.SetIntAt(buffer, 568, Config.Reserve.OB.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 570, Config.Reserve.OB_IG.E_01_16);
+                S7.SetIntAt(buffer, 572, Config.Reserve.OB_IG.E_17_32);
+                S7.SetIntAt(buffer, 574, Config.Reserve.OB_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 576, Config.Reserve.OB_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 578, Config.Reserve.OB_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 580, Config.Reserve.UN.E_01_16);
+                S7.SetIntAt(buffer, 582, Config.Reserve.UN.E_17_32);
+                S7.SetIntAt(buffer, 584, Config.Reserve.UN.E_Vakuum);
+                S7.SetIntAt(buffer, 586, Config.Reserve.UN.A_Vakuum);
+                S7.SetIntAt(buffer, 588, Config.Reserve.UN.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 590, Config.Reserve.UN_IG.E_01_16);
+                S7.SetIntAt(buffer, 592, Config.Reserve.UN_IG.E_17_32);
+                S7.SetIntAt(buffer, 594, Config.Reserve.UN_IG.E_Vakuum);
+                S7.SetIntAt(buffer, 596, Config.Reserve.UN_IG.A_Vakuum);
+                S7.SetIntAt(buffer, 598, Config.Reserve.UN_IG.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 600, Config.TK.OB.E_01_16);
+                S7.SetIntAt(buffer, 602, Config.TK.OB.E_17_32);
+                S7.SetIntAt(buffer, 604, Config.TK.OB.E_Vakuum);
+                S7.SetIntAt(buffer, 606, Config.TK.OB.A_Vakuum);
+                S7.SetIntAt(buffer, 608, Config.TK.OB.A_Ventile_1_8);
+                S7.SetIntAt(buffer, 610, Config.TK.UN.E_01_16);
+                S7.SetIntAt(buffer, 612, Config.TK.UN.E_17_32);
+                S7.SetIntAt(buffer, 614, Config.TK.UN.E_Vakuum);
+                S7.SetIntAt(buffer, 616, Config.TK.UN.A_Vakuum);
+                S7.SetIntAt(buffer, 618, Config.TK.UN.A_Ventile_1_8);
+                S7.SetStringAt(buffer, 620, 20, Config.WKZOB.Name.EO01);
+                S7.SetStringAt(buffer, 642, 20, Config.WKZOB.Name.EO02);
+                S7.SetStringAt(buffer, 664, 20, Config.WKZOB.Name.EO03);
+                S7.SetStringAt(buffer, 686, 20, Config.WKZOB.Name.EO04);
+                S7.SetStringAt(buffer, 708, 20, Config.WKZOB.Name.EO05);
+                S7.SetStringAt(buffer, 730, 20, Config.WKZOB.Name.EO06);
+                S7.SetStringAt(buffer, 752, 20, Config.WKZOB.Name.EO07);
+                S7.SetStringAt(buffer, 774, 20, Config.WKZOB.Name.EO08);
+                S7.SetStringAt(buffer, 796, 20, Config.WKZOB.Name.EO09);
+                S7.SetStringAt(buffer, 818, 20, Config.WKZOB.Name.EO10);
+                S7.SetStringAt(buffer, 840, 20, Config.WKZOB.Name.EO11);
+                S7.SetStringAt(buffer, 862, 20, Config.WKZOB.Name.EO12);
+                S7.SetStringAt(buffer, 884, 20, Config.WKZOB.Name.EO13);
+                S7.SetStringAt(buffer, 906, 20, Config.WKZOB.Name.EO14);
+                S7.SetStringAt(buffer, 928, 20, Config.WKZOB.Name.EO15);
+                S7.SetStringAt(buffer, 950, 20, Config.WKZOB.Name.EO16);
+                S7.SetStringAt(buffer, 972, 20, Config.WKZOB.Name.EO17);
+                S7.SetStringAt(buffer, 994, 20, Config.WKZOB.Name.EO18);
+                S7.SetStringAt(buffer, 1016, 20, Config.WKZOB.Name.EO19);
+                S7.SetStringAt(buffer, 1038, 20, Config.WKZOB.Name.EO20);
+                S7.SetStringAt(buffer, 1060, 20, Config.WKZOB.Name.EO21);
+                S7.SetStringAt(buffer, 1082, 20, Config.WKZOB.Name.EO22);
+                S7.SetStringAt(buffer, 1104, 20, Config.WKZOB.Name.EO23);
+                S7.SetStringAt(buffer, 1126, 20, Config.WKZOB.Name.EO24);
+                S7.SetStringAt(buffer, 1148, 20, Config.WKZOB.Name.EO25);
+                S7.SetStringAt(buffer, 1170, 20, Config.WKZOB.Name.EO26);
+                S7.SetStringAt(buffer, 1192, 20, Config.WKZOB.Name.EO27);
+                S7.SetStringAt(buffer, 1214, 20, Config.WKZOB.Name.EO28);
+                S7.SetStringAt(buffer, 1236, 20, Config.WKZOB.Name.EO29);
+                S7.SetStringAt(buffer, 1258, 20, Config.WKZOB.Name.EO30);
+                S7.SetStringAt(buffer, 1280, 20, Config.WKZOB.Name.EO31);
+                S7.SetStringAt(buffer, 1302, 20, Config.WKZOB.Name.EO32);
+                S7.SetStringAt(buffer, 1324, 20, Config.WKZOB.Name.VO121);
+                S7.SetStringAt(buffer, 1346, 20, Config.WKZOB.Name.VO141);
+                S7.SetStringAt(buffer, 1368, 20, Config.WKZOB.Name.VO122);
+                S7.SetStringAt(buffer, 1390, 20, Config.WKZOB.Name.VO142);
+                S7.SetStringAt(buffer, 1412, 20, Config.WKZOB.Name.VO123);
+                S7.SetStringAt(buffer, 1434, 20, Config.WKZOB.Name.VO143);
+                S7.SetStringAt(buffer, 1456, 20, Config.WKZOB.Name.VO124);
+                S7.SetStringAt(buffer, 1478, 20, Config.WKZOB.Name.VO144);
+                S7.SetStringAt(buffer, 1500, 20, Config.WKZOB.Name.VO125);
+                S7.SetStringAt(buffer, 1522, 20, Config.WKZOB.Name.VO145);
+                S7.SetStringAt(buffer, 1544, 20, Config.WKZOB.Name.VO126);
+                S7.SetStringAt(buffer, 1566, 20, Config.WKZOB.Name.VO146);
+                S7.SetStringAt(buffer, 1588, 20, Config.WKZOB.Name.VO127);
+                S7.SetStringAt(buffer, 1610, 20, Config.WKZOB.Name.VO147);
+                S7.SetStringAt(buffer, 1632, 20, Config.WKZOB.Name.VO128);
+                S7.SetStringAt(buffer, 1654, 20, Config.WKZOB.Name.VO148);
+                S7.SetIntAt(buffer, 1676, Config.WKZOB.Time.TVO121);
+                S7.SetIntAt(buffer, 1678, Config.WKZOB.Time.TVO141);
+                S7.SetIntAt(buffer, 1680, Config.WKZOB.Time.TVO122);
+                S7.SetIntAt(buffer, 1682, Config.WKZOB.Time.TVO142);
+                S7.SetIntAt(buffer, 1684, Config.WKZOB.Time.TVO123);
+                S7.SetIntAt(buffer, 1686, Config.WKZOB.Time.TVO143);
+                S7.SetIntAt(buffer, 1688, Config.WKZOB.Time.TVO124);
+                S7.SetIntAt(buffer, 1690, Config.WKZOB.Time.TVO144);
+                S7.SetIntAt(buffer, 1692, Config.WKZOB.Time.TVO125);
+                S7.SetIntAt(buffer, 1694, Config.WKZOB.Time.TVO145);
+                S7.SetIntAt(buffer, 1696, Config.WKZOB.Time.TVO126);
+                S7.SetIntAt(buffer, 1698, Config.WKZOB.Time.TVO146);
+                S7.SetIntAt(buffer, 1700, Config.WKZOB.Time.TVO127);
+                S7.SetIntAt(buffer, 1702, Config.WKZOB.Time.TVO147);
+                S7.SetIntAt(buffer, 1704, Config.WKZOB.Time.TVO128);
+                S7.SetIntAt(buffer, 1706, Config.WKZOB.Time.TVO148);
+                S7.SetStringAt(buffer, 1708, 20, Config.WKZUN.Name.EO01);
+                S7.SetStringAt(buffer, 1730, 20, Config.WKZUN.Name.EO02);
+                S7.SetStringAt(buffer, 1752, 20, Config.WKZUN.Name.EO03);
+                S7.SetStringAt(buffer, 1774, 20, Config.WKZUN.Name.EO04);
+                S7.SetStringAt(buffer, 1796, 20, Config.WKZUN.Name.EO05);
+                S7.SetStringAt(buffer, 1818, 20, Config.WKZUN.Name.EO06);
+                S7.SetStringAt(buffer, 1840, 20, Config.WKZUN.Name.EO07);
+                S7.SetStringAt(buffer, 1862, 20, Config.WKZUN.Name.EO08);
+                S7.SetStringAt(buffer, 1884, 20, Config.WKZUN.Name.EO09);
+                S7.SetStringAt(buffer, 1906, 20, Config.WKZUN.Name.EO10);
+                S7.SetStringAt(buffer, 1928, 20, Config.WKZUN.Name.EO11);
+                S7.SetStringAt(buffer, 1950, 20, Config.WKZUN.Name.EO12);
+                S7.SetStringAt(buffer, 1972, 20, Config.WKZUN.Name.EO13);
+                S7.SetStringAt(buffer, 1994, 20, Config.WKZUN.Name.EO14);
+                S7.SetStringAt(buffer, 2016, 20, Config.WKZUN.Name.EO15);
+                S7.SetStringAt(buffer, 2038, 20, Config.WKZUN.Name.EO16);
+                S7.SetStringAt(buffer, 2060, 20, Config.WKZUN.Name.EO17);
+                S7.SetStringAt(buffer, 2082, 20, Config.WKZUN.Name.EO18);
+                S7.SetStringAt(buffer, 2104, 20, Config.WKZUN.Name.EO19);
+                S7.SetStringAt(buffer, 2126, 20, Config.WKZUN.Name.EO20);
+                S7.SetStringAt(buffer, 2148, 20, Config.WKZUN.Name.EO21);
+                S7.SetStringAt(buffer, 2170, 20, Config.WKZUN.Name.EO22);
+                S7.SetStringAt(buffer, 2192, 20, Config.WKZUN.Name.EO23);
+                S7.SetStringAt(buffer, 2214, 20, Config.WKZUN.Name.EO24);
+                S7.SetStringAt(buffer, 2236, 20, Config.WKZUN.Name.EO25);
+                S7.SetStringAt(buffer, 2258, 20, Config.WKZUN.Name.EO26);
+                S7.SetStringAt(buffer, 2280, 20, Config.WKZUN.Name.EO27);
+                S7.SetStringAt(buffer, 2302, 20, Config.WKZUN.Name.EO28);
+                S7.SetStringAt(buffer, 2324, 20, Config.WKZUN.Name.EO29);
+                S7.SetStringAt(buffer, 2346, 20, Config.WKZUN.Name.EO30);
+                S7.SetStringAt(buffer, 2368, 20, Config.WKZUN.Name.EO31);
+                S7.SetStringAt(buffer, 2390, 20, Config.WKZUN.Name.EO32);
+                S7.SetStringAt(buffer, 2412, 20, Config.WKZUN.Name.VO121);
+                S7.SetStringAt(buffer, 2434, 20, Config.WKZUN.Name.VO141);
+                S7.SetStringAt(buffer, 2456, 20, Config.WKZUN.Name.VO122);
+                S7.SetStringAt(buffer, 2478, 20, Config.WKZUN.Name.VO142);
+                S7.SetStringAt(buffer, 2500, 20, Config.WKZUN.Name.VO123);
+                S7.SetStringAt(buffer, 2522, 20, Config.WKZUN.Name.VO143);
+                S7.SetStringAt(buffer, 2544, 20, Config.WKZUN.Name.VO124);
+                S7.SetStringAt(buffer, 2566, 20, Config.WKZUN.Name.VO144);
+                S7.SetStringAt(buffer, 2588, 20, Config.WKZUN.Name.VO125);
+                S7.SetStringAt(buffer, 2610, 20, Config.WKZUN.Name.VO145);
+                S7.SetStringAt(buffer, 2632, 20, Config.WKZUN.Name.VO126);
+                S7.SetStringAt(buffer, 2654, 20, Config.WKZUN.Name.VO146);
+                S7.SetStringAt(buffer, 2676, 20, Config.WKZUN.Name.VO127);
+                S7.SetStringAt(buffer, 2698, 20, Config.WKZUN.Name.VO147);
+                S7.SetStringAt(buffer, 2720, 20, Config.WKZUN.Name.VO128);
+                S7.SetStringAt(buffer, 2742, 20, Config.WKZUN.Name.VO148);
+                S7.SetIntAt(buffer, 2764, Config.WKZUN.Time.TVO121);
+                S7.SetIntAt(buffer, 2766, Config.WKZUN.Time.TVO141);
+                S7.SetIntAt(buffer, 2768, Config.WKZUN.Time.TVO122);
+                S7.SetIntAt(buffer, 2770, Config.WKZUN.Time.TVO142);
+                S7.SetIntAt(buffer, 2772, Config.WKZUN.Time.TVO123);
+                S7.SetIntAt(buffer, 2774, Config.WKZUN.Time.TVO143);
+                S7.SetIntAt(buffer, 2776, Config.WKZUN.Time.TVO124);
+                S7.SetIntAt(buffer, 2778, Config.WKZUN.Time.TVO144);
+                S7.SetIntAt(buffer, 2780, Config.WKZUN.Time.TVO125);
+                S7.SetIntAt(buffer, 2782, Config.WKZUN.Time.TVO145);
+                S7.SetIntAt(buffer, 2784, Config.WKZUN.Time.TVO126);
+                S7.SetIntAt(buffer, 2786, Config.WKZUN.Time.TVO146);
+                S7.SetIntAt(buffer, 2788, Config.WKZUN.Time.TVO127);
+                S7.SetIntAt(buffer, 2790, Config.WKZUN.Time.TVO147);
+                S7.SetIntAt(buffer, 2792, Config.WKZUN.Time.TVO128);
+                S7.SetIntAt(buffer, 2794, Config.WKZUN.Time.TVO148);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+                //throw;
+            }
+        }
+        public static DatConfig BufferToDatConfig(byte[] buffer, ref string error)
         {
             error = string.Empty;
             //create instance
@@ -995,8 +1472,23 @@ namespace WinS7Library.Helper
                 Config.WKZUN.Time.TVO147 = S7.GetIntAt(buffer, 2790);
                 Config.WKZUN.Time.TVO128 = S7.GetIntAt(buffer, 2792);
                 Config.WKZUN.Time.TVO148 = S7.GetIntAt(buffer, 2794);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+                //throw;
+            }
 
+            return Config;
+        }
+        public static void SerializeDatConfig(DatConfig Config, string path, ref string error)
+        {
+            error = string.Empty;
+            //create instance
+            //DatConfig Config = new DatConfig();
 
+            try
+            {
                 // XmlSerializer writes object data as XML
                 XmlSerializer serializer = new XmlSerializer(typeof(DatConfig));
                 using (TextWriter writer = new StreamWriter(path + " \\Config.xml"))
@@ -1011,10 +1503,9 @@ namespace WinS7Library.Helper
                 //throw;
             }
             //return value
-            return Config;
+            //return Config;
         }
-
-        public static DatConfig DeserializeDatConfig(string path, ref byte[] buffer, ref string error)
+        public static DatConfig DeserializeDatConfig(string path, ref string error)
         {
             //create instance
             DatConfig Config = new DatConfig();
@@ -1026,448 +1517,6 @@ namespace WinS7Library.Helper
                 object obj = deserializer.Deserialize(reader);
                 Config = (DatConfig)obj;
                 reader.Close();
-
-                //clear buffer before use
-                Array.Clear(buffer, 0, buffer.Length);
-
-                S7.SetIntAt(buffer, 0, Config.GS.OB.E_01_16);
-                S7.SetIntAt(buffer, 2, Config.GS.OB.E_17_32);
-                S7.SetIntAt(buffer, 4, Config.GS.OB.E_Vakuum);
-                S7.SetIntAt(buffer, 6, Config.GS.OB.A_Vakuum);
-                S7.SetIntAt(buffer, 8, Config.GS.OB.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 10, Config.GS.OB_IG.E_01_16);
-                S7.SetIntAt(buffer, 12, Config.GS.OB_IG.E_17_32);
-                S7.SetIntAt(buffer, 14, Config.GS.OB_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 16, Config.GS.OB_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 18, Config.GS.OB_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 20, Config.GS.UN.E_01_16);
-                S7.SetIntAt(buffer, 22, Config.GS.UN.E_17_32);
-                S7.SetIntAt(buffer, 24, Config.GS.UN.E_Vakuum);
-                S7.SetIntAt(buffer, 26, Config.GS.UN.A_Vakuum);
-                S7.SetIntAt(buffer, 28, Config.GS.UN.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 30, Config.GS.UN_IG.E_01_16);
-                S7.SetIntAt(buffer, 32, Config.GS.UN_IG.E_17_32);
-                S7.SetIntAt(buffer, 34, Config.GS.UN_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 36, Config.GS.UN_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 38, Config.GS.UN_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 40, Config.ZYA.OB.E_01_16);
-                S7.SetIntAt(buffer, 42, Config.ZYA.OB.E_17_32);
-                S7.SetIntAt(buffer, 44, Config.ZYA.OB.E_Vakuum);
-                S7.SetIntAt(buffer, 46, Config.ZYA.OB.A_Vakuum);
-                S7.SetIntAt(buffer, 48, Config.ZYA.OB.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 50, Config.ZYA.OB_IG.E_01_16);
-                S7.SetIntAt(buffer, 52, Config.ZYA.OB_IG.E_17_32);
-                S7.SetIntAt(buffer, 54, Config.ZYA.OB_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 56, Config.ZYA.OB_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 58, Config.ZYA.OB_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 60, Config.ZYA.UN.E_01_16);
-                S7.SetIntAt(buffer, 62, Config.ZYA.UN.E_17_32);
-                S7.SetIntAt(buffer, 64, Config.ZYA.UN.E_Vakuum);
-                S7.SetIntAt(buffer, 66, Config.ZYA.UN.A_Vakuum);
-                S7.SetIntAt(buffer, 68, Config.ZYA.UN.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 70, Config.ZYA.UN_IG.E_01_16);
-                S7.SetIntAt(buffer, 72, Config.ZYA.UN_IG.E_17_32);
-                S7.SetIntAt(buffer, 74, Config.ZYA.UN_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 76, Config.ZYA.UN_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 78, Config.ZYA.UN_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 80, Config.T1.OB.E_01_16);
-                S7.SetIntAt(buffer, 82, Config.T1.OB.E_17_32);
-                S7.SetIntAt(buffer, 84, Config.T1.OB.E_Vakuum);
-                S7.SetIntAt(buffer, 86, Config.T1.OB.A_Vakuum);
-                S7.SetIntAt(buffer, 88, Config.T1.OB.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 90, Config.T1.OB_IG.E_01_16);
-                S7.SetIntAt(buffer, 92, Config.T1.OB_IG.E_17_32);
-                S7.SetIntAt(buffer, 94, Config.T1.OB_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 96, Config.T1.OB_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 98, Config.T1.OB_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 100, Config.T1.UN.E_01_16);
-                S7.SetIntAt(buffer, 102, Config.T1.UN.E_17_32);
-                S7.SetIntAt(buffer, 104, Config.T1.UN.E_Vakuum);
-                S7.SetIntAt(buffer, 106, Config.T1.UN.A_Vakuum);
-                S7.SetIntAt(buffer, 108, Config.T1.UN.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 110, Config.T1.UN_IG.E_01_16);
-                S7.SetIntAt(buffer, 112, Config.T1.UN_IG.E_17_32);
-                S7.SetIntAt(buffer, 114, Config.T1.UN_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 116, Config.T1.UN_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 118, Config.T1.UN_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 120, Config.T2.OB.E_01_16);
-                S7.SetIntAt(buffer, 122, Config.T2.OB.E_17_32);
-                S7.SetIntAt(buffer, 124, Config.T2.OB.E_Vakuum);
-                S7.SetIntAt(buffer, 126, Config.T2.OB.A_Vakuum);
-                S7.SetIntAt(buffer, 128, Config.T2.OB.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 130, Config.T2.OB_IG.E_01_16);
-                S7.SetIntAt(buffer, 132, Config.T2.OB_IG.E_17_32);
-                S7.SetIntAt(buffer, 134, Config.T2.OB_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 136, Config.T2.OB_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 138, Config.T2.OB_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 140, Config.T2.UN.E_01_16);
-                S7.SetIntAt(buffer, 142, Config.T2.UN.E_17_32);
-                S7.SetIntAt(buffer, 144, Config.T2.UN.E_Vakuum);
-                S7.SetIntAt(buffer, 146, Config.T2.UN.A_Vakuum);
-                S7.SetIntAt(buffer, 148, Config.T2.UN.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 150, Config.T2.UN_IG.E_01_16);
-                S7.SetIntAt(buffer, 152, Config.T2.UN_IG.E_17_32);
-                S7.SetIntAt(buffer, 154, Config.T2.UN_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 156, Config.T2.UN_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 158, Config.T2.UN_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 160, Config.PN.OB.E_01_16);
-                S7.SetIntAt(buffer, 162, Config.PN.OB.E_17_32);
-                S7.SetIntAt(buffer, 164, Config.PN.OB.E_Vakuum);
-                S7.SetIntAt(buffer, 166, Config.PN.OB.A_Vakuum);
-                S7.SetIntAt(buffer, 168, Config.PN.OB.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 170, Config.PN.OB_IG.E_01_16);
-                S7.SetIntAt(buffer, 172, Config.PN.OB_IG.E_17_32);
-                S7.SetIntAt(buffer, 174, Config.PN.OB_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 176, Config.PN.OB_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 178, Config.PN.OB_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 180, Config.PN.UN.E_01_16);
-                S7.SetIntAt(buffer, 182, Config.PN.UN.E_17_32);
-                S7.SetIntAt(buffer, 184, Config.PN.UN.E_Vakuum);
-                S7.SetIntAt(buffer, 186, Config.PN.UN.A_Vakuum);
-                S7.SetIntAt(buffer, 188, Config.PN.UN.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 190, Config.PN.UN_IG.E_01_16);
-                S7.SetIntAt(buffer, 192, Config.PN.UN_IG.E_17_32);
-                S7.SetIntAt(buffer, 194, Config.PN.UN_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 196, Config.PN.UN_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 198, Config.PN.UN_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 200, Config.AV.OB.E_01_16);
-                S7.SetIntAt(buffer, 202, Config.AV.OB.E_17_32);
-                S7.SetIntAt(buffer, 204, Config.AV.OB.E_Vakuum);
-                S7.SetIntAt(buffer, 206, Config.AV.OB.A_Vakuum);
-                S7.SetIntAt(buffer, 208, Config.AV.OB.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 210, Config.AV.OB_IG.E_01_16);
-                S7.SetIntAt(buffer, 212, Config.AV.OB_IG.E_17_32);
-                S7.SetIntAt(buffer, 214, Config.AV.OB_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 216, Config.AV.OB_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 218, Config.AV.OB_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 220, Config.AV.UN.E_01_16);
-                S7.SetIntAt(buffer, 222, Config.AV.UN.E_17_32);
-                S7.SetIntAt(buffer, 224, Config.AV.UN.E_Vakuum);
-                S7.SetIntAt(buffer, 226, Config.AV.UN.A_Vakuum);
-                S7.SetIntAt(buffer, 228, Config.AV.UN.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 230, Config.AV.UN_IG.E_01_16);
-                S7.SetIntAt(buffer, 232, Config.AV.UN_IG.E_17_32);
-                S7.SetIntAt(buffer, 234, Config.AV.UN_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 236, Config.AV.UN_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 238, Config.AV.UN_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 240, Config.AP.OB.E_01_16);
-                S7.SetIntAt(buffer, 242, Config.AP.OB.E_17_32);
-                S7.SetIntAt(buffer, 244, Config.AP.OB.E_Vakuum);
-                S7.SetIntAt(buffer, 246, Config.AP.OB.A_Vakuum);
-                S7.SetIntAt(buffer, 248, Config.AP.OB.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 250, Config.AP.OB_IG.E_01_16);
-                S7.SetIntAt(buffer, 252, Config.AP.OB_IG.E_17_32);
-                S7.SetIntAt(buffer, 254, Config.AP.OB_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 256, Config.AP.OB_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 258, Config.AP.OB_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 260, Config.AP.UN.E_01_16);
-                S7.SetIntAt(buffer, 262, Config.AP.UN.E_17_32);
-                S7.SetIntAt(buffer, 264, Config.AP.UN.E_Vakuum);
-                S7.SetIntAt(buffer, 266, Config.AP.UN.A_Vakuum);
-                S7.SetIntAt(buffer, 268, Config.AP.UN.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 270, Config.AP.UN_IG.E_01_16);
-                S7.SetIntAt(buffer, 272, Config.AP.UN_IG.E_17_32);
-                S7.SetIntAt(buffer, 274, Config.AP.UN_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 276, Config.AP.UN_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 278, Config.AP.UN_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 280, Config.PT.OB.E_01_16);
-                S7.SetIntAt(buffer, 282, Config.PT.OB.E_17_32);
-                S7.SetIntAt(buffer, 284, Config.PT.OB.E_Vakuum);
-                S7.SetIntAt(buffer, 286, Config.PT.OB.A_Vakuum);
-                S7.SetIntAt(buffer, 288, Config.PT.OB.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 290, Config.PT.OB_IG.E_01_16);
-                S7.SetIntAt(buffer, 292, Config.PT.OB_IG.E_17_32);
-                S7.SetIntAt(buffer, 294, Config.PT.OB_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 296, Config.PT.OB_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 298, Config.PT.OB_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 300, Config.PT.UN.E_01_16);
-                S7.SetIntAt(buffer, 302, Config.PT.UN.E_17_32);
-                S7.SetIntAt(buffer, 304, Config.PT.UN.E_Vakuum);
-                S7.SetIntAt(buffer, 306, Config.PT.UN.A_Vakuum);
-                S7.SetIntAt(buffer, 308, Config.PT.UN.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 310, Config.PT.UN_IG.E_01_16);
-                S7.SetIntAt(buffer, 312, Config.PT.UN_IG.E_17_32);
-                S7.SetIntAt(buffer, 314, Config.PT.UN_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 316, Config.PT.UN_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 318, Config.PT.UN_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 320, Config.WV.OB.E_01_16);
-                S7.SetIntAt(buffer, 322, Config.WV.OB.E_17_32);
-                S7.SetIntAt(buffer, 324, Config.WV.OB.E_Vakuum);
-                S7.SetIntAt(buffer, 326, Config.WV.OB.A_Vakuum);
-                S7.SetIntAt(buffer, 328, Config.WV.OB.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 330, Config.WV.OB_IG.E_01_16);
-                S7.SetIntAt(buffer, 332, Config.WV.OB_IG.E_17_32);
-                S7.SetIntAt(buffer, 334, Config.WV.OB_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 336, Config.WV.OB_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 338, Config.WV.OB_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 340, Config.WV.UN.E_01_16);
-                S7.SetIntAt(buffer, 342, Config.WV.UN.E_17_32);
-                S7.SetIntAt(buffer, 344, Config.WV.UN.E_Vakuum);
-                S7.SetIntAt(buffer, 346, Config.WV.UN.A_Vakuum);
-                S7.SetIntAt(buffer, 348, Config.WV.UN.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 350, Config.WV.UN_IG.E_01_16);
-                S7.SetIntAt(buffer, 352, Config.WV.UN_IG.E_17_32);
-                S7.SetIntAt(buffer, 354, Config.WV.UN_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 356, Config.WV.UN_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 358, Config.WV.UN_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 360, Config.WE.OB.E_01_16);
-                S7.SetIntAt(buffer, 362, Config.WE.OB.E_17_32);
-                S7.SetIntAt(buffer, 364, Config.WE.OB.E_Vakuum);
-                S7.SetIntAt(buffer, 366, Config.WE.OB.A_Vakuum);
-                S7.SetIntAt(buffer, 368, Config.WE.OB.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 370, Config.WE.OB_IG.E_01_16);
-                S7.SetIntAt(buffer, 372, Config.WE.OB_IG.E_17_32);
-                S7.SetIntAt(buffer, 374, Config.WE.OB_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 376, Config.WE.OB_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 378, Config.WE.OB_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 380, Config.WE.UN.E_01_16);
-                S7.SetIntAt(buffer, 382, Config.WE.UN.E_17_32);
-                S7.SetIntAt(buffer, 384, Config.WE.UN.E_Vakuum);
-                S7.SetIntAt(buffer, 386, Config.WE.UN.A_Vakuum);
-                S7.SetIntAt(buffer, 388, Config.WE.UN.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 390, Config.WE.UN_IG.E_01_16);
-                S7.SetIntAt(buffer, 392, Config.WE.UN_IG.E_17_32);
-                S7.SetIntAt(buffer, 394, Config.WE.UN_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 396, Config.WE.UN_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 398, Config.WE.UN_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 400, Config.KU.OB.E_01_16);
-                S7.SetIntAt(buffer, 402, Config.KU.OB.E_17_32);
-                S7.SetIntAt(buffer, 404, Config.KU.OB.E_Vakuum);
-                S7.SetIntAt(buffer, 406, Config.KU.OB.A_Vakuum);
-                S7.SetIntAt(buffer, 408, Config.KU.OB.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 410, Config.KU.OB_IG.E_01_16);
-                S7.SetIntAt(buffer, 412, Config.KU.OB_IG.E_17_32);
-                S7.SetIntAt(buffer, 414, Config.KU.OB_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 416, Config.KU.OB_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 418, Config.KU.OB_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 420, Config.KU.UN.E_01_16);
-                S7.SetIntAt(buffer, 422, Config.KU.UN.E_17_32);
-                S7.SetIntAt(buffer, 424, Config.KU.UN.E_Vakuum);
-                S7.SetIntAt(buffer, 426, Config.KU.UN.A_Vakuum);
-                S7.SetIntAt(buffer, 428, Config.KU.UN.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 430, Config.KU.UN_IG.E_01_16);
-                S7.SetIntAt(buffer, 432, Config.KU.UN_IG.E_17_32);
-                S7.SetIntAt(buffer, 434, Config.KU.UN_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 436, Config.KU.UN_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 438, Config.KU.UN_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 440, Config.AU.OB.E_01_16);
-                S7.SetIntAt(buffer, 442, Config.AU.OB.E_17_32);
-                S7.SetIntAt(buffer, 444, Config.AU.OB.E_Vakuum);
-                S7.SetIntAt(buffer, 446, Config.AU.OB.A_Vakuum);
-                S7.SetIntAt(buffer, 448, Config.AU.OB.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 450, Config.AU.OB_IG.E_01_16);
-                S7.SetIntAt(buffer, 452, Config.AU.OB_IG.E_17_32);
-                S7.SetIntAt(buffer, 454, Config.AU.OB_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 456, Config.AU.OB_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 458, Config.AU.OB_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 460, Config.AU.UN.E_01_16);
-                S7.SetIntAt(buffer, 462, Config.AU.UN.E_17_32);
-                S7.SetIntAt(buffer, 464, Config.AU.UN.E_Vakuum);
-                S7.SetIntAt(buffer, 466, Config.AU.UN.A_Vakuum);
-                S7.SetIntAt(buffer, 468, Config.AU.UN.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 470, Config.AU.UN_IG.E_01_16);
-                S7.SetIntAt(buffer, 472, Config.AU.UN_IG.E_17_32);
-                S7.SetIntAt(buffer, 474, Config.AU.UN_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 476, Config.AU.UN_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 478, Config.AU.UN_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 480, Config.ZYE.OB.E_01_16);
-                S7.SetIntAt(buffer, 482, Config.ZYE.OB.E_17_32);
-                S7.SetIntAt(buffer, 484, Config.ZYE.OB.E_Vakuum);
-                S7.SetIntAt(buffer, 486, Config.ZYE.OB.A_Vakuum);
-                S7.SetIntAt(buffer, 488, Config.ZYE.OB.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 490, Config.ZYE.OB_IG.E_01_16);
-                S7.SetIntAt(buffer, 492, Config.ZYE.OB_IG.E_17_32);
-                S7.SetIntAt(buffer, 494, Config.ZYE.OB_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 496, Config.ZYE.OB_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 498, Config.ZYE.OB_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 500, Config.ZYE.UN.E_01_16);
-                S7.SetIntAt(buffer, 502, Config.ZYE.UN.E_17_32);
-                S7.SetIntAt(buffer, 504, Config.ZYE.UN.E_Vakuum);
-                S7.SetIntAt(buffer, 506, Config.ZYE.UN.A_Vakuum);
-                S7.SetIntAt(buffer, 508, Config.ZYE.UN.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 510, Config.ZYE.UN_IG.E_01_16);
-                S7.SetIntAt(buffer, 512, Config.ZYE.UN_IG.E_17_32);
-                S7.SetIntAt(buffer, 514, Config.ZYE.UN_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 516, Config.ZYE.UN_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 518, Config.ZYE.UN_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 520, Config.RO.OB.E_01_16);
-                S7.SetIntAt(buffer, 522, Config.RO.OB.E_17_32);
-                S7.SetIntAt(buffer, 524, Config.RO.OB.E_Vakuum);
-                S7.SetIntAt(buffer, 526, Config.RO.OB.A_Vakuum);
-                S7.SetIntAt(buffer, 528, Config.RO.OB.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 530, Config.RO.OB_IG.E_01_16);
-                S7.SetIntAt(buffer, 532, Config.RO.OB_IG.E_17_32);
-                S7.SetIntAt(buffer, 534, Config.RO.OB_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 536, Config.RO.OB_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 538, Config.RO.OB_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 540, Config.RO.UN.E_01_16);
-                S7.SetIntAt(buffer, 542, Config.RO.UN.E_17_32);
-                S7.SetIntAt(buffer, 544, Config.RO.UN.E_Vakuum);
-                S7.SetIntAt(buffer, 546, Config.RO.UN.A_Vakuum);
-                S7.SetIntAt(buffer, 548, Config.RO.UN.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 550, Config.RO.UN_IG.E_01_16);
-                S7.SetIntAt(buffer, 552, Config.RO.UN_IG.E_17_32);
-                S7.SetIntAt(buffer, 554, Config.RO.UN_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 556, Config.RO.UN_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 558, Config.RO.UN_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 560, Config.Reserve.OB.E_01_16);
-                S7.SetIntAt(buffer, 562, Config.Reserve.OB.E_17_32);
-                S7.SetIntAt(buffer, 564, Config.Reserve.OB.E_Vakuum);
-                S7.SetIntAt(buffer, 566, Config.Reserve.OB.A_Vakuum);
-                S7.SetIntAt(buffer, 568, Config.Reserve.OB.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 570, Config.Reserve.OB_IG.E_01_16);
-                S7.SetIntAt(buffer, 572, Config.Reserve.OB_IG.E_17_32);
-                S7.SetIntAt(buffer, 574, Config.Reserve.OB_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 576, Config.Reserve.OB_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 578, Config.Reserve.OB_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 580, Config.Reserve.UN.E_01_16);
-                S7.SetIntAt(buffer, 582, Config.Reserve.UN.E_17_32);
-                S7.SetIntAt(buffer, 584, Config.Reserve.UN.E_Vakuum);
-                S7.SetIntAt(buffer, 586, Config.Reserve.UN.A_Vakuum);
-                S7.SetIntAt(buffer, 588, Config.Reserve.UN.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 590, Config.Reserve.UN_IG.E_01_16);
-                S7.SetIntAt(buffer, 592, Config.Reserve.UN_IG.E_17_32);
-                S7.SetIntAt(buffer, 594, Config.Reserve.UN_IG.E_Vakuum);
-                S7.SetIntAt(buffer, 596, Config.Reserve.UN_IG.A_Vakuum);
-                S7.SetIntAt(buffer, 598, Config.Reserve.UN_IG.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 600, Config.TK.OB.E_01_16);
-                S7.SetIntAt(buffer, 602, Config.TK.OB.E_17_32);
-                S7.SetIntAt(buffer, 604, Config.TK.OB.E_Vakuum);
-                S7.SetIntAt(buffer, 606, Config.TK.OB.A_Vakuum);
-                S7.SetIntAt(buffer, 608, Config.TK.OB.A_Ventile_1_8);
-                S7.SetIntAt(buffer, 610, Config.TK.UN.E_01_16);
-                S7.SetIntAt(buffer, 612, Config.TK.UN.E_17_32);
-                S7.SetIntAt(buffer, 614, Config.TK.UN.E_Vakuum);
-                S7.SetIntAt(buffer, 616, Config.TK.UN.A_Vakuum);
-                S7.SetIntAt(buffer, 618, Config.TK.UN.A_Ventile_1_8);
-                S7.SetStringAt(buffer, 620, 20, Config.WKZOB.Name.EO01);
-                S7.SetStringAt(buffer, 642, 20, Config.WKZOB.Name.EO02);
-                S7.SetStringAt(buffer, 664, 20, Config.WKZOB.Name.EO03);
-                S7.SetStringAt(buffer, 686, 20, Config.WKZOB.Name.EO04);
-                S7.SetStringAt(buffer, 708, 20, Config.WKZOB.Name.EO05);
-                S7.SetStringAt(buffer, 730, 20, Config.WKZOB.Name.EO06);
-                S7.SetStringAt(buffer, 752, 20, Config.WKZOB.Name.EO07);
-                S7.SetStringAt(buffer, 774, 20, Config.WKZOB.Name.EO08);
-                S7.SetStringAt(buffer, 796, 20, Config.WKZOB.Name.EO09);
-                S7.SetStringAt(buffer, 818, 20, Config.WKZOB.Name.EO10);
-                S7.SetStringAt(buffer, 840, 20, Config.WKZOB.Name.EO11);
-                S7.SetStringAt(buffer, 862, 20, Config.WKZOB.Name.EO12);
-                S7.SetStringAt(buffer, 884, 20, Config.WKZOB.Name.EO13);
-                S7.SetStringAt(buffer, 906, 20, Config.WKZOB.Name.EO14);
-                S7.SetStringAt(buffer, 928, 20, Config.WKZOB.Name.EO15);
-                S7.SetStringAt(buffer, 950, 20, Config.WKZOB.Name.EO16);
-                S7.SetStringAt(buffer, 972, 20, Config.WKZOB.Name.EO17);
-                S7.SetStringAt(buffer, 994, 20, Config.WKZOB.Name.EO18);
-                S7.SetStringAt(buffer, 1016, 20, Config.WKZOB.Name.EO19);
-                S7.SetStringAt(buffer, 1038, 20, Config.WKZOB.Name.EO20);
-                S7.SetStringAt(buffer, 1060, 20, Config.WKZOB.Name.EO21);
-                S7.SetStringAt(buffer, 1082, 20, Config.WKZOB.Name.EO22);
-                S7.SetStringAt(buffer, 1104, 20, Config.WKZOB.Name.EO23);
-                S7.SetStringAt(buffer, 1126, 20, Config.WKZOB.Name.EO24);
-                S7.SetStringAt(buffer, 1148, 20, Config.WKZOB.Name.EO25);
-                S7.SetStringAt(buffer, 1170, 20, Config.WKZOB.Name.EO26);
-                S7.SetStringAt(buffer, 1192, 20, Config.WKZOB.Name.EO27);
-                S7.SetStringAt(buffer, 1214, 20, Config.WKZOB.Name.EO28);
-                S7.SetStringAt(buffer, 1236, 20, Config.WKZOB.Name.EO29);
-                S7.SetStringAt(buffer, 1258, 20, Config.WKZOB.Name.EO30);
-                S7.SetStringAt(buffer, 1280, 20, Config.WKZOB.Name.EO31);
-                S7.SetStringAt(buffer, 1302, 20, Config.WKZOB.Name.EO32);
-                S7.SetStringAt(buffer, 1324, 20, Config.WKZOB.Name.VO121);
-                S7.SetStringAt(buffer, 1346, 20, Config.WKZOB.Name.VO141);
-                S7.SetStringAt(buffer, 1368, 20, Config.WKZOB.Name.VO122);
-                S7.SetStringAt(buffer, 1390, 20, Config.WKZOB.Name.VO142);
-                S7.SetStringAt(buffer, 1412, 20, Config.WKZOB.Name.VO123);
-                S7.SetStringAt(buffer, 1434, 20, Config.WKZOB.Name.VO143);
-                S7.SetStringAt(buffer, 1456, 20, Config.WKZOB.Name.VO124);
-                S7.SetStringAt(buffer, 1478, 20, Config.WKZOB.Name.VO144);
-                S7.SetStringAt(buffer, 1500, 20, Config.WKZOB.Name.VO125);
-                S7.SetStringAt(buffer, 1522, 20, Config.WKZOB.Name.VO145);
-                S7.SetStringAt(buffer, 1544, 20, Config.WKZOB.Name.VO126);
-                S7.SetStringAt(buffer, 1566, 20, Config.WKZOB.Name.VO146);
-                S7.SetStringAt(buffer, 1588, 20, Config.WKZOB.Name.VO127);
-                S7.SetStringAt(buffer, 1610, 20, Config.WKZOB.Name.VO147);
-                S7.SetStringAt(buffer, 1632, 20, Config.WKZOB.Name.VO128);
-                S7.SetStringAt(buffer, 1654, 20, Config.WKZOB.Name.VO148);
-                S7.SetIntAt(buffer, 1676, Config.WKZOB.Time.TVO121);
-                S7.SetIntAt(buffer, 1678, Config.WKZOB.Time.TVO141);
-                S7.SetIntAt(buffer, 1680, Config.WKZOB.Time.TVO122);
-                S7.SetIntAt(buffer, 1682, Config.WKZOB.Time.TVO142);
-                S7.SetIntAt(buffer, 1684, Config.WKZOB.Time.TVO123);
-                S7.SetIntAt(buffer, 1686, Config.WKZOB.Time.TVO143);
-                S7.SetIntAt(buffer, 1688, Config.WKZOB.Time.TVO124);
-                S7.SetIntAt(buffer, 1690, Config.WKZOB.Time.TVO144);
-                S7.SetIntAt(buffer, 1692, Config.WKZOB.Time.TVO125);
-                S7.SetIntAt(buffer, 1694, Config.WKZOB.Time.TVO145);
-                S7.SetIntAt(buffer, 1696, Config.WKZOB.Time.TVO126);
-                S7.SetIntAt(buffer, 1698, Config.WKZOB.Time.TVO146);
-                S7.SetIntAt(buffer, 1700, Config.WKZOB.Time.TVO127);
-                S7.SetIntAt(buffer, 1702, Config.WKZOB.Time.TVO147);
-                S7.SetIntAt(buffer, 1704, Config.WKZOB.Time.TVO128);
-                S7.SetIntAt(buffer, 1706, Config.WKZOB.Time.TVO148);
-                S7.SetStringAt(buffer, 1708, 20, Config.WKZUN.Name.EO01);
-                S7.SetStringAt(buffer, 1730, 20, Config.WKZUN.Name.EO02);
-                S7.SetStringAt(buffer, 1752, 20, Config.WKZUN.Name.EO03);
-                S7.SetStringAt(buffer, 1774, 20, Config.WKZUN.Name.EO04);
-                S7.SetStringAt(buffer, 1796, 20, Config.WKZUN.Name.EO05);
-                S7.SetStringAt(buffer, 1818, 20, Config.WKZUN.Name.EO06);
-                S7.SetStringAt(buffer, 1840, 20, Config.WKZUN.Name.EO07);
-                S7.SetStringAt(buffer, 1862, 20, Config.WKZUN.Name.EO08);
-                S7.SetStringAt(buffer, 1884, 20, Config.WKZUN.Name.EO09);
-                S7.SetStringAt(buffer, 1906, 20, Config.WKZUN.Name.EO10);
-                S7.SetStringAt(buffer, 1928, 20, Config.WKZUN.Name.EO11);
-                S7.SetStringAt(buffer, 1950, 20, Config.WKZUN.Name.EO12);
-                S7.SetStringAt(buffer, 1972, 20, Config.WKZUN.Name.EO13);
-                S7.SetStringAt(buffer, 1994, 20, Config.WKZUN.Name.EO14);
-                S7.SetStringAt(buffer, 2016, 20, Config.WKZUN.Name.EO15);
-                S7.SetStringAt(buffer, 2038, 20, Config.WKZUN.Name.EO16);
-                S7.SetStringAt(buffer, 2060, 20, Config.WKZUN.Name.EO17);
-                S7.SetStringAt(buffer, 2082, 20, Config.WKZUN.Name.EO18);
-                S7.SetStringAt(buffer, 2104, 20, Config.WKZUN.Name.EO19);
-                S7.SetStringAt(buffer, 2126, 20, Config.WKZUN.Name.EO20);
-                S7.SetStringAt(buffer, 2148, 20, Config.WKZUN.Name.EO21);
-                S7.SetStringAt(buffer, 2170, 20, Config.WKZUN.Name.EO22);
-                S7.SetStringAt(buffer, 2192, 20, Config.WKZUN.Name.EO23);
-                S7.SetStringAt(buffer, 2214, 20, Config.WKZUN.Name.EO24);
-                S7.SetStringAt(buffer, 2236, 20, Config.WKZUN.Name.EO25);
-                S7.SetStringAt(buffer, 2258, 20, Config.WKZUN.Name.EO26);
-                S7.SetStringAt(buffer, 2280, 20, Config.WKZUN.Name.EO27);
-                S7.SetStringAt(buffer, 2302, 20, Config.WKZUN.Name.EO28);
-                S7.SetStringAt(buffer, 2324, 20, Config.WKZUN.Name.EO29);
-                S7.SetStringAt(buffer, 2346, 20, Config.WKZUN.Name.EO30);
-                S7.SetStringAt(buffer, 2368, 20, Config.WKZUN.Name.EO31);
-                S7.SetStringAt(buffer, 2390, 20, Config.WKZUN.Name.EO32);
-                S7.SetStringAt(buffer, 2412, 20, Config.WKZUN.Name.VO121);
-                S7.SetStringAt(buffer, 2434, 20, Config.WKZUN.Name.VO141);
-                S7.SetStringAt(buffer, 2456, 20, Config.WKZUN.Name.VO122);
-                S7.SetStringAt(buffer, 2478, 20, Config.WKZUN.Name.VO142);
-                S7.SetStringAt(buffer, 2500, 20, Config.WKZUN.Name.VO123);
-                S7.SetStringAt(buffer, 2522, 20, Config.WKZUN.Name.VO143);
-                S7.SetStringAt(buffer, 2544, 20, Config.WKZUN.Name.VO124);
-                S7.SetStringAt(buffer, 2566, 20, Config.WKZUN.Name.VO144);
-                S7.SetStringAt(buffer, 2588, 20, Config.WKZUN.Name.VO125);
-                S7.SetStringAt(buffer, 2610, 20, Config.WKZUN.Name.VO145);
-                S7.SetStringAt(buffer, 2632, 20, Config.WKZUN.Name.VO126);
-                S7.SetStringAt(buffer, 2654, 20, Config.WKZUN.Name.VO146);
-                S7.SetStringAt(buffer, 2676, 20, Config.WKZUN.Name.VO127);
-                S7.SetStringAt(buffer, 2698, 20, Config.WKZUN.Name.VO147);
-                S7.SetStringAt(buffer, 2720, 20, Config.WKZUN.Name.VO128);
-                S7.SetStringAt(buffer, 2742, 20, Config.WKZUN.Name.VO148);
-                S7.SetIntAt(buffer, 2764, Config.WKZUN.Time.TVO121);
-                S7.SetIntAt(buffer, 2766, Config.WKZUN.Time.TVO141);
-                S7.SetIntAt(buffer, 2768, Config.WKZUN.Time.TVO122);
-                S7.SetIntAt(buffer, 2770, Config.WKZUN.Time.TVO142);
-                S7.SetIntAt(buffer, 2772, Config.WKZUN.Time.TVO123);
-                S7.SetIntAt(buffer, 2774, Config.WKZUN.Time.TVO143);
-                S7.SetIntAt(buffer, 2776, Config.WKZUN.Time.TVO124);
-                S7.SetIntAt(buffer, 2778, Config.WKZUN.Time.TVO144);
-                S7.SetIntAt(buffer, 2780, Config.WKZUN.Time.TVO125);
-                S7.SetIntAt(buffer, 2782, Config.WKZUN.Time.TVO145);
-                S7.SetIntAt(buffer, 2784, Config.WKZUN.Time.TVO126);
-                S7.SetIntAt(buffer, 2786, Config.WKZUN.Time.TVO146);
-                S7.SetIntAt(buffer, 2788, Config.WKZUN.Time.TVO127);
-                S7.SetIntAt(buffer, 2790, Config.WKZUN.Time.TVO147);
-                S7.SetIntAt(buffer, 2792, Config.WKZUN.Time.TVO128);
-                S7.SetIntAt(buffer, 2794, Config.WKZUN.Time.TVO148);
             }
             catch (Exception ex)
             {
@@ -1482,7 +1531,181 @@ namespace WinS7Library.Helper
 
 
         #region DatN2
-        public static DatN2 SerializeDatN2(string path, byte[] buffer, ref string error)
+        public static void DatN2ToBuffer(DatN2 N2, byte[] buffer, ref string error)
+        {
+            try
+            {
+                //clear buffer before use
+                Array.Clear(buffer, 0, buffer.Length);
+
+                S7.SetRealAt(buffer, 0, (float)N2.Propventil01.Soll);
+                S7.SetRealAt(buffer, 4, (float)N2.Propventil01.ToleranzPlus);
+                S7.SetRealAt(buffer, 8, (float)N2.Propventil01.ToleranzMinus);
+                S7.SetRealAt(buffer, 12, (float)N2.Propventil01.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 16, (float)N2.Propventil02.Soll);
+                S7.SetRealAt(buffer, 20, (float)N2.Propventil02.ToleranzPlus);
+                S7.SetRealAt(buffer, 24, (float)N2.Propventil02.ToleranzMinus);
+                S7.SetRealAt(buffer, 28, (float)N2.Propventil02.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 32, (float)N2.Propventil03.Soll);
+                S7.SetRealAt(buffer, 36, (float)N2.Propventil03.ToleranzPlus);
+                S7.SetRealAt(buffer, 40, (float)N2.Propventil03.ToleranzMinus);
+                S7.SetRealAt(buffer, 44, (float)N2.Propventil03.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 48, (float)N2.Propventil04.Soll);
+                S7.SetRealAt(buffer, 52, (float)N2.Propventil04.ToleranzPlus);
+                S7.SetRealAt(buffer, 56, (float)N2.Propventil04.ToleranzMinus);
+                S7.SetRealAt(buffer, 60, (float)N2.Propventil04.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 64, (float)N2.Propventil05.Soll);
+                S7.SetRealAt(buffer, 68, (float)N2.Propventil05.ToleranzPlus);
+                S7.SetRealAt(buffer, 72, (float)N2.Propventil05.ToleranzMinus);
+                S7.SetRealAt(buffer, 76, (float)N2.Propventil05.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 80, (float)N2.Propventil06.Soll);
+                S7.SetRealAt(buffer, 84, (float)N2.Propventil06.ToleranzPlus);
+                S7.SetRealAt(buffer, 88, (float)N2.Propventil06.ToleranzMinus);
+                S7.SetRealAt(buffer, 92, (float)N2.Propventil06.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 96, (float)N2.Propventil07.Soll);
+                S7.SetRealAt(buffer, 100, (float)N2.Propventil07.ToleranzPlus);
+                S7.SetRealAt(buffer, 104, (float)N2.Propventil07.ToleranzMinus);
+                S7.SetRealAt(buffer, 108, (float)N2.Propventil07.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 112, (float)N2.Propventil08.Soll);
+                S7.SetRealAt(buffer, 116, (float)N2.Propventil08.ToleranzPlus);
+                S7.SetRealAt(buffer, 120, (float)N2.Propventil08.ToleranzMinus);
+                S7.SetRealAt(buffer, 124, (float)N2.Propventil08.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 128, (float)N2.Propventil09.Soll);
+                S7.SetRealAt(buffer, 132, (float)N2.Propventil09.ToleranzPlus);
+                S7.SetRealAt(buffer, 136, (float)N2.Propventil09.ToleranzMinus);
+                S7.SetRealAt(buffer, 140, (float)N2.Propventil09.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 144, (float)N2.Propventil10.Soll);
+                S7.SetRealAt(buffer, 148, (float)N2.Propventil10.ToleranzPlus);
+                S7.SetRealAt(buffer, 152, (float)N2.Propventil10.ToleranzMinus);
+                S7.SetRealAt(buffer, 156, (float)N2.Propventil10.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 160, (float)N2.Propventil11.Soll);
+                S7.SetRealAt(buffer, 164, (float)N2.Propventil11.ToleranzPlus);
+                S7.SetRealAt(buffer, 168, (float)N2.Propventil11.ToleranzMinus);
+                S7.SetRealAt(buffer, 172, (float)N2.Propventil11.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 176, (float)N2.Propventil12.Soll);
+                S7.SetRealAt(buffer, 180, (float)N2.Propventil12.ToleranzPlus);
+                S7.SetRealAt(buffer, 184, (float)N2.Propventil12.ToleranzMinus);
+                S7.SetRealAt(buffer, 188, (float)N2.Propventil12.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 192, (float)N2.Propventil13.Soll);
+                S7.SetRealAt(buffer, 196, (float)N2.Propventil13.ToleranzPlus);
+                S7.SetRealAt(buffer, 200, (float)N2.Propventil13.ToleranzMinus);
+                S7.SetRealAt(buffer, 204, (float)N2.Propventil13.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 208, (float)N2.Propventil14.Soll);
+                S7.SetRealAt(buffer, 212, (float)N2.Propventil14.ToleranzPlus);
+                S7.SetRealAt(buffer, 216, (float)N2.Propventil14.ToleranzMinus);
+                S7.SetRealAt(buffer, 220, (float)N2.Propventil14.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 224, (float)N2.Propventil15.Soll);
+                S7.SetRealAt(buffer, 228, (float)N2.Propventil15.ToleranzPlus);
+                S7.SetRealAt(buffer, 232, (float)N2.Propventil15.ToleranzMinus);
+                S7.SetRealAt(buffer, 236, (float)N2.Propventil15.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 240, (float)N2.Propventil16.Soll);
+                S7.SetRealAt(buffer, 244, (float)N2.Propventil16.ToleranzPlus);
+                S7.SetRealAt(buffer, 248, (float)N2.Propventil16.ToleranzMinus);
+                S7.SetRealAt(buffer, 252, (float)N2.Propventil16.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 256, (float)N2.Propventil17.Soll);
+                S7.SetRealAt(buffer, 260, (float)N2.Propventil17.ToleranzPlus);
+                S7.SetRealAt(buffer, 264, (float)N2.Propventil17.ToleranzMinus);
+                S7.SetRealAt(buffer, 268, (float)N2.Propventil17.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 272, (float)N2.Propventil18.Soll);
+                S7.SetRealAt(buffer, 276, (float)N2.Propventil18.ToleranzPlus);
+                S7.SetRealAt(buffer, 280, (float)N2.Propventil18.ToleranzMinus);
+                S7.SetRealAt(buffer, 284, (float)N2.Propventil18.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 288, (float)N2.Propventil19.Soll);
+                S7.SetRealAt(buffer, 292, (float)N2.Propventil19.ToleranzPlus);
+                S7.SetRealAt(buffer, 296, (float)N2.Propventil19.ToleranzMinus);
+                S7.SetRealAt(buffer, 300, (float)N2.Propventil19.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 304, (float)N2.Propventil20.Soll);
+                S7.SetRealAt(buffer, 308, (float)N2.Propventil20.ToleranzPlus);
+                S7.SetRealAt(buffer, 312, (float)N2.Propventil20.ToleranzMinus);
+                S7.SetRealAt(buffer, 316, (float)N2.Propventil20.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 320, (float)N2.Propventil21.Soll);
+                S7.SetRealAt(buffer, 324, (float)N2.Propventil21.ToleranzPlus);
+                S7.SetRealAt(buffer, 328, (float)N2.Propventil21.ToleranzMinus);
+                S7.SetRealAt(buffer, 332, (float)N2.Propventil21.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 336, (float)N2.Propventil22.Soll);
+                S7.SetRealAt(buffer, 340, (float)N2.Propventil22.ToleranzPlus);
+                S7.SetRealAt(buffer, 344, (float)N2.Propventil22.ToleranzMinus);
+                S7.SetRealAt(buffer, 348, (float)N2.Propventil22.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 352, (float)N2.Propventil23.Soll);
+                S7.SetRealAt(buffer, 356, (float)N2.Propventil23.ToleranzPlus);
+                S7.SetRealAt(buffer, 360, (float)N2.Propventil23.ToleranzMinus);
+                S7.SetRealAt(buffer, 364, (float)N2.Propventil23.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 368, (float)N2.Propventil24.Soll);
+                S7.SetRealAt(buffer, 372, (float)N2.Propventil24.ToleranzPlus);
+                S7.SetRealAt(buffer, 376, (float)N2.Propventil24.ToleranzMinus);
+                S7.SetRealAt(buffer, 380, (float)N2.Propventil24.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 384, (float)N2.Propventil25.Soll);
+                S7.SetRealAt(buffer, 388, (float)N2.Propventil25.ToleranzPlus);
+                S7.SetRealAt(buffer, 392, (float)N2.Propventil25.ToleranzMinus);
+                S7.SetRealAt(buffer, 396, (float)N2.Propventil25.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 400, (float)N2.Propventil26.Soll);
+                S7.SetRealAt(buffer, 404, (float)N2.Propventil26.ToleranzPlus);
+                S7.SetRealAt(buffer, 408, (float)N2.Propventil26.ToleranzMinus);
+                S7.SetRealAt(buffer, 412, (float)N2.Propventil26.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 416, (float)N2.Propventil27.Soll);
+                S7.SetRealAt(buffer, 420, (float)N2.Propventil27.ToleranzPlus);
+                S7.SetRealAt(buffer, 424, (float)N2.Propventil27.ToleranzMinus);
+                S7.SetRealAt(buffer, 428, (float)N2.Propventil27.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 432, (float)N2.Propventil28.Soll);
+                S7.SetRealAt(buffer, 436, (float)N2.Propventil28.ToleranzPlus);
+                S7.SetRealAt(buffer, 440, (float)N2.Propventil28.ToleranzMinus);
+                S7.SetRealAt(buffer, 444, (float)N2.Propventil28.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 448, (float)N2.Propventil29.Soll);
+                S7.SetRealAt(buffer, 452, (float)N2.Propventil29.ToleranzPlus);
+                S7.SetRealAt(buffer, 456, (float)N2.Propventil29.ToleranzMinus);
+                S7.SetRealAt(buffer, 460, (float)N2.Propventil29.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 464, (float)N2.Propventil30.Soll);
+                S7.SetRealAt(buffer, 468, (float)N2.Propventil30.ToleranzPlus);
+                S7.SetRealAt(buffer, 472, (float)N2.Propventil30.ToleranzMinus);
+                S7.SetRealAt(buffer, 476, (float)N2.Propventil30.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 480, (float)N2.Propventil31.Soll);
+                S7.SetRealAt(buffer, 484, (float)N2.Propventil31.ToleranzPlus);
+                S7.SetRealAt(buffer, 488, (float)N2.Propventil31.ToleranzMinus);
+                S7.SetRealAt(buffer, 492, (float)N2.Propventil31.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 496, (float)N2.Propventil32.Soll);
+                S7.SetRealAt(buffer, 500, (float)N2.Propventil32.ToleranzPlus);
+                S7.SetRealAt(buffer, 504, (float)N2.Propventil32.ToleranzMinus);
+                S7.SetRealAt(buffer, 508, (float)N2.Propventil32.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 512, (float)N2.Propventil33.Soll);
+                S7.SetRealAt(buffer, 516, (float)N2.Propventil33.ToleranzPlus);
+                S7.SetRealAt(buffer, 520, (float)N2.Propventil33.ToleranzMinus);
+                S7.SetRealAt(buffer, 524, (float)N2.Propventil33.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 528, (float)N2.Propventil34.Soll);
+                S7.SetRealAt(buffer, 532, (float)N2.Propventil34.ToleranzPlus);
+                S7.SetRealAt(buffer, 536, (float)N2.Propventil34.ToleranzMinus);
+                S7.SetRealAt(buffer, 540, (float)N2.Propventil34.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 544, (float)N2.Propventil35.Soll);
+                S7.SetRealAt(buffer, 548, (float)N2.Propventil35.ToleranzPlus);
+                S7.SetRealAt(buffer, 552, (float)N2.Propventil35.ToleranzMinus);
+                S7.SetRealAt(buffer, 556, (float)N2.Propventil35.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 560, (float)N2.Propventil36.Soll);
+                S7.SetRealAt(buffer, 564, (float)N2.Propventil36.ToleranzPlus);
+                S7.SetRealAt(buffer, 568, (float)N2.Propventil36.ToleranzMinus);
+                S7.SetRealAt(buffer, 572, (float)N2.Propventil36.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 576, (float)N2.Propventil37.Soll);
+                S7.SetRealAt(buffer, 580, (float)N2.Propventil37.ToleranzPlus);
+                S7.SetRealAt(buffer, 584, (float)N2.Propventil37.ToleranzMinus);
+                S7.SetRealAt(buffer, 588, (float)N2.Propventil37.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 592, (float)N2.Propventil38.Soll);
+                S7.SetRealAt(buffer, 596, (float)N2.Propventil38.ToleranzPlus);
+                S7.SetRealAt(buffer, 600, (float)N2.Propventil38.ToleranzMinus);
+                S7.SetRealAt(buffer, 604, (float)N2.Propventil38.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 608, (float)N2.Propventil39.Soll);
+                S7.SetRealAt(buffer, 612, (float)N2.Propventil39.ToleranzPlus);
+                S7.SetRealAt(buffer, 616, (float)N2.Propventil39.ToleranzMinus);
+                S7.SetRealAt(buffer, 620, (float)N2.Propventil39.Einschaltverzoegerung);
+                S7.SetRealAt(buffer, 624, (float)N2.Propventil40.Soll);
+                S7.SetRealAt(buffer, 628, (float)N2.Propventil40.ToleranzPlus);
+                S7.SetRealAt(buffer, 632, (float)N2.Propventil40.ToleranzMinus);
+                S7.SetRealAt(buffer, 636, (float)N2.Propventil40.Einschaltverzoegerung);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+                //throw;
+            }
+        }
+        public static DatN2 BufferToDatN2(byte[] buffer, ref string error)
         {
             error = string.Empty;
             //create instance
@@ -1650,9 +1873,23 @@ namespace WinS7Library.Helper
                 N2.Propventil40.ToleranzPlus = S7.GetRealAt(buffer, 628);
                 N2.Propventil40.ToleranzMinus = S7.GetRealAt(buffer, 632);
                 N2.Propventil40.Einschaltverzoegerung = S7.GetRealAt(buffer, 636);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+                //throw;
+            }
 
+            return N2;
+        }
+        public static void SerializeDatN2(DatN2 N2, string path, ref string error)
+        {
+            error = string.Empty;
+            //create instance
+            //DatN2 N2 = new DatN2();
 
-
+            try
+            {
                 // XmlSerializer writes object data as XML
                 XmlSerializer serializer = new XmlSerializer(typeof(DatN2));
                 using (TextWriter writer = new StreamWriter(path + " \\N2.xml"))
@@ -1667,10 +1904,9 @@ namespace WinS7Library.Helper
                 //throw;
             }
             //return value
-            return N2;
+            //return N2;
         }
-
-        public static DatN2 DeserializeDatN2(string path, ref byte[] buffer, ref string error)
+        public static DatN2 DeserializeDatN2(string path, ref string error)
         {
             //create instance
             DatN2 N2 = new DatN2();
@@ -1682,170 +1918,6 @@ namespace WinS7Library.Helper
                 object obj = deserializer.Deserialize(reader);
                 N2 = (DatN2)obj;
                 reader.Close();
-
-                //clear buffer before use
-                Array.Clear(buffer, 0, buffer.Length);
-
-                S7.SetRealAt(buffer, 0, (float)N2.Propventil01.Soll);
-                S7.SetRealAt(buffer, 4, (float)N2.Propventil01.ToleranzPlus);
-                S7.SetRealAt(buffer, 8, (float)N2.Propventil01.ToleranzMinus);
-                S7.SetRealAt(buffer, 12, (float)N2.Propventil01.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 16, (float)N2.Propventil02.Soll);
-                S7.SetRealAt(buffer, 20, (float)N2.Propventil02.ToleranzPlus);
-                S7.SetRealAt(buffer, 24, (float)N2.Propventil02.ToleranzMinus);
-                S7.SetRealAt(buffer, 28, (float)N2.Propventil02.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 32, (float)N2.Propventil03.Soll);
-                S7.SetRealAt(buffer, 36, (float)N2.Propventil03.ToleranzPlus);
-                S7.SetRealAt(buffer, 40, (float)N2.Propventil03.ToleranzMinus);
-                S7.SetRealAt(buffer, 44, (float)N2.Propventil03.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 48, (float)N2.Propventil04.Soll);
-                S7.SetRealAt(buffer, 52, (float)N2.Propventil04.ToleranzPlus);
-                S7.SetRealAt(buffer, 56, (float)N2.Propventil04.ToleranzMinus);
-                S7.SetRealAt(buffer, 60, (float)N2.Propventil04.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 64, (float)N2.Propventil05.Soll);
-                S7.SetRealAt(buffer, 68, (float)N2.Propventil05.ToleranzPlus);
-                S7.SetRealAt(buffer, 72, (float)N2.Propventil05.ToleranzMinus);
-                S7.SetRealAt(buffer, 76, (float)N2.Propventil05.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 80, (float)N2.Propventil06.Soll);
-                S7.SetRealAt(buffer, 84, (float)N2.Propventil06.ToleranzPlus);
-                S7.SetRealAt(buffer, 88, (float)N2.Propventil06.ToleranzMinus);
-                S7.SetRealAt(buffer, 92, (float)N2.Propventil06.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 96, (float)N2.Propventil07.Soll);
-                S7.SetRealAt(buffer, 100, (float)N2.Propventil07.ToleranzPlus);
-                S7.SetRealAt(buffer, 104, (float)N2.Propventil07.ToleranzMinus);
-                S7.SetRealAt(buffer, 108, (float)N2.Propventil07.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 112, (float)N2.Propventil08.Soll);
-                S7.SetRealAt(buffer, 116, (float)N2.Propventil08.ToleranzPlus);
-                S7.SetRealAt(buffer, 120, (float)N2.Propventil08.ToleranzMinus);
-                S7.SetRealAt(buffer, 124, (float)N2.Propventil08.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 128, (float)N2.Propventil09.Soll);
-                S7.SetRealAt(buffer, 132, (float)N2.Propventil09.ToleranzPlus);
-                S7.SetRealAt(buffer, 136, (float)N2.Propventil09.ToleranzMinus);
-                S7.SetRealAt(buffer, 140, (float)N2.Propventil09.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 144, (float)N2.Propventil10.Soll);
-                S7.SetRealAt(buffer, 148, (float)N2.Propventil10.ToleranzPlus);
-                S7.SetRealAt(buffer, 152, (float)N2.Propventil10.ToleranzMinus);
-                S7.SetRealAt(buffer, 156, (float)N2.Propventil10.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 160, (float)N2.Propventil11.Soll);
-                S7.SetRealAt(buffer, 164, (float)N2.Propventil11.ToleranzPlus);
-                S7.SetRealAt(buffer, 168, (float)N2.Propventil11.ToleranzMinus);
-                S7.SetRealAt(buffer, 172, (float)N2.Propventil11.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 176, (float)N2.Propventil12.Soll);
-                S7.SetRealAt(buffer, 180, (float)N2.Propventil12.ToleranzPlus);
-                S7.SetRealAt(buffer, 184, (float)N2.Propventil12.ToleranzMinus);
-                S7.SetRealAt(buffer, 188, (float)N2.Propventil12.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 192, (float)N2.Propventil13.Soll);
-                S7.SetRealAt(buffer, 196, (float)N2.Propventil13.ToleranzPlus);
-                S7.SetRealAt(buffer, 200, (float)N2.Propventil13.ToleranzMinus);
-                S7.SetRealAt(buffer, 204, (float)N2.Propventil13.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 208, (float)N2.Propventil14.Soll);
-                S7.SetRealAt(buffer, 212, (float)N2.Propventil14.ToleranzPlus);
-                S7.SetRealAt(buffer, 216, (float)N2.Propventil14.ToleranzMinus);
-                S7.SetRealAt(buffer, 220, (float)N2.Propventil14.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 224, (float)N2.Propventil15.Soll);
-                S7.SetRealAt(buffer, 228, (float)N2.Propventil15.ToleranzPlus);
-                S7.SetRealAt(buffer, 232, (float)N2.Propventil15.ToleranzMinus);
-                S7.SetRealAt(buffer, 236, (float)N2.Propventil15.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 240, (float)N2.Propventil16.Soll);
-                S7.SetRealAt(buffer, 244, (float)N2.Propventil16.ToleranzPlus);
-                S7.SetRealAt(buffer, 248, (float)N2.Propventil16.ToleranzMinus);
-                S7.SetRealAt(buffer, 252, (float)N2.Propventil16.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 256, (float)N2.Propventil17.Soll);
-                S7.SetRealAt(buffer, 260, (float)N2.Propventil17.ToleranzPlus);
-                S7.SetRealAt(buffer, 264, (float)N2.Propventil17.ToleranzMinus);
-                S7.SetRealAt(buffer, 268, (float)N2.Propventil17.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 272, (float)N2.Propventil18.Soll);
-                S7.SetRealAt(buffer, 276, (float)N2.Propventil18.ToleranzPlus);
-                S7.SetRealAt(buffer, 280, (float)N2.Propventil18.ToleranzMinus);
-                S7.SetRealAt(buffer, 284, (float)N2.Propventil18.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 288, (float)N2.Propventil19.Soll);
-                S7.SetRealAt(buffer, 292, (float)N2.Propventil19.ToleranzPlus);
-                S7.SetRealAt(buffer, 296, (float)N2.Propventil19.ToleranzMinus);
-                S7.SetRealAt(buffer, 300, (float)N2.Propventil19.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 304, (float)N2.Propventil20.Soll);
-                S7.SetRealAt(buffer, 308, (float)N2.Propventil20.ToleranzPlus);
-                S7.SetRealAt(buffer, 312, (float)N2.Propventil20.ToleranzMinus);
-                S7.SetRealAt(buffer, 316, (float)N2.Propventil20.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 320, (float)N2.Propventil21.Soll);
-                S7.SetRealAt(buffer, 324, (float)N2.Propventil21.ToleranzPlus);
-                S7.SetRealAt(buffer, 328, (float)N2.Propventil21.ToleranzMinus);
-                S7.SetRealAt(buffer, 332, (float)N2.Propventil21.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 336, (float)N2.Propventil22.Soll);
-                S7.SetRealAt(buffer, 340, (float)N2.Propventil22.ToleranzPlus);
-                S7.SetRealAt(buffer, 344, (float)N2.Propventil22.ToleranzMinus);
-                S7.SetRealAt(buffer, 348, (float)N2.Propventil22.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 352, (float)N2.Propventil23.Soll);
-                S7.SetRealAt(buffer, 356, (float)N2.Propventil23.ToleranzPlus);
-                S7.SetRealAt(buffer, 360, (float)N2.Propventil23.ToleranzMinus);
-                S7.SetRealAt(buffer, 364, (float)N2.Propventil23.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 368, (float)N2.Propventil24.Soll);
-                S7.SetRealAt(buffer, 372, (float)N2.Propventil24.ToleranzPlus);
-                S7.SetRealAt(buffer, 376, (float)N2.Propventil24.ToleranzMinus);
-                S7.SetRealAt(buffer, 380, (float)N2.Propventil24.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 384, (float)N2.Propventil25.Soll);
-                S7.SetRealAt(buffer, 388, (float)N2.Propventil25.ToleranzPlus);
-                S7.SetRealAt(buffer, 392, (float)N2.Propventil25.ToleranzMinus);
-                S7.SetRealAt(buffer, 396, (float)N2.Propventil25.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 400, (float)N2.Propventil26.Soll);
-                S7.SetRealAt(buffer, 404, (float)N2.Propventil26.ToleranzPlus);
-                S7.SetRealAt(buffer, 408, (float)N2.Propventil26.ToleranzMinus);
-                S7.SetRealAt(buffer, 412, (float)N2.Propventil26.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 416, (float)N2.Propventil27.Soll);
-                S7.SetRealAt(buffer, 420, (float)N2.Propventil27.ToleranzPlus);
-                S7.SetRealAt(buffer, 424, (float)N2.Propventil27.ToleranzMinus);
-                S7.SetRealAt(buffer, 428, (float)N2.Propventil27.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 432, (float)N2.Propventil28.Soll);
-                S7.SetRealAt(buffer, 436, (float)N2.Propventil28.ToleranzPlus);
-                S7.SetRealAt(buffer, 440, (float)N2.Propventil28.ToleranzMinus);
-                S7.SetRealAt(buffer, 444, (float)N2.Propventil28.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 448, (float)N2.Propventil29.Soll);
-                S7.SetRealAt(buffer, 452, (float)N2.Propventil29.ToleranzPlus);
-                S7.SetRealAt(buffer, 456, (float)N2.Propventil29.ToleranzMinus);
-                S7.SetRealAt(buffer, 460, (float)N2.Propventil29.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 464, (float)N2.Propventil30.Soll);
-                S7.SetRealAt(buffer, 468, (float)N2.Propventil30.ToleranzPlus);
-                S7.SetRealAt(buffer, 472, (float)N2.Propventil30.ToleranzMinus);
-                S7.SetRealAt(buffer, 476, (float)N2.Propventil30.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 480, (float)N2.Propventil31.Soll);
-                S7.SetRealAt(buffer, 484, (float)N2.Propventil31.ToleranzPlus);
-                S7.SetRealAt(buffer, 488, (float)N2.Propventil31.ToleranzMinus);
-                S7.SetRealAt(buffer, 492, (float)N2.Propventil31.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 496, (float)N2.Propventil32.Soll);
-                S7.SetRealAt(buffer, 500, (float)N2.Propventil32.ToleranzPlus);
-                S7.SetRealAt(buffer, 504, (float)N2.Propventil32.ToleranzMinus);
-                S7.SetRealAt(buffer, 508, (float)N2.Propventil32.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 512, (float)N2.Propventil33.Soll);
-                S7.SetRealAt(buffer, 516, (float)N2.Propventil33.ToleranzPlus);
-                S7.SetRealAt(buffer, 520, (float)N2.Propventil33.ToleranzMinus);
-                S7.SetRealAt(buffer, 524, (float)N2.Propventil33.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 528, (float)N2.Propventil34.Soll);
-                S7.SetRealAt(buffer, 532, (float)N2.Propventil34.ToleranzPlus);
-                S7.SetRealAt(buffer, 536, (float)N2.Propventil34.ToleranzMinus);
-                S7.SetRealAt(buffer, 540, (float)N2.Propventil34.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 544, (float)N2.Propventil35.Soll);
-                S7.SetRealAt(buffer, 548, (float)N2.Propventil35.ToleranzPlus);
-                S7.SetRealAt(buffer, 552, (float)N2.Propventil35.ToleranzMinus);
-                S7.SetRealAt(buffer, 556, (float)N2.Propventil35.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 560, (float)N2.Propventil36.Soll);
-                S7.SetRealAt(buffer, 564, (float)N2.Propventil36.ToleranzPlus);
-                S7.SetRealAt(buffer, 568, (float)N2.Propventil36.ToleranzMinus);
-                S7.SetRealAt(buffer, 572, (float)N2.Propventil36.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 576, (float)N2.Propventil37.Soll);
-                S7.SetRealAt(buffer, 580, (float)N2.Propventil37.ToleranzPlus);
-                S7.SetRealAt(buffer, 584, (float)N2.Propventil37.ToleranzMinus);
-                S7.SetRealAt(buffer, 588, (float)N2.Propventil37.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 592, (float)N2.Propventil38.Soll);
-                S7.SetRealAt(buffer, 596, (float)N2.Propventil38.ToleranzPlus);
-                S7.SetRealAt(buffer, 600, (float)N2.Propventil38.ToleranzMinus);
-                S7.SetRealAt(buffer, 604, (float)N2.Propventil38.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 608, (float)N2.Propventil39.Soll);
-                S7.SetRealAt(buffer, 612, (float)N2.Propventil39.ToleranzPlus);
-                S7.SetRealAt(buffer, 616, (float)N2.Propventil39.ToleranzMinus);
-                S7.SetRealAt(buffer, 620, (float)N2.Propventil39.Einschaltverzoegerung);
-                S7.SetRealAt(buffer, 624, (float)N2.Propventil40.Soll);
-                S7.SetRealAt(buffer, 628, (float)N2.Propventil40.ToleranzPlus);
-                S7.SetRealAt(buffer, 632, (float)N2.Propventil40.ToleranzMinus);
-                S7.SetRealAt(buffer, 636, (float)N2.Propventil40.Einschaltverzoegerung);
             }
             catch (Exception ex)
             {
@@ -1860,367 +1932,12 @@ namespace WinS7Library.Helper
 
 
         #region Werkzeug
-        public static DatWerkzeug SerializeDatWerkzeug(string path, byte[] buffer, ref string error)
+        public static void DatWerkzeugToBuffer(DatWerkzeug Werkzeug, byte[] buffer, ref string error)
         {
-            error = string.Empty;
-            //create instance
-            DatWerkzeug Werkzeug = new DatWerkzeug();
-
             try
             {
-                #region bckp 2021_04_30
-                //Werkzeug.Kennung.ProgrammName = S7.GetStringAt(buffer, 0);
-                //Werkzeug.Kennung.RFIDHE = S7.GetByteAt(buffer, 22);
-                //Werkzeug.Kennung.RFIDOB = S7.GetByteAt(buffer, 23);
-                //Werkzeug.Kennung.RFIDUN = S7.GetByteAt(buffer, 24);
-                //Werkzeug.AktivierungSchritte.SpannenT1 = S7.GetBitAt(buffer, 26, 0);
-                //Werkzeug.AktivierungSchritte.SpannenT2 = S7.GetBitAt(buffer, 26, 1);
-                //Werkzeug.AktivierungSchritte.Abholtakt = S7.GetBitAt(buffer, 26, 2);
-                //Werkzeug.AktivierungSchritte.Prueftakt = S7.GetBitAt(buffer, 26, 3);
-                //Werkzeug.AktivierungSchritte.WarmVor = S7.GetBitAt(buffer, 26, 4);
-                //Werkzeug.AktivierungSchritte.WarmEnde = S7.GetBitAt(buffer, 26, 5);
-                //Werkzeug.AktivierungSchritte.Auswerfer = S7.GetBitAt(buffer, 26, 6);
-                //Werkzeug.AktivierungSchritte.Roboter = S7.GetBitAt(buffer, 26, 7);
-                //Werkzeug.AktivierungSchritte.Reserve4 = S7.GetBitAt(buffer, 27, 0);
-                //Werkzeug.AktivierungSchritte.Reserve5 = S7.GetBitAt(buffer, 27, 1);
-                //Werkzeug.AktivierungSchritte.Reserve6 = S7.GetBitAt(buffer, 27, 2);
-                //Werkzeug.AktivierungSchritte.Reserve7 = S7.GetBitAt(buffer, 27, 3);
-                //Werkzeug.AktivierungSchritte.Reserve8 = S7.GetBitAt(buffer, 27, 4);
-                //Werkzeug.AktivierungSchritte.Reserve9 = S7.GetBitAt(buffer, 27, 5);
-                //Werkzeug.AktivierungSchritte.StopNachFuegen = S7.GetBitAt(buffer, 27, 6);
-                //Werkzeug.AktivierungSchritte.OeffnenNachFuegen = S7.GetBitAt(buffer, 27, 7);
-                //Werkzeug.ParameterSchritte.Abhol.A1.VorPosition = S7.GetDIntAt(buffer, 28);
-                //Werkzeug.ParameterSchritte.Abhol.A1.EndPosition = S7.GetDIntAt(buffer, 32);
-                //Werkzeug.ParameterSchritte.Abhol.A1.Geschwindigkeit = S7.GetDIntAt(buffer, 36);
-                //Werkzeug.ParameterSchritte.Abhol.A2.VorPosition = S7.GetDIntAt(buffer, 40);
-                //Werkzeug.ParameterSchritte.Abhol.A2.EndPosition = S7.GetDIntAt(buffer, 44);
-                //Werkzeug.ParameterSchritte.Abhol.A2.Geschwindigkeit = S7.GetDIntAt(buffer, 48);
-                //Werkzeug.ParameterSchritte.HEVorposition.A1.Position = S7.GetDIntAt(buffer, 52);
-                //Werkzeug.ParameterSchritte.HEVorposition.A1.Geschwindigkeit = S7.GetDIntAt(buffer, 56);
-                //Werkzeug.ParameterSchritte.HEVorposition.A2.Position = S7.GetDIntAt(buffer, 60);
-                //Werkzeug.ParameterSchritte.HEVorposition.A2.Geschwindigkeit = S7.GetDIntAt(buffer, 64);
-                //Werkzeug.ParameterSchritte.Warm1.A1.Position = S7.GetDIntAt(buffer, 68);
-                //Werkzeug.ParameterSchritte.Warm1.A1.Geschwindigkeit = S7.GetDIntAt(buffer, 72);
-                //Werkzeug.ParameterSchritte.Warm1.A2.Position = S7.GetDIntAt(buffer, 76);
-                //Werkzeug.ParameterSchritte.Warm1.A2.Geschwindigkeit = S7.GetDIntAt(buffer, 80);
-                //Werkzeug.ParameterSchritte.Warm1.A3.Position = S7.GetDIntAt(buffer, 84);
-                //Werkzeug.ParameterSchritte.Warm1.Zeit = S7.GetDIntAt(buffer, 88);
-                //Werkzeug.ParameterSchritte.Warm2.A1.Position = S7.GetDIntAt(buffer, 92);
-                //Werkzeug.ParameterSchritte.Warm2.A1.Geschwindigkeit = S7.GetDIntAt(buffer, 96);
-                //Werkzeug.ParameterSchritte.Warm2.A2.Position = S7.GetDIntAt(buffer, 100);
-                //Werkzeug.ParameterSchritte.Warm2.A2.Geschwindigkeit = S7.GetDIntAt(buffer, 104);
-                //Werkzeug.ParameterSchritte.Warm2.Zeit = S7.GetDIntAt(buffer, 108);
-                //Werkzeug.ParameterSchritte.Fuege.A1.VorPosition = S7.GetDIntAt(buffer, 112);
-                //Werkzeug.ParameterSchritte.Fuege.A1.EndPosition = S7.GetDIntAt(buffer, 116);
-                //Werkzeug.ParameterSchritte.Fuege.A1.Geschwindigkeit = S7.GetDIntAt(buffer, 120);
-                //Werkzeug.ParameterSchritte.Fuege.A1.OeffnungswegNachFuegen = S7.GetDIntAt(buffer, 124);
-                //Werkzeug.ParameterSchritte.Fuege.A1.RueckhubGeschwingkeitFuegen = S7.GetDIntAt(buffer, 128);
-                //Werkzeug.ParameterSchritte.Fuege.A2.VorPosition = S7.GetDIntAt(buffer, 132);
-                //Werkzeug.ParameterSchritte.Fuege.A2.EndPosition = S7.GetDIntAt(buffer, 136);
-                //Werkzeug.ParameterSchritte.Fuege.A2.Geschwindigkeit = S7.GetDIntAt(buffer, 140);
-                //Werkzeug.ParameterSchritte.Fuege.Kuehlzeit = S7.GetDIntAt(buffer, 144);
-                //Werkzeug.ParameterSchritte.Schmelzbild.A1.Position = S7.GetDIntAt(buffer, 148);
-                //Werkzeug.ParameterSchritte.Schmelzbild.A1.Geschwindigkeit = S7.GetDIntAt(buffer, 152);
-                //Werkzeug.AchsenStrom.FuegekraftMaxA1 = S7.GetIntAt(buffer, 156);
-                //Werkzeug.AchsenStrom.FuegekraftMinA1 = S7.GetIntAt(buffer, 158);
-                //Werkzeug.AchsenStrom.FuegekraftMaxA2 = S7.GetIntAt(buffer, 160);
-                //Werkzeug.AchsenStrom.FuegekraftMinA2 = S7.GetIntAt(buffer, 162);
-                //Werkzeug.AchsenStrom.Strommessung = S7.GetByteAt(buffer, 164);
-                //Werkzeug.AchsenStrom.FuegenStart = S7.GetIntAt(buffer, 166);
-                //Werkzeug.Zaehler.NIONF = S7.GetIntAt(buffer, 168);
-                //Werkzeug.Zaehler.NIOVF = S7.GetIntAt(buffer, 170);
-                //Werkzeug.Zaehler.Stueckzaehler = S7.GetIntAt(buffer, 172);
-                //Werkzeug.AktivierungN2Gas.N2G1 = S7.GetBitAt(buffer, 174, 0);
-                //Werkzeug.AktivierungN2Gas.N2G2 = S7.GetBitAt(buffer, 174, 1);
-                //Werkzeug.AktivierungN2Gas.N2G3 = S7.GetBitAt(buffer, 174, 2);
-                //Werkzeug.AktivierungN2Gas.N2G4 = S7.GetBitAt(buffer, 174, 3);
-                //Werkzeug.AktivierungN2Gas.Reserve5 = S7.GetBitAt(buffer, 174, 4);
-                //Werkzeug.AktivierungN2Gas.Reserve6 = S7.GetBitAt(buffer, 174, 5);
-                //Werkzeug.AktivierungN2Gas.Reserve7 = S7.GetBitAt(buffer, 174, 6);
-                //Werkzeug.AktivierungN2Gas.Reserve8 = S7.GetBitAt(buffer, 174, 7);
-                //Werkzeug.AktivierungSontiges.ExternerE1 = S7.GetBitAt(buffer, 176, 0);
-                //Werkzeug.AktivierungSontiges.ExternerE2 = S7.GetBitAt(buffer, 176, 1);
-                //Werkzeug.AktivierungSontiges.ExternePruefung1 = S7.GetBitAt(buffer, 176, 2);
-                //Werkzeug.AktivierungSontiges.ExternePruefung2 = S7.GetBitAt(buffer, 176, 3);
-                //Werkzeug.AktivierungSontiges.OptionUmschaltung1 = S7.GetBitAt(buffer, 176, 4);
-                //Werkzeug.AktivierungSontiges.Reserve6 = S7.GetBitAt(buffer, 176, 5);
-                //Werkzeug.AktivierungSontiges.Reserve7 = S7.GetBitAt(buffer, 176, 6);
-                //Werkzeug.AktivierungSontiges.Reserve8 = S7.GetBitAt(buffer, 176, 7);
-                //Werkzeug.AktivierungSontiges.Reserve9 = S7.GetBitAt(buffer, 177, 0);
-                //Werkzeug.AktivierungSontiges.Reserve10 = S7.GetBitAt(buffer, 177, 1);
-                //Werkzeug.AktivierungSontiges.Reserve11 = S7.GetBitAt(buffer, 177, 2);
-                //Werkzeug.AktivierungSontiges.Reserve12 = S7.GetBitAt(buffer, 177, 3);
-                //Werkzeug.AktivierungSontiges.Reserve13 = S7.GetBitAt(buffer, 177, 4);
-                //Werkzeug.AktivierungSontiges.Reserve14 = S7.GetBitAt(buffer, 177, 5);
-                //Werkzeug.AktivierungSontiges.Reserve15 = S7.GetBitAt(buffer, 177, 6);
-                //Werkzeug.AktivierungSontiges.Reserve16 = S7.GetBitAt(buffer, 177, 7);
-                //Werkzeug.BursterDigiforceKraftWeg.FuegewegKraftNest1 = S7.GetByteAt(buffer, 178);
-                //Werkzeug.BursterDigiforceKraftWeg.FuegewegKraftNest2 = S7.GetByteAt(buffer, 179);
-                //Werkzeug.BursterDigiforceKraftWeg.BursterProgrammNest1 = S7.GetIntAt(buffer, 180);
-                //Werkzeug.BursterDigiforceKraftWeg.BursterProgrammNest2 = S7.GetIntAt(buffer, 182);
-                //Werkzeug.BursterDigiforceMinsdestkraft.BursterMindestKraftAktiv = S7.GetBitAt(buffer, 184, 0);
-                //Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftSollNest1 = S7.GetRealAt(buffer, 186);
-                //Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftToleranzPlusNest1 = S7.GetRealAt(buffer, 190);
-                //Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftToleranzMinusNest1 = S7.GetRealAt(buffer, 194);
-                //Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftSollNest2 = S7.GetRealAt(buffer, 198);
-                //Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftToleranzPlusNest2 = S7.GetRealAt(buffer, 202);
-                //Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftToleranzMinusNest2 = S7.GetRealAt(buffer, 206);
-                //Werkzeug.IRCamera.KameraProgramm = S7.GetWordAt(buffer, 210);
-                //Werkzeug.IRCamera.KameraSchalter = S7.GetByteAt(buffer, 212);
-                //Werkzeug.IRCamera.KameraLuftschleier = S7.GetDIntAt(buffer, 214);
-                //Werkzeug.IRCamera.KameraStartFuegenNachIR = S7.GetDIntAt(buffer, 218);
-                //Werkzeug.IRCamera.KameraFehlerVrzNachIR = S7.GetDIntAt(buffer, 222);
-                //Werkzeug.DMXCheck.DayDifferenceSet = S7.GetDIntAt(buffer, 226);
-                //Werkzeug.DMXCheck.ActiveDMXCheck = S7.GetBitAt(buffer, 230, 0);
-                //Werkzeug.Ausgleichshub.Links = S7.GetRealAt(buffer, 232);
-                //Werkzeug.Ausgleichshub.Rechts = S7.GetRealAt(buffer, 236); 
-                #endregion
-                Werkzeug.Kennung.ProgrammName = S7.GetStringAt(buffer, 0);
-                Werkzeug.Kennung.RFIDHE = S7.GetByteAt(buffer, 42);
-                Werkzeug.Kennung.RFIDOB = S7.GetByteAt(buffer, 43);
-                Werkzeug.Kennung.RFIDUN = S7.GetByteAt(buffer, 44);
-                Werkzeug.AktivierungSchritte.SpannenT1 = S7.GetBitAt(buffer, 46, 0);
-                Werkzeug.AktivierungSchritte.SpannenT2 = S7.GetBitAt(buffer, 46, 1);
-                Werkzeug.AktivierungSchritte.Abholtakt = S7.GetBitAt(buffer, 46, 2);
-                Werkzeug.AktivierungSchritte.Prueftakt = S7.GetBitAt(buffer, 46, 3);
-                Werkzeug.AktivierungSchritte.WarmVor = S7.GetBitAt(buffer, 46, 4);
-                Werkzeug.AktivierungSchritte.WarmEnde = S7.GetBitAt(buffer, 46, 5);
-                Werkzeug.AktivierungSchritte.Auswerfer = S7.GetBitAt(buffer, 46, 6);
-                Werkzeug.AktivierungSchritte.Roboter = S7.GetBitAt(buffer, 46, 7);
-                Werkzeug.AktivierungSchritte.Reserve4 = S7.GetBitAt(buffer, 47, 0);
-                Werkzeug.AktivierungSchritte.Reserve5 = S7.GetBitAt(buffer, 47, 1);
-                Werkzeug.AktivierungSchritte.Reserve6 = S7.GetBitAt(buffer, 47, 2);
-                Werkzeug.AktivierungSchritte.Reserve7 = S7.GetBitAt(buffer, 47, 3);
-                Werkzeug.AktivierungSchritte.Reserve8 = S7.GetBitAt(buffer, 47, 4);
-                Werkzeug.AktivierungSchritte.Reserve9 = S7.GetBitAt(buffer, 47, 5);
-                Werkzeug.AktivierungSchritte.StopNachFuegen = S7.GetBitAt(buffer, 47, 6);
-                Werkzeug.AktivierungSchritte.OeffnenNachFuegen = S7.GetBitAt(buffer, 47, 7);
-                Werkzeug.ParameterSchritte.Abhol.A1.VorPosition = S7.GetDIntAt(buffer, 48);
-                Werkzeug.ParameterSchritte.Abhol.A1.EndPosition = S7.GetDIntAt(buffer, 52);
-                Werkzeug.ParameterSchritte.Abhol.A1.Geschwindigkeit = S7.GetDIntAt(buffer, 56);
-                Werkzeug.ParameterSchritte.Abhol.A2.VorPosition = S7.GetDIntAt(buffer, 60);
-                Werkzeug.ParameterSchritte.Abhol.A2.EndPosition = S7.GetDIntAt(buffer, 64);
-                Werkzeug.ParameterSchritte.Abhol.A2.Geschwindigkeit = S7.GetDIntAt(buffer, 68);
-                Werkzeug.ParameterSchritte.HEVorposition.A1.Position = S7.GetDIntAt(buffer, 72);
-                Werkzeug.ParameterSchritte.HEVorposition.A1.Geschwindigkeit = S7.GetDIntAt(buffer, 76);
-                Werkzeug.ParameterSchritte.HEVorposition.A2.Position = S7.GetDIntAt(buffer, 80);
-                Werkzeug.ParameterSchritte.HEVorposition.A2.Geschwindigkeit = S7.GetDIntAt(buffer, 84);
-                Werkzeug.ParameterSchritte.Warm1.A1.Position = S7.GetDIntAt(buffer, 88);
-                Werkzeug.ParameterSchritte.Warm1.A1.Geschwindigkeit = S7.GetDIntAt(buffer, 92);
-                Werkzeug.ParameterSchritte.Warm1.A2.Position = S7.GetDIntAt(buffer, 96);
-                Werkzeug.ParameterSchritte.Warm1.A2.Geschwindigkeit = S7.GetDIntAt(buffer, 100);
-                Werkzeug.ParameterSchritte.Warm1.A3.Position = S7.GetDIntAt(buffer, 104);
-                Werkzeug.ParameterSchritte.Warm1.Zeit = S7.GetDIntAt(buffer, 108);
-                Werkzeug.ParameterSchritte.Warm2.A1.Position = S7.GetDIntAt(buffer, 112);
-                Werkzeug.ParameterSchritte.Warm2.A1.Geschwindigkeit = S7.GetDIntAt(buffer, 116);
-                Werkzeug.ParameterSchritte.Warm2.A2.Position = S7.GetDIntAt(buffer, 120);
-                Werkzeug.ParameterSchritte.Warm2.A2.Geschwindigkeit = S7.GetDIntAt(buffer, 124);
-                Werkzeug.ParameterSchritte.Warm2.Zeit = S7.GetDIntAt(buffer, 128);
-                Werkzeug.ParameterSchritte.Fuege.A1.VorPosition = S7.GetDIntAt(buffer, 132);
-                Werkzeug.ParameterSchritte.Fuege.A1.EndPosition = S7.GetDIntAt(buffer, 136);
-                Werkzeug.ParameterSchritte.Fuege.A1.Geschwindigkeit = S7.GetDIntAt(buffer, 140);
-                Werkzeug.ParameterSchritte.Fuege.A1.OeffnungswegNachFuegen = S7.GetDIntAt(buffer, 144);
-                Werkzeug.ParameterSchritte.Fuege.A1.RueckhubGeschwingkeitFuegen = S7.GetDIntAt(buffer, 148);
-                Werkzeug.ParameterSchritte.Fuege.A2.VorPosition = S7.GetDIntAt(buffer, 152);
-                Werkzeug.ParameterSchritte.Fuege.A2.EndPosition = S7.GetDIntAt(buffer, 156);
-                Werkzeug.ParameterSchritte.Fuege.A2.Geschwindigkeit = S7.GetDIntAt(buffer, 160);
-                Werkzeug.ParameterSchritte.Fuege.Kuehlzeit = S7.GetDIntAt(buffer, 164);
-                Werkzeug.ParameterSchritte.Schmelzbild.A1.Position = S7.GetDIntAt(buffer, 168);
-                Werkzeug.ParameterSchritte.Schmelzbild.A1.Geschwindigkeit = S7.GetDIntAt(buffer, 172);
-                Werkzeug.AchsenStrom.FuegekraftMaxA1 = S7.GetIntAt(buffer, 176);
-                Werkzeug.AchsenStrom.FuegekraftMinA1 = S7.GetIntAt(buffer, 178);
-                Werkzeug.AchsenStrom.FuegekraftMaxA2 = S7.GetIntAt(buffer, 180);
-                Werkzeug.AchsenStrom.FuegekraftMinA2 = S7.GetIntAt(buffer, 182);
-                Werkzeug.AchsenStrom.Strommessung = S7.GetByteAt(buffer, 184);
-                Werkzeug.AchsenStrom.FuegenStart = S7.GetIntAt(buffer, 186);
-                Werkzeug.Zaehler.NIONF = S7.GetIntAt(buffer, 188);
-                Werkzeug.Zaehler.NIOVF = S7.GetIntAt(buffer, 190);
-                Werkzeug.Zaehler.Stueckzaehler = S7.GetIntAt(buffer, 192);
-                Werkzeug.AktivierungN2Gas.N2G1 = S7.GetBitAt(buffer, 194, 0);
-                Werkzeug.AktivierungN2Gas.N2G2 = S7.GetBitAt(buffer, 194, 1);
-                Werkzeug.AktivierungN2Gas.N2G3 = S7.GetBitAt(buffer, 194, 2);
-                Werkzeug.AktivierungN2Gas.N2G4 = S7.GetBitAt(buffer, 194, 3);
-                Werkzeug.AktivierungN2Gas.Reserve5 = S7.GetBitAt(buffer, 194, 4);
-                Werkzeug.AktivierungN2Gas.Reserve6 = S7.GetBitAt(buffer, 194, 5);
-                Werkzeug.AktivierungN2Gas.Reserve7 = S7.GetBitAt(buffer, 194, 6);
-                Werkzeug.AktivierungN2Gas.Reserve8 = S7.GetBitAt(buffer, 194, 7);
-                Werkzeug.AktivierungSontiges.ExternerE1 = S7.GetBitAt(buffer, 196, 0);
-                Werkzeug.AktivierungSontiges.ExternerE2 = S7.GetBitAt(buffer, 196, 1);
-                Werkzeug.AktivierungSontiges.ExternePruefung1 = S7.GetBitAt(buffer, 196, 2);
-                Werkzeug.AktivierungSontiges.ExternePruefung2 = S7.GetBitAt(buffer, 196, 3);
-                Werkzeug.AktivierungSontiges.OptionUmschaltung1 = S7.GetBitAt(buffer, 196, 4);
-                Werkzeug.AktivierungSontiges.Reserve6 = S7.GetBitAt(buffer, 196, 5);
-                Werkzeug.AktivierungSontiges.Reserve7 = S7.GetBitAt(buffer, 196, 6);
-                Werkzeug.AktivierungSontiges.Reserve8 = S7.GetBitAt(buffer, 196, 7);
-                Werkzeug.AktivierungSontiges.Reserve9 = S7.GetBitAt(buffer, 197, 0);
-                Werkzeug.AktivierungSontiges.Reserve10 = S7.GetBitAt(buffer, 197, 1);
-                Werkzeug.AktivierungSontiges.Reserve11 = S7.GetBitAt(buffer, 197, 2);
-                Werkzeug.AktivierungSontiges.Reserve12 = S7.GetBitAt(buffer, 197, 3);
-                Werkzeug.AktivierungSontiges.Reserve13 = S7.GetBitAt(buffer, 197, 4);
-                Werkzeug.AktivierungSontiges.Reserve14 = S7.GetBitAt(buffer, 197, 5);
-                Werkzeug.AktivierungSontiges.Reserve15 = S7.GetBitAt(buffer, 197, 6);
-                Werkzeug.AktivierungSontiges.Reserve16 = S7.GetBitAt(buffer, 197, 7);
-                Werkzeug.BursterDigiforceKraftWeg.FuegewegKraftNest1 = S7.GetByteAt(buffer, 198);
-                Werkzeug.BursterDigiforceKraftWeg.FuegewegKraftNest2 = S7.GetByteAt(buffer, 199);
-                Werkzeug.BursterDigiforceKraftWeg.BursterProgrammNest1 = S7.GetIntAt(buffer, 200);
-                Werkzeug.BursterDigiforceKraftWeg.BursterProgrammNest2 = S7.GetIntAt(buffer, 202);
-                Werkzeug.BursterDigiforceMinsdestkraft.BursterMindestKraftAktiv = S7.GetBitAt(buffer, 204, 0);
-                Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftSollNest1 = S7.GetRealAt(buffer, 206);
-                Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftToleranzPlusNest1 = S7.GetRealAt(buffer, 210);
-                Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftToleranzMinusNest1 = S7.GetRealAt(buffer, 214);
-                Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftSollNest2 = S7.GetRealAt(buffer, 218);
-                Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftToleranzPlusNest2 = S7.GetRealAt(buffer, 222);
-                Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftToleranzMinusNest2 = S7.GetRealAt(buffer, 226);
-                Werkzeug.IRCamera.KameraProgramm = S7.GetWordAt(buffer, 230);
-                Werkzeug.IRCamera.KameraSchalter = S7.GetByteAt(buffer, 232);
-                Werkzeug.IRCamera.KameraLuftschleier = S7.GetDIntAt(buffer, 234);
-                Werkzeug.IRCamera.KameraStartFuegenNachIR = S7.GetDIntAt(buffer, 238);
-                Werkzeug.IRCamera.KameraFehlerVrzNachIR = S7.GetDIntAt(buffer, 242);
-                Werkzeug.DMXCheck.DayDifferenceSet = S7.GetDIntAt(buffer, 246);
-                Werkzeug.DMXCheck.ActiveDMXCheck = S7.GetBitAt(buffer, 250, 0);
-                Werkzeug.Ausgleichshub.Links = S7.GetRealAt(buffer, 252);
-                Werkzeug.Ausgleichshub.Rechts = S7.GetRealAt(buffer, 256);
-
-                // XmlSerializer writes object data as XML
-                XmlSerializer serializer = new XmlSerializer(typeof(DatWerkzeug));
-                using (TextWriter writer = new StreamWriter(path + " \\Werkzeug.xml"))
-                {
-                    serializer.Serialize(writer, Werkzeug);
-                    writer.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                error = ex.Message.ToString() + " " + path + " \\Werkzeug.xml";
-                //throw;
-            }
-            //return value
-            return Werkzeug;
-        }
-
-        public static DatWerkzeug DeserializeDatWerkzeug(string path, ref byte[] buffer, ref string error)
-        {
-            //create instance
-            DatWerkzeug Werkzeug = new DatWerkzeug();
-            try
-            {
-                // Deserialize from XML to the object
-                XmlSerializer deserializer = new XmlSerializer(typeof(DatWerkzeug));
-                TextReader reader = new StreamReader(path + " \\Werkzeug.xml");
-                object obj = deserializer.Deserialize(reader);
-                Werkzeug = (DatWerkzeug)obj;
-                reader.Close();
-
                 //clear buffer before use
                 Array.Clear(buffer, 0, buffer.Length);
-
-                #region bckp 2021_04_30
-                //S7.SetStringAt(buffer, 0, 20, Werkzeug.Kennung.ProgrammName);
-                //S7.SetByteAt(buffer, 22, Werkzeug.Kennung.RFIDHE);
-                //S7.SetByteAt(buffer, 23, Werkzeug.Kennung.RFIDOB);
-                //S7.SetByteAt(buffer, 24, Werkzeug.Kennung.RFIDUN);
-                //S7.SetBitAt(ref buffer, 26, 0, Werkzeug.AktivierungSchritte.SpannenT1);
-                //S7.SetBitAt(ref buffer, 26, 1, Werkzeug.AktivierungSchritte.SpannenT2);
-                //S7.SetBitAt(ref buffer, 26, 2, Werkzeug.AktivierungSchritte.Abholtakt);
-                //S7.SetBitAt(ref buffer, 26, 3, Werkzeug.AktivierungSchritte.Prueftakt);
-                //S7.SetBitAt(ref buffer, 26, 4, Werkzeug.AktivierungSchritte.WarmVor);
-                //S7.SetBitAt(ref buffer, 26, 5, Werkzeug.AktivierungSchritte.WarmEnde);
-                //S7.SetBitAt(ref buffer, 26, 6, Werkzeug.AktivierungSchritte.Auswerfer);
-                //S7.SetBitAt(ref buffer, 26, 7, Werkzeug.AktivierungSchritte.Roboter);
-                //S7.SetBitAt(ref buffer, 27, 0, Werkzeug.AktivierungSchritte.Reserve4);
-                //S7.SetBitAt(ref buffer, 27, 1, Werkzeug.AktivierungSchritte.Reserve5);
-                //S7.SetBitAt(ref buffer, 27, 2, Werkzeug.AktivierungSchritte.Reserve6);
-                //S7.SetBitAt(ref buffer, 27, 3, Werkzeug.AktivierungSchritte.Reserve7);
-                //S7.SetBitAt(ref buffer, 27, 4, Werkzeug.AktivierungSchritte.Reserve8);
-                //S7.SetBitAt(ref buffer, 27, 5, Werkzeug.AktivierungSchritte.Reserve9);
-                //S7.SetBitAt(ref buffer, 27, 6, Werkzeug.AktivierungSchritte.StopNachFuegen);
-                //S7.SetBitAt(ref buffer, 27, 7, Werkzeug.AktivierungSchritte.OeffnenNachFuegen);
-                //S7.SetDIntAt(buffer, 28, Werkzeug.ParameterSchritte.Abhol.A1.VorPosition);
-                //S7.SetDIntAt(buffer, 32, Werkzeug.ParameterSchritte.Abhol.A1.EndPosition);
-                //S7.SetDIntAt(buffer, 36, Werkzeug.ParameterSchritte.Abhol.A1.Geschwindigkeit);
-                //S7.SetDIntAt(buffer, 40, Werkzeug.ParameterSchritte.Abhol.A2.VorPosition);
-                //S7.SetDIntAt(buffer, 44, Werkzeug.ParameterSchritte.Abhol.A2.EndPosition);
-                //S7.SetDIntAt(buffer, 48, Werkzeug.ParameterSchritte.Abhol.A2.Geschwindigkeit);
-                //S7.SetDIntAt(buffer, 52, Werkzeug.ParameterSchritte.HEVorposition.A1.Position);
-                //S7.SetDIntAt(buffer, 56, Werkzeug.ParameterSchritte.HEVorposition.A1.Geschwindigkeit);
-                //S7.SetDIntAt(buffer, 60, Werkzeug.ParameterSchritte.HEVorposition.A2.Position);
-                //S7.SetDIntAt(buffer, 64, Werkzeug.ParameterSchritte.HEVorposition.A2.Geschwindigkeit);
-                //S7.SetDIntAt(buffer, 68, Werkzeug.ParameterSchritte.Warm1.A1.Position);
-                //S7.SetDIntAt(buffer, 72, Werkzeug.ParameterSchritte.Warm1.A1.Geschwindigkeit);
-                //S7.SetDIntAt(buffer, 76, Werkzeug.ParameterSchritte.Warm1.A2.Position);
-                //S7.SetDIntAt(buffer, 80, Werkzeug.ParameterSchritte.Warm1.A2.Geschwindigkeit);
-                //S7.SetDIntAt(buffer, 84, Werkzeug.ParameterSchritte.Warm1.A3.Position);
-                //S7.SetDIntAt(buffer, 88, Werkzeug.ParameterSchritte.Warm1.Zeit);
-                //S7.SetDIntAt(buffer, 92, Werkzeug.ParameterSchritte.Warm2.A1.Position);
-                //S7.SetDIntAt(buffer, 96, Werkzeug.ParameterSchritte.Warm2.A1.Geschwindigkeit);
-                //S7.SetDIntAt(buffer, 100, Werkzeug.ParameterSchritte.Warm2.A2.Position);
-                //S7.SetDIntAt(buffer, 104, Werkzeug.ParameterSchritte.Warm2.A2.Geschwindigkeit);
-                //S7.SetDIntAt(buffer, 108, Werkzeug.ParameterSchritte.Warm2.Zeit);
-                //S7.SetDIntAt(buffer, 112, Werkzeug.ParameterSchritte.Fuege.A1.VorPosition);
-                //S7.SetDIntAt(buffer, 116, Werkzeug.ParameterSchritte.Fuege.A1.EndPosition);
-                //S7.SetDIntAt(buffer, 120, Werkzeug.ParameterSchritte.Fuege.A1.Geschwindigkeit);
-                //S7.SetDIntAt(buffer, 124, Werkzeug.ParameterSchritte.Fuege.A1.OeffnungswegNachFuegen);
-                //S7.SetDIntAt(buffer, 128, Werkzeug.ParameterSchritte.Fuege.A1.RueckhubGeschwingkeitFuegen);
-                //S7.SetDIntAt(buffer, 132, Werkzeug.ParameterSchritte.Fuege.A2.VorPosition);
-                //S7.SetDIntAt(buffer, 136, Werkzeug.ParameterSchritte.Fuege.A2.EndPosition);
-                //S7.SetDIntAt(buffer, 140, Werkzeug.ParameterSchritte.Fuege.A2.Geschwindigkeit);
-                //S7.SetDIntAt(buffer, 144, Werkzeug.ParameterSchritte.Fuege.Kuehlzeit);
-                //S7.SetDIntAt(buffer, 148, Werkzeug.ParameterSchritte.Schmelzbild.A1.Position);
-                //S7.SetDIntAt(buffer, 152, Werkzeug.ParameterSchritte.Schmelzbild.A1.Geschwindigkeit);
-                //S7.SetIntAt(buffer, 156, Werkzeug.AchsenStrom.FuegekraftMaxA1);
-                //S7.SetIntAt(buffer, 158, Werkzeug.AchsenStrom.FuegekraftMinA1);
-                //S7.SetIntAt(buffer, 160, Werkzeug.AchsenStrom.FuegekraftMaxA2);
-                //S7.SetIntAt(buffer, 162, Werkzeug.AchsenStrom.FuegekraftMinA2);
-                //S7.SetByteAt(buffer, 164, Werkzeug.AchsenStrom.Strommessung);
-                //S7.SetIntAt(buffer, 166, Werkzeug.AchsenStrom.FuegenStart);
-                //S7.SetIntAt(buffer, 168, Werkzeug.Zaehler.NIONF);
-                //S7.SetIntAt(buffer, 170, Werkzeug.Zaehler.NIOVF);
-                //S7.SetIntAt(buffer, 172, Werkzeug.Zaehler.Stueckzaehler);
-                //S7.SetBitAt(ref buffer, 174, 0, Werkzeug.AktivierungN2Gas.N2G1);
-                //S7.SetBitAt(ref buffer, 174, 1, Werkzeug.AktivierungN2Gas.N2G2);
-                //S7.SetBitAt(ref buffer, 174, 2, Werkzeug.AktivierungN2Gas.N2G3);
-                //S7.SetBitAt(ref buffer, 174, 3, Werkzeug.AktivierungN2Gas.N2G4);
-                //S7.SetBitAt(ref buffer, 174, 4, Werkzeug.AktivierungN2Gas.Reserve5);
-                //S7.SetBitAt(ref buffer, 174, 5, Werkzeug.AktivierungN2Gas.Reserve6);
-                //S7.SetBitAt(ref buffer, 174, 6, Werkzeug.AktivierungN2Gas.Reserve7);
-                //S7.SetBitAt(ref buffer, 174, 7, Werkzeug.AktivierungN2Gas.Reserve8);
-                //S7.SetBitAt(ref buffer, 176, 0, Werkzeug.AktivierungSontiges.ExternerE1);
-                //S7.SetBitAt(ref buffer, 176, 1, Werkzeug.AktivierungSontiges.ExternerE2);
-                //S7.SetBitAt(ref buffer, 176, 2, Werkzeug.AktivierungSontiges.ExternePruefung1);
-                //S7.SetBitAt(ref buffer, 176, 3, Werkzeug.AktivierungSontiges.ExternePruefung2);
-                //S7.SetBitAt(ref buffer, 176, 4, Werkzeug.AktivierungSontiges.OptionUmschaltung1);
-                //S7.SetBitAt(ref buffer, 176, 5, Werkzeug.AktivierungSontiges.Reserve6);
-                //S7.SetBitAt(ref buffer, 176, 6, Werkzeug.AktivierungSontiges.Reserve7);
-                //S7.SetBitAt(ref buffer, 176, 7, Werkzeug.AktivierungSontiges.Reserve8);
-                //S7.SetBitAt(ref buffer, 177, 0, Werkzeug.AktivierungSontiges.Reserve9);
-                //S7.SetBitAt(ref buffer, 177, 1, Werkzeug.AktivierungSontiges.Reserve10);
-                //S7.SetBitAt(ref buffer, 177, 2, Werkzeug.AktivierungSontiges.Reserve11);
-                //S7.SetBitAt(ref buffer, 177, 3, Werkzeug.AktivierungSontiges.Reserve12);
-                //S7.SetBitAt(ref buffer, 177, 4, Werkzeug.AktivierungSontiges.Reserve13);
-                //S7.SetBitAt(ref buffer, 177, 5, Werkzeug.AktivierungSontiges.Reserve14);
-                //S7.SetBitAt(ref buffer, 177, 6, Werkzeug.AktivierungSontiges.Reserve15);
-                //S7.SetBitAt(ref buffer, 177, 7, Werkzeug.AktivierungSontiges.Reserve16);
-                //S7.SetByteAt(buffer, 178, Werkzeug.BursterDigiforceKraftWeg.FuegewegKraftNest1);
-                //S7.SetByteAt(buffer, 179, Werkzeug.BursterDigiforceKraftWeg.FuegewegKraftNest2);
-                //S7.SetIntAt(buffer, 180, Werkzeug.BursterDigiforceKraftWeg.BursterProgrammNest1);
-                //S7.SetIntAt(buffer, 182, Werkzeug.BursterDigiforceKraftWeg.BursterProgrammNest2);
-                //S7.SetBitAt(ref buffer, 184, 0, Werkzeug.BursterDigiforceMinsdestkraft.BursterMindestKraftAktiv);
-                //S7.SetRealAt(buffer, 186, Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftSollNest1);
-                //S7.SetRealAt(buffer, 190, Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftToleranzPlusNest1);
-                //S7.SetRealAt(buffer, 194, Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftToleranzMinusNest1);
-                //S7.SetRealAt(buffer, 198, Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftSollNest2);
-                //S7.SetRealAt(buffer, 202, Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftToleranzPlusNest2);
-                //S7.SetRealAt(buffer, 206, Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftToleranzMinusNest2);
-                //S7.SetWordAt(buffer, 210, Werkzeug.IRCamera.KameraProgramm);
-                //S7.SetByteAt(buffer, 212, Werkzeug.IRCamera.KameraSchalter);
-                //S7.SetDIntAt(buffer, 214, Werkzeug.IRCamera.KameraLuftschleier);
-                //S7.SetDIntAt(buffer, 218, Werkzeug.IRCamera.KameraStartFuegenNachIR);
-                //S7.SetDIntAt(buffer, 222, Werkzeug.IRCamera.KameraFehlerVrzNachIR);
-                //S7.SetDIntAt(buffer, 226, Werkzeug.DMXCheck.DayDifferenceSet);
-                //S7.SetBitAt(ref buffer, 230, 0, Werkzeug.DMXCheck.ActiveDMXCheck);
-                //S7.SetRealAt(buffer, 232, (float)Werkzeug.Ausgleichshub.Links);
-                //S7.SetRealAt(buffer, 236, (float)Werkzeug.Ausgleichshub.Rechts); 
-                #endregion
 
                 S7.SetStringAt(buffer, 0, 40, Werkzeug.Kennung.ProgrammName);
                 S7.SetByteAt(buffer, 42, Werkzeug.Kennung.RFIDHE);
@@ -2327,7 +2044,171 @@ namespace WinS7Library.Helper
                 S7.SetBitAt(ref buffer, 250, 0, Werkzeug.DMXCheck.ActiveDMXCheck);
                 S7.SetRealAt(buffer, 252, Werkzeug.Ausgleichshub.Links);
                 S7.SetRealAt(buffer, 256, Werkzeug.Ausgleichshub.Rechts);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+                //throw;
+            }
+        }
+        public static DatWerkzeug BufferToDatWerkzeug(byte[] buffer, ref string error)
+        {
+            error = string.Empty;
+            //create instance
+            DatWerkzeug Werkzeug = new DatWerkzeug();
 
+            try
+            {
+                Werkzeug.Kennung.ProgrammName = S7.GetStringAt(buffer, 0);
+                Werkzeug.Kennung.RFIDHE = S7.GetByteAt(buffer, 42);
+                Werkzeug.Kennung.RFIDOB = S7.GetByteAt(buffer, 43);
+                Werkzeug.Kennung.RFIDUN = S7.GetByteAt(buffer, 44);
+                Werkzeug.AktivierungSchritte.SpannenT1 = S7.GetBitAt(buffer, 46, 0);
+                Werkzeug.AktivierungSchritte.SpannenT2 = S7.GetBitAt(buffer, 46, 1);
+                Werkzeug.AktivierungSchritte.Abholtakt = S7.GetBitAt(buffer, 46, 2);
+                Werkzeug.AktivierungSchritte.Prueftakt = S7.GetBitAt(buffer, 46, 3);
+                Werkzeug.AktivierungSchritte.WarmVor = S7.GetBitAt(buffer, 46, 4);
+                Werkzeug.AktivierungSchritte.WarmEnde = S7.GetBitAt(buffer, 46, 5);
+                Werkzeug.AktivierungSchritte.Auswerfer = S7.GetBitAt(buffer, 46, 6);
+                Werkzeug.AktivierungSchritte.Roboter = S7.GetBitAt(buffer, 46, 7);
+                Werkzeug.AktivierungSchritte.Reserve4 = S7.GetBitAt(buffer, 47, 0);
+                Werkzeug.AktivierungSchritte.Reserve5 = S7.GetBitAt(buffer, 47, 1);
+                Werkzeug.AktivierungSchritte.Reserve6 = S7.GetBitAt(buffer, 47, 2);
+                Werkzeug.AktivierungSchritte.Reserve7 = S7.GetBitAt(buffer, 47, 3);
+                Werkzeug.AktivierungSchritte.Reserve8 = S7.GetBitAt(buffer, 47, 4);
+                Werkzeug.AktivierungSchritte.Reserve9 = S7.GetBitAt(buffer, 47, 5);
+                Werkzeug.AktivierungSchritte.StopNachFuegen = S7.GetBitAt(buffer, 47, 6);
+                Werkzeug.AktivierungSchritte.OeffnenNachFuegen = S7.GetBitAt(buffer, 47, 7);
+                Werkzeug.ParameterSchritte.Abhol.A1.VorPosition = S7.GetDIntAt(buffer, 48);
+                Werkzeug.ParameterSchritte.Abhol.A1.EndPosition = S7.GetDIntAt(buffer, 52);
+                Werkzeug.ParameterSchritte.Abhol.A1.Geschwindigkeit = S7.GetDIntAt(buffer, 56);
+                Werkzeug.ParameterSchritte.Abhol.A2.VorPosition = S7.GetDIntAt(buffer, 60);
+                Werkzeug.ParameterSchritte.Abhol.A2.EndPosition = S7.GetDIntAt(buffer, 64);
+                Werkzeug.ParameterSchritte.Abhol.A2.Geschwindigkeit = S7.GetDIntAt(buffer, 68);
+                Werkzeug.ParameterSchritte.HEVorposition.A1.Position = S7.GetDIntAt(buffer, 72);
+                Werkzeug.ParameterSchritte.HEVorposition.A1.Geschwindigkeit = S7.GetDIntAt(buffer, 76);
+                Werkzeug.ParameterSchritte.HEVorposition.A2.Position = S7.GetDIntAt(buffer, 80);
+                Werkzeug.ParameterSchritte.HEVorposition.A2.Geschwindigkeit = S7.GetDIntAt(buffer, 84);
+                Werkzeug.ParameterSchritte.Warm1.A1.Position = S7.GetDIntAt(buffer, 88);
+                Werkzeug.ParameterSchritte.Warm1.A1.Geschwindigkeit = S7.GetDIntAt(buffer, 92);
+                Werkzeug.ParameterSchritte.Warm1.A2.Position = S7.GetDIntAt(buffer, 96);
+                Werkzeug.ParameterSchritte.Warm1.A2.Geschwindigkeit = S7.GetDIntAt(buffer, 100);
+                Werkzeug.ParameterSchritte.Warm1.A3.Position = S7.GetDIntAt(buffer, 104);
+                Werkzeug.ParameterSchritte.Warm1.Zeit = S7.GetDIntAt(buffer, 108);
+                Werkzeug.ParameterSchritte.Warm2.A1.Position = S7.GetDIntAt(buffer, 112);
+                Werkzeug.ParameterSchritte.Warm2.A1.Geschwindigkeit = S7.GetDIntAt(buffer, 116);
+                Werkzeug.ParameterSchritte.Warm2.A2.Position = S7.GetDIntAt(buffer, 120);
+                Werkzeug.ParameterSchritte.Warm2.A2.Geschwindigkeit = S7.GetDIntAt(buffer, 124);
+                Werkzeug.ParameterSchritte.Warm2.Zeit = S7.GetDIntAt(buffer, 128);
+                Werkzeug.ParameterSchritte.Fuege.A1.VorPosition = S7.GetDIntAt(buffer, 132);
+                Werkzeug.ParameterSchritte.Fuege.A1.EndPosition = S7.GetDIntAt(buffer, 136);
+                Werkzeug.ParameterSchritte.Fuege.A1.Geschwindigkeit = S7.GetDIntAt(buffer, 140);
+                Werkzeug.ParameterSchritte.Fuege.A1.OeffnungswegNachFuegen = S7.GetDIntAt(buffer, 144);
+                Werkzeug.ParameterSchritte.Fuege.A1.RueckhubGeschwingkeitFuegen = S7.GetDIntAt(buffer, 148);
+                Werkzeug.ParameterSchritte.Fuege.A2.VorPosition = S7.GetDIntAt(buffer, 152);
+                Werkzeug.ParameterSchritte.Fuege.A2.EndPosition = S7.GetDIntAt(buffer, 156);
+                Werkzeug.ParameterSchritte.Fuege.A2.Geschwindigkeit = S7.GetDIntAt(buffer, 160);
+                Werkzeug.ParameterSchritte.Fuege.Kuehlzeit = S7.GetDIntAt(buffer, 164);
+                Werkzeug.ParameterSchritte.Schmelzbild.A1.Position = S7.GetDIntAt(buffer, 168);
+                Werkzeug.ParameterSchritte.Schmelzbild.A1.Geschwindigkeit = S7.GetDIntAt(buffer, 172);
+                Werkzeug.AchsenStrom.FuegekraftMaxA1 = S7.GetIntAt(buffer, 176);
+                Werkzeug.AchsenStrom.FuegekraftMinA1 = S7.GetIntAt(buffer, 178);
+                Werkzeug.AchsenStrom.FuegekraftMaxA2 = S7.GetIntAt(buffer, 180);
+                Werkzeug.AchsenStrom.FuegekraftMinA2 = S7.GetIntAt(buffer, 182);
+                Werkzeug.AchsenStrom.Strommessung = S7.GetByteAt(buffer, 184);
+                Werkzeug.AchsenStrom.FuegenStart = S7.GetIntAt(buffer, 186);
+                Werkzeug.Zaehler.NIONF = S7.GetIntAt(buffer, 188);
+                Werkzeug.Zaehler.NIOVF = S7.GetIntAt(buffer, 190);
+                Werkzeug.Zaehler.Stueckzaehler = S7.GetIntAt(buffer, 192);
+                Werkzeug.AktivierungN2Gas.N2G1 = S7.GetBitAt(buffer, 194, 0);
+                Werkzeug.AktivierungN2Gas.N2G2 = S7.GetBitAt(buffer, 194, 1);
+                Werkzeug.AktivierungN2Gas.N2G3 = S7.GetBitAt(buffer, 194, 2);
+                Werkzeug.AktivierungN2Gas.N2G4 = S7.GetBitAt(buffer, 194, 3);
+                Werkzeug.AktivierungN2Gas.Reserve5 = S7.GetBitAt(buffer, 194, 4);
+                Werkzeug.AktivierungN2Gas.Reserve6 = S7.GetBitAt(buffer, 194, 5);
+                Werkzeug.AktivierungN2Gas.Reserve7 = S7.GetBitAt(buffer, 194, 6);
+                Werkzeug.AktivierungN2Gas.Reserve8 = S7.GetBitAt(buffer, 194, 7);
+                Werkzeug.AktivierungSontiges.ExternerE1 = S7.GetBitAt(buffer, 196, 0);
+                Werkzeug.AktivierungSontiges.ExternerE2 = S7.GetBitAt(buffer, 196, 1);
+                Werkzeug.AktivierungSontiges.ExternePruefung1 = S7.GetBitAt(buffer, 196, 2);
+                Werkzeug.AktivierungSontiges.ExternePruefung2 = S7.GetBitAt(buffer, 196, 3);
+                Werkzeug.AktivierungSontiges.OptionUmschaltung1 = S7.GetBitAt(buffer, 196, 4);
+                Werkzeug.AktivierungSontiges.Reserve6 = S7.GetBitAt(buffer, 196, 5);
+                Werkzeug.AktivierungSontiges.Reserve7 = S7.GetBitAt(buffer, 196, 6);
+                Werkzeug.AktivierungSontiges.Reserve8 = S7.GetBitAt(buffer, 196, 7);
+                Werkzeug.AktivierungSontiges.Reserve9 = S7.GetBitAt(buffer, 197, 0);
+                Werkzeug.AktivierungSontiges.Reserve10 = S7.GetBitAt(buffer, 197, 1);
+                Werkzeug.AktivierungSontiges.Reserve11 = S7.GetBitAt(buffer, 197, 2);
+                Werkzeug.AktivierungSontiges.Reserve12 = S7.GetBitAt(buffer, 197, 3);
+                Werkzeug.AktivierungSontiges.Reserve13 = S7.GetBitAt(buffer, 197, 4);
+                Werkzeug.AktivierungSontiges.Reserve14 = S7.GetBitAt(buffer, 197, 5);
+                Werkzeug.AktivierungSontiges.Reserve15 = S7.GetBitAt(buffer, 197, 6);
+                Werkzeug.AktivierungSontiges.Reserve16 = S7.GetBitAt(buffer, 197, 7);
+                Werkzeug.BursterDigiforceKraftWeg.FuegewegKraftNest1 = S7.GetByteAt(buffer, 198);
+                Werkzeug.BursterDigiforceKraftWeg.FuegewegKraftNest2 = S7.GetByteAt(buffer, 199);
+                Werkzeug.BursterDigiforceKraftWeg.BursterProgrammNest1 = S7.GetIntAt(buffer, 200);
+                Werkzeug.BursterDigiforceKraftWeg.BursterProgrammNest2 = S7.GetIntAt(buffer, 202);
+                Werkzeug.BursterDigiforceMinsdestkraft.BursterMindestKraftAktiv = S7.GetBitAt(buffer, 204, 0);
+                Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftSollNest1 = S7.GetRealAt(buffer, 206);
+                Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftToleranzPlusNest1 = S7.GetRealAt(buffer, 210);
+                Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftToleranzMinusNest1 = S7.GetRealAt(buffer, 214);
+                Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftSollNest2 = S7.GetRealAt(buffer, 218);
+                Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftToleranzPlusNest2 = S7.GetRealAt(buffer, 222);
+                Werkzeug.BursterDigiforceMinsdestkraft.MindestkraftToleranzMinusNest2 = S7.GetRealAt(buffer, 226);
+                Werkzeug.IRCamera.KameraProgramm = S7.GetWordAt(buffer, 230);
+                Werkzeug.IRCamera.KameraSchalter = S7.GetByteAt(buffer, 232);
+                Werkzeug.IRCamera.KameraLuftschleier = S7.GetDIntAt(buffer, 234);
+                Werkzeug.IRCamera.KameraStartFuegenNachIR = S7.GetDIntAt(buffer, 238);
+                Werkzeug.IRCamera.KameraFehlerVrzNachIR = S7.GetDIntAt(buffer, 242);
+                Werkzeug.DMXCheck.DayDifferenceSet = S7.GetDIntAt(buffer, 246);
+                Werkzeug.DMXCheck.ActiveDMXCheck = S7.GetBitAt(buffer, 250, 0);
+                Werkzeug.Ausgleichshub.Links = S7.GetRealAt(buffer, 252);
+                Werkzeug.Ausgleichshub.Rechts = S7.GetRealAt(buffer, 256);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+                //throw;
+            }
+
+            return Werkzeug;
+        }
+        public static void SerializeDatWerkzeug(DatWerkzeug Werkzeug, string path, ref string error)
+        {
+            error = string.Empty;
+            //create instance
+            //DatWerkzeug Werkzeug = new DatWerkzeug();
+
+            try
+            {
+                // XmlSerializer writes object data as XML
+                XmlSerializer serializer = new XmlSerializer(typeof(DatWerkzeug));
+                using (TextWriter writer = new StreamWriter(path + " \\Werkzeug.xml"))
+                {
+                    serializer.Serialize(writer, Werkzeug);
+                    writer.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString() + " " + path + " \\Werkzeug.xml";
+                //throw;
+            }
+            //return value
+            //return Werkzeug;
+        }
+        public static DatWerkzeug DeserializeDatWerkzeug(string path, ref string error)
+        {
+            //create instance
+            DatWerkzeug Werkzeug = new DatWerkzeug();
+            try
+            {
+                // Deserialize from XML to the object
+                XmlSerializer deserializer = new XmlSerializer(typeof(DatWerkzeug));
+                TextReader reader = new StreamReader(path + " \\Werkzeug.xml");
+                object obj = deserializer.Deserialize(reader);
+                Werkzeug = (DatWerkzeug)obj;
+                reader.Close();
             }
             catch (Exception ex)
             {
@@ -2342,7 +2223,31 @@ namespace WinS7Library.Helper
 
 
         #region DatMWerkzeug
-        public static DatMWerkzeug SerializeDatMWerkzeug(string path, string machineID, byte[] buffer, ref string error)
+        public static void DatMWerkzeugToBuffer(DatMWerkzeug MWerkzeug, byte[] buffer, ref string error)
+        {
+            try
+            {
+                //clear buffer before use
+                Array.Clear(buffer, 0, buffer.Length);
+
+                S7.SetDIntAt(buffer, 0, MWerkzeug.WerkzeughoeheA1);
+                S7.SetDIntAt(buffer, 4, MWerkzeug.WerkzeughoeheA2);
+                S7.SetDIntAt(buffer, 8, MWerkzeug.HeizelementhoeheObenA3);
+                S7.SetDIntAt(buffer, 12, MWerkzeug.HeizelementhoeheUntenA3);
+                S7.SetDIntAt(buffer, 16, MWerkzeug.WarmpositionA3);
+                S7.SetDIntAt(buffer, 20, MWerkzeug.BestueckungspositionA1);
+                S7.SetDIntAt(buffer, 24, MWerkzeug.BestueckungspositionA2);
+                S7.SetDIntAt(buffer, 28, MWerkzeug.PruefpositionA1);
+                S7.SetDIntAt(buffer, 32, MWerkzeug.PruefpositionA2);
+                S7.SetDIntAt(buffer, 36, MWerkzeug.IRKameraTriggerpositionA3);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+                //throw;
+            }
+        }
+        public static DatMWerkzeug BufferToDatMWerkzeug(byte[] buffer, ref string error)
         {
             error = string.Empty;
             //create instance
@@ -2360,7 +2265,23 @@ namespace WinS7Library.Helper
                 MWerkzeug.PruefpositionA1 = S7.GetDIntAt(buffer, 28);
                 MWerkzeug.PruefpositionA2 = S7.GetDIntAt(buffer, 32);
                 MWerkzeug.IRKameraTriggerpositionA3 = S7.GetDIntAt(buffer, 36);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+                //throw;
+            }
 
+            return MWerkzeug;
+        }
+        public static void SerializeDatMWerkzeug(DatMWerkzeug MWerkzeug, string path, string machineID, ref string error)
+        {
+            error = string.Empty;
+            //create instance
+            //DatMWerkzeug MWerkzeug = new DatMWerkzeug();
+
+            try
+            {
                 // XmlSerializer writes object data as XML
                 XmlSerializer serializer = new XmlSerializer(typeof(DatMWerkzeug));
                 using (TextWriter writer = new StreamWriter(path + " \\MWerkzeug_" + machineID + ".xml"))
@@ -2375,10 +2296,9 @@ namespace WinS7Library.Helper
                 //throw;
             }
             //return value
-            return MWerkzeug;
+            //return MWerkzeug;
         }
-
-        public static DatMWerkzeug DeserializeMWerkzeug(string path, string machineID, ref byte[] buffer, ref string error)
+        public static DatMWerkzeug DeserializeMWerkzeug(string path, string machineID, ref string error)
         {
             //create instance
             DatMWerkzeug MWerkzeug = new DatMWerkzeug();
@@ -2390,20 +2310,6 @@ namespace WinS7Library.Helper
                 object obj = deserializer.Deserialize(reader);
                 MWerkzeug = (DatMWerkzeug)obj;
                 reader.Close();
-
-                //clear buffer before use
-                Array.Clear(buffer, 0, buffer.Length);
-
-                S7.SetDIntAt(buffer, 0, MWerkzeug.WerkzeughoeheA1);
-                S7.SetDIntAt(buffer, 4, MWerkzeug.WerkzeughoeheA2);
-                S7.SetDIntAt(buffer, 8, MWerkzeug.HeizelementhoeheObenA3);
-                S7.SetDIntAt(buffer, 12, MWerkzeug.HeizelementhoeheUntenA3);
-                S7.SetDIntAt(buffer, 16, MWerkzeug.WarmpositionA3);
-                S7.SetDIntAt(buffer, 20, MWerkzeug.BestueckungspositionA1);
-                S7.SetDIntAt(buffer, 24, MWerkzeug.BestueckungspositionA2);
-                S7.SetDIntAt(buffer, 28, MWerkzeug.PruefpositionA1);
-                S7.SetDIntAt(buffer, 32, MWerkzeug.PruefpositionA2);
-                S7.SetDIntAt(buffer, 36, MWerkzeug.IRKameraTriggerpositionA3);
             }
             catch (Exception ex)
             {
@@ -2416,8 +2322,8 @@ namespace WinS7Library.Helper
         #endregion
 
 
-        #region DatBetrieb
 
+        #region DatBetrieb
         public static void DatBetriebToBuffer(DatBetrieb datBetrieb, byte[] buffer, ref string error)
         {
             try
@@ -2439,7 +2345,6 @@ namespace WinS7Library.Helper
                 //throw;
             }
         }
-
         public static DatBetrieb BufferToDatBetrieb (byte[] buffer, ref string error)
         {
             error = string.Empty;
@@ -2463,7 +2368,6 @@ namespace WinS7Library.Helper
 
             return datBetrieb;
         }
-
         public static DatBetrieb SerializeDatBetrieb(DatBetrieb datBetrieb, string path, ref string error)
         {
             error = string.Empty;
@@ -2488,7 +2392,6 @@ namespace WinS7Library.Helper
             //return value
             return datBetrieb;
         }
-
         public static DatBetrieb DeserializeDatBetrieb(string path, ref string error)
         {
             //create instance
@@ -2511,6 +2414,5 @@ namespace WinS7Library.Helper
             return datBetrieb;
         }
         #endregion
-
     }
 }

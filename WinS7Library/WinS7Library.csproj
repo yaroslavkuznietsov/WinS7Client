@@ -53,10 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommunicationS7Plc.cs" />
     <Compile Include="Examples\RecycleBin.cs" />
     <Compile Include="Helper\Global.cs" />
     <Compile Include="Helper\Comparence.cs" />
     <Compile Include="Helper\Recipes.cs" />
+    <Compile Include="Interfaces\ICommunicationPlc.cs" />
     <Compile Include="Model\CommPlcInstance.cs" />
     <Compile Include="Model\CommData.cs" />
     <Compile Include="Model\DatBetrieb.cs" />

@@ -160,7 +160,7 @@ namespace WinS7Client
                         {
 
                             CommPlcInstance commPlcInst = new CommPlcInstance();
-                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ServicePlcToPcs[n], ServicePcToPlcs[n]);
+                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
                         }
                     });
 
@@ -197,7 +197,7 @@ namespace WinS7Client
                         {
 
                             CommPlcInstance commPlcInst = new CommPlcInstance();
-                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ServicePlcToPcs[n], ServicePcToPlcs[n]);
+                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
                         }
                     });
 
@@ -233,7 +233,7 @@ namespace WinS7Client
                         if (S7Clients[n].Connected)
                         {
                             CommPlcInstance commPlcInst = new CommPlcInstance();
-                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ServicePlcToPcs[n], ServicePcToPlcs[n]);
+                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
                         }
                     });
 
@@ -269,7 +269,7 @@ namespace WinS7Client
                         if (S7Clients[n].Connected)
                         {
                             CommPlcInstance commPlcInst = new CommPlcInstance();
-                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ServicePlcToPcs[n], ServicePcToPlcs[n]);
+                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
                         }
                     });
 
@@ -305,7 +305,7 @@ namespace WinS7Client
                         if (S7Clients[n].Connected)
                         {
                             CommPlcInstance commPlcInst = new CommPlcInstance();
-                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ServicePlcToPcs[n], ServicePcToPlcs[n]);
+                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
                         }
                     });
 

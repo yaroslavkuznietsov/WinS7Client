@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinS7Library.DataAccess;
 
 namespace WinS7Client
 {
@@ -39,6 +40,9 @@ namespace WinS7Client
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
+
+                GlobalConfig.InitializeConnections(DatabaseType.Sql);
+
                 //Application.Run(new Form1());
                 Application.Run(new MainForm()); 
             }

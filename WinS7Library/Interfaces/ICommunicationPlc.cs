@@ -23,5 +23,8 @@ namespace WinS7Library.Interfaces
         void WriteDatWerkzeugPlc(DatWerkzeug datWerkzeug);
         DatMWerkzeug ReadDatMWerkzeugPlc();
         void WriteDatMWerkzeugPlc(DatMWerkzeug datMWerkzeug);
+
+
+        void WriteBerstdruckListPlc(List<Berstdruck> berstdruckList);
     }
 }

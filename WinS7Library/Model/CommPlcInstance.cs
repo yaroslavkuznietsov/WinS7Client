@@ -3,8 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WinS7Library.DataAccess;
 using WinS7Library.Helper;
 
 namespace WinS7Library.Model
@@ -709,7 +708,7 @@ namespace WinS7Library.Model
                     // Log
                     commData.LogGlobal.Info("Read operational data from plc" + " result: " + result);
 
-                    DatBetrieb datBetrieb =  Serializer.BufferToDatBetrieb(buffer, ref error);
+                    DatBetrieb datBetrieb = Serializer.BufferToDatBetrieb(buffer, ref error);
 
                     string path = string.Empty;
 
@@ -780,6 +779,154 @@ namespace WinS7Library.Model
                 }
                 //Write operational data <---
                 //**************************************************
+
+
+
+                //**************************************************
+                //Check xml pressure data --->
+
+                string xmlrootMES = @"e:\dotNet\xml\HGS\MES\" + plcToPc.AktAnlage + "\\BERSTDRUCK\\";
+                string date = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day;
+                string xmlrootPC = @"e:\dotNet\xml2\HGS\MES\" + plcToPc.AktAnlage + "\\BERSTDRUCK\\" + date + "\\";
+
+                // Create Folder if doesn't exists
+                if (Directory.Exists(xmlrootPC) == false)
+                {
+                    Directory.CreateDirectory(xmlrootPC);
+                }
+
+                if (plcToPc.BerstdruckAuto == true)
+                {
+                    // Get Pressure from MES Server
+                    List<Berstdruck> berstdruckListMES = XmlHelper.GetBerstdruckList(xmlrootMES);
+
+                    foreach (Berstdruck item in berstdruckListMES)
+                    {
+                        //Get Recipe folder by actual tool ID
+                        string path = Recipes.GetSubDirectoryById(root, plcToPc.AktWerkzeugID);
+
+                        //ChangeLogFileName @"e:\\path\\WinS7ClientLogger.log"
+                        ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderNameRecipe, path + "\\WinS7ClientLogger.log");
+
+                        string xmlpathMES = item.FilePath;
+                        string filename = item.FilePath.Replace(xmlrootMES, "");
+
+                        string xmlpathPC = xmlpathMES.Replace(xmlrootMES, xmlrootPC);
+
+                        if (File.Exists(xmlpathPC) == true)
+                        {
+                            Berstdruck tempBerstdruck = XmlHelper.GetBerstdruck(xmlpathPC);
+
+                            if (item.Level1.TStamp == tempBerstdruck.Level1.TStamp)
+                            {
+                                try
+                                {
+                                    File.Delete(xmlpathMES);
+                                    commData.LogRecipe.Info(filename + " deleted from " + xmlpathMES + " already exists " + xmlpathPC);
+                                    commData.LogGlobal.Info(filename + " deleted from " + xmlpathMES + " already exists " + xmlpathPC);
+                                }
+                                catch (Exception ex)
+                                {
+                                    commData.LogRecipe.Error("Exception: " + ex.Message.ToString());
+                                    commData.LogGlobal.Error("Exception: " + ex.Message.ToString());
+                                }
+                            }
+                            else
+                            {
+                                // Rename duplicate xml-file -> filename2 = filename + DateTime + .xml 
+                                string filename2 = filename.Replace(".xml", "-" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day
+                                                                            + "+" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second
+                                                                            + ".xml");
+
+                                // Create new xmlpathPC2 = xmlpathPC with replace filename -> filename2
+                                string xmlpathPC2 = xmlpathPC.Replace(filename, filename2);
+
+                                try
+                                {
+                                    File.Move(xmlpathMES, xmlpathPC2);
+                                    commData.LogRecipe.Info(filename + " moved from " + xmlpathMES + " to " + xmlpathPC2);
+                                    commData.LogGlobal.Info(filename + " moved from " + xmlpathMES + " to " + xmlpathPC2);
+                                }
+                                catch (Exception ex)
+                                {
+                                    commData.LogRecipe.Error("Exception: " + ex.Message.ToString());
+                                    commData.LogGlobal.Error("Exception: " + ex.Message.ToString());
+                                }
+
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                GlobalConfig.Connection.CreateBurstPressure(item); // SQL Server CRUD Action (INSERT)
+                                commData.LogRecipe.Info("Inserted in MSSQL DB. Bursting Pressure : " + item.Level2.Istberstdruck + " " + item.Level2.BauteilDM);
+                                commData.LogGlobal.Info("Inserted in MSSQL DB. Bursting Pressure : " + item.Level2.Istberstdruck + " " + item.Level2.BauteilDM);
+
+                                File.Move(xmlpathMES, xmlpathPC);
+                                commData.LogRecipe.Info(filename + " moved from " + xmlpathMES + " to " + xmlpathPC);
+                                commData.LogGlobal.Info(filename + " moved from " + xmlpathMES + " to " + xmlpathPC);
+                            }
+                            catch (Exception ex)
+                            {
+                                commData.LogRecipe.Error("Exception: " + ex.Message.ToString());
+                                commData.LogGlobal.Error("Exception: " + ex.Message.ToString());
+                            }
+                        }
+                    }
+
+
+                    if (plcToPc.BerstdruckRestaur == false)
+                    {
+                        pcToPlc.BerstdruckRestaurFertig = false;
+                    }
+
+                    List<Berstdruck> berstdruckListPC = new List<Berstdruck>();
+
+                    // Pressure results available or manual
+                    if (berstdruckListMES.Count > 0 || plcToPc.BerstdruckRestaur == true)
+                    {
+                        List<Berstdruck> berstdruckListPCTemp = XmlHelper.GetBerstdruckList(xmlrootPC);
+
+
+                        berstdruckListPC = berstdruckListPCTemp.Where(b => b.Level1.Pruefungsart == "Freigabe")
+                                                                          .Select(b => b)
+                                                                          .Where(b => b.WerkzeugID == aktWkzID)
+                                                                          .Select(b => b)
+                                                                          .OrderByDescending(b => b.Level1.TStamp)
+                                                                          .ToList();
+                        
+                        string path = Recipes.GetSubDirectoryById(root, plcToPc.AktWerkzeugID);
+
+                        //ChangeLogFileName @"e:\\path\\WinS7ClientLogger.log"
+                        ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderNameRecipe, path + "\\WinS7ClientLogger.log");
+                        commData.LogRecipe.Info("Count of .xml - files found: " + berstdruckListPC.Count + " in folder " + xmlrootPC);
+                        commData.LogGlobal.Info("Count of .xml - files found: " + berstdruckListPC.Count + " in folder " + xmlrootPC);
+
+                        foreach (Berstdruck item in berstdruckListPC)
+                        {
+                            commData.LogRecipe.Info("Berstdruck: " + item.Level1.TStamp + " " + item.Level2.Ergebnis + " " + item.Level2.Istberstdruck + " " + item.Level2.BauteilDM);
+                            commData.LogGlobal.Info("Berstdruck: " + item.Level1.TStamp + " " + item.Level2.Ergebnis + " " + item.Level2.Istberstdruck + " " + item.Level2.BauteilDM);
+                        }
+
+                        // Write Burtsing pressure to plc
+                        S7Plc.WriteBerstdruckListPlc(berstdruckListPC);
+
+                        pcToPlc.BerstdruckRestaurFertig = true;
+                    }
+                }
+                //Check xml pressure data <---
+                //**************************************************
+
+
+
+
+
+
+
+
+
+
 
 
                 //Recipes.SetHeartBeat(ref HeartbeatTimeStamp[n], ref heartbeat, 1);

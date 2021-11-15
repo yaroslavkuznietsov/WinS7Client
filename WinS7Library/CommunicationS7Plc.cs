@@ -63,6 +63,11 @@ namespace WinS7Library
             plcToPc.AusweissName = S7.GetStringAt(buffer, 70);
             plcToPc.AktWerkzeugOB = S7.GetIntAt(buffer, 122);
             plcToPc.AktWerkzeugUN = S7.GetIntAt(buffer, 124);
+            plcToPc.BerstdruckAuto = S7.GetBitAt(buffer, 126, 0);
+            plcToPc.BerstdruckSQLSichern = S7.GetBitAt(buffer, 126, 1);
+            plcToPc.BerstdruckSichernFertig = S7.GetBitAt(buffer, 126, 2);
+            plcToPc.BerstdruckRestaur = S7.GetBitAt(buffer, 126, 3);
+
 
             return plcToPc;
         }
@@ -93,6 +98,9 @@ namespace WinS7Library
             S7.SetBitAt(ref buffer, 5, 2, pcToPlc.ParamN2OK);
             S7.SetBitAt(ref buffer, 5, 3, pcToPlc.ParamWerkzeugOK);
             S7.SetBitAt(ref buffer, 5, 4, pcToPlc.ParamMWerkzeugOK);
+            S7.SetBitAt(ref buffer, 10, 0, pcToPlc.BerstdruckSichern);
+            S7.SetBitAt(ref buffer, 10, 1, pcToPlc.BerstdruckSQLSichernFertig);
+            S7.SetBitAt(ref buffer, 10, 2, pcToPlc.BerstdruckRestaurFertig);
 
             return buffer;
         }
@@ -245,6 +253,41 @@ namespace WinS7Library
             result = client.WriteArea(S7Consts.S7AreaDB, commData.DB_DAT_MWerkzeug, 0, commData.DB_DAT_MWerkzeug_Length, S7Consts.S7WLByte, buffer, ref sizeRead);
         }
 
-        
+
+
+        public void WriteBerstdruckListPlc(List<Berstdruck> berstdruckList)
+        {
+            byte[] buffer = new byte[65536];
+            int sizeRead = default;
+            int result;
+            string error = default;
+
+            Global.ClearBuffer(ref buffer);
+            result = client.WriteArea(S7Consts.S7AreaDB, commData.DB_100_KVT_zu_ATG, 614, commData.DB_100_KVT_zu_ATG_BDruck_DMX, S7Consts.S7WLByte, buffer, ref sizeRead);
+
+            BerstdruckListToBuffer(berstdruckList, ref buffer);
+            result = client.WriteArea(S7Consts.S7AreaDB, commData.DB_100_KVT_zu_ATG, 614, commData.DB_100_KVT_zu_ATG_BDruck_DMX, S7Consts.S7WLByte, buffer, ref sizeRead);
+        }
+
+        private void BerstdruckListToBuffer(List<Berstdruck> berstdruckList, ref byte[] buffer)
+        {
+            int shiftBerstdruck = 4;    // byte start position 618 - 614
+            int shiftDMX = 188;         // byte start position 802 - 614 
+            Array.Clear(buffer, 0, 65536);
+            int i = 0;
+
+            foreach (Berstdruck item in berstdruckList)
+            {
+                if (i < 20)
+                {
+                    S7.SetRealAt(buffer, shiftBerstdruck, (float)item.Level2.Istberstdruck);
+                    S7.SetStringAt(buffer, shiftDMX, 100, item.Level2.BauteilDM);
+
+                    i++;
+                    shiftBerstdruck += 4;
+                    shiftDMX += 102;
+                }
+            }
+        }
     }
 }

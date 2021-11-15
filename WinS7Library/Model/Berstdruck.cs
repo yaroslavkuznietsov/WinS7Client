@@ -30,9 +30,9 @@ namespace WinS7Library.Model
         public class Level_2
         {
             public string BauteilDM { get; set; } = default;
-            public float Mindestberstdruck { get; set; } = default;
-            public float Istberstdruck { get; set; } = default;
-            public float Istdruck2 { get; set; } = default;
+            public double Mindestberstdruck { get; set; } = default;
+            public double Istberstdruck { get; set; } = default;
+            public double Istdruck2 { get; set; } = default;
             public string Ergebnis { get; set; } = default;
 
             public Level_2() { }

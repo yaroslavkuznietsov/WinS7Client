@@ -71,9 +71,9 @@ namespace WinS7Library.Helper
                 elemList = doc.GetElementsByTagName("LEVEL2");
 
                 berstdruck.Level2.BauteilDM = elemList[0].Attributes["Bauteil-DM"].Value;
-                berstdruck.Level2.Mindestberstdruck = (float)Convert.ToDouble(elemList[0].Attributes["Mindestberstdruck"].Value);
-                berstdruck.Level2.Istberstdruck = (float)Convert.ToDouble(elemList[0].Attributes["Ist-Berstdruck"].Value);
-                berstdruck.Level2.Istdruck2 = (float)Convert.ToDouble(elemList[0].Attributes["Ist-Druck2"].Value);
+                berstdruck.Level2.Mindestberstdruck = Convert.ToDouble(elemList[0].Attributes["Mindestberstdruck"].Value);
+                berstdruck.Level2.Istberstdruck = Convert.ToDouble(elemList[0].Attributes["Ist-Berstdruck"].Value);
+                berstdruck.Level2.Istdruck2 = Convert.ToDouble(elemList[0].Attributes["Ist-Druck2"].Value);
                 berstdruck.Level2.Ergebnis = elemList[0].Attributes["Ergebnis"].Value;
             }
             catch (Exception)

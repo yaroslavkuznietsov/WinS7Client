@@ -30,5 +30,9 @@ namespace WinS7Library.Model
         public string AusweissName { get; set; }
         public short AktWerkzeugOB { get; set; }
         public short AktWerkzeugUN { get; set; }
+        public bool BerstdruckAuto { get; set; }
+        public bool BerstdruckSQLSichern { get; set; }
+        public bool BerstdruckSichernFertig { get; set; }
+        public bool BerstdruckRestaur { get; set; }
     }
 }

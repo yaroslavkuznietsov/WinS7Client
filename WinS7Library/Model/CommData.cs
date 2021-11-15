@@ -26,6 +26,8 @@ namespace WinS7Library.Model
         public readonly int DB_Service_PcToPlc = 7007;
         public readonly int DB_DAT_Betrieb = 7008;
 
+        public readonly int DB_100_KVT_zu_ATG = 2000;
+
         //DB Length in bytes
         public readonly int DB_DAT_HE_Length = 240;
         public readonly int DB_DAT_Config_Length = 2796;
@@ -33,8 +35,13 @@ namespace WinS7Library.Model
         public readonly int DB_DAT_Werkzeug_Length = 260; // v.4 Changes for customer 28.04.2021 -> 40 Signs
         public readonly int DB_DAT_MWerkzeug_Length = 40;
         public readonly int DB_Service_WKZ_Liste_Length = 5632;   // v.4 Changes for customer 28.04.2021 -> 40 Signs
-        public readonly int DB_Service_PlcToPc_Length = 126;  // v.4 Changes for customer 28.04.2021 -> 40 Signs
-        public readonly int DB_Service_PcToPlc_Length = 6;
+        public readonly int DB_Service_PlcToPc_Length = 128;  // v.4 Changes for customer 28.04.2021 -> 40 Signs
+        public readonly int DB_Service_PcToPlc_Length = 12;
         public readonly int DB_DAT_Betrieb_Length = 24;
+
+        /// <summary>
+        /// byte 614 - > byte 2842 (real 618 -> 698, string 802 -> 2842)
+        /// </summary>
+        public readonly int DB_100_KVT_zu_ATG_BDruck_DMX = 2228;
     }
 }

@@ -21,6 +21,9 @@ namespace WinS7Library.Model
         public bool ParamN2OK { get; set; }
         public bool ParamWerkzeugOK { get; set; }
         public bool ParamMWerkzeugOK { get; set; }
-        
+        public bool BerstdruckSichern { get; set; }
+        public bool BerstdruckSQLSichernFertig { get; set; }
+        public bool BerstdruckRestaurFertig { get; set; }
+
     }
 }

@@ -51,6 +51,12 @@ namespace WinS7Library.Model
 
                 #endregion
 
+                if (commData.N == 1 || commData.N == 2)
+                {
+                    // Jump Label direct for PLC 1 and PLC 2, because no Recipes handling, but bursting pressure
+                    goto ClassicPlc;
+                }
+
 
                 //**************************************************
                 //Get all recipe folders --->
@@ -784,6 +790,8 @@ namespace WinS7Library.Model
 
                 //**************************************************
                 //Check xml pressure data --->
+
+                ClassicPlc: // Jump Label direct for PLC 1 and PLC 2, because no Recipes handling, but bursting pressure
 
                 string xmlrootMES = @"e:\dotNet\xml\HGS\MES\" + plcToPc.AktAnlage + "\\BERSTDRUCK\\";
                 string date = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day;

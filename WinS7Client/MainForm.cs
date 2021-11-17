@@ -36,8 +36,8 @@ namespace WinS7Client
 
         public string[] appenderName = new string[15];
 
-        //private Thread tPlc1;
-        //private Thread tPlc2;
+        private Thread tPlc1;
+        private Thread tPlc2;
         private Thread tPlc3;
         private Thread tPlc4;
         private Thread tPlc5;
@@ -113,16 +113,16 @@ namespace WinS7Client
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //tPlc1.Abort();
-            //tPlc2.Abort();
+            tPlc1.Abort();
+            tPlc2.Abort();
             tPlc3.Abort();
             tPlc4.Abort();
             tPlc5.Abort();
             tPlc6.Abort();
             tPlc7.Abort();
 
-            //tPlc1.Join();
-            //tPlc2.Join();
+            tPlc1.Join();
+            tPlc2.Join();
             tPlc3.Join();
             tPlc4.Join();
             tPlc5.Join();
@@ -136,12 +136,77 @@ namespace WinS7Client
         /// Threads
         /// </summary>
         #region Threads
+
+        /// <summary>
+        /// PLC communication and burst pressure handling only
+        /// </summary>
         private void Plc1()
         {
+            int n = 1;
+            while (true)
+            {
+                try
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        if (S7Clients[n].Connected)
+                        {
+
+                            CommPlcInstance commPlcInst = new CommPlcInstance();
+                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
+                        }
+                    });
+
+                    Thread.Sleep(500);
+                }
+                catch (Exception ex)
+                {
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
+                    log[0].Error("Exception: " + ex.Message.ToString());
+
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger default file
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger.log");
+
+                    //throw;
+                }
+            }
         }
 
+        /// <summary>
+        /// PLC communication and burst pressure handling only
+        /// </summary>
         private void Plc2()
         {
+            int n = 2;
+            while (true)
+            {
+                try
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        if (S7Clients[n].Connected)
+                        {
+
+                            CommPlcInstance commPlcInst = new CommPlcInstance();
+                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
+                        }
+                    });
+
+                    Thread.Sleep(500);
+                }
+                catch (Exception ex)
+                {
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
+                    log[0].Error("Exception: " + ex.Message.ToString());
+
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger default file
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger.log");
+
+                    //throw;
+                }
+            }
         }
 
         /// <summary>
@@ -422,10 +487,10 @@ namespace WinS7Client
 
 
             // Threads
-            //tPlc1 = new Thread(new ThreadStart(Plc1));
-            //tPlc1.Start();
-            //tPlc2 = new Thread(new ThreadStart(Plc2));
-            //tPlc2.Start();
+            tPlc1 = new Thread(new ThreadStart(Plc1));
+            tPlc1.Start();
+            tPlc2 = new Thread(new ThreadStart(Plc2));
+            tPlc2.Start();
             tPlc3 = new Thread(new ThreadStart(Plc3));
             tPlc3.Start();
             tPlc4 = new Thread(new ThreadStart(Plc4));
@@ -436,6 +501,43 @@ namespace WinS7Client
             tPlc6.Start();
             tPlc7 = new Thread(new ThreadStart(Plc7));
             tPlc7.Start();
+
+
+            // PLC1
+            tbIpAddressPlc1.Text = PlcIpAddress[1];
+            tbRackPlc1.Text = PlcRack[1];
+            tbSlotPlc1.Text = PlcSlot[1];
+
+            tbIpAddressPlc1.Enabled = false;
+            tbRackPlc1.Enabled = false;
+            tbSlotPlc1.Enabled = false;
+
+            tbModuleTypeNamePlc1.Text = "";
+            tbSerialNumberPlc1.Text = "";
+            tbCopyrightPlc1.Text = "";
+            tbAsNamePlc1.Text = "";
+            tbModuleNamePlc1.Text = "";
+
+            tbOrderCodePlc1.Text = "";
+            tbVersionPlc1.Text = "";
+
+            // PLC2
+            tbIpAddressPlc2.Text = PlcIpAddress[2];
+            tbRackPlc2.Text = PlcRack[2];
+            tbSlotPlc2.Text = PlcSlot[2];
+
+            tbIpAddressPlc2.Enabled = false;
+            tbRackPlc2.Enabled = false;
+            tbSlotPlc2.Enabled = false;
+
+            tbModuleTypeNamePlc2.Text = "";
+            tbSerialNumberPlc2.Text = "";
+            tbCopyrightPlc2.Text = "";
+            tbAsNamePlc2.Text = "";
+            tbModuleNamePlc2.Text = "";
+
+            tbOrderCodePlc2.Text = "";
+            tbVersionPlc2.Text = "";
 
             // PLC3
             tbIpAddressPlc3.Text = PlcIpAddress[3];
@@ -533,6 +635,166 @@ namespace WinS7Client
             TimerForm.Start();
         }
 
+
+        /// <summary>
+        /// Plc1
+        /// </summary>
+        #region Plc1
+        private async void btnConnectPlc1_Click(object sender, EventArgs e)
+        {
+            int result;
+            string address = tbIpAddressPlc1.Text;
+            int rack = tbRackPlc1.Text.ParseInt();
+            int slot = tbSlotPlc1.Text.ParseInt();
+            string error;
+
+            result = await Global.ConnectToClientAsync(S7Clients[1], address, rack, slot);
+
+            error = Global.ShowResultClient(result, S7Clients[1]);
+            tbTextErrorPlc1.Text = error;
+
+            if (result == 0)
+            {
+                btnConnectPlc1.Enabled = false;
+                btnDisconnectPlc1.Enabled = true;
+                //tabControl.Enabled = true;
+
+                S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                Global.ReadCPUInfo(S7Clients[1], ref info, ref result);
+                if (result == 0)
+                {
+                    tbModuleTypeNamePlc1.Text = info.ModuleTypeName;
+                    tbSerialNumberPlc1.Text = info.SerialNumber;
+                    tbCopyrightPlc1.Text = info.Copyright;
+                    tbAsNamePlc1.Text = info.ASName;
+                    tbModuleNamePlc1.Text = info.ModuleName;
+                }
+
+                S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                Global.ReadOrderCode(S7Clients[1], ref orderCode, ref result);
+                if (result == 0)
+                {
+                    tbOrderCodePlc1.Text = orderCode.Code;
+                    tbVersionPlc1.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                }
+            }
+        }
+        private void btnDisonnectPlc1_Click(object sender, EventArgs e)
+        {
+            S7Clients[1].Disconnect();
+            tbTextErrorPlc1.Text = "Disconnected";
+            tbIpAddressPlc1.Enabled = false;
+            tbRackPlc1.Enabled = false;
+            tbSlotPlc1.Enabled = false;
+            btnConnectPlc1.Enabled = true;
+            btnDisconnectPlc1.Enabled = false;
+            //tabControl.Enabled = false;
+        }
+
+        private void btnReadDirsPlc1_Click(object sender, EventArgs e)
+        {
+            richTextBoxPlc1.Text = string.Empty;
+            string root = @"E:\Recipes";
+            //Recipes.GetSubDirectories(root);
+            foreach (string dir in Recipes.GetSubDirectories(root))
+            {
+                richTextBoxPlc1.Text = richTextBoxPlc1.Text + dir + "\n";
+            }
+        }
+
+        private void tbIpPlc1_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbRackPlc1_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbSlotPlc1_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        #endregion
+
+        /// <summary>
+        /// Plc2
+        /// </summary>
+        #region Plc2
+        private async void btnConnectPlc2_Click(object sender, EventArgs e)
+        {
+            int result;
+            string address = tbIpAddressPlc2.Text;
+            int rack = tbRackPlc2.Text.ParseInt();
+            int slot = tbSlotPlc2.Text.ParseInt();
+            string error;
+
+            result = await Global.ConnectToClientAsync(S7Clients[2], address, rack, slot);
+
+            error = Global.ShowResultClient(result, S7Clients[2]);
+            tbTextErrorPlc2.Text = error;
+
+            if (result == 0)
+            {
+                btnConnectPlc2.Enabled = false;
+                btnDisconnectPlc2.Enabled = true;
+                //tabControl.Enabled = true;
+
+                S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                Global.ReadCPUInfo(S7Clients[2], ref info, ref result);
+                if (result == 0)
+                {
+                    tbModuleTypeNamePlc2.Text = info.ModuleTypeName;
+                    tbSerialNumberPlc2.Text = info.SerialNumber;
+                    tbCopyrightPlc2.Text = info.Copyright;
+                    tbAsNamePlc2.Text = info.ASName;
+                    tbModuleNamePlc2.Text = info.ModuleName;
+                }
+
+                S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                Global.ReadOrderCode(S7Clients[2], ref orderCode, ref result);
+                if (result == 0)
+                {
+                    tbOrderCodePlc2.Text = orderCode.Code;
+                    tbVersionPlc2.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                }
+            }
+        }
+        private void btnDisonnectPlc2_Click(object sender, EventArgs e)
+        {
+            S7Clients[2].Disconnect();
+            tbTextErrorPlc2.Text = "Disconnected";
+            tbIpAddressPlc2.Enabled = false;
+            tbRackPlc2.Enabled = false;
+            tbSlotPlc2.Enabled = false;
+            btnConnectPlc2.Enabled = true;
+            btnDisconnectPlc2.Enabled = false;
+            //tabControl.Enabled = false;
+        }
+
+        private void btnReadDirsPlc2_Click(object sender, EventArgs e)
+        {
+            richTextBoxPlc2.Text = string.Empty;
+            string root = @"E:\Recipes";
+            //Recipes.GetSubDirectories(root);
+            foreach (string dir in Recipes.GetSubDirectories(root))
+            {
+                richTextBoxPlc2.Text = richTextBoxPlc2.Text + dir + "\n";
+            }
+        }
+
+        private void tbIpPlc2_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbRackPlc2_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbSlotPlc2_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        #endregion
 
         /// <summary>
         /// Plc3
@@ -1156,6 +1418,44 @@ namespace WinS7Client
                 _ticks = 0;
             }
 
+            //btn1 - PLC1 Animation
+            if (S7Clients[1].Connected)
+            {
+                btnConnectPlc1.Enabled = false;
+                btnDisconnectPlc1.Enabled = true;
+            }
+            else
+            {
+                btnConnectPlc1.Enabled = true;
+                btnDisconnectPlc1.Enabled = false;
+            }
+            if (S7Clients[1].Connected & ServicePlcToPcs[1].LifeBit)
+            {
+                btn1.BackColor = Color.Green;
+            }
+            else
+            {
+                btn1.BackColor = Color.LightGray;
+            }
+            //btn2 - PLC2 Animation
+            if (S7Clients[2].Connected)
+            {
+                btnConnectPlc2.Enabled = false;
+                btnDisconnectPlc2.Enabled = true;
+            }
+            else
+            {
+                btnConnectPlc2.Enabled = true;
+                btnDisconnectPlc2.Enabled = false;
+            }
+            if (S7Clients[2].Connected & ServicePlcToPcs[2].LifeBit)
+            {
+                btn2.BackColor = Color.Green;
+            }
+            else
+            {
+                btn2.BackColor = Color.LightGray;
+            }
             //btn3 - PLC3 Animation
             if (S7Clients[3].Connected)
             {
@@ -1285,10 +1585,60 @@ namespace WinS7Client
             switch (plcnumber)
             {
                 case 1:
-                    await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    result = await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    if (result == 0)
+                    {
+                        btnConnectPlc1.Enabled = false;
+                        btnDisconnectPlc1.Enabled = true;
+                        //tabControl.Enabled = true;
+
+                        S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                        Global.ReadCPUInfo(S7Clients[1], ref info, ref result);
+                        if (result == 0)
+                        {
+                            tbModuleTypeNamePlc1.Text = info.ModuleTypeName;
+                            tbSerialNumberPlc1.Text = info.SerialNumber;
+                            tbCopyrightPlc1.Text = info.Copyright;
+                            tbAsNamePlc1.Text = info.ASName;
+                            tbModuleNamePlc1.Text = info.ModuleName;
+                        }
+
+                        S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                        Global.ReadOrderCode(S7Clients[1], ref orderCode, ref result);
+                        if (result == 0)
+                        {
+                            tbOrderCodePlc1.Text = orderCode.Code;
+                            tbVersionPlc1.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                        }
+                    }
                     break;
                 case 2:
-                    await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    result = await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    if (result == 0)
+                    {
+                        btnConnectPlc2.Enabled = false;
+                        btnDisconnectPlc2.Enabled = true;
+                        //tabControl.Enabled = true;
+
+                        S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                        Global.ReadCPUInfo(S7Clients[2], ref info, ref result);
+                        if (result == 0)
+                        {
+                            tbModuleTypeNamePlc2.Text = info.ModuleTypeName;
+                            tbSerialNumberPlc2.Text = info.SerialNumber;
+                            tbCopyrightPlc2.Text = info.Copyright;
+                            tbAsNamePlc2.Text = info.ASName;
+                            tbModuleNamePlc2.Text = info.ModuleName;
+                        }
+
+                        S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                        Global.ReadOrderCode(S7Clients[2], ref orderCode, ref result);
+                        if (result == 0)
+                        {
+                            tbOrderCodePlc2.Text = orderCode.Code;
+                            tbVersionPlc2.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                        }
+                    }
                     break;
                 case 3:
                     result = await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());

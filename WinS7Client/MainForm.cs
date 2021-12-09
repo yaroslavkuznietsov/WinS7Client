@@ -43,6 +43,8 @@ namespace WinS7Client
         private Thread tPlc5;
         private Thread tPlc6;
         private Thread tPlc7;
+        private Thread tPlc8;
+        private Thread tPlc9;
 
         // Create a logger
         //private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -120,6 +122,8 @@ namespace WinS7Client
             tPlc5.Abort();
             tPlc6.Abort();
             tPlc7.Abort();
+            tPlc8.Abort();
+            tPlc9.Abort();
 
             tPlc1.Join();
             tPlc2.Join();
@@ -128,6 +132,8 @@ namespace WinS7Client
             tPlc5.Join();
             tPlc6.Join();
             tPlc7.Join();
+            tPlc8.Join();
+            tPlc9.Join();
         }
         #endregion
 
@@ -389,6 +395,79 @@ namespace WinS7Client
                 }
             }
         }
+
+
+        /// <summary>
+        /// PLC communication and recipes handling
+        /// </summary>
+        public void Plc8()
+        {
+            int n = 8;
+            while (true)
+            {
+                try
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        if (S7Clients[n].Connected)
+                        {
+                            CommPlcInstance commPlcInst = new CommPlcInstance();
+                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
+                        }
+                    });
+
+                    Thread.Sleep(500);
+                }
+                catch (Exception ex)
+                {
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
+                    log[0].Error("Exception: " + ex.Message.ToString());
+
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger default file
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger.log");
+
+                    //throw;
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// PLC communication and recipes handling
+        /// </summary>
+        public void Plc9()
+        {
+            //int n = 9;
+            //while (true)
+            //{
+            //    try
+            //    {
+            //        this.Invoke((MethodInvoker)delegate
+            //        {
+            //            if (S7Clients[n].Connected)
+            //            {
+            //                CommPlcInstance commPlcInst = new CommPlcInstance();
+            //                commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
+            //            }
+            //        });
+
+            //        Thread.Sleep(500);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
+            //        ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
+            //        log[0].Error("Exception: " + ex.Message.ToString());
+
+            //        //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger default file
+            //        ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger.log");
+
+            //        //throw;
+            //    }
+            //}
+        }
+
         #endregion
 
 
@@ -501,6 +580,10 @@ namespace WinS7Client
             tPlc6.Start();
             tPlc7 = new Thread(new ThreadStart(Plc7));
             tPlc7.Start();
+            tPlc8 = new Thread(new ThreadStart(Plc8));
+            tPlc8.Start();
+            tPlc9 = new Thread(new ThreadStart(Plc9));
+            tPlc9.Start();
 
 
             // PLC1
@@ -629,6 +712,41 @@ namespace WinS7Client
             tbOrderCodePlc7.Text = "";
             tbVersionPlc7.Text = "";
 
+            // Plc8
+            tbIpAddressPlc8.Text = PlcIpAddress[8];
+            tbRackPlc8.Text = PlcRack[8];
+            tbSlotPlc8.Text = PlcSlot[8];
+
+            tbIpAddressPlc8.Enabled = false;
+            tbRackPlc8.Enabled = false;
+            tbSlotPlc8.Enabled = false;
+
+            tbModuleTypeNamePlc8.Text = "";
+            tbSerialNumberPlc8.Text = "";
+            tbCopyrightPlc8.Text = "";
+            tbAsNamePlc8.Text = "";
+            tbModuleNamePlc8.Text = "";
+
+            tbOrderCodePlc8.Text = "";
+            tbVersionPlc8.Text = "";
+
+            // Plc9
+            tbIpAddressPlc9.Text = PlcIpAddress[9];
+            tbRackPlc9.Text = PlcRack[9];
+            tbSlotPlc9.Text = PlcSlot[9];
+
+            tbIpAddressPlc9.Enabled = false;
+            tbRackPlc9.Enabled = false;
+            tbSlotPlc9.Enabled = false;
+
+            tbModuleTypeNamePlc9.Text = "";
+            tbSerialNumberPlc9.Text = "";
+            tbCopyrightPlc9.Text = "";
+            tbAsNamePlc9.Text = "";
+            tbModuleNamePlc9.Text = "";
+
+            tbOrderCodePlc9.Text = "";
+            tbVersionPlc9.Text = "";
 
 
             TimerForm.Enabled = true;
@@ -1196,6 +1314,169 @@ namespace WinS7Client
             toolTipShow(sender, PlcInfoToolTip);
         }
         #endregion
+
+        /// <summary>
+        /// Plc8
+        /// </summary>
+        #region Plc8
+        private async void btnConnectPlc8_Click(object sender, EventArgs e)
+        {
+            int result;
+            string address = tbIpAddressPlc8.Text;
+            int rack = tbRackPlc8.Text.ParseInt();
+            int slot = tbSlotPlc8.Text.ParseInt();
+            string error;
+
+            result = await Global.ConnectToClientAsync(S7Clients[8], address, rack, slot);
+
+            error = Global.ShowResultClient(result, S7Clients[8]);
+            tbTextErrorPlc8.Text = error;
+
+            if (result == 0)
+            {
+                btnConnectPlc8.Enabled = false;
+                btnDisconnectPlc8.Enabled = true;
+                //tabControl.Enabled = true;
+
+                S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                Global.ReadCPUInfo(S7Clients[8], ref info, ref result);
+                if (result == 0)
+                {
+                    tbModuleTypeNamePlc8.Text = info.ModuleTypeName;
+                    tbSerialNumberPlc8.Text = info.SerialNumber;
+                    tbCopyrightPlc8.Text = info.Copyright;
+                    tbAsNamePlc8.Text = info.ASName;
+                    tbModuleNamePlc8.Text = info.ModuleName;
+                }
+
+                S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                Global.ReadOrderCode(S7Clients[8], ref orderCode, ref result);
+                if (result == 0)
+                {
+                    tbOrderCodePlc8.Text = orderCode.Code;
+                    tbVersionPlc8.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                }
+            }
+        }
+
+        private void btnDisonnectPlc8_Click(object sender, EventArgs e)
+        {
+            S7Clients[8].Disconnect();
+            tbTextErrorPlc8.Text = "Disconnected";
+            tbIpAddressPlc8.Enabled = false;
+            tbRackPlc8.Enabled = false;
+            tbSlotPlc8.Enabled = false;
+            btnConnectPlc8.Enabled = true;
+            btnDisconnectPlc8.Enabled = false;
+            //tabControl.Enabled = false;
+        }
+
+        private void btnReadDirsPlc8_Click(object sender, EventArgs e)
+        {
+            richTextBoxPlc8.Text = string.Empty;
+            string root = @"E:\Recipes";
+            //Recipes.GetSubDirectories(root);
+            foreach (string dir in Recipes.GetSubDirectories(root))
+            {
+                richTextBoxPlc8.Text = richTextBoxPlc8.Text + dir + "\n";
+            }
+        }
+
+        private void tbIpPlc8_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbRackPlc8_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbSlotPlc8_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        #endregion
+
+        /// <summary>
+        /// Plc9
+        /// </summary>
+        #region Plc9
+        private async void btnConnectPlc9_Click(object sender, EventArgs e)
+        {
+            int result;
+            string address = tbIpAddressPlc9.Text;
+            int rack = tbRackPlc9.Text.ParseInt();
+            int slot = tbSlotPlc9.Text.ParseInt();
+            string error;
+
+            result = await Global.ConnectToClientAsync(S7Clients[9], address, rack, slot);
+
+            error = Global.ShowResultClient(result, S7Clients[9]);
+            tbTextErrorPlc9.Text = error;
+
+            if (result == 0)
+            {
+                btnConnectPlc9.Enabled = false;
+                btnDisconnectPlc9.Enabled = true;
+                //tabControl.Enabled = true;
+
+                S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                Global.ReadCPUInfo(S7Clients[9], ref info, ref result);
+                if (result == 0)
+                {
+                    tbModuleTypeNamePlc9.Text = info.ModuleTypeName;
+                    tbSerialNumberPlc9.Text = info.SerialNumber;
+                    tbCopyrightPlc9.Text = info.Copyright;
+                    tbAsNamePlc9.Text = info.ASName;
+                    tbModuleNamePlc9.Text = info.ModuleName;
+                }
+
+                S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                Global.ReadOrderCode(S7Clients[9], ref orderCode, ref result);
+                if (result == 0)
+                {
+                    tbOrderCodePlc9.Text = orderCode.Code;
+                    tbVersionPlc9.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                }
+            }
+        }
+
+        private void btnDisonnectPlc9_Click(object sender, EventArgs e)
+        {
+            S7Clients[9].Disconnect();
+            tbTextErrorPlc9.Text = "Disconnected";
+            tbIpAddressPlc9.Enabled = false;
+            tbRackPlc9.Enabled = false;
+            tbSlotPlc9.Enabled = false;
+            btnConnectPlc9.Enabled = true;
+            btnDisconnectPlc9.Enabled = false;
+            //tabControl.Enabled = false;
+        }
+
+        private void btnReadDirsPlc9_Click(object sender, EventArgs e)
+        {
+            richTextBoxPlc9.Text = string.Empty;
+            string root = @"E:\Recipes";
+            //Recipes.GetSubDirectories(root);
+            foreach (string dir in Recipes.GetSubDirectories(root))
+            {
+                richTextBoxPlc9.Text = richTextBoxPlc9.Text + dir + "\n";
+            }
+        }
+
+        private void tbIpPlc9_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbRackPlc9_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbSlotPlc9_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        #endregion
+
         #endregion
 
         /// <summary>
@@ -1551,6 +1832,44 @@ namespace WinS7Client
             {
                 btn7.BackColor = Color.LightGray;
             }
+            //btn8 - PLC8 Animation
+            if (S7Clients[8].Connected)
+            {
+                btnConnectPlc8.Enabled = false;
+                btnDisconnectPlc8.Enabled = true;
+            }
+            else
+            {
+                btnConnectPlc8.Enabled = true;
+                btnDisconnectPlc8.Enabled = false;
+            }
+            if (S7Clients[8].Connected & ServicePlcToPcs[8].LifeBit)
+            {
+                btn8.BackColor = Color.Green;
+            }
+            else
+            {
+                btn8.BackColor = Color.LightGray;
+            }
+            //btn9 - PLC9 Animation
+            if (S7Clients[9].Connected)
+            {
+                btnConnectPlc9.Enabled = false;
+                btnDisconnectPlc9.Enabled = true;
+            }
+            else
+            {
+                btnConnectPlc9.Enabled = true;
+                btnDisconnectPlc9.Enabled = false;
+            }
+            if (S7Clients[9].Connected & ServicePlcToPcs[9].LifeBit)
+            {
+                btn9.BackColor = Color.Green;
+            }
+            else
+            {
+                btn9.BackColor = Color.LightGray;
+            }
 
             // the code that you want to measure ends here
             watch.Stop();
@@ -1781,7 +2100,32 @@ namespace WinS7Client
                     }
                         break;
                 case 8:
-                    await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    result = await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    if (result == 0)
+                    {
+                        btnConnectPlc8.Enabled = false;
+                        btnDisconnectPlc8.Enabled = true;
+                        //tabControl.Enabled = true;
+
+                        S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                        Global.ReadCPUInfo(S7Clients[8], ref info, ref result);
+                        if (result == 0)
+                        {
+                            tbModuleTypeNamePlc8.Text = info.ModuleTypeName;
+                            tbSerialNumberPlc8.Text = info.SerialNumber;
+                            tbCopyrightPlc8.Text = info.Copyright;
+                            tbAsNamePlc8.Text = info.ASName;
+                            tbModuleNamePlc8.Text = info.ModuleName;
+                        }
+
+                        S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                        Global.ReadOrderCode(S7Clients[8], ref orderCode, ref result);
+                        if (result == 0)
+                        {
+                            tbOrderCodePlc8.Text = orderCode.Code;
+                            tbVersionPlc8.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                        }
+                    }
                     break;
                 case 9:
                     await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());

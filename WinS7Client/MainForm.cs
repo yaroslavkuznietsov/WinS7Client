@@ -25,14 +25,14 @@ namespace WinS7Client
         private int _ticks;
         private ServiceForm myServiceForm;
 
-        private S7Client[] S7Clients = new S7Client[11];
-        private string[] PlcIpAddress = new string[11];
-        private string[] PlcRack = new string[11];
-        private string[] PlcSlot = new string[11];
-        private S7Client.S7CpuInfo[] S7CpuInfos = new S7Client.S7CpuInfo[11];
-        private ServicePcToPlc[] ServicePcToPlcs = new ServicePcToPlc[11];
-        private ServicePlcToPc[] ServicePlcToPcs = new ServicePlcToPc[11];
-        public CommData[] CommDatas = new CommData[11];
+        private S7Client[] S7Clients = new S7Client[15];
+        private string[] PlcIpAddress = new string[15];
+        private string[] PlcRack = new string[15];
+        private string[] PlcSlot = new string[15];
+        private S7Client.S7CpuInfo[] S7CpuInfos = new S7Client.S7CpuInfo[15];
+        private ServicePcToPlc[] ServicePcToPlcs = new ServicePcToPlc[15];
+        private ServicePlcToPc[] ServicePlcToPcs = new ServicePlcToPc[15];
+        public CommData[] CommDatas = new CommData[15];
 
         public string[] appenderName = new string[15];
 
@@ -45,6 +45,11 @@ namespace WinS7Client
         private Thread tPlc7;
         private Thread tPlc8;
         private Thread tPlc9;
+        private Thread tPlc10;
+        private Thread tPlc11;
+        private Thread tPlc12;
+        private Thread tPlc13;
+        private Thread tPlc14;
 
         // Create a logger
         //private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -59,11 +64,15 @@ namespace WinS7Client
         private static readonly log4net.ILog log8 = log4net.LogManager.GetLogger("Logger8");
         private static readonly log4net.ILog log9 = log4net.LogManager.GetLogger("Logger9");
         private static readonly log4net.ILog log10 = log4net.LogManager.GetLogger("Logger10");
+        private static readonly log4net.ILog log11 = log4net.LogManager.GetLogger("Logger11");
+        private static readonly log4net.ILog log12 = log4net.LogManager.GetLogger("Logger12");
+        private static readonly log4net.ILog log13 = log4net.LogManager.GetLogger("Logger13");
+        private static readonly log4net.ILog log14 = log4net.LogManager.GetLogger("Logger14");
 
-        private static readonly log4net.ILog[] log = new log4net.ILog[11];
+        private static readonly log4net.ILog[] log = new log4net.ILog[15];
 
         //Thread Timestamps
-        private DateTime[] HeartbeatTimeStamp = new DateTime[11];
+        private DateTime[] HeartbeatTimeStamp = new DateTime[15];
         
         private const string PlcInfoToolTip = "IP-Address: IPv4 \nS71200/1500: Rack=0, Slot=0/1 \nS7300: Rack=0, Slot=2 \nS7400/WinAC See HW Config";
 
@@ -124,6 +133,11 @@ namespace WinS7Client
             tPlc7.Abort();
             tPlc8.Abort();
             tPlc9.Abort();
+            tPlc10.Abort();
+            tPlc11.Abort();
+            tPlc12.Abort();
+            tPlc13.Abort();
+            tPlc14.Abort();
 
             tPlc1.Join();
             tPlc2.Join();
@@ -134,6 +148,11 @@ namespace WinS7Client
             tPlc7.Join();
             tPlc8.Join();
             tPlc9.Join();
+            tPlc10.Join();
+            tPlc11.Join();
+            tPlc12.Join();
+            tPlc13.Join();
+            tPlc14.Join();
         }
         #endregion
 
@@ -229,9 +248,12 @@ namespace WinS7Client
                     {
                         if (S7Clients[n].Connected)
                         {
-
                             CommPlcInstance commPlcInst = new CommPlcInstance();
                             commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
+                        }
+                        else
+                        {
+                            ConnectClient(n);
                         }
                     });
 
@@ -266,9 +288,12 @@ namespace WinS7Client
                     {
                         if (S7Clients[n].Connected)
                         {
-
                             CommPlcInstance commPlcInst = new CommPlcInstance();
                             commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
+                        }
+                        else
+                        {
+                            ConnectClient(n);
                         }
                     });
 
@@ -306,6 +331,10 @@ namespace WinS7Client
                             CommPlcInstance commPlcInst = new CommPlcInstance();
                             commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
                         }
+                        else
+                        {
+                            ConnectClient(n);
+                        }
                     });
 
                     Thread.Sleep(500);
@@ -342,6 +371,10 @@ namespace WinS7Client
                             CommPlcInstance commPlcInst = new CommPlcInstance();
                             commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
                         }
+                        else
+                        {
+                            ConnectClient(n);
+                        }
                     });
 
                     Thread.Sleep(500);
@@ -377,6 +410,10 @@ namespace WinS7Client
                         {
                             CommPlcInstance commPlcInst = new CommPlcInstance();
                             commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
+                        }
+                        else
+                        {
+                            ConnectClient(n);
                         }
                     });
 
@@ -438,36 +475,194 @@ namespace WinS7Client
         /// </summary>
         public void Plc9()
         {
-            //int n = 9;
-            //while (true)
-            //{
-            //    try
-            //    {
-            //        this.Invoke((MethodInvoker)delegate
-            //        {
-            //            if (S7Clients[n].Connected)
-            //            {
-            //                CommPlcInstance commPlcInst = new CommPlcInstance();
-            //                commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
-            //            }
-            //        });
+            int n = 9;
+            while (true)
+            {
+                try
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                       if (S7Clients[n].Connected)
+                       {
+                            CommPlcInstance commPlcInst = new CommPlcInstance();
+                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
+                        }
+                    });
 
-            //        Thread.Sleep(500);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
-            //        ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
-            //        log[0].Error("Exception: " + ex.Message.ToString());
+                    Thread.Sleep(500);
+                }
+                catch (Exception ex)
+                {
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
+                    log[0].Error("Exception: " + ex.Message.ToString());
 
-            //        //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger default file
-            //        ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger.log");
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger default file
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger.log");
 
-            //        //throw;
-            //    }
-            //}
+                    //throw;
+                }
+            }
         }
 
+        public void Plc10()
+        {
+            int n = 10;
+            while (true)
+            {
+                try
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        if (S7Clients[n].Connected)
+                        {
+                            CommPlcInstance commPlcInst = new CommPlcInstance();
+                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
+                        }
+                    });
+
+                    Thread.Sleep(500);
+                }
+                catch (Exception ex)
+                {
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
+                    log[0].Error("Exception: " + ex.Message.ToString());
+
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger default file
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger.log");
+
+                    //throw;
+                }
+            }
+        }
+
+        public void Plc11()
+        {
+            int n = 11;
+            while (true)
+            {
+                try
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        if (S7Clients[n].Connected)
+                        {
+                            CommPlcInstance commPlcInst = new CommPlcInstance();
+                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
+                        }
+                    });
+
+                    Thread.Sleep(500);
+                }
+                catch (Exception ex)
+                {
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
+                    log[0].Error("Exception: " + ex.Message.ToString());
+
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger default file
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger.log");
+
+                    //throw;
+                }
+            }
+        }
+
+        public void Plc12()
+        {
+            int n = 12;
+            while (true)
+            {
+                try
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        if (S7Clients[n].Connected)
+                        {
+                            CommPlcInstance commPlcInst = new CommPlcInstance();
+                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
+                        }
+                    });
+
+                    Thread.Sleep(500);
+                }
+                catch (Exception ex)
+                {
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
+                    log[0].Error("Exception: " + ex.Message.ToString());
+
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger default file
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger.log");
+
+                    //throw;
+                }
+            }
+        }
+        public void Plc13()
+        {
+            int n = 13;
+            while (true)
+            {
+                try
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        if (S7Clients[n].Connected)
+                        {
+                            CommPlcInstance commPlcInst = new CommPlcInstance();
+                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
+                        }
+                    });
+
+                    Thread.Sleep(500);
+                }
+                catch (Exception ex)
+                {
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
+                    log[0].Error("Exception: " + ex.Message.ToString());
+
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger default file
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger.log");
+
+                    //throw;
+                }
+            }
+        }
+
+        public void Plc14()
+        {
+            int n = 14;
+            while (true)
+            {
+                try
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        if (S7Clients[n].Connected)
+                        {
+                            CommPlcInstance commPlcInst = new CommPlcInstance();
+                            commPlcInst.ConnectionRun(S7Clients[n], CommDatas[n], ref ServicePlcToPcs[n], ref ServicePcToPlcs[n]);
+                        }
+                    });
+
+                    Thread.Sleep(500);
+                }
+                catch (Exception ex)
+                {
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger" + n + ".log");
+                    log[0].Error("Exception: " + ex.Message.ToString());
+
+                    //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger default file
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderName[0], @".\\WinS7ClientLogger.log");
+
+                    //throw;
+                }
+            }
+        }
         #endregion
 
 
@@ -488,6 +683,10 @@ namespace WinS7Client
             panel8.Visible = false;
             panel9.Visible = false;
             panel10.Visible = false;
+            panel11.Visible = false;
+            panel12.Visible = false;
+            panel13.Visible = false;
+            panel14.Visible = false;
             panelService.Visible = false;
 
             //S7Clients
@@ -523,6 +722,10 @@ namespace WinS7Client
             appenderName[8] = appenders[8].Name;
             appenderName[9] = appenders[9].Name;
             appenderName[10] = appenders[10].Name;
+            appenderName[11] = appenders[11].Name;
+            appenderName[12] = appenders[12].Name;
+            appenderName[13] = appenders[13].Name;
+            appenderName[14] = appenders[14].Name;
 
 
             // Loggers
@@ -537,6 +740,10 @@ namespace WinS7Client
             log[8] = log8;
             log[9] = log9;
             log[10] = log10;
+            log[11] = log11;
+            log[12] = log12;
+            log[13] = log13;
+            log[14] = log14;
 
             // Loggers Test Start
             log[0].Info("Start0");
@@ -550,6 +757,10 @@ namespace WinS7Client
             log[8].Info("Start8");
             log[9].Info("Start9");
             log[10].Info("Start10");
+            log[11].Info("Start11");
+            log[12].Info("Start12");
+            log[13].Info("Start13");
+            log[14].Info("Start14");
 
 
             // CommServices
@@ -584,7 +795,16 @@ namespace WinS7Client
             tPlc8.Start();
             tPlc9 = new Thread(new ThreadStart(Plc9));
             tPlc9.Start();
-
+            tPlc10 = new Thread(new ThreadStart(Plc10));
+            tPlc10.Start();
+            tPlc11 = new Thread(new ThreadStart(Plc11));
+            tPlc11.Start();
+            tPlc12 = new Thread(new ThreadStart(Plc12));
+            tPlc12.Start();
+            tPlc13 = new Thread(new ThreadStart(Plc13));
+            tPlc13.Start();
+            tPlc14 = new Thread(new ThreadStart(Plc14));
+            tPlc14.Start();
 
             // PLC1
             tbIpAddressPlc1.Text = PlcIpAddress[1];
@@ -676,7 +896,7 @@ namespace WinS7Client
             tbOrderCodePlc5.Text = "";
             tbVersionPlc5.Text = "";
 
-            // PLC5
+            // PLC6
             tbIpAddressPlc6.Text = PlcIpAddress[6];
             tbRackPlc6.Text = PlcRack[6];
             tbSlotPlc6.Text = PlcSlot[6];
@@ -748,6 +968,95 @@ namespace WinS7Client
             tbOrderCodePlc9.Text = "";
             tbVersionPlc9.Text = "";
 
+            // Plc10
+            tbIpAddressPlc10.Text = PlcIpAddress[10];
+            tbRackPlc10.Text = PlcRack[10];
+            tbSlotPlc10.Text = PlcSlot[10];
+
+            tbIpAddressPlc10.Enabled = false;
+            tbRackPlc10.Enabled = false;
+            tbSlotPlc10.Enabled = false;
+
+            tbModuleTypeNamePlc10.Text = "";
+            tbSerialNumberPlc10.Text = "";
+            tbCopyrightPlc10.Text = "";
+            tbAsNamePlc10.Text = "";
+            tbModuleNamePlc10.Text = "";
+
+            tbOrderCodePlc10.Text = "";
+            tbVersionPlc10.Text = "";
+
+            // Plc11
+            tbIpAddressPlc11.Text = PlcIpAddress[11];
+            tbRackPlc11.Text = PlcRack[11];
+            tbSlotPlc11.Text = PlcSlot[11];
+
+            tbIpAddressPlc11.Enabled = false;
+            tbRackPlc11.Enabled = false;
+            tbSlotPlc11.Enabled = false;
+
+            tbModuleTypeNamePlc11.Text = "";
+            tbSerialNumberPlc11.Text = "";
+            tbCopyrightPlc11.Text = "";
+            tbAsNamePlc11.Text = "";
+            tbModuleNamePlc11.Text = "";
+
+            tbOrderCodePlc11.Text = "";
+            tbVersionPlc11.Text = "";
+
+            // Plc12
+            tbIpAddressPlc12.Text = PlcIpAddress[12];
+            tbRackPlc12.Text = PlcRack[12];
+            tbSlotPlc12.Text = PlcSlot[12];
+
+            tbIpAddressPlc12.Enabled = false;
+            tbRackPlc12.Enabled = false;
+            tbSlotPlc12.Enabled = false;
+
+            tbModuleTypeNamePlc12.Text = "";
+            tbSerialNumberPlc12.Text = "";
+            tbCopyrightPlc12.Text = "";
+            tbAsNamePlc12.Text = "";
+            tbModuleNamePlc12.Text = "";
+
+            tbOrderCodePlc12.Text = "";
+            tbVersionPlc12.Text = "";
+
+            // Plc13
+            tbIpAddressPlc13.Text = PlcIpAddress[13];
+            tbRackPlc13.Text = PlcRack[13];
+            tbSlotPlc13.Text = PlcSlot[13];
+
+            tbIpAddressPlc13.Enabled = false;
+            tbRackPlc13.Enabled = false;
+            tbSlotPlc13.Enabled = false;
+
+            tbModuleTypeNamePlc13.Text = "";
+            tbSerialNumberPlc13.Text = "";
+            tbCopyrightPlc13.Text = "";
+            tbAsNamePlc13.Text = "";
+            tbModuleNamePlc13.Text = "";
+
+            tbOrderCodePlc13.Text = "";
+            tbVersionPlc13.Text = "";
+
+            // Plc14
+            tbIpAddressPlc14.Text = PlcIpAddress[14];
+            tbRackPlc14.Text = PlcRack[14];
+            tbSlotPlc14.Text = PlcSlot[14];
+
+            tbIpAddressPlc14.Enabled = false;
+            tbRackPlc14.Enabled = false;
+            tbSlotPlc14.Enabled = false;
+
+            tbModuleTypeNamePlc14.Text = "";
+            tbSerialNumberPlc14.Text = "";
+            tbCopyrightPlc14.Text = "";
+            tbAsNamePlc14.Text = "";
+            tbModuleNamePlc14.Text = "";
+
+            tbOrderCodePlc14.Text = "";
+            tbVersionPlc14.Text = "";
 
             TimerForm.Enabled = true;
             TimerForm.Start();
@@ -1477,6 +1786,411 @@ namespace WinS7Client
         }
         #endregion
 
+        /// <summary>
+        /// Plc10
+        /// </summary>
+        #region Plc10
+        private async void btnConnectPlc10_Click(object sender, EventArgs e)
+        {
+            int result;
+            string address = tbIpAddressPlc10.Text;
+            int rack = tbRackPlc10.Text.ParseInt();
+            int slot = tbSlotPlc10.Text.ParseInt();
+            string error;
+
+            result = await Global.ConnectToClientAsync(S7Clients[10], address, rack, slot);
+
+            error = Global.ShowResultClient(result, S7Clients[10]);
+            tbTextErrorPlc10.Text = error;
+
+            if (result == 0)
+            {
+                btnConnectPlc10.Enabled = false;
+                btnDisconnectPlc10.Enabled = true;
+                //tabControl.Enabled = true;
+
+                S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                Global.ReadCPUInfo(S7Clients[10], ref info, ref result);
+                if (result == 0)
+                {
+                    tbModuleTypeNamePlc10.Text = info.ModuleTypeName;
+                    tbSerialNumberPlc10.Text = info.SerialNumber;
+                    tbCopyrightPlc10.Text = info.Copyright;
+                    tbAsNamePlc10.Text = info.ASName;
+                    tbModuleNamePlc10.Text = info.ModuleName;
+                }
+
+                S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                Global.ReadOrderCode(S7Clients[10], ref orderCode, ref result);
+                if (result == 0)
+                {
+                    tbOrderCodePlc10.Text = orderCode.Code;
+                    tbVersionPlc10.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                }
+            }
+        }
+
+        private void btnDisonnectPlc10_Click(object sender, EventArgs e)
+        {
+            S7Clients[10].Disconnect();
+            tbTextErrorPlc10.Text = "Disconnected";
+            tbIpAddressPlc10.Enabled = false;
+            tbRackPlc10.Enabled = false;
+            tbSlotPlc10.Enabled = false;
+            btnConnectPlc10.Enabled = true;
+            btnDisconnectPlc10.Enabled = false;
+            //tabControl.Enabled = false;
+        }
+
+        private void btnReadDirsPlc10_Click(object sender, EventArgs e)
+        {
+            richTextBoxPlc10.Text = string.Empty;
+            string root = @"E:\Recipes";
+            //Recipes.GetSubDirectories(root);
+            foreach (string dir in Recipes.GetSubDirectories(root))
+            {
+                richTextBoxPlc10.Text = richTextBoxPlc10.Text + dir + "\n";
+            }
+        }
+
+        private void tbIpPlc10_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbRackPlc10_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbSlotPlc10_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        #endregion
+
+        /// <summary>
+        /// Plc11
+        /// </summary>
+        #region Plc11
+        private async void btnConnectPlc11_Click(object sender, EventArgs e)
+        {
+            int result;
+            string address = tbIpAddressPlc11.Text;
+            int rack = tbRackPlc11.Text.ParseInt();
+            int slot = tbSlotPlc11.Text.ParseInt();
+            string error;
+
+            result = await Global.ConnectToClientAsync(S7Clients[11], address, rack, slot);
+
+            error = Global.ShowResultClient(result, S7Clients[11]);
+            tbTextErrorPlc11.Text = error;
+
+            if (result == 0)
+            {
+                btnConnectPlc11.Enabled = false;
+                btnDisconnectPlc11.Enabled = true;
+                //tabControl.Enabled = true;
+
+                S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                Global.ReadCPUInfo(S7Clients[11], ref info, ref result);
+                if (result == 0)
+                {
+                    tbModuleTypeNamePlc11.Text = info.ModuleTypeName;
+                    tbSerialNumberPlc11.Text = info.SerialNumber;
+                    tbCopyrightPlc11.Text = info.Copyright;
+                    tbAsNamePlc11.Text = info.ASName;
+                    tbModuleNamePlc11.Text = info.ModuleName;
+                }
+
+                S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                Global.ReadOrderCode(S7Clients[11], ref orderCode, ref result);
+                if (result == 0)
+                {
+                    tbOrderCodePlc11.Text = orderCode.Code;
+                    tbVersionPlc11.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                }
+            }
+        }
+
+        private void btnDisonnectPlc11_Click(object sender, EventArgs e)
+        {
+            S7Clients[11].Disconnect();
+            tbTextErrorPlc11.Text = "Disconnected";
+            tbIpAddressPlc11.Enabled = false;
+            tbRackPlc11.Enabled = false;
+            tbSlotPlc11.Enabled = false;
+            btnConnectPlc11.Enabled = true;
+            btnDisconnectPlc11.Enabled = false;
+            //tabControl.Enabled = false;
+        }
+
+        private void btnReadDirsPlc11_Click(object sender, EventArgs e)
+        {
+            richTextBoxPlc11.Text = string.Empty;
+            string root = @"E:\Recipes";
+            //Recipes.GetSubDirectories(root);
+            foreach (string dir in Recipes.GetSubDirectories(root))
+            {
+                richTextBoxPlc11.Text = richTextBoxPlc11.Text + dir + "\n";
+            }
+        }
+
+        private void tbIpPlc11_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbRackPlc11_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbSlotPlc11_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        #endregion
+
+        /// <summary>
+        /// Plc12
+        /// </summary>
+        #region Plc12
+        private async void btnConnectPlc12_Click(object sender, EventArgs e)
+        {
+            int result;
+            string address = tbIpAddressPlc12.Text;
+            int rack = tbRackPlc12.Text.ParseInt();
+            int slot = tbSlotPlc12.Text.ParseInt();
+            string error;
+
+            result = await Global.ConnectToClientAsync(S7Clients[12], address, rack, slot);
+
+            error = Global.ShowResultClient(result, S7Clients[12]);
+            tbTextErrorPlc12.Text = error;
+
+            if (result == 0)
+            {
+                btnConnectPlc12.Enabled = false;
+                btnDisconnectPlc12.Enabled = true;
+                //tabControl.Enabled = true;
+
+                S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                Global.ReadCPUInfo(S7Clients[12], ref info, ref result);
+                if (result == 0)
+                {
+                    tbModuleTypeNamePlc12.Text = info.ModuleTypeName;
+                    tbSerialNumberPlc12.Text = info.SerialNumber;
+                    tbCopyrightPlc12.Text = info.Copyright;
+                    tbAsNamePlc12.Text = info.ASName;
+                    tbModuleNamePlc12.Text = info.ModuleName;
+                }
+
+                S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                Global.ReadOrderCode(S7Clients[12], ref orderCode, ref result);
+                if (result == 0)
+                {
+                    tbOrderCodePlc12.Text = orderCode.Code;
+                    tbVersionPlc12.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                }
+            }
+        }
+
+        private void btnDisonnectPlc12_Click(object sender, EventArgs e)
+        {
+            S7Clients[12].Disconnect();
+            tbTextErrorPlc12.Text = "Disconnected";
+            tbIpAddressPlc12.Enabled = false;
+            tbRackPlc12.Enabled = false;
+            tbSlotPlc12.Enabled = false;
+            btnConnectPlc12.Enabled = true;
+            btnDisconnectPlc12.Enabled = false;
+            //tabControl.Enabled = false;
+        }
+
+        private void btnReadDirsPlc12_Click(object sender, EventArgs e)
+        {
+            richTextBoxPlc12.Text = string.Empty;
+            string root = @"E:\Recipes";
+            //Recipes.GetSubDirectories(root);
+            foreach (string dir in Recipes.GetSubDirectories(root))
+            {
+                richTextBoxPlc12.Text = richTextBoxPlc12.Text + dir + "\n";
+            }
+        }
+
+        private void tbIpPlc12_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbRackPlc12_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbSlotPlc12_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        #endregion
+
+        /// <summary>
+        /// Plc13
+        /// </summary>
+        #region Plc13
+        private async void btnConnectPlc13_Click(object sender, EventArgs e)
+        {
+            int result;
+            string address = tbIpAddressPlc13.Text;
+            int rack = tbRackPlc13.Text.ParseInt();
+            int slot = tbSlotPlc13.Text.ParseInt();
+            string error;
+
+            result = await Global.ConnectToClientAsync(S7Clients[13], address, rack, slot);
+
+            error = Global.ShowResultClient(result, S7Clients[13]);
+            tbTextErrorPlc13.Text = error;
+
+            if (result == 0)
+            {
+                btnConnectPlc13.Enabled = false;
+                btnDisconnectPlc13.Enabled = true;
+                //tabControl.Enabled = true;
+
+                S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                Global.ReadCPUInfo(S7Clients[13], ref info, ref result);
+                if (result == 0)
+                {
+                    tbModuleTypeNamePlc13.Text = info.ModuleTypeName;
+                    tbSerialNumberPlc13.Text = info.SerialNumber;
+                    tbCopyrightPlc13.Text = info.Copyright;
+                    tbAsNamePlc13.Text = info.ASName;
+                    tbModuleNamePlc13.Text = info.ModuleName;
+                }
+
+                S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                Global.ReadOrderCode(S7Clients[13], ref orderCode, ref result);
+                if (result == 0)
+                {
+                    tbOrderCodePlc13.Text = orderCode.Code;
+                    tbVersionPlc13.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                }
+            }
+        }
+
+        private void btnDisonnectPlc13_Click(object sender, EventArgs e)
+        {
+            S7Clients[13].Disconnect();
+            tbTextErrorPlc13.Text = "Disconnected";
+            tbIpAddressPlc13.Enabled = false;
+            tbRackPlc13.Enabled = false;
+            tbSlotPlc13.Enabled = false;
+            btnConnectPlc13.Enabled = true;
+            btnDisconnectPlc13.Enabled = false;
+            //tabControl.Enabled = false;
+        }
+
+        private void btnReadDirsPlc13_Click(object sender, EventArgs e)
+        {
+            richTextBoxPlc13.Text = string.Empty;
+            string root = @"E:\Recipes";
+            //Recipes.GetSubDirectories(root);
+            foreach (string dir in Recipes.GetSubDirectories(root))
+            {
+                richTextBoxPlc13.Text = richTextBoxPlc13.Text + dir + "\n";
+            }
+        }
+
+        private void tbIpPlc13_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbRackPlc13_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbSlotPlc13_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        #endregion
+
+        /// <summary>
+        /// Plc14
+        /// </summary>
+        #region Plc14
+        private async void btnConnectPlc14_Click(object sender, EventArgs e)
+        {
+            int result;
+            string address = tbIpAddressPlc14.Text;
+            int rack = tbRackPlc14.Text.ParseInt();
+            int slot = tbSlotPlc14.Text.ParseInt();
+            string error;
+
+            result = await Global.ConnectToClientAsync(S7Clients[14], address, rack, slot);
+
+            error = Global.ShowResultClient(result, S7Clients[14]);
+            tbTextErrorPlc14.Text = error;
+
+            if (result == 0)
+            {
+                btnConnectPlc14.Enabled = false;
+                btnDisconnectPlc14.Enabled = true;
+                //tabControl.Enabled = true;
+
+                S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                Global.ReadCPUInfo(S7Clients[14], ref info, ref result);
+                if (result == 0)
+                {
+                    tbModuleTypeNamePlc14.Text = info.ModuleTypeName;
+                    tbSerialNumberPlc14.Text = info.SerialNumber;
+                    tbCopyrightPlc14.Text = info.Copyright;
+                    tbAsNamePlc14.Text = info.ASName;
+                    tbModuleNamePlc14.Text = info.ModuleName;
+                }
+
+                S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                Global.ReadOrderCode(S7Clients[14], ref orderCode, ref result);
+                if (result == 0)
+                {
+                    tbOrderCodePlc14.Text = orderCode.Code;
+                    tbVersionPlc14.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                }
+            }
+        }
+
+        private void btnDisonnectPlc14_Click(object sender, EventArgs e)
+        {
+            S7Clients[14].Disconnect();
+            tbTextErrorPlc14.Text = "Disconnected";
+            tbIpAddressPlc14.Enabled = false;
+            tbRackPlc14.Enabled = false;
+            tbSlotPlc14.Enabled = false;
+            btnConnectPlc14.Enabled = true;
+            btnDisconnectPlc14.Enabled = false;
+            //tabControl.Enabled = false;
+        }
+
+        private void btnReadDirsPlc14_Click(object sender, EventArgs e)
+        {
+            richTextBoxPlc14.Text = string.Empty;
+            string root = @"E:\Recipes";
+            //Recipes.GetSubDirectories(root);
+            foreach (string dir in Recipes.GetSubDirectories(root))
+            {
+                richTextBoxPlc14.Text = richTextBoxPlc14.Text + dir + "\n";
+            }
+        }
+
+        private void tbIpPlc14_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbRackPlc14_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        private void tbSlotPlc14_MouseEnter(object sender, EventArgs e)
+        {
+            toolTipShow(sender, PlcInfoToolTip);
+        }
+        #endregion
+
         #endregion
 
         /// <summary>
@@ -1500,6 +2214,10 @@ namespace WinS7Client
             panel8.Visible = false;
             panel9.Visible = false;
             panel10.Visible = false;
+            panel11.Visible = false;
+            panel12.Visible = false;
+            panel13.Visible = false;
+            panel14.Visible = false;
             panelService.Visible = false;
         }
         private void btn2_Click(object sender, EventArgs e)
@@ -1515,6 +2233,10 @@ namespace WinS7Client
             panel8.Visible = false;
             panel9.Visible = false;
             panel10.Visible = false;
+            panel11.Visible = false;
+            panel12.Visible = false;
+            panel13.Visible = false;
+            panel14.Visible = false;
             panelService.Visible = false;
         }
         private void btn3_Click(object sender, EventArgs e)
@@ -1530,6 +2252,10 @@ namespace WinS7Client
             panel8.Visible = false;
             panel9.Visible = false;
             panel10.Visible = false;
+            panel11.Visible = false;
+            panel12.Visible = false;
+            panel13.Visible = false;
+            panel14.Visible = false;
             panelService.Visible = false;
         }
         private void btn4_Click(object sender, EventArgs e)
@@ -1545,6 +2271,10 @@ namespace WinS7Client
             panel8.Visible = false;
             panel9.Visible = false;
             panel10.Visible = false;
+            panel11.Visible = false;
+            panel12.Visible = false;
+            panel13.Visible = false;
+            panel14.Visible = false;
             panelService.Visible = false;
         }
         private void btn5_Click(object sender, EventArgs e)
@@ -1560,6 +2290,10 @@ namespace WinS7Client
             panel8.Visible = false;
             panel9.Visible = false;
             panel10.Visible = false;
+            panel11.Visible = false;
+            panel12.Visible = false;
+            panel13.Visible = false;
+            panel14.Visible = false;
             panelService.Visible = false;
         }
         private void btn6_Click(object sender, EventArgs e)
@@ -1575,6 +2309,10 @@ namespace WinS7Client
             panel8.Visible = false;
             panel9.Visible = false;
             panel10.Visible = false;
+            panel11.Visible = false;
+            panel12.Visible = false;
+            panel13.Visible = false;
+            panel14.Visible = false;
             panelService.Visible = false;
         }
         private void btn7_Click(object sender, EventArgs e)
@@ -1590,6 +2328,10 @@ namespace WinS7Client
             panel8.Visible = false;
             panel9.Visible = false;
             panel10.Visible = false;
+            panel11.Visible = false;
+            panel12.Visible = false;
+            panel13.Visible = false;
+            panel14.Visible = false;
             panelService.Visible = false;
         }
         private void btn8_Click(object sender, EventArgs e)
@@ -1605,6 +2347,10 @@ namespace WinS7Client
             panel7.Visible = false;
             panel9.Visible = false;
             panel10.Visible = false;
+            panel11.Visible = false;
+            panel12.Visible = false;
+            panel13.Visible = false;
+            panel14.Visible = false;
             panelService.Visible = false;
         }
         private void btn9_Click(object sender, EventArgs e)
@@ -1620,13 +2366,16 @@ namespace WinS7Client
             panel7.Visible = false;
             panel8.Visible = false;
             panel10.Visible = false;
+            panel11.Visible = false;
+            panel12.Visible = false;
+            panel13.Visible = false;
+            panel14.Visible = false;
             panelService.Visible = false;
         }
         private void btn10_Click(object sender, EventArgs e)
         {
             panelMain.BackgroundImage = null;
-            panel10.Visible = true;
-            panel9.Visible = false;
+            panel10.Visible = true;           
             panel1.Visible = false;
             panel2.Visible = false;
             panel3.Visible = false;
@@ -1635,10 +2384,92 @@ namespace WinS7Client
             panel6.Visible = false;
             panel7.Visible = false;
             panel8.Visible = false;
+            panel9.Visible = false;
+            panel11.Visible = false;
+            panel12.Visible = false;
+            panel13.Visible = false;
+            panel14.Visible = false;
+            panelService.Visible = false;
+        }
+        private void btn11_Click(object sender, EventArgs e)
+        {
+            panelMain.BackgroundImage = null;
+            panel11.Visible = true; 
+            panel1.Visible = false;
+            panel2.Visible = false;
+            panel3.Visible = false;
+            panel4.Visible = false;
+            panel5.Visible = false;
+            panel6.Visible = false;
+            panel7.Visible = false;
+            panel8.Visible = false;
+            panel9.Visible = false;
+            panel10.Visible = false;
+            panel12.Visible = false;
+            panel13.Visible = false;
+            panel14.Visible = false;
             panelService.Visible = false;
         }
 
+        private void btn12_Click(object sender, EventArgs e)
+        {
+            panelMain.BackgroundImage = null;
+            panel12.Visible = true;
+            panel1.Visible = false;
+            panel2.Visible = false;
+            panel3.Visible = false;
+            panel4.Visible = false;
+            panel5.Visible = false;
+            panel6.Visible = false;
+            panel7.Visible = false;
+            panel8.Visible = false;
+            panel9.Visible = false;
+            panel10.Visible = false;
+            panel11.Visible = false;
+            panel13.Visible = false;
+            panel14.Visible = false;
+            panelService.Visible = false;
+        }
 
+        private void btn13_Click(object sender, EventArgs e)
+        {
+            panelMain.BackgroundImage = null;
+            panel13.Visible = true;
+            panel1.Visible = false;
+            panel2.Visible = false;
+            panel3.Visible = false;
+            panel4.Visible = false;
+            panel5.Visible = false;
+            panel6.Visible = false;
+            panel7.Visible = false;
+            panel8.Visible = false;
+            panel9.Visible = false;
+            panel10.Visible = false;
+            panel11.Visible = false;
+            panel12.Visible = false;            
+            panel14.Visible = false;
+            panelService.Visible = false;
+        }
+
+        private void btn14_Click(object sender, EventArgs e)
+        {
+            panelMain.BackgroundImage = null;
+            panel14.Visible = true;
+            panel1.Visible = false;
+            panel2.Visible = false;
+            panel3.Visible = false;
+            panel4.Visible = false;
+            panel5.Visible = false;
+            panel6.Visible = false;
+            panel7.Visible = false;
+            panel8.Visible = false;
+            panel9.Visible = false;
+            panel10.Visible = false;
+            panel11.Visible = false;
+            panel12.Visible = false;
+            panel13.Visible = false;
+            panelService.Visible = false;
+        }
         private void btnService_Click(object sender, EventArgs e)
         {
             panelMain.BackgroundImage = null;
@@ -1649,9 +2480,13 @@ namespace WinS7Client
             panel5.Visible = false;
             panel6.Visible = false;
             panel7.Visible = false;
-            panel8.Visible = false;
-            panel10.Visible = false;
+            panel8.Visible = false;            
             panel9.Visible = false;
+            panel10.Visible = false;
+            panel11.Visible = false;
+            panel12.Visible = false;
+            panel13.Visible = false;
+            panel14.Visible = false;
             panelService.Visible = true;
         }
         private void panelService_VisibleChanged(object sender, EventArgs e)
@@ -1694,7 +2529,7 @@ namespace WinS7Client
             //Show counter
             //textBoxTimerForm.Text = _ticks.ToString();
 
-            if (_ticks >= 10)
+            if (_ticks >= 14)
             {
                 _ticks = 0;
             }
@@ -1794,7 +2629,7 @@ namespace WinS7Client
             {
                 btn5.BackColor = Color.LightGray;
             }
-            //btn7 - PLC6 Animation
+            //btn6 - PLC6 Animation
             if (S7Clients[6].Connected)
             {
                 btnConnectPlc6.Enabled = false;
@@ -1869,6 +2704,106 @@ namespace WinS7Client
             else
             {
                 btn9.BackColor = Color.LightGray;
+            }
+
+            //btn10 - PLC10 Animation
+            if (S7Clients[10].Connected)
+            {
+                btnConnectPlc10.Enabled = false;
+                btnDisconnectPlc10.Enabled = true;
+            }
+            else
+            {
+                btnConnectPlc10.Enabled = true;
+                btnDisconnectPlc10.Enabled = false;
+            }
+            if (S7Clients[10].Connected & ServicePlcToPcs[10].LifeBit)
+            {
+                btn10.BackColor = Color.Green;
+            }
+            else
+            {
+                btn10.BackColor = Color.LightGray;
+            }
+
+            //btn11 - PLC11 Animation
+            if (S7Clients[11].Connected)
+            {
+                btnConnectPlc11.Enabled = false;
+                btnDisconnectPlc11.Enabled = true;
+            }
+            else
+            {
+                btnConnectPlc11.Enabled = true;
+                btnDisconnectPlc11.Enabled = false;
+            }
+            if (S7Clients[11].Connected & ServicePlcToPcs[11].LifeBit)
+            {
+                btn11.BackColor = Color.Green;
+            }
+            else
+            {
+                btn11.BackColor = Color.LightGray;
+            }
+
+            //btn12 - PLC12 Animation
+            if (S7Clients[12].Connected)
+            {
+                btnConnectPlc12.Enabled = false;
+                btnDisconnectPlc12.Enabled = true;
+            }
+            else
+            {
+                btnConnectPlc12.Enabled = true;
+                btnDisconnectPlc12.Enabled = false;
+            }
+            if (S7Clients[12].Connected & ServicePlcToPcs[12].LifeBit)
+            {
+                btn12.BackColor = Color.Green;
+            }
+            else
+            {
+                btn12.BackColor = Color.LightGray;
+            }
+
+            //btn13 - PLC13 Animation
+            if (S7Clients[13].Connected)
+            {
+                btnConnectPlc13.Enabled = false;
+                btnDisconnectPlc13.Enabled = true;
+            }
+            else
+            {
+                btnConnectPlc13.Enabled = true;
+                btnDisconnectPlc13.Enabled = false;
+            }
+            if (S7Clients[13].Connected & ServicePlcToPcs[13].LifeBit)
+            {
+                btn13.BackColor = Color.Green;
+            }
+            else
+            {
+                btn13.BackColor = Color.LightGray;
+            }
+
+            //btn14 - PLC14 Animation
+            if (S7Clients[14].Connected)
+            {
+                btnConnectPlc14.Enabled = false;
+                btnDisconnectPlc14.Enabled = true;
+            }
+            else
+            {
+                btnConnectPlc14.Enabled = true;
+                btnDisconnectPlc14.Enabled = false;
+            }
+            if (S7Clients[14].Connected & ServicePlcToPcs[14].LifeBit)
+            {
+                btn14.BackColor = Color.Green;
+            }
+            else
+            {
+                btn14.BackColor = Color.LightGray;
             }
 
             // the code that you want to measure ends here
@@ -2128,9 +3063,174 @@ namespace WinS7Client
                     }
                     break;
                 case 9:
-                    await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    result = await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    if (result == 0)
+                    {
+                        btnConnectPlc9.Enabled = false;
+                        btnDisconnectPlc9.Enabled = true;
+                        //tabControl.Enabled = true;
+
+                        S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                        Global.ReadCPUInfo(S7Clients[9], ref info, ref result);
+                        if (result == 0)
+                        {
+                            tbModuleTypeNamePlc9.Text = info.ModuleTypeName;
+                            tbSerialNumberPlc9.Text = info.SerialNumber;
+                            tbCopyrightPlc9.Text = info.Copyright;
+                            tbAsNamePlc9.Text = info.ASName;
+                            tbModuleNamePlc9.Text = info.ModuleName;
+                        }
+
+                        S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                        Global.ReadOrderCode(S7Clients[9], ref orderCode, ref result);
+                        if (result == 0)
+                        {
+                            tbOrderCodePlc9.Text = orderCode.Code;
+                            tbVersionPlc9.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                        }
+                    }
                     break;
                 case 10:
+                    result = await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    if (result == 0)
+                    {
+                        btnConnectPlc10.Enabled = false;
+                        btnDisconnectPlc10.Enabled = true;
+                        //tabControl.Enabled = true;
+
+                        S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                        Global.ReadCPUInfo(S7Clients[10], ref info, ref result);
+                        if (result == 0)
+                        {
+                            tbModuleTypeNamePlc10.Text = info.ModuleTypeName;
+                            tbSerialNumberPlc10.Text = info.SerialNumber;
+                            tbCopyrightPlc10.Text = info.Copyright;
+                            tbAsNamePlc10.Text = info.ASName;
+                            tbModuleNamePlc10.Text = info.ModuleName;
+                        }
+
+                        S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                        Global.ReadOrderCode(S7Clients[10], ref orderCode, ref result);
+                        if (result == 0)
+                        {
+                            tbOrderCodePlc10.Text = orderCode.Code;
+                            tbVersionPlc10.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                        }
+                    }
+                    break;
+                case 11:
+                    result = await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    if (result == 0)
+                    {
+                        btnConnectPlc11.Enabled = false;
+                        btnDisconnectPlc11.Enabled = true;
+                        //tabControl.Enabled = true;
+
+                        S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                        Global.ReadCPUInfo(S7Clients[11], ref info, ref result);
+                        if (result == 0)
+                        {
+                            tbModuleTypeNamePlc11.Text = info.ModuleTypeName;
+                            tbSerialNumberPlc11.Text = info.SerialNumber;
+                            tbCopyrightPlc11.Text = info.Copyright;
+                            tbAsNamePlc11.Text = info.ASName;
+                            tbModuleNamePlc11.Text = info.ModuleName;
+                        }
+
+                        S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                        Global.ReadOrderCode(S7Clients[11], ref orderCode, ref result);
+                        if (result == 0)
+                        {
+                            tbOrderCodePlc11.Text = orderCode.Code;
+                            tbVersionPlc11.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                        }
+                    }
+                    break;
+                case 12:
+                    result = await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    if (result == 0)
+                    {
+                        btnConnectPlc12.Enabled = false;
+                        btnDisconnectPlc12.Enabled = true;
+                        //tabControl.Enabled = true;
+
+                        S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                        Global.ReadCPUInfo(S7Clients[12], ref info, ref result);
+                        if (result == 0)
+                        {
+                            tbModuleTypeNamePlc12.Text = info.ModuleTypeName;
+                            tbSerialNumberPlc12.Text = info.SerialNumber;
+                            tbCopyrightPlc12.Text = info.Copyright;
+                            tbAsNamePlc12.Text = info.ASName;
+                            tbModuleNamePlc12.Text = info.ModuleName;
+                        }
+
+                        S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                        Global.ReadOrderCode(S7Clients[12], ref orderCode, ref result);
+                        if (result == 0)
+                        {
+                            tbOrderCodePlc12.Text = orderCode.Code;
+                            tbVersionPlc12.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                        }
+                    }
+                    break;
+                case 13:
+                    result = await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    if (result == 0)
+                    {
+                        btnConnectPlc13.Enabled = false;
+                        btnDisconnectPlc13.Enabled = true;
+                        //tabControl.Enabled = true;
+
+                        S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                        Global.ReadCPUInfo(S7Clients[13], ref info, ref result);
+                        if (result == 0)
+                        {
+                            tbModuleTypeNamePlc13.Text = info.ModuleTypeName;
+                            tbSerialNumberPlc13.Text = info.SerialNumber;
+                            tbCopyrightPlc13.Text = info.Copyright;
+                            tbAsNamePlc13.Text = info.ASName;
+                            tbModuleNamePlc13.Text = info.ModuleName;
+                        }
+
+                        S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                        Global.ReadOrderCode(S7Clients[13], ref orderCode, ref result);
+                        if (result == 0)
+                        {
+                            tbOrderCodePlc13.Text = orderCode.Code;
+                            tbVersionPlc13.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                        }
+                    }
+                    break;
+                case 14:
+                    result = await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
+                    if (result == 0)
+                    {
+                        btnConnectPlc14.Enabled = false;
+                        btnDisconnectPlc14.Enabled = true;
+                        //tabControl.Enabled = true;
+
+                        S7Client.S7CpuInfo info = new S7Client.S7CpuInfo();
+                        Global.ReadCPUInfo(S7Clients[14], ref info, ref result);
+                        if (result == 0)
+                        {
+                            tbModuleTypeNamePlc14.Text = info.ModuleTypeName;
+                            tbSerialNumberPlc14.Text = info.SerialNumber;
+                            tbCopyrightPlc14.Text = info.Copyright;
+                            tbAsNamePlc14.Text = info.ASName;
+                            tbModuleNamePlc14.Text = info.ModuleName;
+                        }
+
+                        S7Client.S7OrderCode orderCode = new S7Client.S7OrderCode();
+                        Global.ReadOrderCode(S7Clients[14], ref orderCode, ref result);
+                        if (result == 0)
+                        {
+                            tbOrderCodePlc14.Text = orderCode.Code;
+                            tbVersionPlc14.Text = orderCode.V1.ToString() + "." + orderCode.V2.ToString() + "." + orderCode.V3.ToString();
+                        }
+                    }
+                    break;
+                case 15:
                     await Global.ConnectToClientAsync(S7Clients[plcnumber], PlcIpAddress[plcnumber], PlcRack[plcnumber].ParseInt(), PlcSlot[plcnumber].ParseInt());
                     break;
                 default:
@@ -2180,6 +3280,27 @@ namespace WinS7Client
                             case "PLC7":
                                 tbTextErrorPlc7.Text = error;
                                 break;
+                            case "PLC8":
+                                tbTextErrorPlc7.Text = error;
+                                break;
+                            case "PLC9":
+                                tbTextErrorPlc7.Text = error;
+                                break;
+                            case "PLC10":
+                                tbTextErrorPlc7.Text = error;
+                                break;
+                            case "PLC11":
+                                tbTextErrorPlc7.Text = error;
+                                break;
+                            case "PLC12":
+                                tbTextErrorPlc7.Text = error;
+                                break;
+                            case "PLC13":
+                                tbTextErrorPlc7.Text = error;
+                                break;
+                            case "PLC14":
+                                tbTextErrorPlc7.Text = error;
+                                break;
                             default:
                                 break;
                         }
@@ -2187,6 +3308,8 @@ namespace WinS7Client
                 }
             }
         }
+
         #endregion
+
     }
 }

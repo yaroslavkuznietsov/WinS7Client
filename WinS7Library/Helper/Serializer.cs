@@ -534,7 +534,7 @@ namespace WinS7Library.Helper
             {
                 // XmlSerializer writes object data as XML
                 XmlSerializer serializer = new XmlSerializer(typeof(DatHE));
-                using (TextWriter writer = new StreamWriter(path + " \\HE.xml"))
+                using (TextWriter writer = new StreamWriter(path + "\\HE.xml"))
                 {
                     serializer.Serialize(writer, HE);
                     writer.Close();
@@ -542,7 +542,7 @@ namespace WinS7Library.Helper
             }
             catch (Exception ex)
             {
-                error = ex.Message.ToString() + " " + path + " \\HE.xml";
+                error = ex.Message.ToString() + " " + path + "\\HE.xml";
                 //throw;
             }
             //return value
@@ -556,14 +556,14 @@ namespace WinS7Library.Helper
             {
                 // Deserialize from XML to the object
                 XmlSerializer deserializer = new XmlSerializer(typeof(DatHE));
-                TextReader reader = new StreamReader(path + " \\HE.xml");
+                TextReader reader = new StreamReader(path + "\\HE.xml");
                 object obj = deserializer.Deserialize(reader);
                 HE = (DatHE)obj;
                 reader.Close();
             }
             catch (Exception ex)
             {
-                error = ex.Message.ToString() + " " + path + " \\HE.xml";
+                error = ex.Message.ToString() + " " + path + "\\HE.xml";
                 //throw;
             }
             //return value
@@ -1491,7 +1491,7 @@ namespace WinS7Library.Helper
             {
                 // XmlSerializer writes object data as XML
                 XmlSerializer serializer = new XmlSerializer(typeof(DatConfig));
-                using (TextWriter writer = new StreamWriter(path + " \\Config.xml"))
+                using (TextWriter writer = new StreamWriter(path + "\\Config.xml"))
                 {
                     serializer.Serialize(writer, Config);
                     writer.Close();
@@ -1499,7 +1499,7 @@ namespace WinS7Library.Helper
             }
             catch (Exception ex)
             {
-                error = ex.Message.ToString() + " " + path + " \\Config.xml";
+                error = ex.Message.ToString() + " " + path + "\\Config.xml";
                 //throw;
             }
             //return value
@@ -1513,14 +1513,14 @@ namespace WinS7Library.Helper
             {
                 // Deserialize from XML to the object
                 XmlSerializer deserializer = new XmlSerializer(typeof(DatConfig));
-                TextReader reader = new StreamReader(path + " \\Config.xml");
+                TextReader reader = new StreamReader(path + "\\Config.xml");
                 object obj = deserializer.Deserialize(reader);
                 Config = (DatConfig)obj;
                 reader.Close();
             }
             catch (Exception ex)
             {
-                error = ex.Message.ToString() + " " + path + " \\Config.xml";
+                error = ex.Message.ToString() + " " + path + "\\Config.xml";
                 //throw;
             }
             //return value
@@ -1892,7 +1892,7 @@ namespace WinS7Library.Helper
             {
                 // XmlSerializer writes object data as XML
                 XmlSerializer serializer = new XmlSerializer(typeof(DatN2));
-                using (TextWriter writer = new StreamWriter(path + " \\N2.xml"))
+                using (TextWriter writer = new StreamWriter(path + "\\N2.xml"))
                 {
                     serializer.Serialize(writer, N2);
                     writer.Close();
@@ -1900,7 +1900,7 @@ namespace WinS7Library.Helper
             }
             catch (Exception ex)
             {
-                error = ex.Message.ToString() + " " + path + " \\N2.xml";
+                error = ex.Message.ToString() + " " + path + "\\N2.xml";
                 //throw;
             }
             //return value
@@ -1914,14 +1914,14 @@ namespace WinS7Library.Helper
             {
                 // Deserialize from XML to the object
                 XmlSerializer deserializer = new XmlSerializer(typeof(DatN2));
-                TextReader reader = new StreamReader(path + " \\N2.xml");
+                TextReader reader = new StreamReader(path + "\\N2.xml");
                 object obj = deserializer.Deserialize(reader);
                 N2 = (DatN2)obj;
                 reader.Close();
             }
             catch (Exception ex)
             {
-                error = ex.Message.ToString() + " " + path + " \\N2.xml";
+                error = ex.Message.ToString() + " " + path + "\\N2.xml";
                 //throw;
             }
             //return value
@@ -2183,7 +2183,7 @@ namespace WinS7Library.Helper
             {
                 // XmlSerializer writes object data as XML
                 XmlSerializer serializer = new XmlSerializer(typeof(DatWerkzeug));
-                using (TextWriter writer = new StreamWriter(path + " \\Werkzeug.xml"))
+                using (TextWriter writer = new StreamWriter(path + "\\Werkzeug.xml"))
                 {
                     serializer.Serialize(writer, Werkzeug);
                     writer.Close();
@@ -2191,7 +2191,7 @@ namespace WinS7Library.Helper
             }
             catch (Exception ex)
             {
-                error = ex.Message.ToString() + " " + path + " \\Werkzeug.xml";
+                error = ex.Message.ToString() + " " + path + "\\Werkzeug.xml";
                 //throw;
             }
             //return value
@@ -2205,14 +2205,14 @@ namespace WinS7Library.Helper
             {
                 // Deserialize from XML to the object
                 XmlSerializer deserializer = new XmlSerializer(typeof(DatWerkzeug));
-                TextReader reader = new StreamReader(path + " \\Werkzeug.xml");
+                TextReader reader = new StreamReader(path + "\\Werkzeug.xml");
                 object obj = deserializer.Deserialize(reader);
                 Werkzeug = (DatWerkzeug)obj;
                 reader.Close();
             }
             catch (Exception ex)
             {
-                error = ex.Message.ToString() + " " + path + " \\Werkzeug.xml";
+                error = ex.Message.ToString() + " " + path + "\\Werkzeug.xml";
                 //throw;
             }
             //return value
@@ -2284,7 +2284,7 @@ namespace WinS7Library.Helper
             {
                 // XmlSerializer writes object data as XML
                 XmlSerializer serializer = new XmlSerializer(typeof(DatMWerkzeug));
-                using (TextWriter writer = new StreamWriter(path + " \\MWerkzeug_" + machineID + ".xml"))
+                using (TextWriter writer = new StreamWriter(path + "\\MWerkzeug_" + machineID + ".xml"))
                 {
                     serializer.Serialize(writer, MWerkzeug);
                     writer.Close();
@@ -2292,7 +2292,7 @@ namespace WinS7Library.Helper
             }
             catch (Exception ex)
             {
-                error = ex.Message.ToString() + " " + path + " \\MWerkzeug_" + machineID + ".xml";
+                error = ex.Message.ToString() + " " + path + "\\MWerkzeug_" + machineID + ".xml";
                 //throw;
             }
             //return value
@@ -2306,14 +2306,14 @@ namespace WinS7Library.Helper
             {
                 // Deserialize from XML to the object
                 XmlSerializer deserializer = new XmlSerializer(typeof(DatMWerkzeug));
-                TextReader reader = new StreamReader(path + " \\MWerkzeug_" + machineID + ".xml");
+                TextReader reader = new StreamReader(path + "\\MWerkzeug_" + machineID + ".xml");
                 object obj = deserializer.Deserialize(reader);
                 MWerkzeug = (DatMWerkzeug)obj;
                 reader.Close();
             }
             catch (Exception ex)
             {
-                error = ex.Message.ToString() + " " + path + " \\MWerkzeug_" + machineID + ".xml";
+                error = ex.Message.ToString() + " " + path + "\\MWerkzeug_" + machineID + ".xml";
                 //throw;
             }
             //return value
@@ -2333,11 +2333,14 @@ namespace WinS7Library.Helper
 
                 S7.SetDIntAt(buffer, 0, datBetrieb.StdSollHE);
                 S7.SetDIntAt(buffer, 4, datBetrieb.StdIstHE);
-                S7.SetDIntAt(buffer, 8, datBetrieb.StdSollOB);
-                S7.SetDIntAt(buffer, 12, datBetrieb.StdIstOB);
-                S7.SetDIntAt(buffer, 16, datBetrieb.StdSollUN);
-                S7.SetDIntAt(buffer, 20, datBetrieb.StdIstUN);
-               
+                S7.SetDIntAt(buffer, 8, datBetrieb.StdIntervalHE);
+                S7.SetDIntAt(buffer, 12, datBetrieb.StdSollOB);
+                S7.SetDIntAt(buffer, 16, datBetrieb.StdIstOB);
+                S7.SetDIntAt(buffer, 20, datBetrieb.StdIntervalOB);
+                S7.SetDIntAt(buffer, 24, datBetrieb.StdSollUN);
+                S7.SetDIntAt(buffer, 28, datBetrieb.StdIstUN);
+                S7.SetDIntAt(buffer, 32, datBetrieb.StdIntervalUN);
+
             }
             catch (Exception ex)
             {
@@ -2355,10 +2358,13 @@ namespace WinS7Library.Helper
             {
                 datBetrieb.StdSollHE = S7.GetDIntAt(buffer, 0);
                 datBetrieb.StdIstHE = S7.GetDIntAt(buffer, 4);
-                datBetrieb.StdSollOB = S7.GetDIntAt(buffer, 8);
-                datBetrieb.StdIstOB = S7.GetDIntAt(buffer, 12);
-                datBetrieb.StdSollUN = S7.GetDIntAt(buffer, 16);
-                datBetrieb.StdIstUN = S7.GetDIntAt(buffer, 20);
+                datBetrieb.StdIntervalHE = S7.GetDIntAt(buffer, 8);
+                datBetrieb.StdSollOB = S7.GetDIntAt(buffer, 12);
+                datBetrieb.StdIstOB = S7.GetDIntAt(buffer, 16);
+                datBetrieb.StdIntervalOB = S7.GetDIntAt(buffer, 20);
+                datBetrieb.StdSollUN = S7.GetDIntAt(buffer, 24);
+                datBetrieb.StdIstUN = S7.GetDIntAt(buffer, 28);
+                datBetrieb.StdIntervalUN = S7.GetDIntAt(buffer, 32);
             }
             catch (Exception ex)
             {
@@ -2378,7 +2384,7 @@ namespace WinS7Library.Helper
             {
                 // XmlSerializer writes object data as XML
                 XmlSerializer serializer = new XmlSerializer(typeof(DatBetrieb));
-                using (TextWriter writer = new StreamWriter(path + " \\Betrieb.xml"))
+                using (TextWriter writer = new StreamWriter(path + "\\Betrieb.xml"))
                 {
                     serializer.Serialize(writer, datBetrieb);
                     writer.Close();
@@ -2386,7 +2392,7 @@ namespace WinS7Library.Helper
             }
             catch (Exception ex)
             {
-                error = ex.Message.ToString() + " " + path + " \\Betrieb.xml";
+                error = ex.Message.ToString() + " " + path + "\\Betrieb.xml";
                 //throw;
             }
             //return value
@@ -2400,14 +2406,14 @@ namespace WinS7Library.Helper
             {
                 // Deserialize from XML to the object
                 XmlSerializer deserializer = new XmlSerializer(typeof(DatBetrieb));
-                TextReader reader = new StreamReader(path + " \\Betrieb.xml");
+                TextReader reader = new StreamReader(path + "\\Betrieb.xml");
                 object obj = deserializer.Deserialize(reader);
                 datBetrieb = (DatBetrieb)obj;
                 reader.Close();
             }
             catch (Exception ex)
             {
-                error = ex.Message.ToString() + " " + path + " \\Betrieb.xml";
+                error = ex.Message.ToString() + " " + path + "\\Betrieb.xml";
                 //throw;
             }
             //return value

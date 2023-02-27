@@ -63,10 +63,11 @@ namespace WinS7Library
             plcToPc.AusweissName = S7.GetStringAt(buffer, 70);
             plcToPc.AktWerkzeugOB = S7.GetIntAt(buffer, 122);
             plcToPc.AktWerkzeugUN = S7.GetIntAt(buffer, 124);
-            plcToPc.BerstdruckAuto = S7.GetBitAt(buffer, 126, 0);
-            plcToPc.BerstdruckSQLSichern = S7.GetBitAt(buffer, 126, 1);
-            plcToPc.BerstdruckSichernFertig = S7.GetBitAt(buffer, 126, 2);
-            plcToPc.BerstdruckRestaur = S7.GetBitAt(buffer, 126, 3);
+            plcToPc.AktWerkzeugHE = S7.GetIntAt(buffer, 126);
+            plcToPc.BerstdruckAuto = S7.GetBitAt(buffer, 128, 0);
+            plcToPc.BerstdruckSQLSichern = S7.GetBitAt(buffer, 128, 1);
+            plcToPc.BerstdruckSichernFertig = S7.GetBitAt(buffer, 128, 2);
+            plcToPc.BerstdruckRestaur = S7.GetBitAt(buffer, 128, 3);
 
 
             return plcToPc;

@@ -13,10 +13,13 @@ namespace WinS7Library.Model
     {
         public int StdSollHE { get; set; }
         public int StdIstHE { get; set; }
+        public int StdIntervalHE { get; set; }
         public int StdSollOB { get; set; }
         public int StdIstOB { get; set; }
+        public int StdIntervalOB { get; set; }
         public int StdSollUN { get; set; }
         public int StdIstUN { get; set; }
+        public int StdIntervalUN { get; set; }
 
 
         //ctor

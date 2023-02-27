@@ -637,6 +637,8 @@ namespace WinS7Library.Model
                 //**************************************************
 
 
+                ClassicPlc: // Jump Label direct for PLC 1 and PLC 2, because no Recipes handling, but bursting pressure
+
                 //**************************************************
                 //Read operational data --->
                 if (plcToPc.BetriebsDLaden == false)
@@ -651,15 +653,15 @@ namespace WinS7Library.Model
                     string path = string.Empty;
 
                     //Tool HE opeartional data
-                    path = Recipes.GetSubDirectoryById(root, plcToPc.AktWerkzeugID);
+                    path = Recipes.GetSubDirectoryById(root, plcToPc.AktWerkzeugHE);
                     //deserialize "Betrieb.xml"
                     DatBetrieb datBetriebHE = Serializer.DeserializeDatBetrieb(path, ref error);
 
                     //ChangeLogFileName
                     ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderNameRecipe, path + "\\WinS7ClientLogger.log");
                     // Log
-                    commData.LogRecipe.Info("Serializer.DeserializeDatBetrieb();" + " " + plcToPc.AktWerkzeugID + " from " + path + " error: " + error);
-                    commData.LogGlobal.Info("Serializer.DeserializeDatBetrieb();" + " " + plcToPc.AktWerkzeugID + " from " + path + " error: " + error);
+                    commData.LogRecipe.Info("Serializer.DeserializeDatBetrieb();" + " " + plcToPc.AktWerkzeugHE + " from " + path + " error: " + error);
+                    commData.LogGlobal.Info("Serializer.DeserializeDatBetrieb();" + " " + plcToPc.AktWerkzeugHE + " from " + path + " error: " + error);
 
                     //Tool OB opeartional data
                     path = Recipes.GetSubDirectoryById(root, plcToPc.AktWerkzeugOB);
@@ -680,10 +682,13 @@ namespace WinS7Library.Model
                     //Copy operational data to datBetrieb
                     datBetriebMain.StdSollHE = datBetriebHE.StdSollHE;
                     datBetriebMain.StdIstHE = datBetriebHE.StdIstHE;
+                    datBetriebMain.StdIntervalHE = datBetriebHE.StdIntervalHE;
                     datBetriebMain.StdSollOB = datBetriebOB.StdSollOB;
                     datBetriebMain.StdIstOB = datBetriebOB.StdIstOB;
+                    datBetriebMain.StdIntervalOB = datBetriebOB.StdIntervalOB;
                     datBetriebMain.StdSollUN = datBetriebUN.StdSollUN;
                     datBetriebMain.StdIstUN = datBetriebUN.StdIstUN;
+                    datBetriebMain.StdIntervalUN = datBetriebUN.StdIntervalUN;
 
                     Serializer.DatBetriebToBuffer(datBetriebMain, buffer, ref error);
 
@@ -719,7 +724,7 @@ namespace WinS7Library.Model
                     string path = string.Empty;
 
                     //Tool HE opeartional data
-                    path = Recipes.GetSubDirectoryById(root, plcToPc.AktWerkzeugID);
+                    path = Recipes.GetSubDirectoryById(root, plcToPc.AktWerkzeugHE);
 
                     //ChangeLogFileName @"e:\\path\\WinS7ClientLogger.log"
                     ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderNameRecipe, path + "\\WinS7ClientLogger.log");
@@ -730,14 +735,15 @@ namespace WinS7Library.Model
 
                     datBetrieb2.StdSollHE = datBetrieb.StdSollHE;
                     datBetrieb2.StdIstHE = datBetrieb.StdIstHE;
+                    datBetrieb2.StdIntervalHE = datBetrieb.StdIntervalHE;
 
                     //serialize "Betrieb.xml"
                     Serializer.SerializeDatBetrieb(datBetrieb2, path, ref error);
                     Comparence.CompareClass(datBetrieb1, datBetrieb2, ref comparenceinfo);
                     // Log
-                    commData.LogRecipe.Info("Serializer.SerializeDatBetrieb();" + " " + plcToPc.AktWerkzeugID + " to " + path + " error: " + error);
+                    commData.LogRecipe.Info("Serializer.SerializeDatBetrieb();" + " " + plcToPc.AktWerkzeugHE + " to " + path + " error: " + error);
                     commData.LogRecipe.Info(comparenceinfo);
-                    commData.LogGlobal.Info("Serializer.SerializeDatBetrieb();" + " " + plcToPc.AktWerkzeugID + " to " + path + " error: " + error);
+                    commData.LogGlobal.Info("Serializer.SerializeDatBetrieb();" + " " + plcToPc.AktWerkzeugHE + " to " + path + " error: " + error);
                     commData.LogGlobal.Info(comparenceinfo);
 
 
@@ -750,6 +756,7 @@ namespace WinS7Library.Model
 
                     datBetrieb2.StdSollOB = datBetrieb.StdSollOB;
                     datBetrieb2.StdIstOB = datBetrieb.StdIstOB;
+                    datBetrieb2.StdIntervalOB = datBetrieb.StdIntervalOB;
 
                     //serialize "Betrieb.xml"
                     Serializer.SerializeDatBetrieb(datBetrieb2, path, ref error);
@@ -770,6 +777,7 @@ namespace WinS7Library.Model
 
                     datBetrieb2.StdSollUN = datBetrieb.StdSollUN;
                     datBetrieb2.StdIstUN = datBetrieb.StdIstUN;
+                    datBetrieb2.StdIntervalUN = datBetrieb.StdIntervalUN;
 
                     //serialize "Betrieb.xml"
                     Serializer.SerializeDatBetrieb(datBetrieb2, path, ref error);
@@ -791,9 +799,13 @@ namespace WinS7Library.Model
                 //**************************************************
                 //Check xml pressure data --->
 
-                ClassicPlc: // Jump Label direct for PLC 1 and PLC 2, because no Recipes handling, but bursting pressure
+                //ClassicPlc: // Jump Label direct for PLC 1 and PLC 2, because no Recipes handling, but bursting pressure
 
-                string xmlrootMES = @"e:\dotNet\xml\HGS\MES\" + plcToPc.AktAnlage + "\\BERSTDRUCK\\";
+                //string xmlrootMES = @"e:\dotNet\xml\HGS\MES\" + plcToPc.AktAnlage + "\\BERSTDRUCK\\";                   // TEST
+                string xmlrootMES = @"\\HAMAPP001\MachineShare\HGS\MES\" + plcToPc.AktAnlage + "\\BERSTDRUCK\\";
+                //string xmlrootMES_Copy = @"e:\dotNet\xml\HGS\MES_Copy\" + plcToPc.AktAnlage + "\\BERSTDRUCK\\";         // TEST
+                string xmlrootMES_Copy = @"\\HAMAPP001\MachineShare\HGS\MES_Copy\" + plcToPc.AktAnlage + "\\BERSTDRUCK\\";  //xmlrootMES_Copy
+
                 string date = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day;
                 string xmlrootPC = @"e:\dotNet\xml2\HGS\MES\" + plcToPc.AktAnlage + "\\BERSTDRUCK\\" + date + "\\";
 
@@ -820,6 +832,7 @@ namespace WinS7Library.Model
                         string filename = item.FilePath.Replace(xmlrootMES, "");
 
                         string xmlpathPC = xmlpathMES.Replace(xmlrootMES, xmlrootPC);
+                        string xmlpathMES_Copy = xmlpathMES.Replace(xmlrootMES, xmlrootMES_Copy);   //xmlpathMES_Copy
 
                         if (File.Exists(xmlpathPC) == true)
                         {
@@ -867,13 +880,29 @@ namespace WinS7Library.Model
                         {
                             try
                             {
-                                GlobalConfig.Connection.CreateBurstPressure(item); // SQL Server CRUD Action (INSERT)
-                                commData.LogRecipe.Info("Inserted in MSSQL DB. Bursting Pressure : " + item.Level2.Istberstdruck + " " + item.Level2.BauteilDM);
-                                commData.LogGlobal.Info("Inserted in MSSQL DB. Bursting Pressure : " + item.Level2.Istberstdruck + " " + item.Level2.BauteilDM);
+                                //if (File.Exists(xmlpathMES_Copy) == true)
+                                //{
+                                //    try
+                                //    {
+                                //        File.Delete(xmlpathMES_Copy);
+                                //        commData.LogRecipe.Info(filename + " deleted from " + xmlpathMES_Copy + " already exists " + xmlpathMES_Copy);
+                                //        commData.LogGlobal.Info(filename + " deleted from " + xmlpathMES_Copy + " already exists " + xmlpathMES_Copy);
+                                //    }
+                                //    catch (Exception ex)
+                                //    {
+                                //        commData.LogRecipe.Error("Exception: " + ex.Message.ToString());
+                                //        commData.LogGlobal.Error("Exception: " + ex.Message.ToString());
+                                //    }
 
+                                //}
+                                //File.Copy(xmlpathMES, xmlpathMES_Copy);
                                 File.Move(xmlpathMES, xmlpathPC);
                                 commData.LogRecipe.Info(filename + " moved from " + xmlpathMES + " to " + xmlpathPC);
                                 commData.LogGlobal.Info(filename + " moved from " + xmlpathMES + " to " + xmlpathPC);
+
+                                GlobalConfig.Connection.CreateBurstPressure(item); // SQL Server CRUD Action (INSERT)
+                                commData.LogRecipe.Info("Inserted in MSSQL DB. Bursting Pressure : " + item.Level2.Istberstdruck + " " + item.Level2.BauteilDM);
+                                commData.LogGlobal.Info("Inserted in MSSQL DB. Bursting Pressure : " + item.Level2.Istberstdruck + " " + item.Level2.BauteilDM);
                             }
                             catch (Exception ex)
                             {
@@ -900,6 +929,8 @@ namespace WinS7Library.Model
                         berstdruckListPC = berstdruckListPCTemp.Where(b => b.Level1.Pruefungsart == "Freigabe")
                                                                           .Select(b => b)
                                                                           .Where(b => b.WerkzeugID == aktWkzID)
+                                                                          .Select(b => b)
+                                                                          .Where(b => b.Level2.Ergebnis == "PASS")
                                                                           .Select(b => b)
                                                                           .OrderByDescending(b => b.Level1.TStamp)
                                                                           .ToList();

@@ -21,7 +21,7 @@ namespace WinS7Library.DataAccess
                 p.Add("@Barcode", model.Level2.BauteilDM);
                 p.Add("@Pressure", model.Level2.Istberstdruck);
 
-                connection.Execute("dbo.spINSERT_PLC_OUT_BurstingTest", p, commandType: CommandType.StoredProcedure);
+                connection.ExecuteAsync("dbo.spINSERT_PLC_OUT_BurstingTest", p, commandType: CommandType.StoredProcedure);
             }
         }
     }

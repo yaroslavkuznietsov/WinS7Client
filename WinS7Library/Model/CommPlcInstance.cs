@@ -1,9 +1,12 @@
-﻿using Sharp7;
+﻿using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using Sharp7;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using WinS7Library.DataAccess;
+using WinS7Library.Files;
 using WinS7Library.Helper;
 
 namespace WinS7Library.Model
@@ -23,11 +26,6 @@ namespace WinS7Library.Model
 
                 //ChangeLogFileName @".\\WinS7ClientLogger.log" for log0 -> logger for PLC-n
                 ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderNameGlobal, @".\\WinS7ClientLogger" + commData.N + ".log");
-
-                CommunicationS7Plc S7Plc = new CommunicationS7Plc(client, commData);
-
-                plcToPc = S7Plc.ReadPlcToPc();
-
 
                 /// <summary>
                 /// ServicePlcToPc
@@ -50,6 +48,15 @@ namespace WinS7Library.Model
                 short aktWkzID = plcToPc.AktWerkzeugID;
 
                 #endregion
+
+                CommunicationS7Plc S7Plc = new CommunicationS7Plc(client, commData);
+
+                // Jump excel test DELETE LATER!!!!!
+                goto ExcelTest;
+
+
+                plcToPc = S7Plc.ReadPlcToPc();
+
 
                 if (commData.N == 1 || commData.N == 2)
                 {
@@ -818,7 +825,7 @@ namespace WinS7Library.Model
                 if (plcToPc.BerstdruckAuto == true)
                 {
                     // Get Pressure from MES Server
-                    List<Berstdruck> berstdruckListMES = XmlHelper.GetBerstdruckList(xmlrootMES);
+                    List<Berstdruck> berstdruckListMES = Helper.XmlHelper.GetBerstdruckList(xmlrootMES);
 
                     foreach (Berstdruck item in berstdruckListMES)
                     {
@@ -836,7 +843,7 @@ namespace WinS7Library.Model
 
                         if (File.Exists(xmlpathPC) == true)
                         {
-                            Berstdruck tempBerstdruck = XmlHelper.GetBerstdruck(xmlpathPC);
+                            Berstdruck tempBerstdruck = Helper.XmlHelper.GetBerstdruck(xmlpathPC);
 
                             if (item.Level1.TStamp == tempBerstdruck.Level1.TStamp)
                             {
@@ -923,7 +930,7 @@ namespace WinS7Library.Model
                     // Pressure results available or manual
                     if (berstdruckListMES.Count > 0 || plcToPc.BerstdruckRestaur == true)
                     {
-                        List<Berstdruck> berstdruckListPCTemp = XmlHelper.GetBerstdruckList(xmlrootPC);
+                        List<Berstdruck> berstdruckListPCTemp = Helper.XmlHelper.GetBerstdruckList(xmlrootPC);
 
 
                         berstdruckListPC = berstdruckListPCTemp.Where(b => b.Level1.Pruefungsart == "Freigabe")
@@ -959,10 +966,25 @@ namespace WinS7Library.Model
 
 
 
+                //**************************************************
+                //Save process data --->
+                ExcelTest:
 
+                
 
+                string pathProcessDataAll = "C:\\Daten";
+                string fileNameProcessDataAll = $"{DateTime.Now.Date:yyyy-MM-dd}_54 070.xlsx";
+                var data = new object();
 
+                var exporter = new ProcessDataExcelExporter();
 
+                var fileContainer = exporter.Create(data, pathProcessDataAll, fileNameProcessDataAll);
+
+                fileContainer.SaveTo(Path.Combine(pathProcessDataAll, fileNameProcessDataAll));
+
+                
+                //Save process data <---
+                //**************************************************
 
 
 
@@ -987,6 +1009,44 @@ namespace WinS7Library.Model
 
                 #endregion
             }
+        }
+
+        private static void SetProcessDataHeader(ExcelWorksheet worksheet)
+        {
+            var col = 0;
+
+            col++;
+            worksheet.Cells[1, col].Value = "Datum/Uhrzeit";
+            col++;
+            worksheet.Cells[1, col].Value = "Produktname";
+            col++;
+            worksheet.Cells[1, col].Value = "DMX-Code 1";
+        }
+
+        private static void SetProcessData(ExcelWorksheet worksheet)
+        {
+            var rowOffset = worksheet.Dimension.End.Row + 1;
+
+            var col = 0;
+
+            col++;
+            worksheet.Cells[rowOffset, col].Value = $"{DateTime.Now:yyyy-MM-dd+HH:mm:ss}";  //2023-02-27+07:34:35
+            col++;
+            worksheet.Cells[rowOffset, col].Value = "29050 BMW G70 Topf HA";
+            col++;
+            worksheet.Cells[rowOffset, col].Value = "HHAR0120301#Df#121912#T05223#S0008022#N01#LA6402119";
+            
+            rowOffset++;
+
+            //SetDataStyle(worksheet);
+        }
+
+        private static void SetDataStyle(ExcelWorksheet worksheet)
+        {
+            var rowCount = worksheet.Dimension.Rows;
+            var colCount = worksheet.Dimension.Columns;
+            worksheet.Cells[1, 1, rowCount, colCount].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+            worksheet.Cells[1, 1, rowCount, colCount].AutoFitColumns();
         }
     }
 }

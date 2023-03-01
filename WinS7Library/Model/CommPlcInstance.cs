@@ -970,6 +970,7 @@ namespace WinS7Library.Model
                 //Save process data --->
                 ExcelTest:
 
+                int test = 0;
                 
 
                 string pathProcessDataAll = "C:\\Daten";
@@ -981,6 +982,12 @@ namespace WinS7Library.Model
                 var fileContainer = exporter.Create(data, pathProcessDataAll, fileNameProcessDataAll);
 
                 fileContainer.SaveTo(Path.Combine(pathProcessDataAll, fileNameProcessDataAll));
+
+                string fileNameProcessDataAllCsv = $"{DateTime.Now.Date:yyyy-MM-dd}_54 070.csv";
+
+                var csvExporter = new ProcessDataCsvExporter();
+
+                csvExporter.Create(data, pathProcessDataAll, fileNameProcessDataAllCsv);
 
                 
                 //Save process data <---

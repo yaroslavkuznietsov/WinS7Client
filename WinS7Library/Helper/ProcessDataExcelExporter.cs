@@ -9,9 +9,14 @@ namespace WinS7Library.Helper
 {
     public class ProcessDataExcelExporter : IProcessDataExporter
     {
-        public IFileContainer Create(object data, string root, string fileName)
+        public IFileContainer Create(object data, string path, string fileName)
         {
-            string filePath = Path.Combine(root, fileName);
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            string filePath = Path.Combine(path, fileName);
 
             if (File.Exists(filePath) == false)
             {
@@ -60,8 +65,6 @@ namespace WinS7Library.Helper
                 }
 
                 SetProcessData(worksheet);
-
-                //excelPackage.Save();
 
                 return excelPackage.GetAsByteArray();
             }

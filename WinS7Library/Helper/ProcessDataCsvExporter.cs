@@ -14,14 +14,16 @@ namespace WinS7Library.Helper
     /// </summary>
     public class ProcessDataCsvExporter
     {
+        private bool _appendDisabled;
+
         protected CsvConfiguration CsvConfigCreate => 
-            new CsvConfiguration(CultureInfo.CurrentCulture) 
+            new CsvConfiguration(CultureInfo.InvariantCulture)
             { 
                 Delimiter = ";",
                 Encoding = Encoding.UTF8,
             };
         protected CsvConfiguration CsvConfigAppend => 
-            new CsvConfiguration(CultureInfo.CurrentCulture) 
+            new CsvConfiguration(CultureInfo.InvariantCulture)
             { 
                 Delimiter = ";",
                 Encoding = Encoding.UTF8,
@@ -30,7 +32,7 @@ namespace WinS7Library.Helper
 
         public void Create<T>( T data, string path, string fileName)
         {
-            var type = typeof(T);
+            SetAppendDisabledByType<T>();
 
             if (!Directory.Exists(path))
             {
@@ -39,7 +41,7 @@ namespace WinS7Library.Helper
 
             string filePath = Path.Combine(path, fileName);
 
-            if (File.Exists(filePath) == false || type == typeof(ProcessDataSqlDb))
+            if (File.Exists(filePath) == false || _appendDisabled)
             {
                 GenerateCsv(data, filePath);
             }
@@ -49,13 +51,27 @@ namespace WinS7Library.Helper
             }
         }
 
+        private void SetAppendDisabledByType<T>()
+        {
+            var type = typeof(T);
+
+            if (type == typeof(ProcessDataSqlDb))
+            {
+                _appendDisabled = true;
+            }
+            if (type == typeof(ProcessDataPc))
+            {
+                _appendDisabled = false;
+            }
+        }
+
         private void GenerateCsv<T>(T data, string filePath)
         {
             var records = new List<T>
             {
                 data,
             };
-           
+
             using (var writer = new StreamWriter(filePath))
             using (var csv = new CsvWriter(writer, CsvConfigCreate))
             {

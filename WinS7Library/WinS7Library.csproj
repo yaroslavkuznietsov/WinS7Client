@@ -140,6 +140,9 @@
     <Compile Include="Examples\ReadDB.cs" />
     <Compile Include="Helper\ShortExtensions.cs" />
     <Compile Include="Helper\ToolTipGenerator.cs" />
+    <Compile Include="Model\Export\ProcessDataSqlDb.cs" />
+    <Compile Include="Model\Export\ProcessDataPc.cs" />
+    <Compile Include="Model\Export\ProcessData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\ServicePcToPlc.cs" />
     <Compile Include="Model\ServicePlcToPc.cs" />

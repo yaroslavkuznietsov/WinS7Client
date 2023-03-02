@@ -1,24 +1,37 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
-using CsvHelper.Configuration.Attributes;
-using OfficeOpenXml;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using WinS7Library.Files;
-using WinS7Library.Interfaces;
+using WinS7Library.Model.Export;
 
 namespace WinS7Library.Helper
 {
+    /// <summary>
+    /// Implementation based on CsvHelper NuGet Package
+    /// https://joshclose.github.io/CsvHelper/
+    /// </summary>
     public class ProcessDataCsvExporter
     {
-        protected CsvConfiguration CsvConfigCreate => new CsvConfiguration(CultureInfo.CurrentCulture) { Delimiter = ";", Encoding = Encoding.UTF8 };
-        protected CsvConfiguration CsvConfigAppend => new CsvConfiguration(CultureInfo.CurrentCulture) { Delimiter = ";", Encoding = Encoding.UTF8, HasHeaderRecord = false };
+        protected CsvConfiguration CsvConfigCreate => 
+            new CsvConfiguration(CultureInfo.CurrentCulture) 
+            { 
+                Delimiter = ";",
+                Encoding = Encoding.UTF8,
+            };
+        protected CsvConfiguration CsvConfigAppend => 
+            new CsvConfiguration(CultureInfo.CurrentCulture) 
+            { 
+                Delimiter = ";",
+                Encoding = Encoding.UTF8,
+                HasHeaderRecord = false,
+            };
 
-        public void Create(object data, string path, string fileName)
+        public void Create<T>( T data, string path, string fileName)
         {
+            var type = typeof(T);
+
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -26,10 +39,9 @@ namespace WinS7Library.Helper
 
             string filePath = Path.Combine(path, fileName);
 
-            if (File.Exists(filePath) == false)
+            if (File.Exists(filePath) == false || type == typeof(ProcessDataSqlDb))
             {
                 GenerateCsv(data, filePath);
-
             }
             else
             {
@@ -37,11 +49,11 @@ namespace WinS7Library.Helper
             }
         }
 
-        private void GenerateCsv(object data, string filePath)
+        private void GenerateCsv<T>(T data, string filePath)
         {
-            var records = new List<object>
+            var records = new List<T>
             {
-                new { Id = 1, Name = "Name" , BoolVar = true},
+                data,
             };
            
             using (var writer = new StreamWriter(filePath))
@@ -51,14 +63,15 @@ namespace WinS7Library.Helper
             }
         }
 
-        private void AppendCsv(object data, string filePath)
+        private void AppendCsv<T>(T data, string filePath)
         {
-            var records = new List<object>
+            var records = new List<T>
             {
-                new { Id = 1, Name = "Name" , BoolVar = true},
+                data,
             };
 
-            using (var writer = new StreamWriter(filePath))
+            using (var stream = File.Open(filePath, FileMode.Append))
+            using (var writer = new StreamWriter(stream))
             using (var csv = new CsvWriter(writer, CsvConfigAppend))
             {
                 csv.WriteRecords(records);

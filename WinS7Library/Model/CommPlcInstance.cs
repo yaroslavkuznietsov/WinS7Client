@@ -8,6 +8,7 @@ using System.Linq;
 using WinS7Library.DataAccess;
 using WinS7Library.Files;
 using WinS7Library.Helper;
+using WinS7Library.Model.Export;
 
 namespace WinS7Library.Model
 {
@@ -971,23 +972,33 @@ namespace WinS7Library.Model
                 ExcelTest:
 
                 int test = 0;
-                
 
-                string pathProcessDataAll = "C:\\Daten";
-                string fileNameProcessDataAll = $"{DateTime.Now.Date:yyyy-MM-dd}_54 070.xlsx";
+                var csvExporter = new ProcessDataCsvExporter();
+                ProcessData processData = new ProcessData();
+
+                string pathProcessDataSqlDb = "C:\\Shared\\Prozessdaten";
+                string fileNameProcessDataSqlDbCsv = $"54070.csv";
+                var processDataSqlDb = ProcessDataSqlDb.CreateFromState(processData);
+                csvExporter.Create(processDataSqlDb, pathProcessDataSqlDb, fileNameProcessDataSqlDbCsv);
+
+
+                string pathProcessDataPc = "C:\\Daten";
+                string fileNameProcessDataPcCsv = $"{DateTime.Now.Date:yyyy-MM-dd}_54 070.csv";
+                var processDataPc = ProcessDataPc.CreateFromState(processData);
+                csvExporter.Create(processDataPc, pathProcessDataPc, fileNameProcessDataPcCsv);
+
+
+                string fileNameProcessDataPc = $"{DateTime.Now.Date:yyyy-MM-dd}_54 070.xlsx";
                 var data = new object();
 
                 var exporter = new ProcessDataExcelExporter();
 
-                var fileContainer = exporter.Create(data, pathProcessDataAll, fileNameProcessDataAll);
+                var fileContainer = exporter.Create(data, pathProcessDataPc, fileNameProcessDataPc);
 
-                fileContainer.SaveTo(Path.Combine(pathProcessDataAll, fileNameProcessDataAll));
+                fileContainer.SaveTo(Path.Combine(pathProcessDataPc, fileNameProcessDataPc));
 
-                string fileNameProcessDataAllCsv = $"{DateTime.Now.Date:yyyy-MM-dd}_54 070.csv";
 
-                var csvExporter = new ProcessDataCsvExporter();
-
-                csvExporter.Create(data, pathProcessDataAll, fileNameProcessDataAllCsv);
+                
 
                 
                 //Save process data <---

@@ -27,7 +27,7 @@ namespace WinS7Library.Model
         public readonly int DB_DAT_Betrieb = 7008;
 
         public readonly int DB_100_KVT_zu_ATG = 2000;
-        public readonly int DB_DAT_ProcessData = 2099;
+        public readonly int DB_DAT_ProcessData = 2003;
 
         //DB Length in bytes
         public readonly int DB_DAT_HE_Length = 240;

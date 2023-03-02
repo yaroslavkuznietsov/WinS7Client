@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WinS7Library.Helper;
 using WinS7Library.Interfaces;
 using WinS7Library.Model;
+using WinS7Library.Model.Export;
 
 namespace WinS7Library
 {
@@ -289,6 +290,19 @@ namespace WinS7Library
                     shiftDMX += 102;
                 }
             }
+        }
+
+        public ProcessData ReadProcessDataPlc()
+        {
+            byte[] buffer = new byte[65536];
+            int sizeRead = default;
+            int result;
+            string error = default;
+
+            result = client.ReadArea(S7Consts.S7AreaDB, commData.DB_DAT_ProcessData, 0, commData.DB_DAT_ProcessData_Length, S7Consts.S7WLByte, buffer, ref sizeRead);
+            ProcessData processData = Serializer.BufferToProcessData(buffer, ref error);
+
+            return processData;
         }
     }
 }

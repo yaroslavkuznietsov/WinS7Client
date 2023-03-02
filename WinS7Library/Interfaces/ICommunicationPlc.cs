@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WinS7Library.Model;
+using WinS7Library.Model.Export;
 
 namespace WinS7Library.Interfaces
 {
@@ -26,5 +27,6 @@ namespace WinS7Library.Interfaces
 
 
         void WriteBerstdruckListPlc(List<Berstdruck> berstdruckList);
+        ProcessData ReadProcessDataPlc();
     }
 }

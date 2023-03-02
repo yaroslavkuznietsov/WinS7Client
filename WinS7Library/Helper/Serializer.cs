@@ -2425,7 +2425,7 @@ namespace WinS7Library.Helper
 
 
         #region ProcessData
-        private static ProcessData BufferToProcessData(byte[] buffer, ref string error)
+        public static ProcessData BufferToProcessData(byte[] buffer, ref string error)
         {
             ProcessData processData = new ProcessData();
 

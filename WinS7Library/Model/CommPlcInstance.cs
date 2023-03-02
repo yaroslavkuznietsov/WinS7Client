@@ -973,8 +973,10 @@ namespace WinS7Library.Model
 
                 int test = 0;
 
+                //ProcessData processData = S7Plc.ReadProcessDataPlc();     //need implementation
+
                 var csvExporter = new ProcessDataCsvExporter();
-                ProcessData processData = new ProcessData();
+                ProcessData processData = new ProcessData();                //substitute with processData from plc
 
                 string pathProcessDataSqlDb = "C:\\Shared\\Prozessdaten";
                 string fileNameProcessDataSqlDbCsv = $"54070.csv";
@@ -1027,44 +1029,6 @@ namespace WinS7Library.Model
 
                 #endregion
             }
-        }
-
-        private static void SetProcessDataHeader(ExcelWorksheet worksheet)
-        {
-            var col = 0;
-
-            col++;
-            worksheet.Cells[1, col].Value = "Datum/Uhrzeit";
-            col++;
-            worksheet.Cells[1, col].Value = "Produktname";
-            col++;
-            worksheet.Cells[1, col].Value = "DMX-Code 1";
-        }
-
-        private static void SetProcessData(ExcelWorksheet worksheet)
-        {
-            var rowOffset = worksheet.Dimension.End.Row + 1;
-
-            var col = 0;
-
-            col++;
-            worksheet.Cells[rowOffset, col].Value = $"{DateTime.Now:yyyy-MM-dd+HH:mm:ss}";  //2023-02-27+07:34:35
-            col++;
-            worksheet.Cells[rowOffset, col].Value = "29050 BMW G70 Topf HA";
-            col++;
-            worksheet.Cells[rowOffset, col].Value = "HHAR0120301#Df#121912#T05223#S0008022#N01#LA6402119";
-            
-            rowOffset++;
-
-            //SetDataStyle(worksheet);
-        }
-
-        private static void SetDataStyle(ExcelWorksheet worksheet)
-        {
-            var rowCount = worksheet.Dimension.Rows;
-            var colCount = worksheet.Dimension.Columns;
-            worksheet.Cells[1, 1, rowCount, colCount].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-            worksheet.Cells[1, 1, rowCount, colCount].AutoFitColumns();
         }
     }
 }

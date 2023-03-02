@@ -27,6 +27,7 @@ namespace WinS7Library.Model
         public readonly int DB_DAT_Betrieb = 7008;
 
         public readonly int DB_100_KVT_zu_ATG = 2000;
+        public readonly int DB_DAT_ProcessData = 2099;
 
         //DB Length in bytes
         public readonly int DB_DAT_HE_Length = 240;
@@ -43,5 +44,6 @@ namespace WinS7Library.Model
         /// byte 614 - > byte 2842 (real 618 -> 698, string 802 -> 2842)
         /// </summary>
         public readonly int DB_100_KVT_zu_ATG_BDruck_DMX = 2228;
+        public readonly int DB_DAT_ProcessData_Length = 1956;
     }
 }

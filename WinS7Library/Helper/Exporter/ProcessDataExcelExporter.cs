@@ -1,15 +1,17 @@
 ﻿using OfficeOpenXml;
 using OfficeOpenXml.Style;
-using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
 using System.IO;
 using WinS7Library.Files;
-using WinS7Library.Interfaces;
+using WinS7Library.Model.Export;
 
-namespace WinS7Library.Helper
+namespace WinS7Library.Helper.Exporter
 {
-    public class ProcessDataExcelExporter : IProcessDataExporter
+    public class ProcessDataExcelExporter
     {
-        public IFileContainer Create(object data, string path, string fileName)
+        public void Create(ProcessDataPc data, string path, string fileName)
         {
             if (!Directory.Exists(path))
             {
@@ -22,31 +24,35 @@ namespace WinS7Library.Helper
             {
                 var bytes = GenerateExcel(data);
 
-                return new MemoryFileContainer(fileName, bytes);
+                var fileContainer = new MemoryFileContainer(fileName, bytes);
+
+                fileContainer.SaveTo(filePath);
             }
             else
             {
                 var bytes = AppendExcel(data, filePath);
 
-                return new MemoryFileContainer(fileName, bytes);
+                var fileContainer = new MemoryFileContainer(fileName, bytes);
+
+                fileContainer.SaveTo(filePath);
             }
         }
 
-        private static byte[] GenerateExcel(object data)
+        private static byte[] GenerateExcel(ProcessDataPc data)
         {
             using (ExcelPackage excelPackage = new ExcelPackage())
             {
                 ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("ProcessData");
 
-                SetProcessDataHeader(worksheet);
+                //SetProcessDataHeader(worksheet);
 
-                SetProcessData(worksheet);
+                SetProcessData(worksheet, data);
 
                 return excelPackage.GetAsByteArray();
             }
         }
 
-        private static byte[] AppendExcel(object data, string filePath) 
+        private static byte[] AppendExcel(ProcessDataPc data, string filePath) 
         {
             FileInfo file = new FileInfo(filePath);
 
@@ -57,21 +63,23 @@ namespace WinS7Library.Helper
                 if (excelPackage.Workbook.Worksheets["ProcessData"] == null)
                 {
                     worksheet = excelPackage.Workbook.Worksheets.Add("ProcessData");
-                    SetProcessDataHeader(worksheet);
+                    //SetProcessDataHeader(worksheet);
                 }
                 else
                 {
                     worksheet = excelPackage.Workbook.Worksheets["ProcessData"];
                 }
 
-                SetProcessData(worksheet);
+                SetProcessData(worksheet, data);
 
                 return excelPackage.GetAsByteArray();
             }
         }
 
+        //obsolete up to set header from DataTable but left for a while
         private static void SetProcessDataHeader(ExcelWorksheet worksheet)
         {
+            
             var col = 0;
 
             col++;
@@ -82,18 +90,14 @@ namespace WinS7Library.Helper
             worksheet.Cells[1, col].Value = "DMX-Code 1";
         }
 
-        private static void SetProcessData(ExcelWorksheet worksheet)
+        private static void SetProcessData(ExcelWorksheet worksheet, ProcessDataPc data)
         {
-            var rowOffset = worksheet.Dimension.End.Row + 1;
+            var rowOffset = worksheet.Dimension == null ? 1 : worksheet.Dimension.End.Row + 1;
+            var setHeader = rowOffset == 1;
 
-            var col = 0;
+            DataTable dataTable = DataTableConverter.CreateDataTable(new List<ProcessDataPc> { data, });
 
-            col++;
-            worksheet.Cells[rowOffset, col].Value = $"{DateTime.Now:yyyy-MM-dd+HH:mm:ss}";  //2023-02-27+07:34:35
-            col++;
-            worksheet.Cells[rowOffset, col].Value = "29050 BMW G70 Topf HA";
-            col++;
-            worksheet.Cells[rowOffset, col].Value = "HHAR0120301#Df#121912#T05223#S0008022#N01#LA6402119";
+            worksheet.Cells[rowOffset, 1].LoadFromDataTable(dataTable, setHeader);
 
             SetDataStyle(worksheet);
         }
@@ -102,8 +106,20 @@ namespace WinS7Library.Helper
         {
             var rowCount = worksheet.Dimension.Rows;
             var colCount = worksheet.Dimension.Columns;
+
             worksheet.Cells[1, 1, rowCount, colCount].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
             worksheet.Cells[1, 1, rowCount, colCount].AutoFitColumns();
+            worksheet.Cells[1, 1, 1, colCount].Style.Font.Bold = true;
+
+            //worksheet.Cells[2, 1, 2, colCount].Style.Fill.PatternType = ExcelFillStyle.Solid;
+            //worksheet.Cells[2, 1, 2, colCount].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+            //worksheet.Cells[3, 1, 3, colCount].Style.Fill.PatternType = ExcelFillStyle.Solid;
+            //worksheet.Cells[3, 1, 3, colCount].Style.Fill.BackgroundColor.SetColor(Color.White);
+
+            //worksheet.Cells[2, 1, 2, colCount].Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.LightGray);
+            //worksheet.Cells[2, 1, 3, colCount].Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.LightGray);
+
+            worksheet.View.FreezePanes(2, 1);
         }
     }
 }

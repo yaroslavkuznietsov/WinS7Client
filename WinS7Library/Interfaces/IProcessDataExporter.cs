@@ -4,6 +4,6 @@ namespace WinS7Library.Interfaces
 {
     public interface IProcessDataExporter
     {
-        IFileContainer Create(object data, string path, string fileName);
+        void Create(object data, string path, string fileName);
     }
 }

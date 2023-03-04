@@ -8,6 +8,7 @@ using System.Linq;
 using WinS7Library.DataAccess;
 using WinS7Library.Files;
 using WinS7Library.Helper;
+using WinS7Library.Helper.Exporter;
 using WinS7Library.Model.Export;
 
 namespace WinS7Library.Model
@@ -962,51 +963,41 @@ namespace WinS7Library.Model
                         pcToPlc.BerstdruckRestaurFertig = true;
                     }
                 }
-                //Check xml pressure data <---
-                //**************************************************
+            //Check xml pressure data <---
+            //**************************************************
 
 
 
-                //**************************************************
-                //Save process data --->
-                ExcelTest:
+            //**************************************************
+            //Save process data --->
+            ExcelTest:
 
-                int test = 0;
+                machineID = "54070";    //delete later
 
                 //ProcessData processData = S7Plc.ReadProcessDataPlc();     //need implementation
+                ProcessData processData = new ProcessData();                //substitute with S7Plc.ReadProcessDataPlc();
 
                 var csvExporter = new ProcessDataCsvExporter();
-                ProcessData processData = new ProcessData();                //substitute with processData from plc
 
                 string pathProcessDataSqlDb = "C:\\Shared\\Prozessdaten";
-                string fileNameProcessDataSqlDbCsv = $"54070.csv";
+                string fileNameProcessDataSqlDb = $"{machineID}.csv";
                 var processDataSqlDb = ProcessDataSqlDb.CreateFromState(processData);
-                csvExporter.Create(processDataSqlDb, pathProcessDataSqlDb, fileNameProcessDataSqlDbCsv);
-
+                
+                csvExporter.Create(processDataSqlDb, pathProcessDataSqlDb, fileNameProcessDataSqlDb);
 
                 string pathProcessDataPc = "C:\\Daten";
-                string fileNameProcessDataPcCsv = $"{DateTime.Now.Date:yyyy-MM-dd}_54 070.csv";
+                string fileNameProcessDataPcCsv = $"{DateTime.Now.Date:yyyy-MM-dd}_{machineID}.csv";
                 var processDataPc = ProcessDataPc.CreateFromState(processData);
+
                 csvExporter.Create(processDataPc, pathProcessDataPc, fileNameProcessDataPcCsv);
 
+                string fileNameProcessDataPcXlsx = $"{DateTime.Now.Date:yyyy-MM-dd}_{machineID}.xlsx";
+                var excelExporter = new ProcessDataExcelExporter();
 
-                string fileNameProcessDataPc = $"{DateTime.Now.Date:yyyy-MM-dd}_54 070.xlsx";
-                var data = new object();
-
-                var exporter = new ProcessDataExcelExporter();
-
-                var fileContainer = exporter.Create(data, pathProcessDataPc, fileNameProcessDataPc);
-
-                fileContainer.SaveTo(Path.Combine(pathProcessDataPc, fileNameProcessDataPc));
-
-
-                
-
-                
+                excelExporter.Create(processDataPc, pathProcessDataPc, fileNameProcessDataPcXlsx);
+               
                 //Save process data <---
                 //**************************************************
-
-
 
 
 

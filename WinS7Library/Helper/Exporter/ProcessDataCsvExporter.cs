@@ -6,7 +6,7 @@ using System.IO;
 using System.Text;
 using WinS7Library.Model.Export;
 
-namespace WinS7Library.Helper
+namespace WinS7Library.Helper.Exporter
 {
     /// <summary>
     /// Implementation based on CsvHelper NuGet Package

@@ -24,6 +24,7 @@ namespace WinS7Library.Model
         public bool BerstdruckSichern { get; set; }
         public bool BerstdruckSQLSichernFertig { get; set; }
         public bool BerstdruckRestaurFertig { get; set; }
+        public bool ProzessDatenSpeichernFertig { get; set; }
 
     }
 }

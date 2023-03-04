@@ -69,6 +69,7 @@ namespace WinS7Library
             plcToPc.BerstdruckSQLSichern = S7.GetBitAt(buffer, 128, 1);
             plcToPc.BerstdruckSichernFertig = S7.GetBitAt(buffer, 128, 2);
             plcToPc.BerstdruckRestaur = S7.GetBitAt(buffer, 128, 3);
+            plcToPc.ProzessDatenSpeichernAnfrage = S7.GetBitAt(buffer, 128, 4);
 
 
             return plcToPc;
@@ -103,6 +104,7 @@ namespace WinS7Library
             S7.SetBitAt(ref buffer, 10, 0, pcToPlc.BerstdruckSichern);
             S7.SetBitAt(ref buffer, 10, 1, pcToPlc.BerstdruckSQLSichernFertig);
             S7.SetBitAt(ref buffer, 10, 2, pcToPlc.BerstdruckRestaurFertig);
+            S7.SetBitAt(ref buffer, 10, 3, pcToPlc.ProzessDatenSpeichernFertig);
 
             return buffer;
         }

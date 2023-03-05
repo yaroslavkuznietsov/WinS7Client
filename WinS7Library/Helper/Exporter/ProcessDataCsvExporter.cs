@@ -1,10 +1,12 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
 using WinS7Library.Model.Export;
+using WinS7Library.Results;
 
 namespace WinS7Library.Helper.Exporter
 {
@@ -30,24 +32,33 @@ namespace WinS7Library.Helper.Exporter
                 HasHeaderRecord = false,
             };
 
-        public void Create<T>( T data, string path, string fileName)
+        public Result Create<T>( T data, string path, string fileName)
         {
             SetAppendDisabledByType<T>();
 
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
             string filePath = Path.Combine(path, fileName);
 
-            if (File.Exists(filePath) == false || _appendDisabled)
+            try
             {
-                GenerateCsv(data, filePath);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                if (File.Exists(filePath) == false || _appendDisabled)
+                {
+                    GenerateCsv(data, filePath);
+                }
+                else
+                {
+                    AppendCsv(data, filePath);
+                }
+
+                return Result.SuccessWithParameter(filePath);
             }
-            else
+            catch (Exception e)
             {
-                AppendCsv(data, filePath);
+                return Result.ErrorWithParameter(filePath, e.Message);
             }
         }
 

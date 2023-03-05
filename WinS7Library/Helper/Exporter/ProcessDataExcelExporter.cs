@@ -1,40 +1,50 @@
 ﻿using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using WinS7Library.Files;
 using WinS7Library.Model.Export;
+using WinS7Library.Results;
 
 namespace WinS7Library.Helper.Exporter
 {
     public class ProcessDataExcelExporter
     {
-        public void Create(ProcessDataPc data, string path, string fileName)
+        public Result Create(ProcessDataPc data, string path, string fileName)
         {
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
             string filePath = Path.Combine(path, fileName);
 
-            if (File.Exists(filePath) == false)
+            try
             {
-                var bytes = GenerateExcel(data);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
 
-                var fileContainer = new MemoryFileContainer(fileName, bytes);
+                if (File.Exists(filePath) == false)
+                {
+                    var bytes = GenerateExcel(data);
 
-                fileContainer.SaveTo(filePath);
+                    var fileContainer = new MemoryFileContainer(fileName, bytes);
+
+                    fileContainer.SaveTo(filePath);
+                }
+                else
+                {
+                    var bytes = AppendExcel(data, filePath);
+
+                    var fileContainer = new MemoryFileContainer(fileName, bytes);
+
+                    fileContainer.SaveTo(filePath);
+                }
+
+                return Result.SuccessWithParameter(filePath);
             }
-            else
+            catch (Exception e)
             {
-                var bytes = AppendExcel(data, filePath);
-
-                var fileContainer = new MemoryFileContainer(fileName, bytes);
-
-                fileContainer.SaveTo(filePath);
+                return Result.ErrorWithParameter(filePath, e.Message);
             }
         }
 

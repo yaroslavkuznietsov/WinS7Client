@@ -1,27 +1,31 @@
-﻿using OfficeOpenXml;
-using OfficeOpenXml.Style;
-using Sharp7;
+﻿using Sharp7;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using WinS7Library.DataAccess;
-using WinS7Library.Files;
 using WinS7Library.Helper;
 using WinS7Library.Helper.Exporter;
 using WinS7Library.Model.Export;
+using WinS7Library.Results;
 
 namespace WinS7Library.Model
 {
     public class CommPlcInstance
     {
+        public CommData CommData { get; protected set; }
         /// <summary>
         /// Communication PC <-> PLC
         /// </summary>
         public void ConnectionRun(S7Client client, CommData commData, ref ServicePlcToPc plcToPc, ref ServicePcToPlc pcToPlc)
         {
+            CommData = commData;
+
             lock (this)
             {
+                CommunicationS7Plc S7Plc = new CommunicationS7Plc(client, commData);
+                //plcToPc = S7Plc.ReadPlcToPc();
+
                 var appenders = log4net.LogManager.GetRepository().GetAppenders();
                 string appenderNameGlobal = appenders[0].Name;
                 string appenderNameRecipe = appenders[commData.N].Name;
@@ -36,7 +40,7 @@ namespace WinS7Library.Model
                 //S7Client client = S7Clients[n];
                 byte[] buffer = new byte[65536];
                 int sizeRead = 0;
-                int result = 0;
+                int resultInt = 0;
                 string root = @"E:\Recipes";
                 string error = string.Empty;
 
@@ -50,14 +54,9 @@ namespace WinS7Library.Model
                 short aktWkzID = plcToPc.AktWerkzeugID;
 
                 #endregion
-
-                CommunicationS7Plc S7Plc = new CommunicationS7Plc(client, commData);
-
+                
                 // Jump excel test DELETE LATER!!!!!
                 goto ExcelTest;
-
-
-                plcToPc = S7Plc.ReadPlcToPc();
 
 
                 if (commData.N == 1 || commData.N == 2)
@@ -79,10 +78,10 @@ namespace WinS7Library.Model
                     string[] subdirectoryEntries;
                     subdirectoryEntries = Recipes.GetSubDirectories(root);
 
-                    S7Plc.WriteToolListToPlc(subdirectoryEntries, ref result);
+                    S7Plc.WriteToolListToPlc(subdirectoryEntries, ref resultInt);
 
                     //Log
-                    commData.LogGlobal.Info("ToolListFillWithRecipes" + " result: " + result);
+                    commData.LogGlobal.Info("ToolListFillWithRecipes" + " result: " + resultInt);
 
                     pcToPlc.WKZEinlesenFertig = true;
                 }
@@ -125,9 +124,9 @@ namespace WinS7Library.Model
 
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogRecipe.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogRecipe.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                                 commData.LogGlobal.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogGlobal.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogGlobal.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                             }
 
                             pcToPlc.ParamConfigOK = Recipes.GetFileByName(path, "Config.xml");
@@ -139,9 +138,9 @@ namespace WinS7Library.Model
 
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogRecipe.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogRecipe.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                                 commData.LogGlobal.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogGlobal.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogGlobal.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                             }
 
                             pcToPlc.ParamN2OK = Recipes.GetFileByName(path, "N2.xml");
@@ -153,9 +152,9 @@ namespace WinS7Library.Model
 
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogRecipe.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogRecipe.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                                 commData.LogGlobal.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogGlobal.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogGlobal.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                             }
 
                             pcToPlc.ParamWerkzeugOK = Recipes.GetFileByName(path, "Werkzeug.xml");
@@ -167,9 +166,9 @@ namespace WinS7Library.Model
 
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogRecipe.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogRecipe.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                                 commData.LogGlobal.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogGlobal.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogGlobal.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                             }
 
                             pcToPlc.ParamMWerkzeugOK = Recipes.GetFileByName(path, "MWerkzeug_" + machineID + ".xml");
@@ -181,9 +180,9 @@ namespace WinS7Library.Model
 
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogRecipe.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogRecipe.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                                 commData.LogGlobal.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogGlobal.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogGlobal.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                             }
 
                             pcToPlc.ParamsLadenFertig = true;
@@ -213,9 +212,9 @@ namespace WinS7Library.Model
 
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogRecipe.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogRecipe.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                                 commData.LogGlobal.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogGlobal.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogGlobal.Info("Serializer.DeserializeDatHE();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                             }
                         }
                         else
@@ -235,9 +234,9 @@ namespace WinS7Library.Model
 
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogRecipe.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogRecipe.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                                 commData.LogGlobal.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogGlobal.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogGlobal.Info("Serializer.DeserializeDatConfig();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                             }
                         }
                         else
@@ -257,9 +256,9 @@ namespace WinS7Library.Model
 
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogRecipe.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogRecipe.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                                 commData.LogGlobal.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogGlobal.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogGlobal.Info("Serializer.DeserializeDatN2();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                             }
                         }
                         else
@@ -279,9 +278,9 @@ namespace WinS7Library.Model
 
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogRecipe.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogRecipe.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                                 commData.LogGlobal.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogGlobal.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogGlobal.Info("Serializer.DeserializeDatWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                             }
                         }
                         else
@@ -303,9 +302,9 @@ namespace WinS7Library.Model
 
                                 // Log
                                 commData.LogRecipe.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogRecipe.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogRecipe.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                                 commData.LogGlobal.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " from " + path + " error: " + error);
-                                commData.LogGlobal.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                                commData.LogGlobal.Info("Serializer.DeserializeMWerkzeug();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
                             }
                         }
                         else
@@ -517,11 +516,11 @@ namespace WinS7Library.Model
                             //Get all recipe folders
                             string[] subdirectoryEntries;
                             subdirectoryEntries = Recipes.GetSubDirectories(root);
-                            S7Plc.WriteToolListToPlc(subdirectoryEntries, ref result);
+                            S7Plc.WriteToolListToPlc(subdirectoryEntries, ref resultInt);
 
                             //Log
-                            commData.LogRecipe.Info("ToolListFillWithRecipes" + " result: " + result);
-                            commData.LogGlobal.Info("ToolListFillWithRecipes" + " result: " + result);
+                            commData.LogRecipe.Info("ToolListFillWithRecipes" + " result: " + resultInt);
+                            commData.LogGlobal.Info("ToolListFillWithRecipes" + " result: " + resultInt);
                         }
                     }
                     else
@@ -589,11 +588,11 @@ namespace WinS7Library.Model
                         //Get all recipe folders
                         string[] subdirectoryEntries;
                         subdirectoryEntries = Recipes.GetSubDirectories(root);
-                        S7Plc.WriteToolListToPlc(subdirectoryEntries, ref result);
+                        S7Plc.WriteToolListToPlc(subdirectoryEntries, ref resultInt);
 
                         //Log
-                        commData.LogRecipe.Info("ToolListFillWithRecipes" + " result: " + result);
-                        commData.LogGlobal.Info("ToolListFillWithRecipes" + " result: " + result);
+                        commData.LogRecipe.Info("ToolListFillWithRecipes" + " result: " + resultInt);
+                        commData.LogGlobal.Info("ToolListFillWithRecipes" + " result: " + resultInt);
                     }
 
                 }
@@ -636,11 +635,11 @@ namespace WinS7Library.Model
                     //Get all recipe folders
                     string[] subdirectoryEntries;
                     subdirectoryEntries = Recipes.GetSubDirectories(root);
-                    S7Plc.WriteToolListToPlc(subdirectoryEntries, ref result);
+                    S7Plc.WriteToolListToPlc(subdirectoryEntries, ref resultInt);
 
                     //Log
-                    commData.LogRecipe.Info("ToolListFillWithRecipes" + " result: " + result);
-                    commData.LogGlobal.Info("ToolListFillWithRecipes" + " result: " + result);
+                    commData.LogRecipe.Info("ToolListFillWithRecipes" + " result: " + resultInt);
+                    commData.LogGlobal.Info("ToolListFillWithRecipes" + " result: " + resultInt);
                 }
                 //Delete recipe folder <---
                 //**************************************************
@@ -701,11 +700,11 @@ namespace WinS7Library.Model
 
                     Serializer.DatBetriebToBuffer(datBetriebMain, buffer, ref error);
 
-                    Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Betrieb, 0, commData.DB_DAT_Betrieb_Length, S7Consts.S7WLByte, buffer, ref result);
+                    Global.WriteAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Betrieb, 0, commData.DB_DAT_Betrieb_Length, S7Consts.S7WLByte, buffer, ref resultInt);
 
                     // Log
-                    commData.LogRecipe.Info("Serializer.DeserializeDatBetrieb();" + " " + aktWkzID + " to PLC " + " result: " + result);
-                    commData.LogGlobal.Info("Serializer.DeserializeDatBetrieb();" + " " + aktWkzID + " to PLC " + " result: " + result);
+                    commData.LogRecipe.Info("Serializer.DeserializeDatBetrieb();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
+                    commData.LogGlobal.Info("Serializer.DeserializeDatBetrieb();" + " " + aktWkzID + " to PLC " + " result: " + resultInt);
 
 
                     pcToPlc.BetriebsDLadenFertig = true;
@@ -723,10 +722,10 @@ namespace WinS7Library.Model
 
                 if (plcToPc.BetriebsDSichern == true & pcToPlc.BetriebsDSichernFertig == false)
                 {
-                    Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Betrieb, 0, commData.DB_DAT_Betrieb_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref result);
+                    Global.ReadAreaPlc(client, S7Consts.S7AreaDB, commData.DB_DAT_Betrieb, 0, commData.DB_DAT_Betrieb_Length, S7Consts.S7WLByte, buffer, ref sizeRead, ref resultInt);
 
                     // Log
-                    commData.LogGlobal.Info("Read operational data from plc" + " result: " + result);
+                    commData.LogGlobal.Info("Read operational data from plc" + " result: " + resultInt);
 
                     DatBetrieb datBetrieb = Serializer.BufferToDatBetrieb(buffer, ref error);
 
@@ -971,31 +970,59 @@ namespace WinS7Library.Model
             //**************************************************
             //Save process data --->
             ExcelTest:
+                machineID = "54070";    //delete later!!!
+                aktWkzID = 11;          //delete later!!!
+                plcToPc.ProzessDatenSpeichernAnfrage = true;    //delete later!!!
 
-                machineID = "54070";    //delete later
+                if (plcToPc.ProzessDatenSpeichernAnfrage == false)
+                {
+                    pcToPlc.ProzessDatenSpeichernFertig = false;
+                }
 
-                //ProcessData processData = S7Plc.ReadProcessDataPlc();     //need implementation
-                ProcessData processData = new ProcessData();                //substitute with S7Plc.ReadProcessDataPlc();
+                if (plcToPc.ProzessDatenSpeichernAnfrage == true & pcToPlc.ProzessDatenSpeichernFertig == false)
+                {
+                    string path = Recipes.GetSubDirectoryById(root, aktWkzID);
+                    string wkzPathName = path.Replace(root, string.Empty);
 
-                var csvExporter = new ProcessDataCsvExporter();
+                    //ChangeLogFileName @"e:\\path\\WinS7ClientLogger.log"
+                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderNameRecipe, path + "\\WinS7ClientLogger.log");
 
-                string pathProcessDataSqlDb = "C:\\Shared\\Prozessdaten";
-                string fileNameProcessDataSqlDb = $"{machineID}.csv";
-                var processDataSqlDb = ProcessDataSqlDb.CreateFromState(processData);
-                
-                csvExporter.Create(processDataSqlDb, pathProcessDataSqlDb, fileNameProcessDataSqlDb);
+                    //ProcessData processData = S7Plc.ReadProcessDataPlc();
+                    ProcessData processData = new ProcessData();                //Test without plc => S7Plc.ReadProcessDataPlc();
 
-                string pathProcessDataPc = "C:\\Daten";
-                string fileNameProcessDataPcCsv = $"{DateTime.Now.Date:yyyy-MM-dd}_{machineID}.csv";
-                var processDataPc = ProcessDataPc.CreateFromState(processData);
+                    var csvExporter = new ProcessDataCsvExporter();
 
-                csvExporter.Create(processDataPc, pathProcessDataPc, fileNameProcessDataPcCsv);
+                    string pathProcessDataSqlDb = "C:\\Shared\\Prozessdaten";
+                    string fileNameProcessDataSqlDb = $"{machineID}.csv";
+                    var processDataSqlDb = ProcessDataSqlDb.CreateFromState(processData);
 
-                string fileNameProcessDataPcXlsx = $"{DateTime.Now.Date:yyyy-MM-dd}_{machineID}.xlsx";
-                var excelExporter = new ProcessDataExcelExporter();
+                    var result = csvExporter.Create(processDataSqlDb, pathProcessDataSqlDb, fileNameProcessDataSqlDb);
 
-                excelExporter.Create(processDataPc, pathProcessDataPc, fileNameProcessDataPcXlsx);
-               
+                    // Log
+                    LogProcessDataSaved(wkzPathName, result);
+
+
+                    string pathProcessDataPc = "C:\\Daten";
+                    string fileNameProcessDataPcCsv = $"{DateTime.Now.Date:yyyy-MM-dd}_{machineID}.csv";
+                    var processDataPc = ProcessDataPc.CreateFromState(processData);
+
+                    result = csvExporter.Create(processDataPc, pathProcessDataPc, fileNameProcessDataPcCsv);
+
+                    // Log
+                    LogProcessDataSaved(wkzPathName, result);
+
+
+                    string fileNameProcessDataPcXlsx = $"{DateTime.Now.Date:yyyy-MM-dd}_{machineID}.xlsx";
+                    var excelExporter = new ProcessDataExcelExporter();
+
+                    result = excelExporter.Create(processDataPc, pathProcessDataPc, fileNameProcessDataPcXlsx);
+
+                    // Log
+                    LogProcessDataSaved(wkzPathName, result);
+
+                    pcToPlc.ProzessDatenSpeichernFertig = true;
+                }
+
                 //Save process data <---
                 //**************************************************
 
@@ -1021,5 +1048,26 @@ namespace WinS7Library.Model
                 #endregion
             }
         }
+
+        
+        #region Service methods
+
+        private void LogProcessDataSaved(string wkzPathName, Result result)
+        {
+            var error = result.Successful ? "Successful" : result.ErrorMessage;
+
+            if (result.Successful)
+            {
+                CommData.LogRecipe.Info($"Process data for SQL: {wkzPathName} saved into {result.Parameter} status: {error}");
+                CommData.LogGlobal.Info($"Process data for SQL: {wkzPathName} saved into {result.Parameter} status: {error}");
+            }
+            else
+            {
+                CommData.LogRecipe.Error($"Process data for SQL: {wkzPathName} saved into {result.Parameter} status: {error}");
+                CommData.LogGlobal.Error($"Process data for SQL: {wkzPathName} saved into {result.Parameter} status: {error}");
+            }
+        }
+
+        #endregion
     }
 }

@@ -150,6 +150,9 @@
     <Compile Include="Model\ServicePlcToPc.cs" />
     <Compile Include="Helper\Sharp7.cs" />
     <Compile Include="Files\StreamFileContainer.cs" />
+    <Compile Include="Results\Result.cs" />
+    <Compile Include="Results\ValidationFailure.cs" />
+    <Compile Include="Results\ValidationResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

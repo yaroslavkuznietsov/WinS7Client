@@ -28,11 +28,12 @@ namespace WinS7Library.Helper.Exporter
             {
                 //var columnName = info.Name    // original code
 
-                var columnName = info.CustomAttributes
-                    .FirstOrDefault(x => x.AttributeType.Name == "NameAttribute").ConstructorArguments
-                    .FirstOrDefault().Value
-                    .ToString();
-                
+                var columnName = (info.CustomAttributes
+                    .FirstOrDefault(x => x.AttributeType.Name == "NameAttribute")?.ConstructorArguments
+                    .FirstOrDefault().Value?
+                    .ToString()) 
+                    ?? info.Name;
+
                 dataTable.Columns.Add(new DataColumn(columnName, Nullable.GetUnderlyingType(info.PropertyType) ?? info.PropertyType));
             }
 

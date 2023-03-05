@@ -2438,7 +2438,7 @@ namespace WinS7Library.Helper
             //processData.DmxCode10 = S7.GetStringAt(buffer, 960);
             //processData.DmxCode11 = S7.GetStringAt(buffer, 1062);
             //processData.DmxCode12 = S7.GetStringAt(buffer, 1164);
-            processData.Schweissungsergebnis = S7.GetIntAt(buffer, 1266);
+            processData.SchweissungsergebnisNio = S7.GetIntAt(buffer, 1266);
             processData.WarmZeit1Wert = S7.GetDIntAt(buffer, 1268);
             processData.WarmZei2Wert = S7.GetDIntAt(buffer, 1272);
             processData.KuehlZeitWert = S7.GetDIntAt(buffer, 1276);

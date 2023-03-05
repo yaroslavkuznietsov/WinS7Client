@@ -25,7 +25,7 @@ namespace WinS7Library.Model.Export
         public string Produktname => State.Produktname; // Feld 1
 
         [Name("SCHWEISSUNGSERGEBNIS")]
-        public int Schweissungsergebnis => State.Schweissungsergebnis; // Feld 2
+        public int Schweissungsergebnis => State.SchweissungsergebnisNio == 1 ? 0 : 1; // Feld 2
 
         [Name("KRAFT1 WERT")]
         public double Kraft1Wert => State.Kraft1Wert; // Kraft1Wert in [N]  Feld 3  

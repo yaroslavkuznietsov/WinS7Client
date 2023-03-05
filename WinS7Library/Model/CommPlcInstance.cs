@@ -14,6 +14,7 @@ namespace WinS7Library.Model
     public class CommPlcInstance
     {
         public CommData CommData { get; protected set; }
+
         /// <summary>
         /// Communication PC <-> PLC
         /// </summary>

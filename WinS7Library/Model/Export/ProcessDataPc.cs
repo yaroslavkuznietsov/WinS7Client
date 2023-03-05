@@ -52,7 +52,7 @@ namespace WinS7Library.Model.Export
         #endregion
 
         [Name(" I.O./N.I.O. Schweissung")]
-        public int Schweissungsergebnis => State.Schweissungsergebnis; //K Feld 10
+        public string Schweissungsergebnis => State.SchweissungsergebnisNio == 1 ? "NOK" : "OK"; //K Feld 10
                 
         [Name("Warmzeit_1[s]")]
         public int WarmZeit1Wert => State.WarmZeit1Wert; //L WARMZEIT_1 WERT in [s] Feld 11

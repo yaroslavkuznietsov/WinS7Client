@@ -23,7 +23,7 @@ namespace WinS7Library.Model.Export
         public DateTime DatumUhrzeit { get; set; } = default; // Feld 0
                                                             
         public string Produktname { get; set; } = default; // Feld 1
-        public int Schweissungsergebnis { get; set; } = default; // Feld 2
+        public int SchweissungsergebnisNio { get; set; } = default; // Feld 2
         public double Kraft1Wert { get; set; } = default; // Kraft1Wert in [N]  Feld 3  
         public int Kraft1Result { get; set; } = default; // Feld 4
         public double Weg1Wert { get; set; } = default; // Weg1Wert in [mm] Feld 5

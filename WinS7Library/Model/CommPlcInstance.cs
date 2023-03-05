@@ -25,7 +25,7 @@ namespace WinS7Library.Model
             lock (this)
             {
                 CommunicationS7Plc S7Plc = new CommunicationS7Plc(client, commData);
-                //plcToPc = S7Plc.ReadPlcToPc();
+                plcToPc = S7Plc.ReadPlcToPc();
 
                 var appenders = log4net.LogManager.GetRepository().GetAppenders();
                 string appenderNameGlobal = appenders[0].Name;
@@ -56,7 +56,7 @@ namespace WinS7Library.Model
 
                 #endregion
                 
-                // Jump excel test DELETE LATER!!!!!
+                // Jump excel test DELETE LATER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 goto ExcelTest;
 
 
@@ -971,9 +971,10 @@ namespace WinS7Library.Model
             //**************************************************
             //Save process data --->
             ExcelTest:
-                machineID = "54070";    //delete later!!!
-                aktWkzID = 11;          //delete later!!!
-                plcToPc.ProzessDatenSpeichernAnfrage = true;    //delete later!!!
+                //machineID = "54070";    //delete later!!!
+                //aktWkzID = 11;          //delete later!!!
+                //plcToPc.ProzessDatenSpeichernAnfrage = true;    //delete later!!!
+                //pcToPlc.ProzessDatenSpeichernFertig = false;    //delete later!!!
 
                 if (commData.N >= 12)   // PLC 12 and >
                 {
@@ -990,8 +991,8 @@ namespace WinS7Library.Model
                         //ChangeLogFileName @"e:\\path\\WinS7ClientLogger.log"
                         ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderNameRecipe, path + "\\WinS7ClientLogger.log");
 
-                        //ProcessData processData = S7Plc.ReadProcessDataPlc();
-                        ProcessData processData = new ProcessData();                //Test without plc => S7Plc.ReadProcessDataPlc();
+                        ProcessData processData = S7Plc.ReadProcessDataPlc();
+                        //ProcessData processData = new ProcessData();                //Test without plc => S7Plc.ReadProcessDataPlc(); //delete later!!!
 
                         var csvExporter = new ProcessDataCsvExporter();
 

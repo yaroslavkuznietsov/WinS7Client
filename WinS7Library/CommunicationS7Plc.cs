@@ -264,7 +264,7 @@ namespace WinS7Library
             byte[] buffer = new byte[65536];
             int sizeRead = default;
             int result;
-            string error = default;
+            //string error = default;
 
             Global.ClearBuffer(ref buffer);
             result = client.WriteArea(S7Consts.S7AreaDB, commData.DB_100_KVT_zu_ATG, 614, commData.DB_100_KVT_zu_ATG_BDruck_DMX, S7Consts.S7WLByte, buffer, ref sizeRead);

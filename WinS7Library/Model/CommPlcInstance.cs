@@ -975,53 +975,56 @@ namespace WinS7Library.Model
                 aktWkzID = 11;          //delete later!!!
                 plcToPc.ProzessDatenSpeichernAnfrage = true;    //delete later!!!
 
-                if (plcToPc.ProzessDatenSpeichernAnfrage == false)
+                if (commData.N >= 12)   // PLC 12 and >
                 {
-                    pcToPlc.ProzessDatenSpeichernFertig = false;
-                }
+                    if (plcToPc.ProzessDatenSpeichernAnfrage == false)
+                    {
+                        pcToPlc.ProzessDatenSpeichernFertig = false;
+                    }
 
-                if (plcToPc.ProzessDatenSpeichernAnfrage == true & pcToPlc.ProzessDatenSpeichernFertig == false)
-                {
-                    string path = Recipes.GetSubDirectoryById(root, aktWkzID);
-                    string wkzPathName = path.Replace(root, string.Empty);
+                    if (plcToPc.ProzessDatenSpeichernAnfrage == true & pcToPlc.ProzessDatenSpeichernFertig == false)
+                    {
+                        string path = Recipes.GetSubDirectoryById(root, aktWkzID);
+                        string wkzPathName = path.Replace(root, string.Empty);
 
-                    //ChangeLogFileName @"e:\\path\\WinS7ClientLogger.log"
-                    ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderNameRecipe, path + "\\WinS7ClientLogger.log");
+                        //ChangeLogFileName @"e:\\path\\WinS7ClientLogger.log"
+                        ChangeLogFileNameForLog4Net.ChangeLogFileName(appenderNameRecipe, path + "\\WinS7ClientLogger.log");
 
-                    //ProcessData processData = S7Plc.ReadProcessDataPlc();
-                    ProcessData processData = new ProcessData();                //Test without plc => S7Plc.ReadProcessDataPlc();
+                        //ProcessData processData = S7Plc.ReadProcessDataPlc();
+                        ProcessData processData = new ProcessData();                //Test without plc => S7Plc.ReadProcessDataPlc();
 
-                    var csvExporter = new ProcessDataCsvExporter();
+                        var csvExporter = new ProcessDataCsvExporter();
 
-                    string pathProcessDataSqlDb = "C:\\Shared\\Prozessdaten";
-                    string fileNameProcessDataSqlDb = $"{machineID}.csv";
-                    var processDataSqlDb = ProcessDataSqlDb.CreateFromState(processData);
+                        string pathProcessDataSqlDb = "C:\\Shared\\Prozessdaten";
+                        string fileNameProcessDataSqlDb = $"{machineID}.csv";
+                        var processDataSqlDb = ProcessDataSqlDb.CreateFromState(processData);
 
-                    var result = csvExporter.Create(processDataSqlDb, pathProcessDataSqlDb, fileNameProcessDataSqlDb);
+                        var result = csvExporter.Create(processDataSqlDb, pathProcessDataSqlDb, fileNameProcessDataSqlDb);
 
-                    // Log
-                    LogProcessDataSaved(wkzPathName, result);
-
-
-                    string pathProcessDataPc = "C:\\Daten";
-                    string fileNameProcessDataPcCsv = $"{DateTime.Now.Date:yyyy-MM-dd}_{machineID}.csv";
-                    var processDataPc = ProcessDataPc.CreateFromState(processData);
-
-                    result = csvExporter.Create(processDataPc, pathProcessDataPc, fileNameProcessDataPcCsv);
-
-                    // Log
-                    LogProcessDataSaved(wkzPathName, result);
+                        // Log
+                        LogProcessDataSaved(wkzPathName, result);
 
 
-                    string fileNameProcessDataPcXlsx = $"{DateTime.Now.Date:yyyy-MM-dd}_{machineID}.xlsx";
-                    var excelExporter = new ProcessDataExcelExporter();
+                        string pathProcessDataPc = "C:\\Daten";
+                        string fileNameProcessDataPcCsv = $"{DateTime.Now.Date:yyyy-MM-dd}_{machineID}.csv";
+                        var processDataPc = ProcessDataPc.CreateFromState(processData);
 
-                    result = excelExporter.Create(processDataPc, pathProcessDataPc, fileNameProcessDataPcXlsx);
+                        result = csvExporter.Create(processDataPc, pathProcessDataPc, fileNameProcessDataPcCsv);
 
-                    // Log
-                    LogProcessDataSaved(wkzPathName, result);
+                        // Log
+                        LogProcessDataSaved(wkzPathName, result);
 
-                    pcToPlc.ProzessDatenSpeichernFertig = true;
+
+                        string fileNameProcessDataPcXlsx = $"{DateTime.Now.Date:yyyy-MM-dd}_{machineID}.xlsx";
+                        var excelExporter = new ProcessDataExcelExporter();
+
+                        result = excelExporter.Create(processDataPc, pathProcessDataPc, fileNameProcessDataPcXlsx);
+
+                        // Log
+                        LogProcessDataSaved(wkzPathName, result);
+
+                        pcToPlc.ProzessDatenSpeichernFertig = true;
+                    } 
                 }
 
                 //Save process data <---
